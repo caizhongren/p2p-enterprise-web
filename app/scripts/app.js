@@ -33,7 +33,7 @@
  		}
  	})
  	.state('root.login', {
- 		url: '/login',
+ 		url: '/',
  		views: {
  			'': {
  				templateUrl: 'views/login.html',
