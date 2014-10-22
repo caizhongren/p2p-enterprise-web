@@ -1,4 +1,4 @@
-hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "toaster", function ($scope, $state, $rootScope, $stateParams, UserCenterService, toaster) {
+hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", function ($scope, $state, $rootScope, $stateParams, UserCenterService) {
         
     $rootScope.selectSide = "security-settings";
     UserCenterService.userSecurityInfo.get({}, function(response) {
@@ -27,7 +27,7 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
             }
 
         } else {
-            toaster.pop('warning', "提示", response.msg);
+            //toaster.pop('warning', "提示", response.msg);
             //$scope.errorMessage = response.msg;
             //$scope.warning = true;
             $state.go('root.login');
