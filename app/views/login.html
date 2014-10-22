@@ -35,6 +35,10 @@
 							<p class="input-tips login-input-tips">密码不能为空</p>
 						</div>
 					</div>
+					<div ng-show="isPasswordError" ng-init="isPasswordError=false">
+							<img ng-src="images/check_no.png" class="check-img login-check-img">
+							<p class="input-tips login-input-tips">账号或密码错误</p>
+					</div>
 				</div>
 				<div class="login-regist-form-group remember-height">
 					<label for="password" class="big-tips"></label>
