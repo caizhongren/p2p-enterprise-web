@@ -1,4 +1,4 @@
-hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "OrderService", "DEFAULT_DOMAIN", function ($scope, $state, $rootScope, $stateParams, UserCenterService, OrderService, DEFAULT_DOMAIN) {
+hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "DEFAULT_DOMAIN", function ($scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN) {
 
     $rootScope.selectSide = 'account-overview';
     var totalAssets = 0;
@@ -82,7 +82,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 	    };
     }
 
-    OrderService.statisticsByUser.get(function(response) {
+    UserCenterService.statisticsByUser.get(function(response) {
     	if (response.ret == 1){
     		var orderNum = response.data.orderNum;
     		if(orderNum){
