@@ -1,4 +1,4 @@
-hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", "toaster", function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService, toaster) {
+hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService) {
     $scope.login = function(user){
         LoginService.userLogin.get({account: user.account, password: user.password }, function(response) {
             if(response.ret == 1) {
@@ -7,7 +7,7 @@ hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$statePar
                 $rootScope.loginName = response.data.user.name;
                 $rootScope.isLogged = true;
             } else {
-                toaster.pop('warning', "提示", response.msg);
+                // toaster.pop('warning', "提示", response.msg);
                 //$scope.errorMessage = response.msg;
                 //$scope.warning = true;
                 $state.go('root.login');
