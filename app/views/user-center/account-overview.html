@@ -29,17 +29,17 @@
 	<div class="right-title">筹资信息</div>
 	<div>
 		<ul class="list-inline">
-			<li ng-click="" class="project-tab">还款中的项目</li>
-			<li ng-click="" class="project-tab">投标中的项目</li>
-			<li ng-click="" class="project-tab">已结清的项目</li>
+			<li href="javascript:void(0);" ng-click="repayment()" class="project-tab">还款中的项目</li>
+			<li href="javascript:void(0);" ng-click="bid()" class="project-tab">投标中的项目</li>
+			<li href="javascript:void(0);" ng-click="settle()" class="project-tab">已结清的项目</li>
 		</ul>
-		<div ><!--ng-repeat="">-->
-			<h2>{{v||"餐饮企业店面扩建"}}</h2>
-			<p>项目代码{{v||" RAD104234"}}</p>
-			<p>项目规模{{v||" 200"}}万</p>
-			<p>项目期限{{v||"12"}}个月</p>
-			<p>还款日期{{v||"2014-11-15"}}</p>
-			<p>应付款项{{v||"15.6"}}万</p>
+		<div ng-repeat="project in projectList">
+			<h2>{{project.name}}</h2>
+			<p>项目代码{{project.number}}</p>
+			<p>项目规模{{project.total}}万</p>
+			<p>项目期限{{project.cycle}}个月</p>
+			<p>还款日期{{project.repaymentTime}}</p>
+			<p>应付款项{{project.amount}}万</p>
 		</div>
 		<input type="button" value="立即还款" />
 	</div>

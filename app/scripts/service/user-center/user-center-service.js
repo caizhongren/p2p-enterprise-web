@@ -16,5 +16,8 @@ hongcaiApp.factory('UserCenterService', function ($resource, DEFAULT_DOMAIN) {
 		changePassword: $resource(DEFAULT_DOMAIN + '/siteUser/changePassword', {oldPassword: '@oldPassword', newPassword: '@newPassword', repeatNewPassword: '@repeatNewPassword'}),
      	getUserBankCard: $resource(DEFAULT_DOMAIN + '/bank/getUserBankCard', {}),
      	statisticsByUser: $resource(DEFAULT_DOMAIN + '/siteOrder/statisticsByUser', {orderId: '@orderId'}),
+
+
+     	getProjectByStatus: $resource(DEFAULT_DOMAIN + '/enterpriseProject/getProjectByStatus', {status: '@status'}),
 	};
 });
