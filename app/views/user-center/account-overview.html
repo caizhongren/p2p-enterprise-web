@@ -26,41 +26,22 @@
 			<a ui-sref="root.userCenter.assets-overview" class="view-more">查看更多></a>
 		</div>
 	</div>
-	<div class="right-title">投资信息</div>
-	<!-- <div class="account-investment">
-		<div class="account-investment-show">
-			<p class="account-number">{{ investingNum || "0"}}</p>
-			<p class="account-number-tips">个</p>
-			<p class="account-number-message">理财中</p>
+	<div class="right-title">筹资信息</div>
+	<div>
+		<ul class="list-inline">
+			<li ng-click="" class="project-tab">还款中的项目</li>
+			<li ng-click="" class="project-tab">投标中的项目</li>
+			<li ng-click="" class="project-tab">已结清的项目</li>
+		</ul>
+		<div ><!--ng-repeat="">-->
+			<h2>{{v||"餐饮企业店面扩建"}}</h2>
+			<p>项目代码{{v||" RAD104234"}}</p>
+			<p>项目规模{{v||" 200"}}万</p>
+			<p>项目期限{{v||"12"}}个月</p>
+			<p>还款日期{{v||"2014-11-15"}}</p>
+			<p>应付款项{{v||"15.6"}}万</p>
 		</div>
-		<div class="mid-line"></div>
-		<div class="account-investment-show">
-			<p class="account-number">{{ investedNum || "0" }}</p>
-			<p class="account-number-tips">个</p>
-			<p class="account-number-message">购买成功</p>
-		</div>
-		<div class="mid-line"></div>
-		<div class="account-investment-show" style="margin-right:0;">
-			<p class="account-number">{{ investNum || "0"}}</p>
-			<p class="account-number-tips">个</p>
-			<p class="account-number-message">投资共计</p>
-		</div>
-		<a href="/investment" class="view-more investment-more">查看更多></a>
-	</div> -->
-	<div class="row account-investment">
-		<div class="col-md-4 border-r">
-			<p class="account-number">{{ investingNum || "0"}}<span class="ft-14">个</span></p>
-			<p class="account-number-message">理财中</p>
-		</div>
-		<div class="col-md-4 border-r">
-			<p class="account-number">{{ investedNum || "0" }}<span class="ft-14">个</span></p>
-			<p class="account-number-message">购买成功</p>
-		</div>
-		<div class="col-md-4" style="margin-right:0;">
-			<p class="account-number">{{ investNum || "0"}}<span class="ft-14">个</span></p>
-			<p class="account-number-message">投资共计</p>
-		</div>
-		<a href="/investment" class="view-more investment-more">查看更多></a>
+		<input type="button" value="立即还款" />
 	</div>
 </div>
 	

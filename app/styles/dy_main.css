@@ -313,7 +313,7 @@ label{
     position: relative;
 }
 .left-area{
-    height: 615px;
+    height: 425px;
     width: 200px;
     border:1px solid #dbdbdb;
     font-size: 12px;
@@ -1394,4 +1394,7 @@ label{
 }
 .table-top-title{
   padding-top: 10px;
+}
+.project-tab{
+  cursor: pointer;
 }
