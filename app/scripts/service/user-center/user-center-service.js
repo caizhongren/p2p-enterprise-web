@@ -17,5 +17,6 @@ hongcaiApp.factory('UserCenterService', function ($resource, DEFAULT_DOMAIN) {
      	getUserBankCard: $resource(DEFAULT_DOMAIN + '/bank/getUserBankCard', {}),
      	statisticsByUser: $resource(DEFAULT_DOMAIN + '/siteOrder/statisticsByUser', {orderId: '@orderId'}),
      	repayment: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/repayment', {projectId: '@projectId'}),
+     	getProjectByStatus: $resource(DEFAULT_DOMAIN + '/enterpriseProject/getProjectByStatus', {status: '@status'}),
 	};
 });

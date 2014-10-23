@@ -11,6 +11,7 @@
  	'ngSanitize', 
  	'mgcrea.ngStrap', 
  	'ui.router',
+ 	'chartjs',
  	'ngResource' 
  	]);
 
