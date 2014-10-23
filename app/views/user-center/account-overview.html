@@ -9,21 +9,21 @@
 			<div class="left-message-show">
 				<div class="assets-ico total-assets"></div>
 				<p class="asset-tips">累计募资</p>
-				<p class="asset-money">{{capital.totalAssets | number:2}} 元</p>
+				<p class="asset-money">{{totalFundRaising | number:2}} 元</p>
 				<p class="asset-tips">待还本金</p>
-				<p class="asset-money">{{capital.totalAssets | number:2}} 元</p>
+				<p class="asset-money">{{unPrincipal | number:2}} 元</p>
 			</div>
 			<div class="left-message-show">
 				<div class="assets-ico net-income"></div>
 				<p class="asset-tips">累计利息</p>
-				<p class="asset-money">{{capital.userCapital.receivedProfit| number:2}} 元</p>
+				<p class="asset-money">{{accruedInterest | number:2}} 元</p>
 				<p class="asset-tips">待还利息</p>
-				<p class="asset-money">{{capital.totalAssets | number:2}} 元</p>
+				<p class="asset-money">{{unInterest | number:2}} 元</p>
 			</div>
 			<div class="left-message-show last-show">
 				<div class="assets-ico account-balance"></div>
 				<p class="asset-tips">账户余额</p>
-				<p class="asset-money">{{(capital.userCapital.balance)| number:2}} 元</p>
+				<p class="asset-money">{{(balance)| number:2}} 元</p>
 			</div>
 			<a ui-sref="root.userCenter.recharge" class="verify-button account-button">充值</a>
 			<a ui-sref="root.userCenter.withdraw" class="get-verify-button account-button account-right-button">提现</a>
@@ -33,9 +33,9 @@
 	<div class="right-title">筹资信息</div>
 	<div>
 		<ul class="list-inline">
-			<li href="javascript:void(0);" ng-click="repayment()" class="project-tab">还款中的项目</li>
-			<li href="javascript:void(0);" ng-click="bid()" class="project-tab">投标中的项目</li>
-			<li href="javascript:void(0);" ng-click="settle()" class="project-tab">已结清的项目</li>
+			<li href="javascript:void(0);" ng-click="repaymentPro()" class="project-tab">还款中的项目</li>
+			<li href="javascript:void(0);" ng-click="bidPro()" class="project-tab">投标中的项目</li>
+			<li href="javascript:void(0);" ng-click="settlePro()" class="project-tab">已结清的项目</li>
 		</ul>
 		<div ng-repeat="project in projectList">
 			<h2>{{project.name}}</h2>

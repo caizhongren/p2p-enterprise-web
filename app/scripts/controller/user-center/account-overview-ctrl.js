@@ -1,87 +1,58 @@
 hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", function ($scope, $state, $rootScope, $stateParams, UserCenterService) {
 
 
-	$rootScope.selectSide = 'account-overview';
-    var totalAssets = 0;
-    var receivedProfit = 0;
-    var balance = 0;
-    UserCenterService.getUserCapital.get(function(response) {
+	
+    UserCenterService.getEnterpriseUserInfo.get(function(response){
     	if(response.ret == 1) {
-    		totalAssets = response.data.totalAssets
-    		receivedProfit = response.data.userCapital.receivedProfit;
-    		balance = response.data.userCapital.balance;
+    		$scope.totalAssets = response.data.totalAssets;
+    		$scope.totalFundRaising = response.data.enterpriseCapitalVo.totalFundRaising;
+    		$scope.unPrincipal = response.data.enterpriseCapitalVo.unPrincipal;
+    		$scope.accruedInterest = response.data.enterpriseCapitalVo.accruedInterest;
+    		$scope.unInterest = response.data.enterpriseCapitalVo.unInterest;
+    		$scope.receivedProfit = response.data.userCapital.receivedProfit;
+    		$scope.balance = response.data.userCapital.balance;
 
-		    $scope.capital = response.data;
-		    if(totalAssets == 0 && receivedProfit == 0 && balance == 0) {
- 				$scope.doughnutAccountData = [{
-	    			value: 30,
-	    			label: '账户总资产',
-					//highlight: '#FF5A5E',
-					color:"#e94828"
-				},
-				{
-					value : 30,
-					label: '累计净收益',
-					color : "#f9b81e"
-				},
-				{
-					value : 30,
-					label: '账户余额',
-					color : "#62cbc6"
-				}]
-		    } else {
-		    	$scope.doughnutAccountData = [{
-	    			value: response.data.totalAssets,
-	    			label: '账户总资产',
-					//highlight: '#FF5A5E',
-					color:"#e94828"
-				},
-				{
-					value : response.data.userCapital.receivedProfit,
-					label: '累计净收益',
-					color : "#f9b81e"
-				},
-				{
-					value : response.data.userCapital.balance,
-					label: '账户余额',
-					color : "#62cbc6"
-				}]
-		    }
+            if($scope.totalFundRaising == 0 && $scope.accruedInterest == 0 && $scope.balance == 0) {
+                $scope.doughnutAccountData = [{
+                    value: 30,
+                    label: '累计募资',
+                    //highlight: '#FF5A5E',
+                    color:"#e94828"
+                },
+                {
+                    value : 30,
+                    label: '累计利息',
+                    color : "#f9b81e"
+                },
+                {
+                    value : 30,
+                    label: '账户余额',
+                    color : "#62cbc6"
+                }]
+            } else {
+                $scope.doughnutAccountData = [{
+                    value: $scope.totalFundRaising,
+                    label: '累计募资',
+                    //highlight: '#FF5A5E',
+                    color:"#e94828"
+                },
+                {
+                    value : $scope.accruedInterest,
+                    label: '累计利息',
+                    color : "#f9b81e"
+                },
+                {
+                    value : $scope.balance,
+                    label: '账户余额',
+                    color : "#62cbc6"
+                }]
+            }
 
-		} else {
-            //toaster.pop('warning', "提示", response.msg);
-            //$scope.errorMessage = response.msg;
-            //$scope.warning = true;
-            $state.go('root.login');
-        }
+        } 
+		  
     });
 
-    if(totalAssets > 0 && receivedProfit > 0 && balance > 0) {
-    	$scope.doughnutOptions = {
-	        segmentShowStroke : false,
-	        segmentStrokeColor : "#fff",
-	        segmentStrokeWidth : 2,
-	        percentageInnerCutout : 80,
-	        animation : true,
-	        animationSteps : 100,
-	        animationEasing : "easeOutQuart",
-	        animateRotate : true,
-	        animateScale : false
-	    };
-    } else {
-    	$scope.doughnutOptions = {
-	        segmentShowStroke : false,
-	        segmentStrokeColor : "#fff",
-	        segmentStrokeWidth : 2,
-	        percentageInnerCutout : 80,
-	        animation : true,
-	        animationSteps : 100,
-	        animationEasing : "easeOutQuart",
-	        animateRotate : true,
-	        animateScale : false, 
-	        showTooltips: false
-	    };
-    }
+
 
 
     $scope.status = 9;
@@ -91,7 +62,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 				$scope.projectList.push(response.data.projectList[i]);
 			}
     })
-    $scope.bid = function(){
+    $scope.bidPro = function(){
     	$scope.status = 7;
     	UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
     	$scope.projectList = [];
@@ -100,7 +71,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 			}
     	})
     }
-    $scope.repayment = function(){
+    $scope.repaymentPro = function(){
     	$scope.status = 9;
     	UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
     	$scope.projectList = [];
@@ -109,7 +80,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 			}
     	})
     }
-    $scope.settle = function(){
+    $scope.settlePro = function(){
     	$scope.status = 10;
     	UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
     	$scope.projectList = [];
