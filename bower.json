@@ -13,6 +13,7 @@
     "angular-touch": "~1.2.0",
     "ui-router": "~0.2.11",
     "fontawesome": "~4.2.0",
+    "ng-chartjs": "~0.0.5",
     "angular-strap": "~2.1.1"
   },
   "devDependencies": {
