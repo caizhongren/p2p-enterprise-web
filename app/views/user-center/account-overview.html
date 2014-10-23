@@ -8,13 +8,17 @@
 		<div class="right-message">
 			<div class="left-message-show">
 				<div class="assets-ico total-assets"></div>
-				<p class="asset-tips">账户总资产</p>
+				<p class="asset-tips">累计募资</p>
 				<p class="asset-money">{{capital.totalAssets | number:2}} 元</p>
+				<p class="asset-tips">待还本金</p>
+				<p class="asset-money">{{}} 元</p>
 			</div>
 			<div class="left-message-show">
 				<div class="assets-ico net-income"></div>
-				<p class="asset-tips">累计净收益</p>
+				<p class="asset-tips">累计利息</p>
 				<p class="asset-money">{{capital.userCapital.receivedProfit| number:2}} 元</p>
+				<p class="asset-tips">待还利息</p>
+				<p class="asset-money">{{}} 元</p>
 			</div>
 			<div class="left-message-show last-show">
 				<div class="assets-ico account-balance"></div>
