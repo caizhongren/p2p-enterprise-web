@@ -1,0 +1,48 @@
+<!--账户总览-->
+<div class="right-area right-account-height" ng-controller="AccountOverviewCtrl">
+	<div class="right-title">账户总览</div>
+	<div class="account-message">
+		<div class="account-pic account-pic-bg">
+			<cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" width="313" height="313"></cjs-doughnut>
+		</div>
+		<div class="right-message">
+			<div class="left-message-show">
+				<div class="assets-ico total-assets"></div>
+				<p class="asset-tips">账户总资产</p>
+				<p class="asset-money">{{capital.totalAssets | number:2}} 元</p>
+			</div>
+			<div class="left-message-show">
+				<div class="assets-ico net-income"></div>
+				<p class="asset-tips">累计净收益</p>
+				<p class="asset-money">{{capital.userCapital.receivedProfit| number:2}} 元</p>
+			</div>
+			<div class="left-message-show last-show">
+				<div class="assets-ico account-balance"></div>
+				<p class="asset-tips">账户余额</p>
+				<p class="asset-money">{{(capital.userCapital.balance)| number:2}} 元</p>
+			</div>
+			<a ui-sref="root.userCenter.recharge" class="verify-button account-button">充值</a>
+			<a ui-sref="root.userCenter.withdraw" class="get-verify-button account-button account-right-button">提现</a>
+			<a ui-sref="root.userCenter.assets-overview" class="view-more">查看更多></a>
+		</div>
+	</div>
+	<div class="right-title">筹资信息</div>
+	<div>
+		<ul class="list-inline">
+			<li ng-click="" class="project-tab">还款中的项目</li>
+			<li ng-click="" class="project-tab">投标中的项目</li>
+			<li ng-click="" class="project-tab">已结清的项目</li>
+		</ul>
+		<div ><!--ng-repeat="">-->
+			<h2>{{v||"餐饮企业店面扩建"}}</h2>
+			<p>项目代码{{v||" RAD104234"}}</p>
+			<p>项目规模{{v||" 200"}}万</p>
+			<p>项目期限{{v||"12"}}个月</p>
+			<p>还款日期{{v||"2014-11-15"}}</p>
+			<p>应付款项{{v||"15.6"}}万</p>
+		</div>
+		<input type="button" value="立即还款" />
+	</div>
+</div>
+	
+
