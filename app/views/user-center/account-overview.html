@@ -1,5 +1,5 @@
 <!--账户总览-->
-<div class="right-area right-account-height" ng-controller="AccountOverviewCtrl">
+<div class="right-area" ng-controller="AccountOverviewCtrl">
 	<div class="right-title">账户总览</div>
 	<div class="account-message">
 		<div class="account-pic account-pic-bg">
@@ -32,20 +32,42 @@
 	</div>
 	<div class="right-title">筹资信息</div>
 	<div>
-		<ul class="list-inline">
-			<li href="javascript:void(0);" ng-click="repaymentPro()" class="project-tab">还款中的项目</li>
-			<li href="javascript:void(0);" ng-click="bidPro()" class="project-tab">投标中的项目</li>
-			<li href="javascript:void(0);" ng-click="settlePro()" class="project-tab">已结清的项目</li>
-		</ul>
-		<div ng-repeat="project in projectList">
-			<h2>{{project.name}}</h2>
-			<p>项目代码{{project.number}}</p>
-			<p>项目规模{{project.total}}万</p>
-			<p>项目期限{{project.cycle}}个月</p>
-			<p>还款日期{{project.repaymentTime}}</p>
-			<p>应付款项{{project.amount}}万</p>
+		<div class="news-nav">
+			<span ng-click="repaymentPro()" class="active"  style="width:140px;"><a href="javascript:void(0);">还款中的项目</a></span>
+			<span ng-click="bidPro()" class=""  style="width:140px;"><a href="javascript:void(0);">投标中的项目</a></span>
+			<span ng-click="settlePro()" class=""  style="width:140px;"><a href="javascript:void(0);">已结清的项目</a></span>
 		</div>
-		<input type="button" value="立即还款" ng-click="repayment(projectId)"/>
+		<!--还款中-->
+		<div ng-repeat="project in projectList" ng-if="">
+			<h2>{{project.name}}</h2>
+			<p>项目代码：{{project.number}}</p>
+			<p>项目规模：{{project.total}}万</p>
+			<p>项目期限：{{project.cycle}}个月</p>
+			<p>最近还款日期{{project.repaymentTime}}</p>
+			<p>应付本息{{project.amount}}万</p>
+			<input type="button" value="立即还款" ng-click="repayment(projectId)"/>
+		</div>
+		<!--投标中-->
+		<div ng-repeat="project in projectList" ng-if="">
+			<h2>{{project.name}}</h2>
+			<p>项目代码：{{project.number}}</p>
+			<p>项目规模：{{project.total}}万</p>
+			<p>项目期限：{{project.cycle}}个月</p>
+			<p>募集截止日：{{}}</p>
+			<p>应付利息：{{project.amount}}万</p>
+			<p>募集进度：{{}}%</p>
+		</div>
+		<!--已结清-->
+		<div ng-repeat="project in projectList" ng-if="">
+			<h2>{{project.name}}</h2>
+			<p>项目代码：{{project.number}}</p>
+			<p>项目规模：{{project.total}}万</p>
+			<p>项目期限：{{project.cycle}}个月</p>
+			<p>募集截止日期：{{}}</p>
+			<p>应付利息：{{project.amount}}万</p>
+			<p></p>
+		</div>
+		
 	</div>
 </div>
 	
