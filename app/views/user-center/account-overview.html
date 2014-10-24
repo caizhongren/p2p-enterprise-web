@@ -61,7 +61,7 @@
 			<p>项目期限：{{project.cycle}}个月</p>
 			<p>募集截止日：{{project.releaseEndTime}}</p>
 			<p>应付利息：{{project.projectBackCapital}}元</p>
-			<p>募集进度：{{}}%</p>
+			<p>募集进度：{{project.investPercent}}%</p>
 		</div>
 		<!--已结清-->
 		<div ng-repeat="project in projectList" ng-if="status == 10">
