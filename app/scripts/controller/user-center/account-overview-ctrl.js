@@ -51,6 +51,33 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         } 
 		  
     });
+if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
+        $scope.doughnutOptions = {
+            segmentShowStroke : false,
+            segmentStrokeColor : "#fff",
+            segmentStrokeWidth : 2,
+            percentageInnerCutout : 80,
+            animation : true,
+            animationSteps : 100,
+            animationEasing : "easeOutQuart",
+            animateRotate : true,
+            animateScale : false
+        };
+    } else {
+        $scope.doughnutOptions = {
+            segmentShowStroke : false,
+            segmentStrokeColor : "#fff",
+            segmentStrokeWidth : 2,
+            percentageInnerCutout : 80,
+            animation : true,
+            animationSteps : 100,
+            animationEasing : "easeOutQuart",
+            animateRotate : true,
+            animateScale : false, 
+            showTooltips: false
+        };
+    }
+
     $scope.status = 9;
     UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
         $scope.projectList = [];
