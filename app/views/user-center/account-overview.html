@@ -43,7 +43,7 @@
 			<p>项目代码：{{project.number}}</p>
 			<p>项目规模：{{project.total/10000 | number : 2}}万</p>
 			<p>项目期限：{{project.cycle}}个月</p>
-			<p>最近还款日期{{project.repaymentTime}}</p>
+			<p>最近还款日期{{project.repaymentTimeStr | date:"yyyy-MM-dd"}}</p>
 			<p>应付本息{{project.amount}}万</p>
 			<input type="button" value="立即还款" ng-click="repayment(projectId)"/>
 		</div>
