@@ -33,12 +33,16 @@
 	<div class="right-title">筹资信息</div>
 	<div>
 		<div class="news-nav account-nav">
-			<span ng-click="repaymentPro()" class="{{status == 9 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
-			<span ng-click="bidPro()" class="{{status == 7 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
-			<span ng-click="settlePro()" class="{{status == 10 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
+			<span ng-click="repaymentPro()" class="{{statusx == 9 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+			<span ng-click="bidPro()" class="{{statusx == 7 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
+			<span ng-click="settlePro()" class="{{statusx == 10 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
 		</div>
+		<div ng-if="projectList.length == 0" class="project-area">
+			<h4>您暂时没有该类项目</h4>
+		</div>
+		<div ng-if="projectList.length != 0">
 		<!--还款中-->
-		<div ng-repeat="project in projectList" ng-if="status == 9 && projectList.length != 0" class="project-area">
+		<div ng-repeat="project in projectList" ng-if="status == 9" class="project-area">
 			<table>
 				<th>{{project.name}}</th>
 				<tr>
@@ -54,7 +58,7 @@
 			<input type="button" class="red-button enterprise-button" value="立即还款" ng-click="repayment(projectId)" ng-if=""/>
 		</div>
 		<!--投标中-->
-		<div ng-repeat="project in projectList" ng-if="status == 7 && projectList.length != 0" class="project-area">
+		<div ng-repeat="project in projectList" ng-if="status == 7" class="project-area">
 			<table>
 				<th>{{project.name}}</th>
 				<tr>
@@ -63,14 +67,14 @@
 					<td>项目期限：{{project.cycle}}个月</td>
 				</tr>
 				<tr>
-					<td class="long-width">募集截止日：{{project.releaseEndTimeStr | date:"yyyy-MM-dd"}}</td>
+					<td class="long-width">募集截止日期：{{project.releaseEndTimeStr | date:"yyyy-MM-dd"}}</td>
 					<td>应付利息：{{project.projectBackCapital}}元</td>
-					<td>募集进度：{{project.investPercent}}%</td>
+					<td class="more-long-width"><span style="display:block;float:left">募集进度：</span><span class="gery-bg"><span class="red-show" style="width:{{project.investPercent}}%;"></span></span>&nbsp{{project.investPercent}}%</td>
 				</tr>
 			</table>
 		</div>
 		<!--已结清-->
-		<div ng-repeat="project in projectList" ng-if="status == 10 && projectList.length != 0" class="project-area">
+		<div ng-repeat="project in projectList" ng-if="status == 10" class="project-area">
 			<table>
 				<th>{{project.name}}</th>
 				<tr>
@@ -85,10 +89,9 @@
 			</table>
 			<div class="had-end"></div>
 		</div>
-		<!--没有项目-->
-		<div ng-if="projectList.length==0" class="project-area">
-			<h4>您暂时没有该类项目</h4>
 		</div>
+		<!--没有项目-->
+		
 		
 	</div>
 </div>
