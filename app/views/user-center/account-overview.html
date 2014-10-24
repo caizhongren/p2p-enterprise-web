@@ -27,7 +27,6 @@
 			</div>
 			<a ui-sref="root.userCenter.recharge" class="verify-button account-button">充值</a>
 			<a ui-sref="root.userCenter.withdraw" class="get-verify-button account-button account-right-button">提现</a>
-			<a ui-sref="root.userCenter.assets-overview" class="view-more">查看更多></a>
 		</div>
 	</div>
 	<div class="right-title">筹资信息</div>
@@ -51,11 +50,11 @@
 					<td>项目期限：{{project.cycle}}个月</td>
 				</tr>
 				<tr>
-					<td class="long-width">最近还款日期：{{project.repaymentTime | date:"yyyy-MM-dd"}}</td>
+					<td class="long-width">最近还款日期：{{project.repaymentTimeStr | date:"yyyy-MM-dd"}}</td>
 					<td>应付利息：{{project.amount}}万</td>
 				</tr>
 			</table>
-			<input type="button" class="red-button enterprise-button" value="立即还款" ng-click="repayment(projectId)" ng-if=""/>
+			<input type="button" class="red-button enterprise-button" value="立即还款" ng-click="repayment(projectId)" ng-if="timeFlag == 1"/>
 		</div>
 		<!--投标中-->
 		<div ng-repeat="project in projectList" ng-if="status == 7" class="project-area">
