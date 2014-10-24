@@ -65,6 +65,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
+                $scope.projectList[i].releaseEndTimeStr = new Date($scope.projectList[i].releaseEndTime * 1000);
             }
         })
     }
@@ -74,6 +75,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
+                $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
             }
         })
     }
@@ -83,6 +85,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
+                $scope.projectList[i].releaseEndTimeStr = new Date($scope.projectList[i].releaseEndTime * 1000);
             }
         })
     }
