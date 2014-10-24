@@ -1395,6 +1395,18 @@ label{
 .table-top-title{
   padding-top: 10px;
 }
-.project-tab{
-  cursor: pointer;
+/*B端*/
+.project-area{
+  height: 130px;
+  width: 100%;
+  padding: 5px 0 20px 60px;
+}
+.project-area th{
+  font-size: 14px;
+}
+.project-area tr{
+  height: 25px;
+}
+.project-area td{
+  width: 185px;
 }
