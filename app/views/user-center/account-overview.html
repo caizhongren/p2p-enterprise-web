@@ -38,33 +38,33 @@
 			<span ng-click="settlePro()" class=""  style="width:140px;"><a href="javascript:void(0);">已结清的项目</a></span>
 		</div>
 		<!--还款中-->
-		<div ng-repeat="project in projectList" ng-if="">
+		<div ng-repeat="project in projectList" ng-if="status ==9">
 			<h2>{{project.name}}</h2>
 			<p>项目代码：{{project.number}}</p>
-			<p>项目规模：{{project.total}}万</p>
+			<p>项目规模：{{project.total/10000 | number : 2}}万</p>
 			<p>项目期限：{{project.cycle}}个月</p>
 			<p>最近还款日期{{project.repaymentTime}}</p>
 			<p>应付本息{{project.amount}}万</p>
 			<input type="button" value="立即还款" ng-click="repayment(projectId)"/>
 		</div>
 		<!--投标中-->
-		<div ng-repeat="project in projectList" ng-if="">
+		<div ng-repeat="project in projectList" ng-if="status == 7">
 			<h2>{{project.name}}</h2>
 			<p>项目代码：{{project.number}}</p>
-			<p>项目规模：{{project.total}}万</p>
+			<p>项目规模：{{project.total | number : 2}}万</p>
 			<p>项目期限：{{project.cycle}}个月</p>
-			<p>募集截止日：{{}}</p>
-			<p>应付利息：{{project.amount}}万</p>
+			<p>募集截止日：{{project.releaseEndTime}}</p>
+			<p>应付利息：{{project.projectBackCapital}}元</p>
 			<p>募集进度：{{}}%</p>
 		</div>
 		<!--已结清-->
-		<div ng-repeat="project in projectList" ng-if="">
+		<div ng-repeat="project in projectList" ng-if="status == 10">
 			<h2>{{project.name}}</h2>
 			<p>项目代码：{{project.number}}</p>
-			<p>项目规模：{{project.total}}万</p>
+			<p>项目规模：{{project.total | number : 2}}万</p>
 			<p>项目期限：{{project.cycle}}个月</p>
-			<p>募集截止日期：{{}}</p>
-			<p>应付利息：{{project.amount}}万</p>
+			<p>募集截止日期：{{project.releaseEndTime}}</p>
+			<p>已付利息：{{project.projectBackCapital}}元</p>
 			<p></p>
 		</div>
 		
