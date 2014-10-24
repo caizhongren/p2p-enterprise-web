@@ -51,47 +51,42 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         } 
 		  
     });
-
-
-
-
     $scope.status = 9;
     UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-    	$scope.projectList = [];
-			for (var i = 0; i < response.data.projectList.length; i++) {
-				$scope.projectList.push(response.data.projectList[i]);
-			}
+        $scope.projectList = [];
+            for (var i = 0; i < response.data.projectList.length; i++) {
+                $scope.projectList.push(response.data.projectList[i]);
+            }
     })
     $scope.bidPro = function(){
-    	$scope.status = 7;
-    	UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-    	$scope.projectList = [];
-			for (var i = 0; i < response.data.projectList.length; i++) {
-				$scope.projectList.push(response.data.projectList[i]);
-			}
-    	})
+        $scope.status = 7;
+        UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
+        $scope.projectList = [];
+            for (var i = 0; i < response.data.projectList.length; i++) {
+                $scope.projectList.push(response.data.projectList[i]);
+            }
+        })
     }
     $scope.repaymentPro = function(){
-    	$scope.status = 9;
-    	UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-    	$scope.projectList = [];
-			for (var i = 0; i < response.data.projectList.length; i++) {
-				$scope.projectList.push(response.data.projectList[i]);
-			}
-    	})
+        $scope.status = 9;
+        UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
+        $scope.projectList = [];
+            for (var i = 0; i < response.data.projectList.length; i++) {
+                $scope.projectList.push(response.data.projectList[i]);
+            }
+        })
     }
     $scope.settlePro = function(){
-    	$scope.status = 10;
-    	UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-    	$scope.projectList = [];
-			for (var i = 0; i < response.data.projectList.length; i++) {
-				$scope.projectList.push(response.data.projectList[i]);
-			}
-    	})
+        $scope.status = 10;
+        UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
+        $scope.projectList = [];
+            for (var i = 0; i < response.data.projectList.length; i++) {
+                $scope.projectList.push(response.data.projectList[i]);
+            }
+        })
     }
 
 
-   
 
     UserCenterService.statisticsByUser.get(function(response) {
     	if (response.ret == 1){
