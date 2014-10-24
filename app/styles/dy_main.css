@@ -1399,7 +1399,10 @@ label{
 .project-area{
   height: 130px;
   width: 100%;
-  padding: 5px 0 20px 60px;
+  padding: 15px 0 20px 66px;
+}
+.project-area table{
+  float: left;
 }
 .project-area th{
   font-size: 14px;
@@ -1408,5 +1411,18 @@ label{
   height: 25px;
 }
 .project-area td{
-  width: 185px;
+  padding-right: 10px;
+}
+.project-area .long-width{
+  width: 195px;
+}
+.account-nav span a{
+  margin-left: 15px;
+}
+.enterprise-button{
+  height: 55px;
+  width: 175px;
+  float: right;
+  font-size: 18px;
+  margin: 20px 30px 0 0;
 }
