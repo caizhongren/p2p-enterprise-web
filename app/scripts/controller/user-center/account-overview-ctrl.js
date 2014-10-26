@@ -1,7 +1,9 @@
 hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", function ($scope, $state, $rootScope, $stateParams, UserCenterService) {
-
-
-	
+    $scope.timestamp = new Date();
+    $scope.year = $scope.timestamp.getFullYear();
+    $scope.month = $scope.timestamp.getMonth();
+    $scope.day = $scope.timestamp.getDate();
+    console.log($scope.year);
     UserCenterService.getEnterpriseUserInfo.get(function(response){
     	if(response.ret == 1) {
     		$scope.totalAssets = response.data.totalAssets;
@@ -56,7 +58,7 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
             segmentShowStroke : false,
             segmentStrokeColor : "#fff",
             segmentStrokeWidth : 2,
-            percentageInnerCutout : 80,
+            percentageInnerCutout : 65,
             animation : true,
             animationSteps : 100,
             animationEasing : "easeOutQuart",
@@ -68,7 +70,7 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
             segmentShowStroke : false,
             segmentStrokeColor : "#fff",
             segmentStrokeWidth : 2,
-            percentageInnerCutout : 80,
+            percentageInnerCutout : 65,
             animation : true,
             animationSteps : 100,
             animationEasing : "easeOutQuart",
@@ -78,41 +80,67 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
         };
     }
 
-    $scope.status = 9;
-    UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
+    $scope.statusx = 9;
+    UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
         $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
                 $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
+                $scope.projectListYear = $scope.projectList[i].repaymentTimeStr.getFullYear();
+                $scope.projectListMonth = $scope.projectList[i].repaymentTimeStr.getMonth();
+                $scope.projectListDay = $scope.projectList[i].repaymentTimeStr.getDate();
+                if(($scope.projectListYear == $scope.year) && ($scope.month ==$scope.projectListMonth) && ($scope.projectListDay == $scope.day)){
+                    $scope.timeFlag = 1;
+                }else{
+                    $scope.timeFlag = 0;
+                }
             }
+        if(response.data.projectList.length != 0){
+            $scope.status = 9;
+        }
+        var timestamp = Date.parse(new Date());
     })
     $scope.bidPro = function(){
-        $scope.status = 7;
-        UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-        $scope.projectList = [];
+        $scope.statusx = 7;
+        UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
+            $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
                 $scope.projectList[i].releaseEndTimeStr = new Date($scope.projectList[i].releaseEndTime * 1000);
+            }
+            if(response.data.projectList.length != 0){
+                $scope.status = 7;
             }
         })
     }
     $scope.repaymentPro = function(){
-        $scope.status = 9;
-        UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-        $scope.projectList = [];
+        $scope.statusx = 9;
+        UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
+            $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
                 $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
+                if($scope.projectList[i].repaymentTime == $scope.timestamp){
+                    $scope.timeFlag = 1;
+                }else{
+                    $scope.timeFlag = 0;
+                }
+            }
+            if(response.data.projectList.length != 0){
+                $scope.status = 9;
             }
         })
     }
     $scope.settlePro = function(){
-        $scope.status = 10;
-        UserCenterService.getProjectByStatus.get({status: $scope.status}, function(response){
-        $scope.projectList = [];
+        $scope.statusx = 10;
+        UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
+            $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
                 $scope.projectList[i].releaseEndTimeStr = new Date($scope.projectList[i].releaseEndTime * 1000);
+            }
+            if(response.data.projectList.length != 0){
+                $scope.status = 10;
             }
         })
     }
@@ -176,3 +204,4 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
     
 
 }]);
+
