@@ -98,6 +98,7 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
         if(response.data.projectList.length != 0){
             $scope.status = 9;
         }
+        var timestamp = Date.parse(new Date());
     })
     $scope.bidPro = function(){
         $scope.statusx = 7;
