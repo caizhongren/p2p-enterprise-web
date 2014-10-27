@@ -53,7 +53,8 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         } 
 		  
     });
-if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
+
+	if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
         $scope.doughnutOptions = {
             segmentShowStroke : false,
             segmentStrokeColor : "#fff",
@@ -65,7 +66,7 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
             animateRotate : true,
             animateScale : false
         };
-    } else {
+	} else {
         $scope.doughnutOptions = {
             segmentShowStroke : false,
             segmentStrokeColor : "#fff",
@@ -78,7 +79,7 @@ if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance >
             animateScale : false, 
             showTooltips: false
         };
-    }
+	}
 
     $scope.statusx = 9;
     UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
