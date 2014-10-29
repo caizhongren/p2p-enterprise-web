@@ -189,9 +189,19 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
     	e.value=eValue;
     	return e;
     }
-    $scope.repayment = function(projectId){
 
-    	UserCenterService.repayment.get({projectId: projectId}, function(response){
+    /**
+     * 企业用户点击还款按钮，进行还款
+     * @param  {[type]} projectId
+     * @return {[type]}
+     */
+    $scope.repayment = function(project){
+
+        if(project.repaymentAmount > $scope.balance){
+            alert("账户余额不足，请先充值");
+            return;
+        }
+    	UserCenterService.repayment.get({projectId: project.id}, function(response){
 			if(response.ret == 1) {
 				var req = response.data.req;
 				var sign = response.data.sign;
