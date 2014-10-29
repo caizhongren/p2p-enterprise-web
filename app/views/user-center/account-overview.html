@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td class="long-width">最近还款日期：{{project.repaymentTimeStr | date:"yyyy-MM-dd"}}</td>
-					<td>应付利息：{{project.amount}}万</td>
+					<td>应付利息：{{project.repaymentAmount}}万</td>
 				</tr>
 			</table>
 			<input type="button" class="red-button enterprise-button" value="立即还款" ng-click="repayment(project.id)" ng-if="timeFlag == 1"/>
