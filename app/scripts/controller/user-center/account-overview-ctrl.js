@@ -90,10 +90,10 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
                 $scope.projectListYear = $scope.projectList[i].repaymentTimeStr.getFullYear();
                 $scope.projectListMonth = $scope.projectList[i].repaymentTimeStr.getMonth();
                 $scope.projectListDay = $scope.projectList[i].repaymentTimeStr.getDate();
-                if(($scope.projectListYear == $scope.year) && ($scope.month ==$scope.projectListMonth) && ($scope.projectListDay == $scope.day)){
-                    $scope.timeFlag = 1;
+                if(parseInt($scope.projectList[i].repaymentTime/86400) == parseInt(response.data.time/86400)){
+                    $scope.projectList[i].isAvailableRepayment = true;
                 }else{
-                    $scope.timeFlag = 0;
+                    $scope.projectList[i].isAvailableRepayment = false;
                 }
             }
         if(response.data.projectList.length != 0){
@@ -101,6 +101,9 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         }
         var timestamp = Date.parse(new Date());
     })
+
+
+
     $scope.bidPro = function(){
         $scope.statusx = 7;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
@@ -123,8 +126,10 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
                 $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
                 if($scope.projectList[i].repaymentTime == $scope.timestamp){
                     $scope.timeFlag = 1;
+                    $scope.projectList[i].isAvailableRepayment = "立即还款";
                 }else{
                     $scope.timeFlag = 0;
+                    $scope.projectList[i].isAvailableRepayment = "未到还款日期";
                 }
             }
             if(response.data.projectList.length != 0){
@@ -184,9 +189,19 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
     	e.value=eValue;
     	return e;
     }
-    $scope.repayment = function(projectId){
 
-    	UserCenterService.repayment.get({projectId: projectId}, function(response){
+    /**
+     * 企业用户点击还款按钮，进行还款
+     * @param  {[type]} projectId
+     * @return {[type]}
+     */
+    $scope.repayment = function(project){
+
+        if(project.repaymentAmount > $scope.balance){
+            alert("账户余额不足，请先充值");
+            return;
+        }
+    	UserCenterService.repayment.get({projectId: project.id}, function(response){
 			if(response.ret == 1) {
 				var req = response.data.req;
 				var sign = response.data.sign;
