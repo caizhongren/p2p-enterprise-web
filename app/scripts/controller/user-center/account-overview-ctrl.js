@@ -124,12 +124,13 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
             for (var i = 0; i < response.data.projectList.length; i++) {
                 $scope.projectList.push(response.data.projectList[i]);
                 $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
-                if($scope.projectList[i].repaymentTime == $scope.timestamp){
-                    $scope.timeFlag = 1;
-                    $scope.projectList[i].isAvailableRepayment = "立即还款";
+                $scope.projectListYear = $scope.projectList[i].repaymentTimeStr.getFullYear();
+                $scope.projectListMonth = $scope.projectList[i].repaymentTimeStr.getMonth();
+                $scope.projectListDay = $scope.projectList[i].repaymentTimeStr.getDate();
+                if(parseInt($scope.projectList[i].repaymentTime/86400) == parseInt(response.data.time/86400)){
+                    $scope.projectList[i].isAvailableRepayment = true;
                 }else{
-                    $scope.timeFlag = 0;
-                    $scope.projectList[i].isAvailableRepayment = "未到还款日期";
+                    $scope.projectList[i].isAvailableRepayment = false;
                 }
             }
             if(response.data.projectList.length != 0){
