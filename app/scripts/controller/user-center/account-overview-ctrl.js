@@ -3,7 +3,6 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
     $scope.year = $scope.timestamp.getFullYear();
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
-    console.log($scope.year);
     UserCenterService.getEnterpriseUserInfo.get(function(response){
     	if(response.ret == 1) {
     		$scope.totalAssets = response.data.totalAssets;
@@ -81,7 +80,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         };
 	}
 
-    $scope.statusx = 9;
+    $scope.statusx = 1;
     UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
         $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
@@ -105,7 +104,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 
 
     $scope.bidPro = function(){
-        $scope.statusx = 7;
+        $scope.statusx = 2;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
             $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
@@ -118,7 +117,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         })
     }
     $scope.repaymentPro = function(){
-        $scope.statusx = 9;
+        $scope.statusx = 1;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
             $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
@@ -139,7 +138,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         })
     }
     $scope.settlePro = function(){
-        $scope.statusx = 10;
+        $scope.statusx = 3;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
             $scope.projectList = [];
             for (var i = 0; i < response.data.projectList.length; i++) {
