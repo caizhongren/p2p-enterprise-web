@@ -49,8 +49,8 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
                 }]
             }
 
-        } 
-		  
+        }
+
     });
 
 	if($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
@@ -75,84 +75,136 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
             animationSteps : 100,
             animationEasing : "easeOutQuart",
             animateRotate : true,
-            animateScale : false, 
+            animateScale : false,
             showTooltips: false
         };
 	}
 
+    /**
+     * 还款中项目查询
+     * @type {Number}
+     */
     $scope.statusx = 1;
     UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
-        $scope.projectList = [];
-            for (var i = 0; i < response.data.projectList.length; i++) {
-                $scope.projectList.push(response.data.projectList[i]);
-                $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
-                $scope.projectListYear = $scope.projectList[i].repaymentTimeStr.getFullYear();
-                $scope.projectListMonth = $scope.projectList[i].repaymentTimeStr.getMonth();
-                $scope.projectListDay = $scope.projectList[i].repaymentTimeStr.getDate();
-                if(parseInt($scope.projectList[i].repaymentTime/86400) == parseInt(response.data.time/86400)){
-                    $scope.projectList[i].isAvailableRepayment = true;
-                }else{
-                    $scope.projectList[i].isAvailableRepayment = false;
-                }
+      if (response.ret == 1){
+        var projectBillDetails = response.data.projectBillDetails;
+
+        for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+          projectBillDetails[i]
+          var projectBills = projectBillDetails[i].projectBills;
+          for (var j = projectBills.length - 1; j >= 0; j--) {
+            if (projectBills[j].status == 0){
+              projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime * 1000);
+              projectBillDetails[i].recentProjectBill = projectBills[j];
+              if(parseInt(projectBills[j].repaymentTime/86400) == parseInt(response.data.time/86400)){
+                  projectBillDetails[i].project.isAvailableRepayment = true;
+              }else{
+                  projectBillDetails[i].project.isAvailableRepayment = false;
+              }
+              break;
             }
-        if(response.data.projectList.length != 0){
+          };
+        };
+
+        $scope.projectBillDetails = projectBillDetails;
+
+        if(response.data.projectBillDetails.length != 0){
             $scope.status = 9;
         }
         var timestamp = Date.parse(new Date());
+      } else {
+        alert('查询出错，请联系客服！');
+      }
     })
 
 
 
+
+    /**
+     * 投标中项目查询
+     * @return {[type]} [description]
+     */
     $scope.bidPro = function(){
         $scope.statusx = 2;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
-            $scope.projectList = [];
-            for (var i = 0; i < response.data.projectList.length; i++) {
-                $scope.projectList.push(response.data.projectList[i]);
-                $scope.projectList[i].releaseEndTimeStr = new Date($scope.projectList[i].releaseEndTime * 1000);
+            $scope.projectBillDetails = response.data.projectBillDetails;
+            for (var i = 0; i < response.data.projectBillDetails.length; i++) {
+                $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime * 1000);
+                $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock)/$scope.projectBillDetails[i].project.countInvest * 100;
             }
-            if(response.data.projectList.length != 0){
+            if(response.data.projectBillDetails.length != 0){
                 $scope.status = 7;
             }
         })
     }
+
+    /**
+     * 还款中项目查询
+     * @return {[type]} [description]
+     */
     $scope.repaymentPro = function(){
         $scope.statusx = 1;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
-            $scope.projectList = [];
-            for (var i = 0; i < response.data.projectList.length; i++) {
-                $scope.projectList.push(response.data.projectList[i]);
-                $scope.projectList[i].repaymentTimeStr = new Date($scope.projectList[i].repaymentTime * 1000);
-                $scope.projectListYear = $scope.projectList[i].repaymentTimeStr.getFullYear();
-                $scope.projectListMonth = $scope.projectList[i].repaymentTimeStr.getMonth();
-                $scope.projectListDay = $scope.projectList[i].repaymentTimeStr.getDate();
-                if(parseInt($scope.projectList[i].repaymentTime/86400) == parseInt(response.data.time/86400)){
-                    $scope.projectList[i].isAvailableRepayment = true;
-                }else{
-                    $scope.projectList[i].isAvailableRepayment = false;
-                }
+            if (response.ret == 1){
+              var projectBillDetails = response.data.projectBillDetails;
+
+              for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+                projectBillDetails[i]
+                var projectBills = projectBillDetails[i].projectBills;
+                for (var j = projectBills.length - 1; j >= 0; j--) {
+                  if (projectBills[j].status == 0){
+                    projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime * 1000);
+                    projectBillDetails[i].recentProjectBill = projectBills[j];
+                    if(parseInt(projectBills[j].repaymentTime/86400) == parseInt(response.data.time/86400)){
+                        projectBillDetails[i].project.isAvailableRepayment = true;
+                    }else{
+                        projectBillDetails[i].project.isAvailableRepayment = false;
+                    }
+                    break;
+                  }
+                };
+              };
+
+              $scope.projectBillDetails = projectBillDetails;
+
+              if(response.data.projectBillDetails.length != 0){
+                  $scope.status = 9;
+              }
+              var timestamp = Date.parse(new Date());
+            } else {
+              alert('查询出错，请联系客服！');
             }
-            if(response.data.projectList.length != 0){
-                $scope.status = 9;
-            }
+
         })
     }
+
+    /**
+     * 已结清项目查询
+     * @return {[type]} [description]
+     */
     $scope.settlePro = function(){
         $scope.statusx = 3;
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
-            $scope.projectList = [];
-            for (var i = 0; i < response.data.projectList.length; i++) {
-                $scope.projectList.push(response.data.projectList[i]);
-                $scope.projectList[i].releaseEndTimeStr = new Date($scope.projectList[i].releaseEndTime * 1000);
+            $scope.projectBillDetails = response.data.projectBillDetails;
+            for (var i = 0; i < response.data.projectBillDetails.length; i++) {
+                $scope.projectBillDetails[i].project.releaseEndTimeStr = new Date($scope.projectBillDetails[i].project.releaseEndTime * 1000);
+                $scope.projectBillDetails[i].project.projectBackCapital = 0;
+                for (var j = $scope.projectBillDetails[i].projectBills.length - 1; j >= 0; j--) {
+                    $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + $scope.projectBillDetails[i].projectBills[j].repaymentInterest;
+                };
             }
-            if(response.data.projectList.length != 0){
-                $scope.status = 10;
+            if(response.data.projectBillDetails.length != 0){
+                $scope.status = 3;
             }
         })
     }
 
 
-
+    /**
+     * 用户投资情况
+     * @param  {[type]} response 用户投资情况
+     * @return {[type]}          [description]
+     */
     UserCenterService.statisticsByUser.get(function(response) {
     	if (response.ret == 1){
     		var orderNum = response.data.orderNum;
@@ -161,7 +213,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
     			$scope.investedNum = orderNum.overInve;
     			$scope.investNum = orderNum.allInve;
     		};
-    		
+
     	};
     });
 
@@ -217,7 +269,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
     	});
 
     };
-    
+
 
 }]);
 

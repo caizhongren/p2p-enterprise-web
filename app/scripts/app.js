@@ -7,12 +7,12 @@
  * 宏财JS库依赖以及程序路由主配置文件
  */
  var hongcaiApp = angular.module('hongcaiApp', [
- 	'ngAnimate', 
- 	'ngSanitize', 
- 	'mgcrea.ngStrap', 
+ 	'ngAnimate',
+ 	'ngSanitize',
+ 	'mgcrea.ngStrap',
  	'ui.router',
  	'chartjs',
- 	'ngResource' 
+ 	'ngResource'
  	]);
 
  hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -281,33 +281,38 @@
  	$locationProvider.hashPrefix('!');
 
  }]);
+
 hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
-	var routespermission = ['/account-overview', 
-							'/assets-overview',  
-							'/realname-authentication',
-							'/security-settings',
-							'/withdraw',
-							'/recharge'];
-	$rootScope.$on('$stateChangeStart', function() {
-		var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
-		if(routespermission.indexOf($location.path()) !== -1) {
-			$checkSessionServer.then(function(response){
-				if(response.data.data.name !== '') {
-					$rootScope.isLogged = true;
-					$rootScope.loginName = response.data.data.name;
-				} else {
-					$location.path('/login');
-				}
-			});
-		} else {
-			$checkSessionServer.then(function(response){
-				if(response.data.data.name !== '') {
-					$rootScope.isLogged = true;
-					$rootScope.loginName = response.data.data.name;
-				}
-			});
-		}
-	});
+  var routespermission = ['/account-overview',
+              '/assets-overview',
+              '/realname-authentication',
+              '/security-settings',
+              '/withdraw',
+              '/recharge',
+              '/invest-verify'];
+  $rootScope.$on('$stateChangeStart', function() {
+    var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
+    if(routespermission.indexOf($location.path()) !== -1) {
+      $checkSessionServer.then(function(response){
+        if(response.data.data.name !== '') {
+          $rootScope.isLogged = true;
+          $rootScope.loginName = response.data.data.name;
+          $rootScope.securityStatus = response.data.data.securityStatus;
+        } else {
+          $location.path('/login/');
+        }
+      });
+    } else {
+      $checkSessionServer.then(function(response) {
+        if(response.data.data.name !== '') {
+          $rootScope.isLogged = true;
+          $rootScope.loginName = response.data.data.name;
+          $rootScope.securityStatus = response.data.data.securityStatus;
+        }
+      });
+    }
+  });
 });
+
 hongcaiApp.constant('DEFAULT_DOMAIN', "/enterprise/api/v1");
 
