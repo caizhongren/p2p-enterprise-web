@@ -54,7 +54,6 @@ hongcaiApp.controller("UserCenterCtrl", [ "$location", "$scope", "$state", "$roo
                     securityLevel = securityLevel +1;
                 }
                 $scope.securityLevel = securityLevel - 1;
-
             } else {
                 //toaster.pop('warning', "提示", response.msg);
                 //$scope.errorMessage = response.msg;
