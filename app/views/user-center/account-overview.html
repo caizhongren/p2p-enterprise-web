@@ -1,40 +1,45 @@
 <!--账户总览-->
 <div class="right-area" ng-controller="AccountOverviewCtrl">
-	<div class="right-title">账户总览</div>
-	<div class="account-message">
-		<div class="account-pic account-pic-bg">
-			<cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" width="313" height="313"></cjs-doughnut>
-		</div>
-		<div class="right-message">
-			<div class="left-message-show">
-				<div class="assets-ico total-assets"></div>
-				<p class="asset-tips">累计募资</p>
-				<p class="asset-money">{{totalFundRaising | number:2}} 元</p>
-				<p class="asset-tips">待还本金</p>
-				<p class="asset-money">{{unPrincipal | number:2}} 元</p>
-			</div>
-			<div class="left-message-show">
-				<div class="assets-ico net-income"></div>
-				<p class="asset-tips">累计利息</p>
-				<p class="asset-money">{{accruedInterest | number:2}} 元</p>
-				<p class="asset-tips">待还利息</p>
-				<p class="asset-money">{{unInterest | number:2}} 元</p>
-			</div>
-			<div class="left-message-show last-show">
-				<div class="assets-ico account-balance"></div>
-				<p class="asset-tips">账户余额</p>
-				<p class="asset-money">{{(balance)| number:2}} 元</p>
-			</div>
-			<a ui-sref="root.userCenter.recharge" class="verify-button account-button">充值</a>
-			<a ui-sref="root.userCenter.withdraw" class="get-verify-button account-button account-right-button">提现</a>
-		</div>
-	</div>
+  <div class="right-title">账户总览</div>
+  <div class="account-message">
+    <div class="account-pic account-pic-bg">
+      <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" width="313" height="313"></cjs-doughnut>
+    </div>
+    <div class="right-message">
+      <div class="left-message-show">
+        <div class="assets-ico total-assets"></div>
+        <p class="asset-tips">累计募资</p>
+        <p class="asset-money">{{totalFundRaising | number:2}} 元</p>
+        <ul>
+          <li><span class="asset-tips" style="margin: 0px"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+          <li><span class="asset-tips" style="margin: 0px"><strong>待还本金:</strong> {{unPrincipal | number:2}} 元</span></li>
+        </ul>
+  		</div>
+  		<div class="left-message-show">
+  			<div class="assets-ico net-income"></div>
+  			<p class="asset-tips">累计利息</p>
+  			<p class="asset-money">{{accruedInterest | number:2}} 元</p>
+        <ul>
+          <li><span class="asset-tips" style="margin: 0px;"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span></li>
+        </ul>
+  		</div>
+  		<div class="left-message-show last-show">
+  			<div class="assets-ico account-balance"></div>
+  			<p class="asset-tips">账户余额</p>
+  			<p class="asset-money">{{(balance)| number:2}} 元</p>
+  		</div>
+  		<a ui-sref="root.userCenter.recharge" class="verify-button account-button">充值</a>
+  		<a ui-sref="root.userCenter.withdraw" class="get-verify-button account-button account-right-button">提现</a>
+  	</div>
+  </div>
+  <!-- TODO -->
 	<div class="right-title">筹资信息</div>
+
 	<div>
 		<div class="news-nav account-nav">
-			<span ng-click="repaymentPro()" class="{{statusx == 9 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
-			<span ng-click="bidPro()" class="{{statusx == 7 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
-			<span ng-click="settlePro()" class="{{statusx == 10 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
+			<span ng-click="repaymentPro()" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+			<span ng-click="bidPro()" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
+			<span ng-click="settlePro()" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
 		</div>
 		<div ng-if="projectBillDetails.length == 0" class="project-area">
 			<h4>您暂时没有该类项目</h4>
@@ -93,8 +98,6 @@
 		</div>
 		</div>
 		<!--没有项目-->
-
-
 	</div>
 </div>
 
