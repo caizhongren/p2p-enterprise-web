@@ -51,8 +51,8 @@
 					<td>项目期限：{{projectBillDetail.project.cycle}}个月</td>
 				</tr>
 				<tr>
-					<td class="long-width">最近还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
-					<td>应付本息：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
+					<td class="long-width">还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
+					<td>应付款项：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
 				</tr>
 			</table>
 			<input type="button" class="red-button enterprise-button {{projectBillDetail.project.isAvailableRepayment ? '' : 'grey'}}" ng-value="projectBillDetail.project.isAvailableRepayment ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project)" ng-disabled="!projectBillDetail.project.isAvailableRepayment"/>
@@ -85,7 +85,7 @@
 					<td>项目期限：{{projectBillDetail.project.cycle}}个月</td>
 				</tr>
 				<tr>
-					<td class="long-width">募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
+					<td class="long-width">本息两清日：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
 					<td>已付利息：{{projectBillDetail.project.projectBackCapital}}元</td>
 				</tr>
 			</table>
