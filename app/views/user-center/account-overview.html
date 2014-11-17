@@ -55,7 +55,7 @@
 					<td>应付本息：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
 				</tr>
 			</table>
-			<input type="button" class="red-button enterprise-button {{project.isAvailableRepayment ? '' : 'grey'}}" ng-value="project.isAvailableRepayment ? '立即还款' : '未到还款日期'" ng-click="repayment(project)" ng-disabled="!project.isAvailableRepayment"/>
+			<input type="button" class="red-button enterprise-button {{projectBillDetail.project.isAvailableRepayment ? '' : 'grey'}}" ng-value="projectBillDetail.project.isAvailableRepayment ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project)" ng-disabled="!projectBillDetail.project.isAvailableRepayment"/>
 		</div>
 
 		<!--投标中-->
