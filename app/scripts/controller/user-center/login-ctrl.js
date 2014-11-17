@@ -1,6 +1,6 @@
 hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService) {
     $scope.login = function(user){
-        LoginService.userLogin.get({account: user.account, password: user.password }, function(response) {
+        LoginService.userLogin.get({account: user.account, password: user.password, type: 1 }, function(response) {
             if(response.ret == 1) {
                 SessionService.set("user", response.data.user.name);
                 $state.go('root.userCenter.account-overview');
@@ -20,7 +20,7 @@ hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$statePar
      $scope.$watch('user.password', function(){
         $scope.isPasswordError = false;
     });
-    
+
     $scope.$watch('user.account', function(){
         $scope.isPasswordError = false;
     });

@@ -3,12 +3,13 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
     $rootScope.selectSide = "security-settings";
     UserCenterService.userSecurityInfo.get({}, function(response) {
         if(response.ret == 1) {
-            var userVo = response.data.userVo;
-            $scope.email = userVo.email;
-            $scope.mobile = userVo.mobile;
-            $scope.realName = userVo.realName;
-            $scope.idNo = userVo.idNo;
-            var realNameAuthStatus = userVo.realNameAuthStatus;
+            var user = response.data.user;
+            var userAuth = response.data.userAuth;
+            $scope.email = user.email;
+            $scope.mobile = user.mobile;
+            $scope.realName = userAuth.realName;
+            $scope.idNo = userAuth.idNo;
+            var realNameAuthStatus = userAuth.realNameAuthStatus;
             if(realNameAuthStatus == 1){
                 $scope.realNameAuthStatus = "认证中";
                 $scope.isRealNameAuth = true;
@@ -20,7 +21,7 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
                 $scope.isRealNameAuth = false;
             }
 
-            if(userVo.trusteeshipAccountStatus == 1){
+            if(userAuth.yeepayAccountStatus == 1){
                 $scope.haveTrusteeshipAccount = true;
             } else {
                 $scope.haveTrusteeshipAccount = false;
@@ -118,6 +119,13 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
         return e;
     }
 
+    $scope.checkEmailAndMobile = function(){
+        if(!$scope.email || !$scope.mobile){
+            $scope.openTrusteeshipAccount = false;
+            alert("请先绑定邮箱和手机号码");
+        }
+    }
+
     $scope.realNameAuth = function(user) {
         UserCenterService.yeepayRegister.get({realName:user.realName, idCardNo:user.idCardNo}, function(response) {
             if(response.ret == 1) {
@@ -133,7 +141,7 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
 
             }
         });
-    };   
+    };     
 }]);
 
 

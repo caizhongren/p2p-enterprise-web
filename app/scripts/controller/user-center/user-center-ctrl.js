@@ -1,20 +1,10 @@
 hongcaiApp.controller("UserCenterCtrl", [ "$location", "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "DEFAULT_DOMAIN", function ( $location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN) {
-	
+
     $scope.selectedDate = "2014-10-16T08:50:36.394Z"; // <- [object Date]
     $scope.selectedDateAsNumber = 509414400000; // <- [object Number]
     $scope.fromDate = "2014-10-07T16:00:00.000Z"; // <- [object Date]
     $scope.untilDate = "2014-10-07T16:00:00.000Z"; // <- [object Date]
 
-    UserCenterService.userSecurityInfo.get({},function(response){
-        if (response.ret == 1){
-            var userVo = response.data.userVo;
-            $scope.userMobile = userVo.mobile;
-            $scope.userEmail = userVo.emai;
-            $scope.userRealNameAuthStatus = userVo.realNameAuthStatus;
-            $scope.userTrusteeshipAccountStatus = userVo.trusteeshipAccountStatus;
-        }
-
-    });
 
     /***************************** sidebar start *************************/
     $rootScope.selectSide = $location.path().substr($location.path().indexOf("/") + 1);
