@@ -11,7 +11,7 @@ hongcaiApp.controller("UserCenterCtrl", [ "$location", "$scope", "$state", "$roo
     UserCenterService.userSecurityInfo.get({}, function(response) {
             if(response.ret == 1) {
                 var securityLevel = 0;
-                var userVo = response.data.userVo;
+                var userVo = response.data.user;
                 $scope.email = userVo.email;
                 $scope.mobile = userVo.mobile;
                 $scope.realName = userVo.realName;
