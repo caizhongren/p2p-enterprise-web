@@ -8,10 +8,10 @@
 		</div>
 		<div class="form-group">
 			<label>充值金额：</label>
-			<input name="amount" type="text" class="verify-input"  
-									ng-model="rechargeAmount" 
-									ng-pattern="/^-?\d+(\.\d{1,2})?$/"
-									ng-foucus 
+			<input name="amount" type="text" class="verify-input"
+									ng-model="rechargeAmount"
+									ng-pattern="/^0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*$/"
+									ng-foucus
 									required autofocus/>&nbsp;&nbsp;元
 			<div class="user-tips-area" ng-show="rechargeForm.amount.$dirty && rechargeForm.amount.$error.pattern">
 				<img ng-src="images/check_no.png" class="user-check-img">
@@ -24,7 +24,7 @@
 		</div>
 
 		<div class="form-group">
-			<input type="button" value="确认充值" class="verify-button" ng-click="recharge(rechargeAmount)" ng-disabled="rechargeForm.$invalid"/>
+			<input type="button" value="确认充值" class="verify-button btn btn-info" ng-click="recharge(rechargeAmount)" ng-disabled="rechargeForm.$invalid"/>
 		</div>
 	</form>
 	<div class="tip ft-12">
