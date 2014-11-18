@@ -379,27 +379,24 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
               '/invest-verify'];
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
+    $rootScope.isLogged = false;
+    $rootScope.loginName = '';
     if(routespermission.indexOf($location.path()) !== -1) {
       $checkSessionServer.then(function(response){
-        if(response.data.data.name !== '') {
+        if(response.data.data && response.data.data.name !== '' && response.data.data.name !== undefined && response.data.data.name !== null) {
           $rootScope.isLogged = true;
           $rootScope.loginName = response.data.data.name;
           $rootScope.securityStatus = response.data.data.securityStatus;
         } else {
-          $rootScope.isLogged = false;
-          $rootScope.loginName = '';
           $location.path('/login/');
         }
       });
     } else {
       $checkSessionServer.then(function(response) {
-        if(response.data.data.name !== '') {
+        if(response.data.data && response.data.data.name !== '' && response.data.data.name !== undefined && response.data.data.name !== null) {
           $rootScope.isLogged = true;
           $rootScope.loginName = response.data.data.name;
           $rootScope.securityStatus = response.data.data.securityStatus;
-        } else {
-          $rootScope.isLogged = false;
-          $rootScope.loginName = '';
         }
       });
     }
