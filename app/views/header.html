@@ -24,7 +24,9 @@
     <div class="full-screen">
         <div class="container logo">
             <ul class="nav navbar-nav">
-                <li ui-sref="root.login" class="logo-img-1"></li>
+                <!-- <li  ui-sref="root.login" class="logo-img-1"></li> -->
+                <li ng-if="isLogged === true" ui-sref="root.userCenter.account-overview" class="logo-img-1"></li>
+                <li ng-if="isLogged !== true" ui-sref="root.login" class="logo-img-1"></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <a class="active" href="/">首页</a>
