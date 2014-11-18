@@ -1,4 +1,4 @@
-hongcaiApp.controller("RechargeCtrl", [ "$location", "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "DEFAULT_DOMAIN", function ( $location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN) {
+hongcaiApp.controller("RechargeCtrl", [ "$location", "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "DEFAULT_DOMAIN", '$window', function ( $location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, $window) {
 
     $rootScope.selectSide = "recharge";
 
@@ -6,7 +6,7 @@ hongcaiApp.controller("RechargeCtrl", [ "$location", "$scope", "$state", "$rootS
     UserCenterService.getUserBalance.get({}, function(response) {
             if(response.ret == 1) {
                 $scope.balance = response.data.balance;
-            } 
+            }
     });
 
     $scope.checkAmount = function(amount){
@@ -16,29 +16,29 @@ hongcaiApp.controller("RechargeCtrl", [ "$location", "$scope", "$state", "$rootS
             return false;
         }
     }
-    
-	function new_form(){
-		var f = document.createElement("form");
-		document.body.appendChild(f);
-		f.method = "post";
+
+  function new_form(){
+    var f = document.createElement("form");
+    document.body.appendChild(f);
+    f.method = "post";
         //f.target = "_blank";
         return f;
     }
 
     function create_elements(eForm,eName,eValue){
-    	var e=document.createElement("input");
-    	eForm.appendChild(e);
-    	e.type='text';
-    	e.name=eName;
-    	if(!document.all){
-    		e.style.display='none';
-    	}else{
-    		e.style.display='block';
-    		e.style.width='0px';
-    		e.style.height='0px';
-    	}
-    	e.value=eValue;
-    	return e;
+      var e=document.createElement("input");
+      eForm.appendChild(e);
+      e.type='text';
+      e.name=eName;
+      if(!document.all){
+        e.style.display='none';
+      }else{
+        e.style.display='block';
+        e.style.width='0px';
+        e.style.height='0px';
+      }
+      e.value=eValue;
+      return e;
     }
 
     $scope.getPicCaptcha = DEFAULT_DOMAIN + "/siteUser/getPicCaptcha?" + Math.random();
@@ -48,18 +48,18 @@ hongcaiApp.controller("RechargeCtrl", [ "$location", "$scope", "$state", "$rootS
 
     $scope.recharge = function(amount) {
     	UserCenterService.yeepayRecharge.get({amount: amount}, function(response) {
-    		if(response.ret == 1) {
-    			var req = response.data.req;
-    			var sign = response.data.sign;
-                var _f=new_form();
-                create_elements(_f,"req",req);
-                create_elements(_f,"sign",sign);
-                _f.action="http://qa.yeepay.com/member/bha/toRecharge";
-                _f.submit();
-
-            } else {
-
-            }
+        if(response.ret == 1) {
+          var req = response.data.req;
+          var sign = response.data.sign;
+          var _f=new_form();
+          create_elements(_f,"req",req);
+          create_elements(_f,"sign",sign);
+          _f.action="http://qa.yeepay.com/member/bha/toRecharge";
+          _f.submit();
+          } else if(response.ret == -1) {
+            $window.alert(response.msg);
+            $state.go('root.userCenter.security-settings');
+          }
         });
-    };   
+    };
 }]);

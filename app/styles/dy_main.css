@@ -396,6 +396,7 @@ label{
 }
 .a-up-level{
     float: right;
+    margin-top: -28px;
 }
 .center-tips{
     height: 45px;
@@ -713,11 +714,10 @@ label{
 .account-pic,
 .assets-pic {
   height: 313px;
-  width: 313px;
-  margin: 60px auto 50px auto;
+  margin: 0px auto 30px auto;
 }
 .account-pic {
-  margin: -15px 0 0 65px;
+  margin: -15px 0 0 0px;
   float: left;
 }
 .left-message {
@@ -997,7 +997,7 @@ label{
   width: 96px;
 }
 .change-area{
-  border: 1px solid #dfdfdf; 
+  border: 1px solid #dfdfdf;
   width: 650px;
   margin: -15px auto 10px auto;
 }
@@ -1133,7 +1133,7 @@ label{
   color: #9a9595;
 }
 .img-area{
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 .img-introduction{
   height: 150px;
@@ -1264,7 +1264,7 @@ label{
   margin: 90px 0 0 71px;
 }
 .out-card{
-  
+
 }
 /*get-pwd-back*/
 .get-pwd-area{
