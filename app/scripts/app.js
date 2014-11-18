@@ -6,14 +6,16 @@
  * #
  * 宏财JS库依赖以及程序路由主配置文件
  */
- var hongcaiApp = angular.module('hongcaiApp', [
- 	'ngAnimate',
- 	'ngSanitize',
- 	'mgcrea.ngStrap',
- 	'ui.router',
- 	'chartjs',
- 	'ngResource'
- 	]);
+  var hongcaiApp = angular.module('hongcaiApp', [
+    'ngAnimate',
+    'ngSanitize',
+    'mgcrea.ngStrap',
+    'ui.router',
+    'chartjs',
+    'ngResource',
+    'timer',
+    'toaster'
+    ]);
 
  hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
  	$stateProvider
