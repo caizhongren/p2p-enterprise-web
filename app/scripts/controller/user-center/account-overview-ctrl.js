@@ -98,9 +98,9 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
             if (projectBills[j].status == 0){
               projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime * 1000);
               projectBillDetails[i].recentProjectBill = projectBills[j];
-              if(new Date(projectBills[j].repaymentTime * 1000).getFullYear == new Date(response.data.time* 1000).getFullYear && 
-                  new Date(projectBills[j].repaymentTime * 1000).getMonth == new Date(response.data.time* 1000).getMonth &&
-                  new Date(projectBills[j].repaymentTime * 1000).getDate == new Date(response.data.time* 1000).getDate){
+              if(new Date(projectBills[j].repaymentTime * 1000).getFullYear() == new Date(response.data.time* 1000).getFullYear() && 
+                  new Date(projectBills[j].repaymentTime * 1000).getMonth() == new Date(response.data.time* 1000).getMonth() &&
+                  new Date(projectBills[j].repaymentTime * 1000).getDate() == new Date(response.data.time* 1000).getDate()){
                   projectBillDetails[i].project.isAvailableRepayment = true;
               }else{
                   projectBillDetails[i].project.isAvailableRepayment = false;
@@ -159,9 +159,9 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
                   if (projectBills[j].status == 0){
                     projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime * 1000);
                     projectBillDetails[i].recentProjectBill = projectBills[j];
-                    if(new Date(projectBills[j].repaymentTime * 1000).getFullYear == new Date(response.data.time* 1000).getFullYear && 
-                      new Date(projectBills[j].repaymentTime * 1000).getMonth == new Date(response.data.time* 1000).getMonth &&
-                      new Date(projectBills[j].repaymentTime * 1000).getDate == new Date(response.data.time* 1000).getDate){
+                    if(new Date(projectBills[j].repaymentTime * 1000).getFullYear() == new Date(response.data.time* 1000).getFullYear() && 
+                      new Date(projectBills[j].repaymentTime * 1000).getMonth() == new Date(response.data.time* 1000).getMonth() &&
+                      new Date(projectBills[j].repaymentTime * 1000).getDate() == new Date(response.data.time* 1000).getDate()){
                         projectBillDetails[i].project.isAvailableRepayment = true;
                     }else{
                         projectBillDetails[i].project.isAvailableRepayment = false;
