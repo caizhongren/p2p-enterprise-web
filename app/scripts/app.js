@@ -70,16 +70,6 @@
  			}
  		}
  	})
- 	.state('root.userCenter.assets-overview', {
- 		url: '/assets-overview',
- 		views: {
- 			'user-center': {
- 				templateUrl: 'views/user-center/assets-overview.html',
- 				controller: 'AssetsOverviewCtrl',
- 				controllerUrl: 'scripts/controller/user-center/assets-overview-ctrl'
- 			}
- 		}
- 	})
  	.state('root.userCenter.bankcard-management', {
  		url: '/bankcard-management',
  		views: {

@@ -1,42 +1,48 @@
 <!--账户总览-->
-<div class="right-area" ng-controller="AccountOverviewCtrl">
-  <div class="right-title">账户总览</div>
-  <div class="account-message">
-    <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
-      <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" height="313"></cjs-doughnut>
-    </div>
-    <div class="right-message col-md-6 col-lg-5">
-      <div class="left-message-show col-md-12 col-lg-12">
-        <div class="assets-ico total-assets"></div>
-        <p class="asset-tips">累计募资</p>
-        <p class="asset-money">{{(totalFundRaising || 0) | number:2}} 元</p>
-        <ul>
-          <li><span class="asset-tips" style="margin: 0px"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
-          <li><span class="asset-tips" style="margin: 0px"><strong>待还本金:</strong> {{unPrincipal | number:2}} 元</span></li>
-        </ul>
+<div class="right-area right-account-height col-md-8 col-lg-9" ng-controller="AccountOverviewCtrl">
+  <div class="row">
+    <div class="right-title">账户总览</div>
+  </div>
+  <div class="row">
+    <div class="account-message">
+      <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
+        <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" height="313"></cjs-doughnut>
       </div>
-      <div class="left-message-show col-md-12 col-lg-12">
-        <div class="assets-ico net-income"></div>
-        <p class="asset-tips">累计利息</p>
-        <p class="asset-money">{{(accruedInterest || 0) | number:2}} 元</p>
-        <ul>
-          <li><span class="asset-tips" style="margin: 0px;"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span></li>
-        </ul>
-      </div>
+      <div class="right-message col-md-6 col-lg-5">
+        <div class="left-message-show col-md-12 col-lg-12">
+          <div class="assets-ico total-assets"></div>
+          <p class="asset-tips">累计募资</p>
+          <p class="asset-money">{{(totalFundRaising || 0) | number:2}} 元</p>
+          <ul>
+            <li><span class="asset-tips" style="margin: 0px"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+            <li><span class="asset-tips" style="margin: 0px"><strong>待还本金:</strong> {{unPrincipal | number:2}} 元</span></li>
+          </ul>
+        </div>
+        <div class="left-message-show col-md-12 col-lg-12">
+          <div class="assets-ico net-income"></div>
+          <p class="asset-tips">累计利息</p>
+          <p class="asset-money">{{(accruedInterest || 0) | number:2}} 元</p>
+          <ul>
+            <li><span class="asset-tips" style="margin: 0px;"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span></li>
+          </ul>
+        </div>
 
-  		<div class="left-message-show last-show col-md-12 col-lg-12">
-  			<div class="assets-ico account-balance"></div>
-  			<p class="asset-tips">账户余额</p>
-  			<p class="asset-money">{{(balance || 0)| number:2}} 元</p>
-  		</div>
-  		<a ui-sref="root.userCenter.recharge" class="verify-button account-button">充值</a>
-  		<a ui-sref="root.userCenter.withdraw" class="get-verify-button account-button account-right-button">提现</a>
-  	</div>
+    		<div class="left-message-show last-show col-md-12 col-lg-12">
+    			<div class="assets-ico account-balance"></div>
+    			<p class="asset-tips">账户余额</p>
+    			<p class="asset-money">{{(balance || 0)| number:2}} 元</p>
+    		</div>
+    		<input type="button" ui-sref="root.userCenter.recharge" class="red-button account-button col-md-3 col-lg-3" value="充值" />
+        <input type="button" ui-sref="root.userCenter.withdraw" class="white-button account-button account-right-button col-md-3 col-lg-3" value="提现" />
+      </div>
+    </div>
   </div>
   <!-- TODO -->
-	<div class="right-title">筹资信息</div>
+  <div class="row">
+    <div class="right-title">筹资信息</div>
+  </div>
 
-	<div>
+	<div class="row">
 		<div class="news-nav account-nav">
 			<span ng-click="repaymentPro()" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
 			<span ng-click="bidPro()" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>

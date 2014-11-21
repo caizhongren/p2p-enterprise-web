@@ -1,48 +1,36 @@
-hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "$window", 'toaster', function ($scope, $state, $rootScope, $stateParams, UserCenterService, $window, toaster) {
+hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "toaster", function ($scope, $state, $rootScope, $stateParams, UserCenterService, toaster) {
+        
+    $rootScope.selectSide = "security-settings";
+    UserCenterService.userSecurityInfo.get({}, function(response) {
+        if(response.ret == 1) {
+            var userAuth = response.data.userAuth;
+            var user = response.data.user;
+            $scope.email = user.email;
+            $scope.mobile = user.mobile;
+            $scope.realName = userAuth.realName;
+            $scope.idNo = userAuth.idNo;
 
-  $rootScope.selectSide = "security-settings";
-  UserCenterService.userSecurityInfo.get({}, function(response) {
-    if(response.ret == 1) {
-      var user = response.data.user;
-      var userAuth = response.data.userAuth;
-      $scope.email = user.email;
-      $scope.mobile = user.mobile;
-      $scope.realName = userAuth.realName;
-      $scope.idNo = userAuth.idNo;
-      var realNameAuthStatus = userAuth.realNameAuthStatus;
-      if(realNameAuthStatus == 1){
-          $scope.realNameAuthStatus = "认证中";
-          $scope.isRealNameAuth = true;
-      }else if(realNameAuthStatus == 2){
-          $scope.realNameAuthStatus = "已认证";
-          $scope.isRealNameAuth = true;
-      }else if(realNameAuthStatus == 3){
-          $scope.realNameAuthStatus = "认证失败";
-          $scope.isRealNameAuth = false;
-      }
+            if(userAuth.yeepayAccountStatus == 1){
+                $scope.haveTrusteeshipAccount = true;
+            } else {
+                $scope.haveTrusteeshipAccount = false;
+            }
 
-      if(userAuth.yeepayAccountStatus == 1){
-          $scope.haveTrusteeshipAccount = true;
-      } else {
-          $scope.haveTrusteeshipAccount = false;
-      }
-
-    } else {
-        //toaster.pop('warning', "提示", response.msg);
-        //$scope.errorMessage = response.msg;
-        //$scope.warning = true;
-      $state.go('root.login');
-    }
-  });
-
-  $scope.sendMobileCaptcha = function(mobile){
-    UserCenterService.sendMobileCaptcha.get({mobile: mobile}, function(response){
-      if (response.ret == 1){
-        console.log("sendMobileCaptcha success");
-
-      }
+        } else {
+            toaster.pop('warning', "提示", response.msg);
+            //$scope.errorMessage = response.msg;
+            //$scope.warning = true;
+            $state.go('root.login');
+        }
     });
-  };
+
+    $scope.sendMobileCaptcha = function(mobile){
+        UserCenterService.sendMobileCaptcha.get({mobile: mobile}, function(response){
+            if (response.ret == 1){
+                console.log("sendMobileCaptcha success");
+            }
+        });
+    }; 
 
     $scope.bindMobile = function(mobileNo, captcha){
         UserCenterService.bindMobile.get({mobile: mobileNo, captcha: captcha},function(response){
@@ -64,8 +52,6 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
                 $scope.email = email.substr(0,2) + "****" + email.substr(email.indexOf("@"));
                 $scope.changeEmail = false;
                 $scope.newEmail = null;
-                // toaster.pop('success', "提示", response.msg);
-                $window.alert('DEMO,已经绑定邮箱');
             } else {
 
             }
@@ -144,7 +130,7 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
 
             }
         });
-    };     
+    };   
 }]);
 
 
