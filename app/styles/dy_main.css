@@ -42,16 +42,7 @@ input:focus{
 }
 
 .login-right-area{
-  background-position: -1527px -1194px;
-}
-.regist-right-area{
-  background-position: -1574px -695px ;
-}
-.refresh-pic{
-  background-position: -392px -857px;
-}
-.triangle{
-  background-position: -1565px -1183px;
+  background-position: -1481px -1121px;
 }
 .right-title {
   background-position: -858px -130px;
@@ -277,7 +268,9 @@ input:focus{
 .account-investment,.safe-process,.dynamic-show {
   height: 135px;
 }
-
+.total-assets{
+  background-color: #e94828;
+}
 .available-balance {
   background-color: #d2cb3f;
 }
@@ -295,7 +288,7 @@ input:focus{
 .income-received {
   background-color: #913969;
 }
-.accumulated-investment,.total-assets,.white-button:hover,.real-name .set-transactionPwd,
+.accumulated-investment,.white-button:hover,.real-name .set-transactionPwd,
 .blue-button,.login-title,.red-regist,.left-show-area-bg,.on-it div{
   background-color: #3399cc;
 }
