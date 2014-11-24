@@ -69,6 +69,7 @@
               <tr>
                 <td>还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
                 <td>应付款项：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
+                <td>期数：   第{{projectBillDetail.recentProjectBill.repaymentNo}}期</td>
               </tr>
             </table>
             <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg {{projectBillDetail.project.isAvailableRepayment ? 'active' : ''}}" ng-value="projectBillDetail.project.isAvailableRepayment ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project)" ng-disabled="!projectBillDetail.project.isAvailableRepayment"/>
