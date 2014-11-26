@@ -846,3 +846,6 @@ input:focus{
 .news-nav .active{
   border-bottom: 1px solid white;
 }
+.project-area{
+  padding-left: 60px;
+}
