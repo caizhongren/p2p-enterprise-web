@@ -715,7 +715,8 @@ input:focus{
   background-position: -795px -1380px;
 }
 .add-card{
-  margin: 90px 0 0 71px;
+  margin-top: 90px;
+  text-align: center;
 }
 .border-end{
   border-bottom: 1px solid #dbdbdb;
