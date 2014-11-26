@@ -6,7 +6,7 @@
     <div class="verify-area introduction-area border-none row">
         <a href="javacscript:;" ng-show="isVerifying" ng-init="isAuth=false">
             <div class="bank-card-show">
-                <p>认证中</p>
+                <p class="add-card" >认证中</p>
             </div>
         </a>
         <a href="javacscript:;" ng-show="isAuth && !haveCard && !isVerifying" ng-init="isAuth=false" ng-click="bindBankCard()">
