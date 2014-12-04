@@ -1,10 +1,22 @@
-hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService) {
+hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", 'ipCookie', function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService, ipCookie) {
 
   // b端登录后没有首页展示，当判断用户已经登录，自动跳转个人中心
   if($rootScope.isLogged === true) {
     $state.go('root.userCenter.account-overview');
   }
+
+  if (ipCookie('userName')){
+      $scope.user = [];
+      $scope.user.account = ipCookie('userName');
+  }
+
   $scope.login = function(user){
+
+    //记住用户名处理
+    if ($scope.rememberUserName){
+        ipCookie('userName', user.account, { expires: 60 })
+    }
+
     LoginService.userLogin.get({account: user.account, password: user.password, type: 1 }, function(response) {
       if(response.ret == 1) {
         SessionService.set("user", response.data.user.name);
