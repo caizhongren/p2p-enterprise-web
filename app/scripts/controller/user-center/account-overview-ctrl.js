@@ -96,11 +96,11 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
           var projectBills = projectBillDetails[i].projectBills;
           for (var j = projectBills.length - 1; j >= 0; j--) {
             if (projectBills[j].status == 0){
-              projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime * 1000);
+              projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
               projectBillDetails[i].recentProjectBill = projectBills[j];
-              if(new Date(projectBills[j].repaymentTime * 1000).getFullYear() == new Date(response.data.time* 1000).getFullYear() && 
-                  new Date(projectBills[j].repaymentTime * 1000).getMonth() == new Date(response.data.time* 1000).getMonth() &&
-                  new Date(projectBills[j].repaymentTime * 1000).getDate() == new Date(response.data.time* 1000).getDate()){
+              if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() && 
+                  new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
+                  new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
                   projectBillDetails[i].project.isAvailableRepayment = true;
               }else{
                   projectBillDetails[i].project.isAvailableRepayment = false;
@@ -133,7 +133,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
             $scope.projectBillDetails = response.data.projectBillDetails;
             for (var i = 0; i < response.data.projectBillDetails.length; i++) {
-                $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime * 1000);
+                $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
                 $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock)/$scope.projectBillDetails[i].project.countInvest * 100;
             }
             if(response.data.projectBillDetails.length != 0){
@@ -157,11 +157,11 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
                 var projectBills = projectBillDetails[i].projectBills;
                 for (var j = projectBills.length - 1; j >= 0; j--) {
                   if (projectBills[j].status == 0){
-                    projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime * 1000);
+                    projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
                     projectBillDetails[i].recentProjectBill = projectBills[j];
-                    if(new Date(projectBills[j].repaymentTime * 1000).getFullYear() == new Date(response.data.time* 1000).getFullYear() && 
-                      new Date(projectBills[j].repaymentTime * 1000).getMonth() == new Date(response.data.time* 1000).getMonth() &&
-                      new Date(projectBills[j].repaymentTime * 1000).getDate() == new Date(response.data.time* 1000).getDate()){
+                    if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() && 
+                      new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
+                      new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
                         projectBillDetails[i].project.isAvailableRepayment = true;
                     }else{
                         projectBillDetails[i].project.isAvailableRepayment = false;
@@ -193,7 +193,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
         UserCenterService.getProjectByStatus.get({status: $scope.statusx}, function(response){
             $scope.projectBillDetails = response.data.projectBillDetails;
             for (var i = 0; i < response.data.projectBillDetails.length; i++) {
-                $scope.projectBillDetails[i].project.releaseEndTimeStr = new Date($scope.projectBillDetails[i].project.releaseEndTime * 1000);
+                $scope.projectBillDetails[i].project.releaseEndTimeStr = new Date($scope.projectBillDetails[i].project.releaseEndTime);
                 $scope.projectBillDetails[i].project.projectBackCapital = 0;
                 for (var j = $scope.projectBillDetails[i].projectBills.length - 1; j >= 0; j--) {
                     $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + $scope.projectBillDetails[i].projectBills[j].repaymentInterest;
