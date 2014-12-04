@@ -5,16 +5,19 @@ hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$statePar
     $state.go('root.userCenter.account-overview');
   }
 
-  if (ipCookie('userName')){
+  /**
+   * 从cookie中读取用户名
+   */
+  if (ipCookie('bUserName')){
       $scope.user = [];
-      $scope.user.account = ipCookie('userName');
+      $scope.user.account = ipCookie('bUserName');
   }
 
   $scope.login = function(user){
 
     //记住用户名处理
     if ($scope.rememberUserName){
-        ipCookie('userName', user.account, { expires: 60 })
+        ipCookie('bUserName', user.account, { expires: 60 })
     }
 
     LoginService.userLogin.get({account: user.account, password: user.password, type: 1 }, function(response) {
