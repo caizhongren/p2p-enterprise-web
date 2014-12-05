@@ -80,7 +80,7 @@
   		<!--投标中-->
       <br>
       <br>
-  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 8" >
+  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 8 || status === 7" >
         <div class="panel panel-info">
           <div class="panel-heading">{{projectBillDetail.project.name}}</div>
           <div class="panel-body">
