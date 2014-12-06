@@ -16,7 +16,8 @@
     'timer',
     'toaster',
     'ipCookie',
-    'config'
+    'config',
+    'angular-md5'
     ]);
 
  hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
