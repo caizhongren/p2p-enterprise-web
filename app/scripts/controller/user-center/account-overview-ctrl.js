@@ -98,7 +98,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
             if (projectBills[j].status == 0){
               projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
               projectBillDetails[i].recentProjectBill = projectBills[j];
-              if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() && 
+              if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() &&
                   new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
                   new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
                   projectBillDetails[i].project.isAvailableRepayment = true;
@@ -159,12 +159,13 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
                   if (projectBills[j].status == 0){
                     projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
                     projectBillDetails[i].recentProjectBill = projectBills[j];
-                    if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() && 
+                    if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() &&
                       new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
                       new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
                         projectBillDetails[i].project.isAvailableRepayment = true;
                     }else{
-                        projectBillDetails[i].project.isAvailableRepayment = false;
+                        //projectBillDetails[i].project.isAvailableRepayment = false;
+                        projectBillDetails[i].project.isAvailableRepayment = true;
                     }
                     break;
                   }
