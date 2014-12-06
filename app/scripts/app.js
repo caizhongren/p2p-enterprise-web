@@ -172,6 +172,16 @@
       }
     }
   })
+  .state('root.bankcard-success', {
+    url: '/bankcard-success',
+    views: {
+      '': {
+        templateUrl: 'views/user-center/success.html',
+        controller: 'BankcardSuccessCtrl',
+        controllerUrl: 'scripts/controller/user-center/bankcard-success-ctrl'
+      }
+    }
+  })
  	/*---------------------------------------------  yeepay  ---------------------------------------------*/
  	.state('root.userCenter.yeepay-callback', {
  		url: '/yeepay-callback/:yeepayService/:yeepayStatus',
