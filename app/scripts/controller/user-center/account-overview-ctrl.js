@@ -1,4 +1,4 @@
-hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", function ($scope, $state, $rootScope, $stateParams, UserCenterService) {
+hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", 'config', function ($scope, $state, $rootScope, $stateParams, UserCenterService, config) {
 
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
@@ -267,7 +267,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 	            var _f=new_form();
 	            create_elements(_f,"req",req);
 	            create_elements(_f,"sign",sign);
-	            _f.action="http://qa.yeepay.com/member/bha/toRepayment";
+	            _f.action= config.YEEPAY_ADDRESS + "toRepayment";
 	            _f.submit();
 
 	        } else {
