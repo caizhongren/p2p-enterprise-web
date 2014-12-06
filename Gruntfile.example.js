@@ -29,6 +29,30 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    ngconstant: {
+
+          development: {
+            options: {
+              dest: '.tmp/scripts/config.js',
+              name: 'config',
+              constants: {
+                config: grunt.file.readJSON('config_dev.json')
+              }
+            }
+          },
+
+
+          production: {
+            options: {
+              dest: '.tmp/scripts/config.js',
+              name: 'config',
+              constants: {
+                config: grunt.file.readJSON('config_pro.json')
+              }
+            }
+          }
+        },
+
     // Project settings
     yeoman: appConfig,
 
@@ -376,6 +400,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
@@ -400,6 +425,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
@@ -408,6 +434,25 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
+    'cssmin',
+    'uglify',
+    'filerev',
+    'usemin',
+    'htmlmin'
+  ]);
+
+     grunt.registerTask('buildTest43', [
+    'clean:dist',
+    'ngconstant:development',
+    'wiredep',
+    'less',
+    'useminPrepare',
+    'concurrent:dist',
+    'autoprefixer',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    // 'cdnify',
     'cssmin',
     'uglify',
     'filerev',
