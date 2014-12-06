@@ -1,5 +1,5 @@
-hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "toaster", function ($scope, $state, $rootScope, $stateParams, UserCenterService, toaster) {
-        
+hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "toaster", 'config', function ($scope, $state, $rootScope, $stateParams, UserCenterService, toaster, config) {
+
     $rootScope.selectSide = "security-settings";
     UserCenterService.userSecurityInfo.get({}, function(response) {
         if(response.ret == 1) {
@@ -30,7 +30,7 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
                 console.log("sendMobileCaptcha success");
             }
         });
-    }; 
+    };
 
     $scope.bindMobile = function(mobileNo, captcha){
         UserCenterService.bindMobile.get({mobile: mobileNo, captcha: captcha},function(response){
@@ -125,7 +125,7 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
                 var _f=new_form();
                 create_elements(_f,"req",req);
                 create_elements(_f,"sign",sign);
-                _f.action="http://qa.yeepay.com/member/bha/toRegister";
+                _f.action = config.YEEPAY_ADDRESS + 'toRegister';
                 _f.submit();
                 $rootScope.securityStatus.realNameAuthStatus = 1;
 
@@ -133,8 +133,8 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
 
             }
         });
-    };   
+    };
 }]);
 
 
- 
+

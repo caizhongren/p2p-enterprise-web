@@ -15,7 +15,8 @@
     'ngResource',
     'timer',
     'toaster',
-    'ipCookie'
+    'ipCookie',
+    'config'
     ]);
 
  hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
