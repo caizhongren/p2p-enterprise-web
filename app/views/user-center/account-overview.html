@@ -72,7 +72,7 @@
                 <td>期数：   第{{projectBillDetail.recentProjectBill.repaymentNo}}期</td>
               </tr>
             </table>
-            <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg {{projectBillDetail.project.isAvailableRepayment ? 'active' : ''}}" ng-value="projectBillDetail.project.isAvailableRepayment ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project)" ng-disabled="!projectBillDetail.project.isAvailableRepayment"/>
+            <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project)" />
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", function ($scope, $state, $rootScope, $stateParams, UserCenterService) {
+hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", 'config', function ($scope, $state, $rootScope, $stateParams, UserCenterService, config) {
 
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
@@ -98,7 +98,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
             if (projectBills[j].status == 0){
               projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
               projectBillDetails[i].recentProjectBill = projectBills[j];
-              if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() && 
+              if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() &&
                   new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
                   new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
                   projectBillDetails[i].project.isAvailableRepayment = true;
@@ -153,22 +153,23 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
               var projectBillDetails = response.data.projectBillDetails;
 
               for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-                projectBillDetails[i]
+                projectBillDetails[i].project.isAvailableRepayment = true;
                 var projectBills = projectBillDetails[i].projectBills;
-                for (var j = projectBills.length - 1; j >= 0; j--) {
-                  if (projectBills[j].status == 0){
-                    projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
-                    projectBillDetails[i].recentProjectBill = projectBills[j];
-                    if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() && 
-                      new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
-                      new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
-                        projectBillDetails[i].project.isAvailableRepayment = true;
-                    }else{
-                        projectBillDetails[i].project.isAvailableRepayment = false;
-                    }
-                    break;
-                  }
-                };
+                // for (var j = projectBills.length - 1; j >= 0; j--) {
+                //   if (projectBills[j].status == 0){
+                //     projectBills[j].repaymentTimeDate = new  Date(projectBills[j].repaymentTime);
+                //     projectBillDetails[i].recentProjectBill = projectBills[j];
+                //     if(new Date(projectBills[j].repaymentTime).getFullYear() == new Date(response.data.time).getFullYear() &&
+                //       new Date(projectBills[j].repaymentTime).getMonth() == new Date(response.data.time).getMonth() &&
+                //       new Date(projectBills[j].repaymentTime).getDate() == new Date(response.data.time).getDate()){
+                //         projectBillDetails[i].project.isAvailableRepayment = true;
+                //     }else{
+                //         //projectBillDetails[i].project.isAvailableRepayment = false;
+                //         projectBillDetails[i].project.isAvailableRepayment = true;
+                //     }
+                //     break;
+                //   }
+                // };
               };
 
               $scope.projectBillDetails = projectBillDetails;
@@ -266,7 +267,7 @@ hongcaiApp.controller("AccountOverviewCtrl", [ "$scope", "$state", "$rootScope",
 	            var _f=new_form();
 	            create_elements(_f,"req",req);
 	            create_elements(_f,"sign",sign);
-	            _f.action="http://qa.yeepay.com/member/bha/toRepayment";
+	            _f.action= config.YEEPAY_ADDRESS + "toRepayment";
 	            _f.submit();
 
 	        } else {
