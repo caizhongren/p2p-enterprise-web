@@ -56,7 +56,7 @@
 		<!--还款中-->
       <br>
       <br>
-  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status == 9" >
+  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 9" >
         <div class="panel panel-info">
           <div class="panel-heading">{{projectBillDetail.project.name}}</div>
           <div class="panel-body">
@@ -80,7 +80,7 @@
   		<!--投标中-->
       <br>
       <br>
-  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status == 7" >
+  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 8 || status === 7" >
         <div class="panel panel-info">
           <div class="panel-heading">{{projectBillDetail.project.name}}</div>
           <div class="panel-body">
@@ -103,7 +103,7 @@
   		<!--已结清-->
       <br>
       <br>
-  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status == 3">
+  		<div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 3">
         <div class="panel panel-info">
           <div class="panel-heading">{{projectBillDetail.project.name}}</div>
           <div class="panel-body">

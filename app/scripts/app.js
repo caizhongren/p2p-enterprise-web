@@ -14,7 +14,8 @@
     'chartjs',
     'ngResource',
     'timer',
-    'toaster'
+    'toaster',
+    'ipCookie'
     ]);
 
  hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
