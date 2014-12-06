@@ -1,0 +1,16 @@
+'use strict';
+hongcaiApp.controller('YeepaySuccessCtrl', ["$scope", "$state", '$timeout', "$rootScope", "$stateParams",  "SessionService", "DEFAULT_DOMAIN", "toaster", function ($scope, $state, $timeout, $rootScope, $stateParams,  SessionService, DEFAULT_DOMAIN, toaster) {
+
+  $scope.counter = 5;
+    $scope.onTimeout = function(){
+      $scope.counter--;
+      mytimeout = $timeout($scope.onTimeout,1000);
+      if($scope.counter === 0) {
+        $state.go('root.userCenter.security-settings');
+      }
+    }
+    var mytimeout = $timeout($scope.onTimeout,1000);
+    $scope.$on('$stateChangeStart', function(){
+      $timeout.cancel(mytimeout);
+    });
+}]);

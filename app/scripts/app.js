@@ -160,6 +160,16 @@
  			}
  		}
  	})
+  .state('root.userCenter.yeepay-success', {
+    url: '/yeepay-success',
+    views: {
+      'user-center': {
+        templateUrl: 'views/user-center/success.html',
+        controller: 'YeepaySuccessCtrl',
+        controllerUrl: 'scripts/controller/user-center/yeepay-success-ctrl'
+      }
+    }
+  })
  	/*---------------------------------------------  yeepay  ---------------------------------------------*/
  	.state('root.userCenter.yeepay-callback', {
  		url: '/yeepay-callback/:yeepayService/:yeepayStatus',
