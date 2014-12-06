@@ -161,7 +161,7 @@
  			}
  		}
  	})
-  .state('root.userCenter.yeepay-success', {
+  .state('root.yeepay-success', {
     url: '/yeepay-success',
     views: {
       'user-center': {
