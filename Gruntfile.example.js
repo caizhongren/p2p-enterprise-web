@@ -457,7 +457,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'ngconstant:development',
     'wiredep',
-    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
