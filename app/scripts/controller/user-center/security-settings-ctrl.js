@@ -1,4 +1,4 @@
-hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "toaster", 'config', function ($scope, $state, $rootScope, $stateParams, UserCenterService, toaster, config) {
+hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "UserCenterService", "toaster", 'config', 'md5', function ($scope, $state, $rootScope, $stateParams, UserCenterService, toaster, config, md5) {
 
     $rootScope.selectSide = "security-settings";
     UserCenterService.userSecurityInfo.get({}, function(response) {
@@ -68,12 +68,14 @@ hongcaiApp.controller("SecuritySettingsCtrl", ["$scope", "$state", "$rootScope",
         }
 
     }
-
+    var md5Password = function(password) {
+      return md5.createHash(password);
+    }
     $scope.changePassword = function(password){
         if (password.repeatNewPassword != password.newPassword) {
             return;
         };
-        UserCenterService.changePassword.get({oldPassword: password.oldPassword, newPassword: password.newPassword, repeatNewPassword: password.repeatNewPassword},function(response){
+        UserCenterService.changePassword.get({oldPassword: md5Password(password.oldPassword), newPassword: md5Password(password.newPassword), repeatNewPassword: md5Password(password.repeatNewPassword)},function(response){
             if (response.ret == 1){
                 $scope.changPwd = false;
                 $scope.password = null;
