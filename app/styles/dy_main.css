@@ -637,8 +637,8 @@ input:focus{
   margin-left: 40px;
 }
 .account-button {
-  margin-top: -10px;
-  margin-left: 45px;
+  margin-left: 15px;
+  margin-top: 10px;
 }
 .right-area .account-right-button {
   margin-left: 15px;
@@ -662,6 +662,10 @@ input:focus{
   height: 20px;
   margin-left: 20px;
   line-height: 14px;
+}
+.asset-mar{
+  margin-left: -20px;
+  margin-bottom: 20px;
 }
 .asset-money {
   font-size: 24px;
