@@ -123,8 +123,8 @@
 						ng-focus required autofocus/>
 
 					<input type="button" value="获取验证码"
-						class="{{changeMobileForm.mobileNo.$invalid ? 'blue-button verify-index grey' : 'blue-button verify-index'}} col-md-offset-1 col-lg-offset-1 col-md-2 col-lg-2"
-						ng-click="sendMobileCaptcha(mobileNo)" onclick="countDown(this,60);" id="getVerify" ng-disabled="changeMobileForm.mobileNo.$invalid"/>
+						class="{{changeMobileForm.mobileNo.$invalid ? 'blue-button verify-index grey' : 'blue-button verify-index'}} col-md-2 col-lg-2 col-md-offset-1 col-lg-offset-1"
+
 					<div ng-show="changeMobileForm.mobileNo.$dirty && changeMobileForm.mobileNo.$invalid && !changeMobileForm.mobileNo.$focused" class="col-lg-2 col-md-2">
 						<div  class="user-tips-area row" 
 								ng-show="changeMobileForm.mobileNo.$error.required &&

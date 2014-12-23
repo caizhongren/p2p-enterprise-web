@@ -9,25 +9,25 @@
         <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" height="313"></cjs-doughnut>
       </div>
       <div class="right-message col-md-6 col-lg-5">
-        <div class="left-message-show col-md-12 col-lg-12">
+        <div class="col-md-12 col-lg-12">
           <div class="assets-ico total-assets"></div>
           <p class="asset-tips">累计募资</p>
           <p class="asset-money">{{(totalFundRaising || 0) | number:2}} 元</p>
           <ul>
-            <li><span class="asset-tips" style="margin: 0px"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
-            <li><span class="asset-tips" style="margin: 0px"><strong>待还本金:</strong> {{unPrincipal | number:2}} 元</span></li>
+            <li><span class="asset-tips asset-mar"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+            <li><span class="asset-tips asset-mar"><strong>待还本金:</strong> {{unPrincipal | number:2}} 元</span></li>
           </ul>
         </div>
-        <div class="left-message-show col-md-12 col-lg-12">
+        <div class="col-md-12 col-lg-12 ">
           <div class="assets-ico net-income"></div>
           <p class="asset-tips">累计利息</p>
           <p class="asset-money">{{(accruedInterest || 0) | number:2}} 元</p>
           <ul>
-            <li><span class="asset-tips" style="margin: 0px;"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span></li>
+            <li><span class="asset-tips asset-mar"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span></li>
           </ul>
         </div>
 
-    		<div class="left-message-show last-show col-md-12 col-lg-12">
+    		<div class="last-show col-md-12 col-lg-12 ">
     			<div class="assets-ico account-balance"></div>
     			<p class="asset-tips">账户余额</p>
     			<p class="asset-money">{{(balance || 0)| number:2}} 元</p>
