@@ -74,8 +74,8 @@ module.exports = function(grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        files: ['<%= yeoman.app %>/styles/{,*/}*.css', '<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['newer:copy:styles', 'autoprefixer', 'less']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -204,6 +204,21 @@ module.exports = function(grunt) {
       }
     },
 
+    less: {
+      server: {
+        options: {
+          paths: ['<%= yeoman.app %>/styles']
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: '**/*.less',
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
+      }
+    },
+
     // Renames files for browser caching purposes
     filerev: {
       dist: {
@@ -238,7 +253,7 @@ module.exports = function(grunt) {
                     keepSpecialComments: 0,
                     banner: '/*! All Rights Reserved by hongcai.com. */',
                     compatibility: 'ie8'
-                  }
+                  };
                 }
               }]
             }
@@ -412,6 +427,7 @@ module.exports = function(grunt) {
       'clean:server',
       'ngconstant:development',
       'wiredep',
+      'less',
       'concurrent:server',
       'autoprefixer',
       'configureProxies:server',
@@ -437,6 +453,7 @@ module.exports = function(grunt) {
     'clean:dist',
     'ngconstant:production',
     'wiredep',
+    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
@@ -455,6 +472,7 @@ module.exports = function(grunt) {
     'clean:dist',
     'ngconstant:development',
     'wiredep',
+    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

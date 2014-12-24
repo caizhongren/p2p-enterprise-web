@@ -1,6 +1,6 @@
 'use strict';
-hongcaiApp.controller('BankcardSuccessCtrl', ['$scope', '$timeout', '$state', '$rootScope', '$stateParams', function($scope, $timeout, $state, $rootScope, $stateParams) {
-  $scope.page = 5;
+hongcaiApp.controller('WithdrawSuccessCtrl', ['$scope', '$timeout', '$state', '$rootScope', '$stateParams', function($scope, $timeout, $state, $rootScope, $stateParams) {
+  $scope.page = 3;
   // $scope.counter = 5;
   // $scope.onTimeout = function() {
   //   $scope.counter--;
