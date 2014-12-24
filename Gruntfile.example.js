@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
@@ -31,27 +31,27 @@ module.exports = function (grunt) {
 
     ngconstant: {
 
-          development: {
-            options: {
-              dest: '.tmp/scripts/config.js',
-              name: 'config',
-              constants: {
-                config: grunt.file.readJSON('config_dev.json')
-              }
-            }
-          },
-
-
-          production: {
-            options: {
-              dest: '.tmp/scripts/config.js',
-              name: 'config',
-              constants: {
-                config: grunt.file.readJSON('config_pro.json')
-              }
-            }
+      development: {
+        options: {
+          dest: '.tmp/scripts/config.js',
+          name: 'config',
+          constants: {
+            config: grunt.file.readJSON('config_dev.json')
           }
-        },
+        }
+      },
+
+
+      production: {
+        options: {
+          dest: '.tmp/scripts/config.js',
+          name: 'config',
+          constants: {
+            config: grunt.file.readJSON('config_pro.json')
+          }
+        }
+      }
+    },
 
     // Project settings
     yeoman: appConfig,
@@ -97,20 +97,18 @@ module.exports = function (grunt) {
       options: {
         port: 9002,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '0.0.0.0',
+        hostname: 'localhost',
         livereload: 35728
       },
-      proxies: [
-        {
-          context: '/enterprise/api/v1',
-          host: '192.168.80.7',
-          port: 8090
-        }
-      ],
+      proxies: [{
+        context: '/enterprise/api/v1',
+        host: '192.168.1.43',
+        port: 8000
+      }],
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               require('grunt-connect-proxy/lib/utils').proxyRequest,
               modRewrite(['^[^\\.]*$ /index.html [L]']),
@@ -127,7 +125,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           port: 9001,
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               connect.static('.tmp'),
               connect.static('test'),
@@ -202,7 +200,7 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//
       }
     },
 
@@ -234,7 +232,7 @@ module.exports = function (grunt) {
             post: {
               css: [{
                 name: 'cssmin',
-                createConfig: function (context) {
+                createConfig: function(context) {
                   var generated = context.options.generated;
                   generated.options = {
                     keepSpecialComments: 0,
@@ -254,7 +252,7 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images']
       }
     },
 
@@ -405,7 +403,7 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
+  grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
@@ -422,7 +420,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
+  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function(target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });
@@ -453,7 +451,7 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-     grunt.registerTask('buildTest43', [
+  grunt.registerTask('buildTest43', [
     'clean:dist',
     'ngconstant:development',
     'wiredep',
