@@ -74,6 +74,18 @@
     <script src="bower_components/angular-md5/angular-md5.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+     <toaster-container toaster-options="{
+      'close-button': true,
+      'debug': false,
+      'position-class': 'toast-top-center',
+      'onclick': null,
+      'time-out': '5000',
+      'extended-timeOut': '1000',
+      'show-easing': 'swing',
+      'hide-easing': 'linear',
+      'show-method': 'fadeIn',
+      'hide-method': 'fadeOut'
+    }"></toaster-container>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>

@@ -1,4 +1,4 @@
-hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", 'ipCookie', 'md5', function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService, ipCookie, md5) {
+hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", 'ipCookie', 'md5','toaster', function ($scope, $state, $rootScope, $stateParams, LoginService, SessionService, ipCookie, md5, toaster) {
 
   // b端登录后没有首页展示，当判断用户已经登录，自动跳转个人中心
   if($rootScope.isLogged === true) {
@@ -26,9 +26,11 @@ hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$statePar
         $state.go('root.userCenter.account-overview');
         $rootScope.loginName = response.data.user.name;
         $rootScope.isLogged = true;
+        toaster.pop('success','恭喜您，登录成功！');
       } else {
          if (response.code == -1009){
             $scope.isPasswordError = true;
+             toaster.pop('error', response.msg);
         }
         // toaster.pop('warning', "提示", response.msg);
         //$scope.errorMessage = response.msg;
