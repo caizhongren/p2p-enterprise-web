@@ -1,16 +1,16 @@
 'use strict';
-angular.module('hongcaiApp').directive('helpsidebar', ['$location', '$rootScope', function($location, $rootScope) {
+angular.module('hongcaiApp').directive('helpsidebar', ['$location', function($location) {
 	return {
 		restrict: 'E',
 		replace: true,
 		scope: {
 			menus: '='
 		},
-		link: function postLink(scope, element, attrs, controller) {
+		link: function postLink(scope, element) {
 			scope.$watch(function() {
 				return $location.path();
-			}, function(newValue, oldValue) {
-				$('a[href]', element).each(function(k, a) {
+			}, function(newValue) {
+				angular.element('a[href]', element).each(function(k, a) {
 					var $a = angular.element(a),
 					pattern = $a.attr('href'),
 					regexp = new RegExp('^' + pattern + '$', ['i']);

@@ -419,5 +419,5 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
   });
 });
 
-hongcaiApp.constant('DEFAULT_DOMAIN', "/enterprise/api/v1");
+hongcaiApp.constant('DEFAULT_DOMAIN', '/enterprise/api/v1');
 

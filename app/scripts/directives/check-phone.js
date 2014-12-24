@@ -4,12 +4,12 @@ angular.module('hongcaiApp').directive('checkPhone', ['$http', 'DEFAULT_DOMAIN',
 		require: 'ngModel',
 		link: function(scope, elem, attrs, ctrl) {
 			scope.$watch(attrs.ngModel, function() {
-				var phone = angular.element("#" + attrs.checkPhone).val();
-				if(phone != "") {
+				var phone = angular.element('#' + attrs.checkPhone).val();
+				if(phone !== '') {
 					$http({
 						method: 'POST',
 						url: DEFAULT_DOMAIN + '/siteUser/findAccount?account=' + phone
-					}).success(function(data, status, headers, cfg) {
+					}).success(function(data) {
 						if(data.data.user) {
 							console.log(data.data.user);
 							scope.usermessage =  data.data.user;
@@ -17,11 +17,11 @@ angular.module('hongcaiApp').directive('checkPhone', ['$http', 'DEFAULT_DOMAIN',
 						} else if(!data.data.user) {
 							ctrl.$setValidity('unique', false);
 						}
-					}).error(function(data, status, headers, cfg) {
+					}).error(function() {
 						ctrl.$setValidity('unique', false);
 					});
 				}
 			});
 		}
-	}
+	};
 }]);
