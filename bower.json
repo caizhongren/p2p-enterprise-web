@@ -15,8 +15,7 @@
     "fontawesome": "~4.2.0",
     "ng-chartjs": "~0.0.5",
     "angular-strap": "~2.1.1",
-    "angular-timer": "~1.1.7",
-    "AngularJS-Toaster": "~0.4.8",
+    "angularjs-toaster": "~0.4.9",
     "angular-cookie": "~4.0.6",
     "angular-md5": "~0.1.7"
   },
