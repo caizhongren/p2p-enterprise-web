@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="form-group">
 					<label class="col-md-3 col-lg-2"></label>
-					<input type="button" value="确认提现" class="blue-button" ng-click="withdraw(amount, captcha)" ng-disabled="withdrawForm.$invalid || checkLargestAmount(amount)"/>
+					<input type="button" value="确认提现" class="white-button" ng-click="withdraw(amount, captcha)" ng-disabled="withdrawForm.$invalid || checkLargestAmount(amount)" ng-class="{'white-button':withdrawForm.$invalid || checkLargestAmount(amount), 'blue-button':!withdrawForm.$invalid && !checkLargestAmount(amount)}"/>
 				</div>
 			</div>
 		</form>
