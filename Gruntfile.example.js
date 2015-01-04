@@ -481,22 +481,23 @@ module.exports = function (grunt) {
   ]);
 
      grunt.registerTask('buildTest321', [
-       'clean:dist',
-       'ngconstant:developmentTest321',
-       'wiredep',
-       'less',
-       'useminPrepare',
-       'concurrent:dist',
-       'autoprefixer',
-       'concat',
-       'ngAnnotate',
-       'copy:dist',
-       // 'cdnify',
-       'cssmin',
-       'uglify',
-       'filerev',
-       'usemin',
-       'htmlmin'
+
+      'clean:dist',
+      'ngconstant:developmentTest321',
+      'wiredep',
+      'useminPrepare',
+      'concurrent:dist',
+      'autoprefixer',
+      'concat',
+      'ngAnnotate',
+      'copy:dist',
+      // 'cdnify',
+      'cssmin',
+      'uglify',
+      'filerev',
+      'usemin',
+      'htmlmin'
+
      ]);
 
   grunt.registerTask('default', [
