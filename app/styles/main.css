@@ -184,9 +184,9 @@ hr {
   padding-left: 0;
 }
 .logo-img-1 {
-  width: 265px;
+  width: 289px;
   height: 80px;
-  background: url('/images/sprite.png') -1401px 0;
+  background: url('/images/sprite.png') -1366px 0;
   cursor: pointer;
 }
 /*index*/
