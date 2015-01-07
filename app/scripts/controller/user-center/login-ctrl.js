@@ -18,7 +18,9 @@ hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$statePar
 
     //记住用户名处理
     if ($scope.rememberUserName) {
-      ipCookie('bUserName', user.account, { expires: 60})
+      ipCookie('bUserName', user.account, {
+        expires: 60
+      })
     }
     var md5Password = md5.createHash(user.password);
     LoginService.userLogin.get({

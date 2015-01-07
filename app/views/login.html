@@ -9,13 +9,7 @@
         <form class="form-login col-md-12 col-lg-12" role="form" name="loginForm" ng-submit="login(user)">
           <div class="form-group col-md-12 col-lg-12">
             <label for="account" class="col-md-3 col-lg-3">账户：</label>
-            <input type="text"
-              class="col-md-6 col-lg-6"
-              id="account"
-              name="account"
-              ng-model="user.account"
-              required
-              autofocus>
+            <input type="text" class="col-md-6 col-lg-6" id="account" name="account" ng-model="user.account" required autofocus>
             <div ng-if="loginForm.account.$dirty && loginForm.account.$invalid" class="col-lg-9 col-md-9 col-md-offset-3 col-lg-offset-3 form-div">
               <div ng-if="loginForm.account.$error.required" class="row">
                 <img ng-src="images/check_no.png" class="login-check-img">
@@ -25,12 +19,7 @@
           </div>
           <div class="form-group col-md-12 col-lg-12">
             <label for="password" class="col-md-3 col-lg-3">密码：</label>
-            <input type="password"
-              class="col-md-6 col-lg-6"
-              name="password"
-              ng-model="user.password"
-              required
-              autofocus>
+            <input type="password" class="col-md-6 col-lg-6" name="password" ng-model="user.password" required autofocus>
             <div ng-if="loginForm.password.$dirty && loginForm.password.$invalid" class="col-lg-9 col-md-9 col-md-offset-3 col-lg-offset-3 form-div">
               <div ng-if="loginForm.password.$error.required" class="row">
                 <img ng-src="images/check_no.png" class="login-check-img">
@@ -47,7 +36,7 @@
           <div class="form-group col-md-12 col-lg-12">
             <label class="col-md-3 col-lg-3"></label>
             <div class="col-md-6 col-lg-6 no-padding">
-              <input type="checkbox"  class="p-checkbox"  ng-model="rememberUserName" ng-init="rememberUserName = true">
+              <input type="checkbox" class="p-checkbox" ng-model="rememberUserName" ng-init="rememberUserName = true">
               <p class="p-remember">记住用户名</p>
             </div>
             <input type="submit" class="blue-button col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3" ng-disabled="loginForm.$invalid && !isPasswordError" value="立即登录">
@@ -56,7 +45,8 @@
       </div>
     </div>
     <div class="login-right-area col-md-6 col-lg-6">
-      <p class="p-login-right col-md-12 col-lg-12">还没有宏财帐号？<a ui-sref="root.registerMobile">立即注册</a></p>
+      <p class="p-login-right col-md-12 col-lg-12">还没有宏财帐号？<a ui-sref="root.registerMobile">立即注册</a>
+      </p>
     </div>
   </div>
 </div>
