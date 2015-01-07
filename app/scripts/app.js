@@ -415,7 +415,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
   }
   var routespermission = ['/account-overview',
     '/assets-overview',
-    '/realname-authentication',
+    '/bankcard-management',
     '/security-settings',
     '/withdraw',
     '/recharge',
