@@ -11,7 +11,7 @@ hongcaiApp.controller("WithdrawCtrl", ["$location", "$scope", "$state", "$rootSc
 
 
   $scope.checkLargestAmount = function(amount) {
-    if (amount > $scope.availableCash) {
+    if (amount >= $scope.availableCash) {
       return true;
     } else {
       return false;

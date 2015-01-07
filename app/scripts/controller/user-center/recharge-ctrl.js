@@ -5,7 +5,7 @@ hongcaiApp.controller("RechargeCtrl", ["$location", "$scope", "$state", "$rootSc
 
   $scope.balance = 0;
   UserCenterService.getUserBalance.get({}, function(response) {
-    if (response.ret == 1) {
+    if (response.ret === 1) {
       $scope.balance = response.data.balance;
     }
   });

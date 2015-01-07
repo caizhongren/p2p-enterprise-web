@@ -1,14 +1,11 @@
 'use strict';
 hongcaiApp.controller("LoginCtrl", ["$scope", "$state", "$rootScope", "$stateParams", "LoginService", "SessionService", 'ipCookie', 'toaster', 'md5', function($scope, $state, $rootScope, $stateParams, LoginService, SessionService, ipCookie, toaster, md5) {
-
   // b端登录后没有首页展示，当判断用户已经登录，自动跳转个人中心
-  if ($rootScope.isLogged === true) {
-    $state.go('root.userCenter.account-overview');
-  }
+  // if ($rootScope.isLogged === true) {
+  //   $state.go('root.userCenter.account-overview');
+  // }
 
-  /**
-   * 从cookie中读取用户名
-   */
+  // 从cookie中读取用户名
   if (ipCookie('bUserName')) {
     $scope.user = [];
     $scope.user.account = ipCookie('bUserName');
