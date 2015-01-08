@@ -1,47 +1,36 @@
-body{
-    margin: 0;
-    color: #333;
-    text-rendering: optimizelegibility;
-    _background-attachment: fixed;
-    _background-image: url(about:blank);
+body {
+  margin: 0;
+  color: #333;
+  text-rendering: optimizelegibility;
+  _background-attachment: fixed;
+  _background-image: url(about:blank);
 }
-a:hover{
+a:hover {
   text-decoration: none !important;
 }
-label{
+label {
   font-weight: normal !important;
   padding: 5px 8px 0 !important;
   text-align: right !important;
 }
-input{
+input {
   height: 100%;
   border: 1px solid #dbdbdb;
   padding: 6px !important;
   background-color: #fdfbfb;
 }
-input:focus{
+input:focus {
   border: 1px solid #3399cc;
   outline: none;
   background-color: #fdfbfb;
 }
-.bg{
+.bg {
   padding-top: 18px;
 }
-
-.grey-safe-pwd,.grey-safe-phone,.grey-safe-mail,.grey-safe-realname,
-.blue-safe-pwd,.blue-safe-phone,.blue-safe-mail,.blue-safe-realname,
-.card-no,.phone-no,.mail-no,.blue-mail-ok,.blue-phone-ok,.blue-card-ok,
-.grey-account,.tips-area:active .grey-account,.blue-account,.tips-area:active .blue-account,
-.grey-bankcard ,.tips-area:active .grey-bankcard,.blue-bankcard,.tips-area:active .blue-bankcard,
-.grey-safeset ,.tips-area:active .grey-safeset,.blue-safeset,.tips-area:active .blue-safeset,
-.grey-recharge,.tips-area:active .grey-recharge,.blue-recharge,.tips-area:active .blue-recharge,
-.grey-withdraw ,.tips-area:active .grey-withdraw,.blue-withdraw,.tips-area:active .blue-withdraw,
-.login-right-area,.regist-right-area,.refresh-pic,.triangle,.right-title,.check-ok,.right-user-head,
-.high-level,.mid-level,.low-level,.account-pic-bg,.help-ico,.open,.smile-bg,.bank-card-show{
+.grey-safe-pwd, .grey-safe-phone, .grey-safe-mail, .grey-safe-realname, .blue-safe-pwd, .blue-safe-phone, .blue-safe-mail, .blue-safe-realname, .card-no, .phone-no, .mail-no, .blue-mail-ok, .blue-phone-ok, .blue-card-ok, .grey-account, .tips-area:active .grey-account, .blue-account, .tips-area:active .blue-account, .grey-bankcard, .tips-area:active .grey-bankcard, .blue-bankcard, .tips-area:active .blue-bankcard, .grey-safeset, .tips-area:active .grey-safeset, .blue-safeset, .tips-area:active .blue-safeset, .grey-recharge, .tips-area:active .grey-recharge, .blue-recharge, .tips-area:active .blue-recharge, .grey-withdraw, .tips-area:active .grey-withdraw, .blue-withdraw, .tips-area:active .blue-withdraw, .login-right-area, .regist-right-area, .refresh-pic, .triangle, .right-title, .check-ok, .right-user-head, .high-level, .mid-level, .low-level, .account-pic-bg, .help-ico, .open, .smile-bg, .bank-card-show, .bank-card-show-verify {
   background: url(/images/sprite.png) no-repeat;
 }
-
-.login-right-area{
+.login-right-area {
   background-position: -1481px -1121px;
 }
 .right-title {
@@ -53,233 +42,190 @@ input:focus{
 .right-user-head {
   background-position: -512px -533px;
 }
-.grey-safe-pwd{
+.grey-safe-pwd {
   background-position: -12px -1277px;
 }
-.grey-safe-phone{
+.grey-safe-phone {
   background-position: -140px -1277px;
 }
-.grey-safe-mail{
+.grey-safe-mail {
   background-position: -269px -1277px;
 }
-.grey-safe-realname{
+.grey-safe-realname {
   background-position: -400px -1277px;
 }
-.blue-safe-pwd{
+.blue-safe-pwd {
   background-position: -12px -1485px;
 }
-.blue-safe-phone{
+.blue-safe-phone {
   background-position: -140px -1485px;
 }
-.blue-safe-mail{
+.blue-safe-mail {
   background-position: -269px -1485px;
 }
-.blue-safe-realname{
+.blue-safe-realname {
   background-position: -400px -1485px;
 }
-.card-no{
-    background-position: -77px -424px;
+.card-no {
+  background-position: -77px -424px;
 }
-.phone-no{
-    background-position: -136px -424px;
+.phone-no {
+  background-position: -136px -424px;
 }
-.mail-no{
-    background-position: -199px -424px;
+.mail-no {
+  background-position: -199px -424px;
 }
-.blue-mail-ok{
+.blue-mail-ok {
   background-position: -199px -481px;
 }
-.blue-phone-ok{
+.blue-phone-ok {
   background-position: -136px -481px;
 }
-.blue-card-ok{
+.blue-card-ok {
   background-position: -77px -481px;
 }
-.high-level{
+.high-level {
   background-position: -35px -1165px;
 }
-.mid-level{
+.mid-level {
   background-position: -35px -1228px;
 }
-.low-level{
+.low-level {
   background-position: -35px -1197px;
 }
 .grey-account {
   background-position: -394px -463px;
 }
-.blue-account{
- background-position: -362px -463px;
+.blue-account {
+  background-position: -362px -463px;
 }
-.tips-area:active .grey-account,
-.tips-area:active .blue-account{
+.tips-area:active .grey-account, .tips-area:active .blue-account {
   background-position: -463px -463px;
 }
-.blue-bankcard{
+.blue-bankcard {
   background-position: -362px -499px;
 }
 .grey-bankcard {
   background-position: -395px -499px;
 }
-.tips-area:active .grey-bankcard,
-.tips-area:active .blue-bankcard{
+.tips-area:active .grey-bankcard, .tips-area:active .blue-bankcard {
   background-position: -463px -499px;
 }
-
-.blue-safeset{
+.blue-safeset {
   background-position: -362px -534px;
 }
-.grey-safeset{
+.grey-safeset {
   background-position: -395px -534px;
 }
-.tips-area:active .grey-safeset,
-.tips-area:active .blue-safeset{
+.tips-area:active .grey-safeset, .tips-area:active .blue-safeset {
   background-position: -463px -534px;
 }
-
-.blue-recharge{
+.blue-recharge {
   background-position: -362px -604px;
 }
 .grey-recharge {
   background-position: -395px -604px;
 }
-.tips-area:active .grey-recharge,
-.tips-area:active .blue-recharge{
+.tips-area:active .grey-recharge, .tips-area:active .blue-recharge {
   background-position: -463px -604px;
 }
-
-.blue-withdraw{
+.blue-withdraw {
   background-position: -362px -641px;
 }
 .grey-withdraw {
   background-position: -395px -641px;
 }
-
-.tips-area:active .grey-withdraw,
-.tips-area:active .blue-withdraw{
+.tips-area:active .grey-withdraw, .tips-area:active .blue-withdraw {
   background-position: -463px -641px;
 }
-.account-pic-bg{
+.account-pic-bg {
   background-position: -1300px -304px;
 }
-.help-ico{
+.help-ico {
   background-position: -105px -1779px;
 }
-.open{
+.open {
   background-position: -31px -1777px;
 }
-.smile-bg{
-  background-position:  -40px -730px;
+.smile-bg {
+  background-position: -40px -730px;
 }
-
-.p-checkbox,.p-remember,.on-it div,.img-introduction,.safe-pic,.ico-area,.left-show-area,
-.safe-part p,.right-user-message p,.check-ok,.right-user-head,.right-user-message,.account-pic,
-.left-message,.assets-ico,.account-investment-show,.read,.read-check,.user-check-img,.mid-line,
-.news-nav span,.user-input-tips,.help-ico,.friends-ship a,.smile-bg,.details-img{
-  float:left; 
+.p-checkbox, .p-remember, .on-it div, .img-introduction, .safe-pic, .ico-area, .left-show-area, .safe-part p, .right-user-message p, .check-ok, .right-user-head, .right-user-message, .account-pic, .left-message, .assets-ico, .account-investment-show, .read, .read-check, .user-check-img, .mid-line, .news-nav span, .user-input-tips, .help-ico, .friends-ship a, .smile-bg, .details-img {
+  float: left;
 }
-
-.p-forget,.p-date,.p-right,.a-up-level,.view-more{
+.p-forget, .p-date, .p-right, .a-up-level, .view-more {
   float: right;
 }
-
-.p-click,.help-ico,.blue-button,.white-button,.pic-verify,.refresh-pic,.activity{
+.p-click, .help-ico, .blue-button, .white-button, .pic-verify, .refresh-pic, .activity {
   cursor: pointer;
 }
-
-.right-tips,.tips-area p,.activity {
+.right-tips, .tips-area p, .activity {
   text-align: left;
 }
-
-.blue-button,.white-button,.account-number,.account-number-message,.real-name .set-transactionPwd,.process-tips,
-.details-title,.file-head,.p-login-right,.p-regist-right,.a-regist,.p-user-name,.tips,.message{
+.blue-button, .white-button, .account-number, .account-number-message, .real-name .set-transactionPwd, .process-tips, .details-title, .file-head, .p-login-right, .p-regist-right, .a-regist, .p-user-name, .tips, .message {
   text-align: center;
 }
-
-.tips-area p,.on-it div,.left-show-area,.tips,.message,.activity,.right-user-message,.right-tips,
-.news-details{
+.tips-area p, .on-it div, .left-show-area, .tips, .message, .activity, .right-user-message, .right-tips, .news-details {
   height: 100%;
 }
-
-.tips-area,.right-title,.head,.back-ground,.p-user-name,.center-tips,.safe-part,.right-tips-area,
-.basic-area,.verify-area{
+.tips-area, .right-title, .head, .back-ground, .p-user-name, .center-tips, .safe-part, .right-tips-area, .basic-area, .verify-area {
   width: 100%;
 }
-
-.verify-input,.account-button,.read-area,.userCenter .form-group select,.real-name .set-transactionPwd,
-.p-title-dynamic,.table-link-us tr,
-.ico-area{
+.verify-input, .account-button, .read-area, .userCenter .form-group select, .real-name .set-transactionPwd, .p-title-dynamic, .table-link-us tr, .ico-area {
   height: 30px;
 }
-
-.pic-verify,.refresh-pic,.blue-button,.white-button{
+.pic-verify, .refresh-pic, .blue-button, .white-button {
   height: 34px;
 }
-
-.verify-input,.userCenter .form-group select,.agreement-area,.about-left-area,
-.left-area,.right-area,.right-area,.change-area,.news-nav span{
+.verify-input, .userCenter .form-group select, .agreement-area, .about-left-area, .left-area, .right-area, .right-area, .change-area, .news-nav span {
   border: 1px solid #dbdbdb;
 }
-
-.input-tips,.p-remember,.p-forget,.left-area,.verify-input,.real-name-tips{
+.input-tips, .p-remember, .p-forget, .left-area, .verify-input, .real-name-tips {
   font-size: 12px;
 }
-
-.web-show a,.web-show p,.news-nav span a,.add-card,.blue-button,.right-area,.about-left-area,.tips-area p,
-.p-date,.p-dynamic-show,.table-link-us,.right-area{
-  font-size: 14px;  
+.web-show a, .web-show p, .news-nav span a, .add-card, .blue-button, .right-area, .about-left-area, .tips-area p, .p-date, .p-dynamic-show, .table-link-us, .right-area {
+  font-size: 14px;
 }
-
-.table-title,.assets-money small,.asset-money small{
-    font-size: 16px;
+.table-title, .assets-money small, .asset-money small {
+  font-size: 16px;
 }
-
-.friends-ship,.p-invitation,.right-title,.p-title-dynamic,.p-title-introduction{
+.friends-ship, .p-invitation, .right-title, .p-title-dynamic, .p-title-introduction {
   font-size: 18px;
 }
-
-.add-card,.success-tips,.p-login-right a,.p-regist-right a,.table-title.right-title,.asset-money{
+.add-card, .success-tips, .p-login-right a, .p-regist-right a, .table-title.right-title, .asset-money {
   font-weight: bold;
 }
-
-.right-area,.account-button,.right-area .account-right-button,.about-left-area,.left-area{
+.right-area, .account-button, .right-area .account-right-button, .about-left-area, .left-area {
   border-radius: 5px;
 }
-
-.assets-ico,.bank-img,.real-name .set-transactionPwd,.bank-card-show,.blue-button,.white-button{
+.assets-ico, .bank-img, .real-name .set-transactionPwd, .bank-card-show, .bank-card-show-verify, .blue-button, .white-button {
   border-radius: 3px;
 }
-
-.tips-area p,.center-tips,.account-number,.safe-form-group,.safe-pic-area,.main-area,.input-tips,.triangle{
+.tips-area p, .center-tips, .account-number, .safe-form-group, .safe-pic-area, .main-area, .input-tips, .triangle {
   margin: 0 auto;
 }
-
-.news-nav span,.news-nav span a,.friends-ship a,.a-regist,.tips-area,.p-title-dynamic{
+.news-nav span, .news-nav span a, .friends-ship a, .a-regist, .tips-area, .p-title-dynamic {
   display: block;
 }
-
-.news-details img,.news-details h1{
+.news-details img, .news-details h1 {
   display: none;
 }
-
-.real-name .set-transactionPwd,{
+.real-name .set-transactionPwd, {
   display: inline-block;
 }
-
-.account-investment,.safe-process,.dynamic-show {
+.account-investment, .safe-process, .dynamic-show {
   height: 135px;
 }
-.total-assets{
+.total-assets {
   background-color: #e94828;
 }
 .available-balance {
   background-color: #d2cb3f;
 }
-.proceeds-to-be-received,
-.account-balance {
+.proceeds-to-be-received, .account-balance {
   background-color: #62cbc6;
 }
-.principal-amount-to-be-received,
-.net-income {
+.principal-amount-to-be-received, .net-income {
   background-color: #f9b81e;
 }
 .freezing-of-funds {
@@ -288,40 +234,27 @@ input:focus{
 .income-received {
   background-color: #913969;
 }
-.accumulated-investment,.white-button:hover,.real-name .set-transactionPwd,
-.blue-button,.login-title,.red-regist,.left-show-area-bg,.on-it div{
+.accumulated-investment, .white-button:hover, .real-name .set-transactionPwd, .blue-button, .login-title, .red-regist, .left-show-area-bg, .on-it div {
   background-color: #3399cc;
 }
-
-.white-button,.p-login-right a,.p-regist-right a,.p-login-right a:hover,.p-regist-right a:hover,
-.verify-tip a,.view-more,.add-card,.p-forget:hover,.on-it,.on-it:hover,.p-click:hover,
-.p-title-dynamic:hover,.web-show a:hover,.now,.view-more:hover,.account-number{
+.white-button, .p-login-right a, .p-regist-right a, .p-login-right a:hover, .p-regist-right a:hover, .verify-tip a, .view-more, .add-card, .p-forget:hover, .on-it, .on-it:hover, .p-click:hover, .p-title-dynamic:hover, .web-show a:hover, .now, .view-more:hover, .account-number {
   color: #3399cc;
 }
-
-.right-area,.about-left-area,.left-area,.right-area,.account-number span,.p-forget,.view-more{
+.right-area, .about-left-area, .left-area, .right-area, .account-number span, .p-forget, .view-more {
   color: #888181;
 }
-
-.input-tips{
+.input-tips {
   color: #d8271c;
 }
-
-.p-date,.p-title-dynamic,.p-dynamic-show,.table-link-us,.p-dynamic-show:hover,.web-show a,.web-show p,
-.news-nav span a{
+.p-date, .p-title-dynamic, .p-dynamic-show, .table-link-us, .p-dynamic-show:hover, .web-show a, .web-show p, .news-nav span a {
   color: #9a9595;
 }
-
-.blue-button,.white-button:hover,.white-button:active,.login-title,.red-regist,.red-regist:hover,
-.tips-area:active,.on-it:active,.now:active{
+.blue-button, .white-button:hover, .white-button:active, .login-title, .red-regist, .red-regist:hover, .tips-area:active, .on-it:active, .now:active {
   color: white;
 }
-
-.right-area,.left-area,.news-nav .active,.white-button,.right-area,.login-left-area,.regist-left-area,
-.agreement-area,.about-left-area{
-    background-color: white;
+.right-area, .left-area, .news-nav .active, .white-button, .right-area, .login-left-area, .regist-left-area, .agreement-area, .about-left-area {
+  background-color: white;
 }
-
 .blue-button {
   border: 1px solid #3399cc;
   outline: none;
@@ -340,58 +273,50 @@ input:focus{
   background-color: #3399cc;
   outline-style: none;
 }
-
-.grey,.grey:hover{
+.grey, .grey:hover {
   color: #a39f9f;
   background-color: #e2e2e2;
   border: 1px solid #c4c4c4;
 }
-
-.p-login-right a:hover,.p-regist-right a:hover,.p-dynamic-show:hover,.p-title-introduction{
+.p-login-right a:hover, .p-regist-right a:hover, .p-dynamic-show:hover, .p-title-introduction {
   text-decoration: underline;
 }
-
-.a-regist,.a-regist:hover,.on-it:hover,.on-it:active,.about-left-area a,.tips-area{
+.a-regist, .a-regist:hover, .on-it:hover, .on-it:active, .about-left-area a, .tips-area {
   text-decoration: none !important;
 }
-
-.news-details,.p-dynamic-show{
+.news-details, .p-dynamic-show {
   overflow: hidden;
 }
-
-.verify-input:focus,.userCenter .form-group select{
+.verify-input:focus, .userCenter .form-group select {
   outline: none;
 }
-
-.verify-index,.real-name .set-transactionPwd,.pic-verify{
+.verify-index, .real-name .set-transactionPwd, .pic-verify {
   margin-top: 0;
 }
 /*main*/
-.bg-login{
+
+.bg-login {
   height: 412px;
 }
-.login-area{
+.login-area {
   height: 380px;
 }
-.login-left-area,
-.regist-left-area{ 
-  margin-top: 20px; 
+.login-left-area, .regist-left-area {
+  margin-top: 20px;
   min-height: 92% !important;
   border: 2px solid #d9d5d6;
   border-radius: 8px;
   box-shadow: 0px 1px 1px #d9d5d6;
   padding: 0;
 }
-.login-right-area,
-.regist-right-area{
+.login-right-area, .regist-right-area {
   height: 92%;
 }
-.p-login-right,
-.p-regist-right{
+.p-login-right, .p-regist-right {
   height: 99%;
   padding-top: 170px;
 }
-.login-title{
+.login-title {
   height: 55px;
   width: 100.9%;
   margin-top: -2px;
@@ -401,134 +326,129 @@ input:focus{
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.form-login,
-.form-regist{
+.form-login, .form-regist {
   padding-top: 30px;
 }
-.form-div{
+.form-div {
   padding-top: 10px;
 }
-.regist-check-img,
-.login-check-img{
+.regist-check-img, .login-check-img {
   margin-top: -4px;
 }
-.regist-input-tips,
-.login-input-tips{
+.regist-input-tips, .login-input-tips {
   margin-top: -19px;
   margin-left: 19px;
 }
-.login-input-tips{
+.login-input-tips {
   margin-right: -60px;
 }
-.p-checkbox{
+.p-checkbox {
   height: 15px;
   width: 15px;
   margin-top: 0 !important;
   padding: 0 !important;
 }
-.p-forget:hover{
+.p-forget:hover {
   text-decoration: underline;
 }
-.bg-regist{
+.bg-regist {
   height: 535px;
 }
-.regist-area{
+.regist-area {
   height: 480px;
 }
-.a-regist{
+.a-regist {
   font-size: 21px;
   height: 50px;
   padding-top: 10px;
   padding-left: 20px;
 }
-.a-phone-regist{
+.a-phone-regist {
   border-top-left-radius: 5px;
 }
-.a-mail-regist{
+.a-mail-regist {
   border-top-right-radius: 5px;
 }
-.grey-regist{
+.grey-regist {
   color: #817774;
   background-color: #dfceca;
 }
-.triangle-container{
+.triangle-container {
   padding-left: 25px;
 }
-.triangle{
+.triangle {
   height: 12px;
 }
-.agreement-area{
+.agreement-area {
   padding: 35px 45px 65px;
   margin-bottom: 70px;
 }
-.dynamic-height{
+.dynamic-height {
   height: 770px;
 }
-.introduction-height{
+.introduction-height {
   height: 600px;
 }
-.dynamic-height,
-.introduction-height{
+.dynamic-height, .introduction-height {
   margin-bottom: 25px;
 }
-.text-title{
+.text-title {
   font-size: 32px;
   line-height: 32px;
   height: 40px;
   border-bottom: 1px solid black;
 }
-.success-page{
+.success-page {
   height: 200px;
   margin-top: 100px;
 }
-.smile-bg{
+.smile-bg {
   width: 95px;
   height: 95px;
 }
-.success-tips{
+.success-tips {
   margin-top: 15px;
   font-size: 22px;
 }
-.about-us div,
-.help-center div{
+.about-us div, .help-center div {
   line-height: 23px;
 }
 .about-us .padding-b {
   padding-bottom: 120px;
 }
-.on-it{
+.on-it {
   background-color: #dbeef8;
   text-decoration: none;
 }
-.on-it div,.left-show-area{
+.on-it div, .left-show-area {
   width: 3px;
 }
-.about-left-area{
+.about-left-area {
   height: 317px;
   margin-top: 18px;
   border-top: 0px solid #dbdbdb;
 }
-.tips-area{
-    height: 45px;
-    color: inherit;
-    text-decoration: none;
-    border-top: 1px solid #dbdbdb;
+.tips-area {
+  height: 45px;
+  color: inherit;
+  text-decoration: none;
+  border-top: 1px solid #dbdbdb;
 }
-.tips-area:hover{
-    color: inherit;
-    background-color: #dbeef8;
-    text-decoration: none;
+.tips-area:hover {
+  color: inherit;
+  background-color: #dbeef8;
+  text-decoration: none;
 }
-.tips-area:active{
-    background-color: #a3d1e8;
-    text-decoration: none;
+.tips-area:active {
+  background-color: #a3d1e8;
+  text-decoration: none;
 }
-.tips-area p{
-    padding-top: 12px;
-    text-decoration: none;
-    padding-left: 30px;
+.tips-area p {
+  padding-top: 12px;
+  text-decoration: none;
+  padding-left: 30px;
 }
-.help-height{
+.help-height {
   height: 226px;
 }
 .right-title {
@@ -538,39 +458,39 @@ input:focus{
   margin-top: 20px;
   margin-bottom: 30px;
 }
-.introduction-area{
-  padding:0px 72px !important;
+.introduction-area {
+  padding: 0px 72px !important;
   color: #9a9595;
 }
-.img-area{
-  margin-top: 20px; 
+.img-area {
+  margin-top: 20px;
   height: 300px;
 }
-.help-ico{
+.help-ico {
   height: 16px;
   width: 16px;
 }
-.p-click{
+.p-click {
   line-height: 18px;
 }
-.details-title{
+.details-title {
   margin: 0px auto 10px auto;
 }
-.p-date{
+.p-date {
   margin-top: 2px;
 }
-.p-details{
+.p-details {
   margin-top: 50px;
 }
-.dynamic-show{
+.dynamic-show {
   border-bottom: 1px solid #dfdfdf;
   margin-bottom: 20px;
 }
-.p-dynamic-show{
+.p-dynamic-show {
   height: 65px;
   line-height: 24px;
 }
-.news-details p{
+.news-details p {
   line-height: 22px;
 }
 .magn {
@@ -581,49 +501,48 @@ input:focus{
   word-break: break-all;
   text-indent: 2em;
 }
-.p-right{
+.p-right {
   height: 20px;
   padding: 5px 0;
 }
-.personal-information{
-    height: 180px;
+.personal-information {
+  height: 180px;
 }
-.p-user-name{
-    padding-top: 10px;
-    margin-bottom: 0;
+.p-user-name {
+  padding-top: 10px;
+  margin-bottom: 0;
 }
-.p-user-name strong{
+.p-user-name strong {
   font-size: 20px;
 }
-.safe-pic-area{
+.safe-pic-area {
   width: 165px;
 }
-.safe-pic{
-    height: 47px;
-    width: 47px;
-    margin: 15px 3px 0 3px;
+.safe-pic {
+  height: 47px;
+  width: 47px;
+  margin: 15px 3px 0 3px;
 }
-.security-level{
-    height: 12px;
-    width: 145px;
-    margin: 12px auto 10px auto;
+.security-level {
+  height: 12px;
+  width: 145px;
+  margin: 12px auto 10px auto;
 }
-.a-up-level{
+.a-up-level {
   margin-top: -28px;
 }
 .tips-show {
   background-color: #dbeef8;
 }
-.ico-area{
-    width: 30px;
-    margin-top: 5px;
-    margin-left: 15px;
+.ico-area {
+  width: 30px;
+  margin-top: 5px;
+  margin-left: 15px;
 }
 .account-message {
   height: 325px;
 }
-.account-pic,
-.assets-pic {
+.account-pic, .assets-pic {
   height: 313px;
   margin: 0px auto 30px auto;
 }
@@ -637,8 +556,8 @@ input:focus{
   margin-left: 40px;
 }
 .account-button {
-  margin-top: -10px;
-  margin-left: 45px;
+  margin-left: 15px;
+  margin-top: 10px;
 }
 .right-area .account-right-button {
   margin-left: 15px;
@@ -663,12 +582,15 @@ input:focus{
   margin-left: 20px;
   line-height: 14px;
 }
+.asset-mar {
+  margin-left: -20px;
+  margin-bottom: 20px;
+}
 .asset-money {
   font-size: 24px;
   margin: -10px 0 0 0;
 }
-.assets-money small,
-.asset-money small{
+.assets-money small, .asset-money small {
   font-weight: normal;
 }
 .account-number {
@@ -677,7 +599,7 @@ input:focus{
 .account-number-message {
   margin-top: -6px;
 }
-.right-assets-height{
+.right-assets-height {
   min-height: 815px;
 }
 .left-message {
@@ -695,7 +617,7 @@ input:focus{
 .verify-area .tip {
   margin-top: 50px;
 }
-.right-area .border-none,.no-border {
+.right-area .border-none, .no-border {
   border: none !important;
 }
 .verify-tip {
@@ -705,73 +627,82 @@ input:focus{
   margin-top: 150px;
   padding-left: 15px;
 }
-.safe-card-tips{
-  margin: 0 0 20px 0; 
+.safe-card-tips {
+  margin: 0 0 20px 0;
 }
-.bank-card-show{
-  height: 235px;
-  width: 355px;
-  background-color: #fdfbfb;
-  background-position: -725px -1396px;
+.bank-card-show {
+  height: 230px;
+  width: 346px;
+  background-position: -730px -946px;
   padding-top: 60px;
 }
-.add-card{
-  font-size: 26px;
+.bank-card-show-verify {
+  height: 213px;
+  width: 336px;
+  background-position: -730px -1182px;
+  padding-top: 60px;
+}
+.add-card {
+  font-size: 20px;
+  text-align: center;
+  padding-top: 35px;
+  padding-left: 65px;
+}
+.add-cardNo {
+  font-size: 35px;
   text-align: center;
 }
-.border-end{
+.border-end {
   border-bottom: 1px solid #dbdbdb;
 }
-.mgn-top{
+.mgn-top {
   margin-top: 10px;
 }
-.mgn-top p{
+.mgn-top p {
   padding-top: 5px;
 }
 .verify-input {
   background-color: #f7f5f5;
   padding: 8px 10px;
 }
-.user-tips-area{
+.user-tips-area {
   height: 20px;
 }
-.user-check-img{
+.user-check-img {
   margin: 7px 7px 0 3px;
 }
-.user-input-tips{
+.user-input-tips {
   margin-left: -3px;
   margin-top: 8px;
 }
-.change-area{
+.change-area {
   margin: -15px auto 10px auto;
 }
-.change-pwd-height{
+.change-pwd-height {
   height: 240px;
 }
-.change-mail-height{
+.change-mail-height {
   height: 140px;
 }
-.change-phone-height{
+.change-phone-height {
   height: 190px;
 }
-.safe-process{
+.safe-process {
   margin-bottom: 25px;
   border-bottom: 1px solid #cecdcd;
   margin-left: 25px;
 }
-.process-tips{
+.process-tips {
   height: 80px;
   padding-top: 70px;
 }
-.safe-part,
-.right-tips-area {
+.safe-part, .right-tips-area {
   height: 50px;
 }
-.safe-part p,
-.right-user-message p {
+.safe-part p, .right-user-message p {
   margin-bottom: 0;
 }
-.assets-money{
+.assets-money {
   font-size: 30px;
   padding-left: 20px;
 }
@@ -780,18 +711,17 @@ input:focus{
   line-height: 30px;
   margin-left: 10px;
 }
-.safe-form-group{
+.safe-form-group {
   height: 50px;
 }
-.safe-tips-area{
+.safe-tips-area {
   margin-right: -70px;
 }
-.recharge .tip,
-.withdraw .tip {
+.recharge .tip, .withdraw .tip {
   padding-left: 201px;
   padding-top: 45px;
 }
-.safe-email-change{
+.safe-email-change {
   margin-top: -29px;
 }
 .hadset {
@@ -804,35 +734,35 @@ input:focus{
   margin-left: 10px;
   margin-top: 4px;
 }
-.right-area{
-    margin-left: 40px;
-    margin-bottom: 30px;
-    min-height: 600px !important;
+.right-area {
+  margin-left: 40px;
+  margin-bottom: 30px;
+  min-height: 600px !important;
 }
-.table-title{
+.table-title {
   padding-top: 30px;
   padding-bottom: 10px;
 }
-.table-top-title{
+.table-top-title {
   padding-top: 10px;
 }
-.friends-ship a{
+.friends-ship a {
   margin: 20px 20px 10px 10px;
 }
-.web-show{
+.web-show {
   height: 40px;
   padding: 10px 5px;
 }
-.web-show .p-date{
+.web-show .p-date {
   margin-top: 0px;
 }
-.news-nav{
+.news-nav {
   height: 35px;
   border-bottom: 1px solid #dfdfdf;
   padding-left: 60px;
   margin-top: -10px;
 }
-.news-nav span{
+.news-nav span {
   height: 35px;
   width: 110px;
   background-color: #faf8f8;
@@ -840,13 +770,17 @@ input:focus{
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.news-nav span a{
+.news-nav span a {
   margin-top: 8px;
   margin-left: 12px;
 }
-.news-nav .active{
+.news-nav .active {
   border-bottom: 1px solid white;
 }
-.project-area{
+.project-area {
   padding-left: 60px;
 }
+.table-stl{
+  margin-top: 10px;
+}
+
