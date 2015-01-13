@@ -6,6 +6,7 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
+//
 
 module.exports = function(grunt) {
 
@@ -107,11 +108,11 @@ module.exports = function(grunt) {
         port: 9002,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: '192.168.90.132',
-        livereload: 35728
+        livereload: 35729
       },
       proxies: [{
         context: '/enterprise/api/v1',
-        host: '192.168.90.132',
+        host: '192.168.1.43',
         port: 8080
       }],
       livereload: {
@@ -211,6 +212,7 @@ module.exports = function(grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
+        exclude: ['bower_components/bootstrap/dist/css/bootstrap.css', 'bower_components/angular-scenario/angular-scenario.js'],
         ignorePath: /\.\.\//
       }
     },
@@ -275,8 +277,9 @@ module.exports = function(grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/**/*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      js: '<%= yeoman.dist %>/scripts/*.js',
       options: {
         assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images'],
         patterns: {
@@ -287,10 +290,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // The following *-min tasks will produce minified files in the dist folder
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
     cssmin: {
       generated: {
         options: {
@@ -300,6 +299,20 @@ module.exports = function(grunt) {
         }
       }
     },
+
+    // The following *-min tasks will produce minified files in the dist folder
+    // By default, your `index.html`'s <!-- Usemin block --> will take care of
+    // minification. These next options are pre-configured if you do not wish
+    // to use the Usemin blocks.
+    // cssmin: {
+    //   dist: {
+    //     files: {
+    //       '<%= yeoman.dist %>/styles/main.css': [
+    //         '.tmp/styles/{,*/}*.css'
+    //       ]
+    //     }
+    //   }
+    // },
     // uglify: {
     //   dist: {
     //     files: {
@@ -377,29 +390,55 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            '*.html',
-            'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
-            'fonts/*'
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }, {
-          expand: true,
-          cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
-          dest: '<%= yeoman.dist %>'
-        }]
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              '*.html',
+              'views/{,*/}*.html',
+              'images/{,*/}*.{webp}',
+              'fonts/*'
+            ]
+          }, {
+            expand: true,
+            cwd: '.tmp/images',
+            dest: '<%= yeoman.dist %>/images',
+            src: ['generated/*']
+          },
+          /*{
+                    expand: true,
+                    cwd: 'bower_components/bootstrap/dist',
+                    src: 'fonts/*',
+                    dest: '<%= yeoman.dist %>'
+                  },*/
+          {
+            expand: true,
+            cwd: 'bower_components/fontawesome',
+            src: 'fonts/*',
+            dest: '<%= yeoman.dist %>'
+          }, {
+            // for newbie page
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            dest: 'newbie',
+            src: ['<%= yeoman.dist %>/images']
+          }, {
+            //for newbie page
+            expand: true,
+            cwd: '<%= yeoman.app %>/scripts',
+            dest: '<%= yeoman.dist %>/scripts',
+            src: '{,*/}*.js'
+          }, {
+            // for newbie page
+            expand: true,
+            cwd: '<%= yeoman.app %>/styles',
+            dest: '<%= yeoman.dist %>/styles',
+            src: '{,*/}*.css'
+          }
+        ]
       },
       styles: {
         expand: true,
@@ -503,10 +542,12 @@ module.exports = function(grunt) {
     'htmlmin'
   ]);
 
+
   grunt.registerTask('buildTest321', [
     'clean:dist',
     'ngconstant:developmentTest321',
     'wiredep',
+    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
