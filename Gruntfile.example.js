@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/}*{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -106,13 +106,13 @@ module.exports = function(grunt) {
       options: {
         port: 9002,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: '192.168.90.132',
         livereload: 35728
       },
       proxies: [{
         context: '/enterprise/api/v1',
-        host: '192.168.1.43',
-        port: 8000
+        host: '192.168.90.132',
+        port: 8080
       }],
       livereload: {
         options: {
@@ -164,7 +164,9 @@ module.exports = function(grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/{,*/}*{,*/}*.js',
+          // 忽略兼容IE8的JS文件
+          '!<%= yeoman.app %>/scripts/util/respond.proxy.js'
         ]
       },
       test: {
@@ -276,7 +278,12 @@ module.exports = function(grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images'],
+        patterns: {
+          js: [
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+          ]
+        }
       }
     },
 
@@ -284,15 +291,15 @@ module.exports = function(grunt) {
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
     // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
-    //         '.tmp/styles/{,*/}*.css'
-    //       ]
-    //     }
-    //   }
-    // },
+    cssmin: {
+      generated: {
+        options: {
+          keepSpecialComments: 0,
+          banner: '/*! 2014-2015 All Rights Reserved by hongcai.com. */',
+          compatibility: 'ie8'
+        }
+      }
+    },
     // uglify: {
     //   dist: {
     //     files: {

@@ -18,6 +18,43 @@
   <!-- endbower -->
 
   <!-- endbuild -->
+  <!--[if lt IE 9]>
+    <script type='text/javascript'>
+      document.createElement('aboutsidebar');
+      document.createElement('helpsidebar');
+      document.createElement('slick');
+    </script>
+  <script type='text/javascript' src="//cdn.staticfile.org/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script type='text/javascript' src="//cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <script type='text/javascript' src="//cdn.staticfile.org/json3/3.3.2/json3.min.js"></script>
+  <link href="views/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+  <link href="scripts/util/respond.proxy.gif" id="respond-redirect" rel="respond-redirect">
+  <script type='text/javascript' src="scripts/util/respond.proxy.js"></script>
+
+  <style>
+      .slick-prev{
+          left:0;
+      }
+      .slick-next{
+          right:0;
+      }
+      .dis-none{
+          display:none;
+      }
+  </style>
+
+  <![endif]-->
+
+  <!--[if IE 8]>
+  <style type="text/css">
+      .result {
+          top: -42%;
+      }
+      .rotate {
+          line-height: 260px;
+      }
+  </style>
+  <![endif]-->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/dy_main.css">
@@ -73,8 +110,8 @@
   <script src="bower_components/angular-cookie/angular-cookie.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <!-- endbower -->
-<!-- endbuild -->
-<toaster-container toaster-options="{
+  <!-- endbuild -->
+  <toaster-container toaster-options="{
       'close-button': true,
       'debug': false,
       'position-class': 'toast-top-center',
@@ -123,4 +160,5 @@
   <script src="scripts/directives/help-sidebar.js"></script>
   <!-- endbuild -->
 </body>
+
 </html>
