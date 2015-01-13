@@ -19,7 +19,7 @@ var hongcaiApp = angular.module('hongcaiApp', [
   'angular-md5'
 ]);
 
-hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
+hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
   $stateProvider
     .state('root', {
       abstract: true,
@@ -398,6 +398,14 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
   $urlRouterProvider.otherwise('/');
   $locationProvider.html5Mode(true);
   $locationProvider.hashPrefix('!');
+  $urlRouterProvider.when('', '/');
+
+  //initialize get if not there
+  if (!$httpProvider.defaults.headers.get) {
+    $httpProvider.defaults.headers.get = {};
+  }
+  //disable IE ajax request caching
+  $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
 }]);
 
