@@ -8,6 +8,7 @@
   <meta name="fragment" content="!">
   <meta name="description" content="Hongcai web">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
@@ -16,8 +17,45 @@
   <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css" />
   <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.css" />
   <!-- endbower -->
-
   <!-- endbuild -->
+  <script src="//cdn.staticfile.org/modernizr/2.8.3/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script type='text/javascript'>
+      document.createElement('aboutsidebar');
+      document.createElement('helpsidebar');
+      document.createElement('slick');
+    </script>
+  <script type='text/javascript' src="//cdn.staticfile.org/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script type='text/javascript' src="//cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+  <script type='text/javascript' src="//cdn.staticfile.org/json3/3.3.2/json3.min.js"></script>
+  <link href="views/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+  <link href="scripts/util/respond.proxy.gif" id="respond-redirect" rel="respond-redirect">
+  <script type='text/javascript' src="scripts/util/respond.proxy.js"></script>
+
+  <style>
+      .slick-prev{
+          left:0;
+      }
+      .slick-next{
+          right:0;
+      }
+      .dis-none{
+          display:none;
+      }
+  </style>
+
+  <![endif]-->
+
+  <!--[if IE 8]>
+  <style type="text/css">
+      .result {
+          top: -42%;
+      }
+      .rotate {
+          line-height: 260px;
+      }
+  </style>
+  <![endif]-->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/dy_main.css">
@@ -26,10 +64,6 @@
 </head>
 
 <body>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
   <!-- Add your site or application content here -->
   <section ui-view="header"></section>
   <section ui-view></section>
@@ -49,15 +83,12 @@
        ga('send', 'pageview');
     </script> -->
 
-  <!-- build:js(.) scripts/oldieshim.js -->
-  <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <![endif]-->
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
   <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/es5-shim/es5-shim.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/json3/lib/json3.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -73,8 +104,8 @@
   <script src="bower_components/angular-cookie/angular-cookie.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <!-- endbower -->
-<!-- endbuild -->
-<toaster-container toaster-options="{
+  <!-- endbuild -->
+  <toaster-container toaster-options="{
       'close-button': true,
       'debug': false,
       'position-class': 'toast-top-center',
@@ -123,4 +154,5 @@
   <script src="scripts/directives/help-sidebar.js"></script>
   <!-- endbuild -->
 </body>
+
 </html>

@@ -6,6 +6,7 @@
 // 'test/spec/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
+//
 
 module.exports = function(grunt) {
 
@@ -72,7 +73,7 @@ module.exports = function(grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/}*{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -106,13 +107,13 @@ module.exports = function(grunt) {
       options: {
         port: 9002,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35728
+        hostname: '192.168.90.132',
+        livereload: 35729
       },
       proxies: [{
         context: '/enterprise/api/v1',
         host: '192.168.1.43',
-        port: 8000
+        port: 8080
       }],
       livereload: {
         options: {
@@ -164,7 +165,9 @@ module.exports = function(grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/{,*/}*{,*/}*.js',
+          // 忽略兼容IE8的JS文件
+          '!<%= yeoman.app %>/scripts/util/respond.proxy.js'
         ]
       },
       test: {
@@ -209,6 +212,7 @@ module.exports = function(grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
+        exclude: ['bower_components/bootstrap/dist/css/bootstrap.css', 'bower_components/angular-scenario/angular-scenario.js'],
         ignorePath: /\.\.\//
       }
     },
@@ -273,10 +277,26 @@ module.exports = function(grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/**/*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      js: '<%= yeoman.dist %>/scripts/*.js',
       options: {
-        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images'],
+        patterns: {
+          js: [
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+          ]
+        }
+      }
+    },
+
+    cssmin: {
+      generated: {
+        options: {
+          keepSpecialComments: 0,
+          banner: '/*! 2014-2015 All Rights Reserved by hongcai.com. */',
+          compatibility: 'ie8'
+        }
       }
     },
 
@@ -370,29 +390,55 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            '*.html',
-            'views/{,*/}*.html',
-            'images/{,*/}*.{webp}',
-            'fonts/*'
-          ]
-        }, {
-          expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }, {
-          expand: true,
-          cwd: 'bower_components/bootstrap/dist',
-          src: 'fonts/*',
-          dest: '<%= yeoman.dist %>'
-        }]
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              '*.html',
+              'views/{,*/}*.html',
+              'images/{,*/}*.{webp}',
+              'fonts/*'
+            ]
+          }, {
+            expand: true,
+            cwd: '.tmp/images',
+            dest: '<%= yeoman.dist %>/images',
+            src: ['generated/*']
+          },
+          /*{
+                    expand: true,
+                    cwd: 'bower_components/bootstrap/dist',
+                    src: 'fonts/*',
+                    dest: '<%= yeoman.dist %>'
+                  },*/
+          {
+            expand: true,
+            cwd: 'bower_components/fontawesome',
+            src: 'fonts/*',
+            dest: '<%= yeoman.dist %>'
+          }, {
+            // for newbie page
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            dest: 'newbie',
+            src: ['<%= yeoman.dist %>/images']
+          }, {
+            //for newbie page
+            expand: true,
+            cwd: '<%= yeoman.app %>/scripts',
+            dest: '<%= yeoman.dist %>/scripts',
+            src: '{,*/}*.js'
+          }, {
+            // for newbie page
+            expand: true,
+            cwd: '<%= yeoman.app %>/styles',
+            dest: '<%= yeoman.dist %>/styles',
+            src: '{,*/}*.css'
+          }
+        ]
       },
       styles: {
         expand: true,
@@ -496,10 +542,12 @@ module.exports = function(grunt) {
     'htmlmin'
   ]);
 
+
   grunt.registerTask('buildTest321', [
     'clean:dist',
     'ngconstant:developmentTest321',
     'wiredep',
+    'less',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',
