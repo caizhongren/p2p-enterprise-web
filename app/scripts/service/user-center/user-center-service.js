@@ -20,5 +20,6 @@ hongcaiApp.factory('UserCenterService', function ($resource, DEFAULT_DOMAIN) {
     repayment: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/repayment', {projectId: '@projectId'}),
     getProjectByStatus: $resource(DEFAULT_DOMAIN + '/enterpriseProject/getProjectByStatus', {status: '@status'}),
     getEnterpriseUserInfo: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getEnterpriseUserInfo', {}),
+    getDealListByUser: $resource(DEFAULT_DOMAIN +'/siteUser/getDealListByUser',{dateInterval: '@dateInterval',type: '@type'}),
   };
 });

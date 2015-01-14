@@ -27,7 +27,7 @@ input:focus {
 .bg {
   padding-top: 18px;
 }
-.grey-safe-pwd, .grey-safe-phone, .grey-safe-mail, .grey-safe-realname, .blue-safe-pwd, .blue-safe-phone, .blue-safe-mail, .blue-safe-realname, .card-no, .phone-no, .mail-no, .blue-mail-ok, .blue-phone-ok, .blue-card-ok, .grey-account, .tips-area:active .grey-account, .blue-account, .tips-area:active .blue-account, .grey-bankcard, .tips-area:active .grey-bankcard, .blue-bankcard, .tips-area:active .blue-bankcard, .grey-safeset, .tips-area:active .grey-safeset, .blue-safeset, .tips-area:active .blue-safeset, .grey-recharge, .tips-area:active .grey-recharge, .blue-recharge, .tips-area:active .blue-recharge, .grey-withdraw, .tips-area:active .grey-withdraw, .blue-withdraw, .tips-area:active .blue-withdraw, .login-right-area, .regist-right-area, .refresh-pic, .triangle, .right-title, .check-ok, .right-user-head, .high-level, .mid-level, .low-level, .account-pic-bg, .help-ico, .open, .smile-bg, .bank-card-show, .bank-card-show-verify {
+.grey-safe-pwd, .grey-safe-phone, .grey-safe-mail, .grey-safe-realname, .blue-safe-pwd, .blue-safe-phone, .blue-safe-mail, .blue-safe-realname, .card-no, .phone-no, .mail-no, .blue-mail-ok, .blue-phone-ok, .blue-card-ok, .grey-account, .tips-area:active .grey-account, .blue-account, .tips-area:active .blue-account, .grey-bankcard, .tips-area:active .grey-bankcard, .blue-bankcard, .tips-area:active .blue-bankcard, .grey-safeset, .tips-area:active .grey-safeset, .blue-safeset, .tips-area:active .blue-safeset, .grey-recharge, .tips-area:active .grey-recharge, .blue-recharge, .tips-area:active .blue-recharge,  .grey-transaction, .tips-area:active .grey-transaction, .blue-transaction, .tips-area:active .blue-transaction, .grey-withdraw, .tips-area:active .grey-withdraw, .blue-withdraw, .tips-area:active .blue-withdraw, .login-right-area, .regist-right-area, .refresh-pic, .triangle, .right-title, .check-ok, .right-user-head, .high-level, .mid-level, .low-level, .account-pic-bg, .help-ico, .open, .smile-bg, .bank-card-show, .bank-card-show-verify {
   background: url(/images/sprite.png) no-repeat;
 }
 .login-right-area {
@@ -129,6 +129,18 @@ input:focus {
 .tips-area:active .grey-recharge, .tips-area:active .blue-recharge {
   background-position: -463px -604px;
 }
+
+.blue-transaction {
+  background-position: -362px -674px;
+}
+.grey-transaction {
+  background-position: -395px -674px;
+}
+.tips-area:active .grey-transaction, .tips-area:active .blue-transaction {
+  background-position: -463px -674px;
+}
+
+
 .blue-withdraw {
   background-position: -362px -641px;
 }
@@ -783,4 +795,18 @@ input:focus {
 .table-stl{
   margin-top: 10px;
 }
-
+.projects-filter .row > .col-xs-12 > .row .col-xs-1 .project-check, .projects-filter .row > .col-xs-12 > .row .col-xs-2 .project-check{
+  display: block;
+  background-color:#3399cc;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  color: white;
+}
+.project-noncheck{
+  display: block;
+  background-color: white;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+}
