@@ -334,6 +334,8 @@ input:focus {
 }
 .regist-check-img, .login-check-img {
   margin-top: -4px;
+  font-size: 18px;
+  color: #d8271c;
 }
 .regist-input-tips, .login-input-tips {
   margin-top: -19px;
@@ -782,5 +784,9 @@ input:focus {
 }
 .table-stl{
   margin-top: 10px;
+}
+
+.security-stl {
+  margin-left: 2px;
 }
 
