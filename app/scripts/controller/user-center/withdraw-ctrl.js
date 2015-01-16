@@ -4,8 +4,11 @@ hongcaiApp.controller("WithdrawCtrl", ["$location", "$scope", "$state", "$rootSc
 
   $scope.availableCash = 0;
   UserCenterService.getUserAvailableCash.get({}, function(response) {
-    if (response.ret == 1) {
+    if (response.ret === 1) {
       $scope.availableCash = response.data.availableCash;
+      $scope.availableCashRealNo = $scope.availableCash >= 2 ? $scope.availableCash - 2 : 0;
+    } else {
+      console.log('ask withdraw, why getUserAvailableCash did not load data...');
     }
   });
 
