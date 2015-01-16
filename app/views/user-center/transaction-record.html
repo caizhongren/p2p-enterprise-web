@@ -36,6 +36,11 @@
                   提现
                 </a>
               </div>
+               <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'6'})" class="project-noncheck" ng-class="{'project-check': type === '6', 'project-noncheck': type !== '6'}">
+                  放款
+                </a>
+              </div>
               <div class="col-xs-2">
                 <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'7'})" class="project-noncheck" ng-class="{'project-check': type === '7', 'project-noncheck': type !== '7'}">
                   还款
