@@ -214,6 +214,17 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
           }
         }
       })
+    /*------------------------------------------  set-new-pwd  -----------------------------------------------*/
+      .state('root.set-new-pwd', {
+        url: '/set-new-pwd/:uuid/:etoken',
+        views: {
+          '': {
+            templateUrl: 'views/get-pwd-back/set-new-pwd.html',
+            controller: 'SetNewPwdCtrl',
+            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
+          }
+        }
+      })
     /*---------------------------------------------  yeepay  ---------------------------------------------*/
     .state('root.userCenter.yeepay-callback', {
       url: '/yeepay-callback/:yeepayService/:yeepayStatus',
