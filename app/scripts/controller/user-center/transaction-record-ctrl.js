@@ -2,7 +2,7 @@ hongcaiApp.controller('TransactionRecordCtrl', ['$scope', '$state', '$rootScope'
   $rootScope.selectSide = 'transaction-record';
   $scope.type = $stateParams.type || 0;
   $scope.dateInterval = $stateParams.dateInterval || 0;
-  $scope.typeValue = { '1': '充值', '2': '提现', '3': '投资', '4': '收益', '5': '回收本金', '6': '放款','7': '企业还款','8': '手续费' };
+  $scope.typeValue = { '1': '充值', '2': '提现', '3': '投资', '4': '收益', '5': '回收本金', '6': '放款','7': '还款','8': '手续费' };
   var getDealByUser = UserCenterService.getDealListByUser.get({ dateInterval: $stateParams.dateInterval,type: $stateParams.type},function() {
     if (getDealByUser.ret === 1) {
       $scope.dealList = getDealByUser.data.dealList;
