@@ -57,7 +57,7 @@ angular.module('hongcaiApp')
       }, function(response) {
         if (response.ret === 1) {
           $scope.msg = '操作成功';
-          var alertDialog = $alert({
+          $alert({
             scope: $scope,
             template: 'views/modal/alert-dialog.html',
             show: true

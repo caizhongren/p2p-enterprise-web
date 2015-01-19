@@ -86,7 +86,6 @@ angular.module('hongcaiApp')
       if (response.ret === 1) {
         var projectBillDetails = response.data.projectBillDetails;
         for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-          projectBillDetails[i];
           var projectBills = projectBillDetails[i].projectBills;
           for (var j = projectBills.length - 1; j >= 0; j--) {
             if (projectBills[j].status === 0) {
@@ -107,7 +106,7 @@ angular.module('hongcaiApp')
         if (response.data.projectBillDetails.length !== 0) {
           $scope.status = 9;
         }
-        var timestamp = Date.parse(new Date());
+        // var timestamp = Date.parse(new Date());
       } else {
         alert('查询出错，请联系客服！');
       }
@@ -168,7 +167,7 @@ angular.module('hongcaiApp')
           if (response.data.projectBillDetails.length !== 0) {
             $scope.status = 9;
           }
-          var timestamp = Date.parse(new Date());
+          // var timestamp = Date.parse(new Date());
         } else {
           alert('查询出错，请联系客服！');
         }
