@@ -62,6 +62,13 @@
       <p class="{{selectSide == 'withdraw' ? 'now' : ''}}">提现</p>
     </a>
   </div>
+   <div class="row">
+    <a ui-sref="root.userCenter.transaction-record" class="tips-area {{selectSide == 'transaction-record' ? 'tips-show' : ''}}">
+      <div class="left-show-area {{selectSide == 'transaction-record' ? 'left-show-area-bg' : ''}}"></div>
+      <div class="ico-area {{selectSide == 'transaction-record' ? 'blue-transaction' : 'grey-transaction'}}"></div>
+      <p class="{{selectSide == 'transaction-record' ? 'now' : ''}}">交易记录</p>
+    </a>
+  </div>
   <!--<div class="row">
     <a ui-sref="root.userCenter.news" class="tips-area {{selectSide == 'news' ? 'tips-show' : ''}}">
       <div class="left-show-area {{selectSide == 'news' ? 'left-show-area-bg' : ''}}"></div>

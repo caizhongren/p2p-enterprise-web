@@ -82,6 +82,29 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+
+     .state('root.userCenter.transaction-record', {
+      url: '/transaction-record',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/transaction-record.html',
+          controller: 'TransactionRecordCtrl',
+          controllerUrl: 'scripts/controller/user-center/transaction-record-ctrl'
+        }
+      }
+    })
+    .state('root.userCenter.transaction-query', {
+        url: '/transaction-record/:dateInterval/:type',
+        views: {
+          'user-center': {
+            templateUrl: 'views/user-center/transaction-record.html',
+            controller: 'TransactionRecordCtrl',
+            controllerUrl: 'scripts/controller/user-center/transaction-record-ctrl'
+          }
+        }
+      })
+
+
     .state('root.userCenter.security-settings', {
       url: '/security-settings',
       views: {
@@ -449,7 +472,8 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
     '/security-settings',
     '/withdraw',
     '/recharge',
-    '/invest-verify'
+    '/invest-verify',
+    'transaction-record'
   ];
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');

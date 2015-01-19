@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .factory('UserCenterService', function ($resource, DEFAULT_DOMAIN) {
+  .factory('UserCenterService', function($resource, DEFAULT_DOMAIN) {
     return {
       userSecurityInfo: $resource(DEFAULT_DOMAIN + '/siteUser/userSecurityInfo', {}),
       yeepayRegister: $resource(DEFAULT_DOMAIN + '/yeepay/register', {
@@ -65,6 +65,10 @@ angular.module('hongcaiApp')
         uuid: '@uuid',
         etoken: '@etoken',
         password: '@password'
+      }),
+      getDealListByUser: $resource(DEFAULT_DOMAIN + '/siteUser/getDealListByUser', {
+        dateInterval: '@dateInterval',
+        type: '@type'
       }),
       getEnterpriseUserInfo: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getEnterpriseUserInfo', {}),
     };

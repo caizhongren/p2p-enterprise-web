@@ -1,0 +1,116 @@
+<!--支付记录-->
+<div class="right-area record col-md-8 col-lg-9" >
+  <div class="row">
+   <div class="right-title">交易记录</div>
+  </div>
+  <div class="padd border-end">
+    <span>当前账户资产总计：
+      <strong>{{capital.waitingCapital + capital.balance + capital.waitingProfit + capital.freezeCapital | number: 2}}</strong>元。
+    </span>
+    <span>其中可用资产：
+      <strong>{{capital.balance | number: 2}}</strong>元，
+    </span>
+    <span>冻结资产：
+      <strong>{{capital.freezeCapital | number: 2}}</strong>元。
+    </span>
+  </div>
+  <div class="panel panel-defaul">
+    <ul class="list-group">
+      <li class="list-group-item projects-filter">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-2 pull-left text-nowrap">项目状态：</div>
+              <div class="col-xs-2 text-nowrap">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'0'})" class="project-nonche ck" ng-class="{'project-check': type === '0', 'project-noncheck': type !== '0'}">
+                  全部
+                </a>
+              </div>
+              <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'1'})" class="project-noncheck" ng-class="{'project-check': type === '1', 'project-noncheck': type !== '1'}">
+                  充值
+                </a>
+              </div>
+              <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'2'})" class="project-noncheck" ng-class="{'project-check': type === '2', 'project-noncheck': type !== '2'}">
+                  提现
+                </a>
+              </div>
+               <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'6'})" class="project-noncheck" ng-class="{'project-check': type === '6', 'project-noncheck': type !== '6'}">
+                  放款
+                </a>
+              </div>
+              <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:dateInterval, type:'7'})" class="project-noncheck" ng-class="{'project-check': type === '7', 'project-noncheck': type !== '7'}">
+                  还款
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-2 text-nowrap">创建日期：</div>
+              <div class="col-xs-2 text-nowrap">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:0, type:type})" class="project-noncheck" ng-class="{ 'project-check': dateInterval === 0, 'project-noncheck': dateInterval !== 0 }">
+                  全部
+                </a>
+              </div>
+              <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:7, type:type})" class="project-noncheck" ng-class="{ 'project-check': dateInterval === 7, 'project-noncheck': dateInterval !== 7 }">
+                  最近七天
+                </a>
+              </div>
+              <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:30, type:type})" class="project-noncheck" ng-class="{'project-check': dateInterval === 30, 'project-noncheck': dateInterval !== 30 }">
+                  一个月
+                </a>
+              </div>
+              <div class="col-xs-2">
+                <a ui-sref="root.userCenter.transaction-query({dateInterval:90, type:type})" class="project-noncheck" ng-class="{'project-check': dateInterval === 90, 'project-noncheck': dateInterval !== 90 }">
+                三个月
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>创建时间</th>
+        <th>收支类型</th>
+        <th>收支描述</th>
+        <th>收入</th>
+        <th>支出</th>
+        <th>账户现金</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in data | startFrom:currentPage * pageSize | limitTo:pageSize">
+<!--       <tr ng-repeat="item in data"> -->
+        <td>{{ item.createTime | date: 'yyyy-MM-dd'}}</td>
+        <td>{{ typeValue[item.type] }}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.getAmount | number: 2}}</td>
+        <td>{{item.payAmount | number: 2}}</td>
+        <td>{{item.balance | number: 2}}
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ul class="pager">
+    <li>
+      <button class="btn btn-default btn-sm" ng-disabled="currentPage == 0" ng-click="currentPage = currentPage - 1">上一页</button>
+    </li>
+    {{currentPage +1 }} / {{numberOfPages()}} 共 {{data.length}} 条
+    <li>
+      <button class="btn btn-default btn-sm" ng-disabled="currentPage >= data.length / pageSize - 1" ng-click="currentPage = currentPage + 1">下一页</button>
+    </li>
+  </ul>
+</div>
