@@ -799,6 +799,7 @@ input:focus {
 }
 .security-stl {
   margin-left: 2px;
+}
 .projects-filter .row > .col-xs-12 > .row .col-xs-1 .project-check, .projects-filter .row > .col-xs-12 > .row .col-xs-2 .project-check{
   display: block;
   background-color:#3399cc;
