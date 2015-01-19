@@ -61,8 +61,8 @@ hongcaiApp.factory('UserCenterService', function($resource, DEFAULT_DOMAIN) {
       email: '@email'
     }),
     resetEmailPassword: $resource(DEFAULT_DOMAIN + '/siteUser/resetEmailPassword', {
-      uuid: '$uuid',
-      token: '@token',
+      uuid: '@uuid',
+      etoken: '@etoken',
       password: '@password'
     }),
     getEnterpriseUserInfo: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getEnterpriseUserInfo', {}),

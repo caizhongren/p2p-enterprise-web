@@ -143,7 +143,7 @@ hongcaiApp.controller('SetNewPwdCtrl', ['$scope', '$state', '$rootScope', '$stat
       return;
     }
     var md5EmailPassword = md5.createHash(user.password);
-    UserCenterService.resetEmailPassword.get({uuid: $scope.uuId, token: $scope.etoken, password: md5EmailPassword }, function(response){
+    UserCenterService.resetEmailPassword.get({uuid: $scope.uuId, etoken: $scope.etoken, password: md5EmailPassword }, function(response){
       if(response.ret == 1) {
         $scope.areaFlag = 4;
         $scope.counter = 5;
