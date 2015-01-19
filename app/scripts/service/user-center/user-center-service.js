@@ -1,5 +1,6 @@
 'use strict';
-hongcaiApp.factory('UserCenterService', function ($resource, DEFAULT_DOMAIN) {
+angular.module('hongcaiApp')
+.factory('UserCenterService', function ($resource, DEFAULT_DOMAIN) {
   return {
     userSecurityInfo: $resource(DEFAULT_DOMAIN + '/siteUser/userSecurityInfo', {}),
     yeepayRegister: $resource(DEFAULT_DOMAIN + '/yeepay/register', {realName: '@realName', idNo: '@idNo' }),
