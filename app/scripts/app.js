@@ -203,6 +203,28 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    /*------------------------------------------  get-pwd-back  -----------------------------------------------*/
+      .state('root.get-pwd-back', {
+        url: '/get-pwd-back',
+        views: {
+          '': {
+            templateUrl: 'views/get-pwd-back/get-pwd-back.html',
+            controller: 'GetPwdCtrl',
+            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
+          }
+        }
+      })
+    /*------------------------------------------  set-new-pwd  -----------------------------------------------*/
+      .state('root.set-new-pwd', {
+        url: '/set-new-pwd/:uuid/:etoken',
+        views: {
+          '': {
+            templateUrl: 'views/get-pwd-back/set-new-pwd.html',
+            controller: 'SetNewPwdCtrl',
+            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
+          }
+        }
+      })
     /*---------------------------------------------  yeepay  ---------------------------------------------*/
     .state('root.userCenter.yeepay-callback', {
       url: '/yeepay-callback/:yeepayService/:yeepayStatus',
