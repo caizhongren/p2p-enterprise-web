@@ -13,7 +13,6 @@ hongcaiApp.controller('TransactionRecordCtrl', ['$scope', '$state', '$rootScope'
       $scope.currentPage = 0;
       $scope.pageSize = 10;
       $scope.data = [];
-      console.log(getDealByUser.data);
       $scope.numberOfPages = function() {
         return Math.ceil($scope.data.length / $scope.pageSize);
       };

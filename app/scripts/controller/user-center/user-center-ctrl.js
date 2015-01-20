@@ -7,13 +7,11 @@ angular.module('hongcaiApp')
     $scope.untilDate = new Date(2014, 10, 7);
 
     $scope.fromDateChanged = function() {
-      console.log($scope.fromDate);
       $location.path('userCenter-investment/6');
 
     };
 
     $scope.untilDateChanged = function() {
-      console.log($scope.untilDate);
       $location.path('userCenter-investment/6');
 
     };
