@@ -42,32 +42,27 @@
           <label for="oldPwd" class="col-md-4 col-lg-4">原始密码：</label>
           <input type="password" class="verify-input col-md-6 col-lg-6" name="oldPwd" id="oldPwd" ng-model="password.oldPassword" check-password="oldPwd" required ng-focus autofocus/>
           <div class="user-tips-area safe-tips-area" ng-show="changePwdForm.oldPwd.$dirty && changePwdForm.oldPwd.$invalid && !changePwdForm.oldPwd.$focused && changePwdForm.oldPwd.$error.required">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">不能为空</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
-          <div class="user-tips-area safe-tips-area" ng-show="changePwdForm.oldPwd.$dirty && !changePwdForm.oldPwd.$focused && changePwdForm.oldPwd.$error.isPasswordTrue">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">密码错误</p>
+          <div class="user-tips-area safe-tips-area" ng-show="changePwdForm.oldPwd.$dirty && !changePwdForm.oldPwd.$focused && changePwdForm.oldPwd.$error.isPasswordTrue&& !changePwdForm.oldPwd.$error.required">
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>密码错误</p>
           </div>
         </div>
         <div class="safe-form-group row">
           <label class="col-md-4 col-lg-4">新密码：</label>
           <input type="password" class="verify-input col-md-6 col-lg-6" name="newPwd" id="newPwd" ng-model="password.newPassword" ng-focus required/>
           <div class="user-tips-area safe-tips-area" ng-show="changePwdForm.newPwd.$dirty && changePwdForm.newPwd.$invalid && !changePwdForm.newPwd.$focused">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">不能为空</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
         </div>
         <div class="safe-form-group row">
           <label class="col-md-4 col-lg-4">确认密码：</label>
           <input type="password" class="verify-input col-md-6 col-lg-6" name="confirmPwd" id="confirmPwd" ng-focus ng-model="password.repeatNewPassword" required/>
           <div class="user-tips-area safe-tips-area" ng-show="changePwdForm.confirmPwd.$dirty && changePwdForm.confirmPwd.$invalid && !changePwdForm.confirmPwd.$focused">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">不能为空</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
           <div class="user-tips-area safe-tips-area" ng-show="changePwdForm.confirmPwd.$dirty && !checkTwoPassword(password) && !changePwdForm.confirmPwd.$focused">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">密码不一致</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>密码不一致</p>
           </div>
         </div>
         <div class="safe-form-group row">
@@ -100,17 +95,14 @@
           <div ng-show="changeMobileForm.mobileNo.$dirty && changeMobileForm.mobileNo.$invalid && !changeMobileForm.mobileNo.$focused" class="col-lg-2 col-md-2 col-md-offset-1 col-lg-offset-1">
             <div class="user-tips-area row" ng-show="changeMobileForm.mobileNo.$error.required &&
                     !changeMobileForm.mobileNo.$focused">
-              <img ng-src="images/check_no.png" class="user-check-img">
-              <p class="input-tips user-input-tips">不能为空</p>
+              <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
             </div>
             <div class="user-tips-area row" ng-show="changeMobileForm.mobileNo.$error.pattern &&
                       !changeMobileForm.mobileNo.$focused">
-              <img ng-src="images/check_no.png" class="user-check-img">
-              <p class="input-tips user-input-tips">格式错误</p>
+              <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>格式错误</p>
             </div>
             <div class="user-tips-area row" ng-show="changeMobileForm.mobileNo.$error.unique">
-              <img ng-src="images/check_no.png" class="user-check-img">
-              <p class="input-tips user-input-tips">已被占用</p>
+              <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>已被占用</p>
             </div>
           </div>
         </div>
@@ -118,8 +110,7 @@
           <label class="col-md-3 col-lg-3">短信验证码：</label>
           <input type="text" class="verify-input col-md-3 col-lg-3" name="inputCaptcha" ng-model="inputCaptcha" ng-focus required/>
           <div class="user-tips-area safe-tips-area" ng-show="changeMobileForm.inputCaptcha.$error.required &&changeMobileForm.inputCaptcha.$dirty">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">不能为空</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
         </div>
         <div class="safe-form-group row">
@@ -151,16 +142,13 @@
               bindEmailForm.newEmail.$invalid &&
               !bindEmailForm.newEmail.$focused">
             <div class="user-tips-area safe-tips-area safe-email-change" ng-show="bindEmailForm.newEmail.$error.pattern">
-              <img ng-src="images/check_no.png" class="user-check-img">
-              <p class="input-tips user-input-tips">格式错误</p>
+              <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>格式错误</p>
             </div>
             <div class="user-tips-area safe-tips-area safe-email-change" ng-show="bindEmailForm.newEmail.$error.unique">
-              <img ng-src="images/check_no.png" class="user-check-img">
-              <p class="input-tips user-input-tips">已被占用</p>
+              <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>已被占用</p>
             </div>
             <div class="user-tips-area safe-tips-area safe-email-change" ng-show="bindEmailForm.newEmail.$error.required">
-              <img ng-src="images/check_no.png" class="user-check-img">
-              <p class="input-tips user-input-tips">不能为空</p>
+              <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
             </div>
           </div>
         </div>
@@ -193,16 +181,14 @@
           <label class="col-md-4 col-lg-4">真实姓名：</label>
           <input type="text" class="verify-input col-md-6 col-lg-6" name="realName" ng-model="user.realName" ng-focus required/>
           <div class="user-tips-area safe-tips-area" ng-show="openTrusteeshipAccountForm.realName.$dirty && openTrusteeshipAccountForm.realName.$error.required">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">不能为空</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
         </div>
         <div class="safe-form-group row">
           <label class="col-md-4 col-lg-4">身份证号：</label>
           <input type="text" class="verify-input col-md-6 col-lg-6" name="idCardNo" ng-model="user.idCardNo" ng-focus required/>
           <div class="user-tips-area safe-tips-area" ng-show="openTrusteeshipAccountForm.idCardNo.$dirty && openTrusteeshipAccountForm.idCardNo.$error.required">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">不能为空</p>
+            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
         </div>
         <div class="safe-form-group row">

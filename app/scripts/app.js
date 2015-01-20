@@ -82,6 +82,29 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+
+     .state('root.userCenter.transaction-record', {
+      url: '/transaction-record',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/transaction-record.html',
+          controller: 'TransactionRecordCtrl',
+          controllerUrl: 'scripts/controller/user-center/transaction-record-ctrl'
+        }
+      }
+    })
+    .state('root.userCenter.transaction-query', {
+        url: '/transaction-record/:dateInterval/:type',
+        views: {
+          'user-center': {
+            templateUrl: 'views/user-center/transaction-record.html',
+            controller: 'TransactionRecordCtrl',
+            controllerUrl: 'scripts/controller/user-center/transaction-record-ctrl'
+          }
+        }
+      })
+
+
     .state('root.userCenter.security-settings', {
       url: '/security-settings',
       views: {
@@ -203,6 +226,28 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    /*------------------------------------------  get-pwd-back  -----------------------------------------------*/
+      .state('root.get-pwd-back', {
+        url: '/get-pwd-back',
+        views: {
+          '': {
+            templateUrl: 'views/get-pwd-back/get-pwd-back.html',
+            controller: 'GetPwdCtrl',
+            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
+          }
+        }
+      })
+    /*------------------------------------------  set-new-pwd  -----------------------------------------------*/
+      .state('root.set-new-pwd', {
+        url: '/set-new-pwd/:uuid/:etoken',
+        views: {
+          '': {
+            templateUrl: 'views/get-pwd-back/set-new-pwd.html',
+            controller: 'SetNewPwdCtrl',
+            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
+          }
+        }
+      })
     /*---------------------------------------------  yeepay  ---------------------------------------------*/
     .state('root.userCenter.yeepay-callback', {
       url: '/yeepay-callback/:yeepayService/:yeepayStatus',
@@ -427,7 +472,8 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
     '/security-settings',
     '/withdraw',
     '/recharge',
-    '/invest-verify'
+    '/invest-verify',
+    'transaction-record'
   ];
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
