@@ -107,8 +107,8 @@ module.exports = function(grunt) {
       options: {
         port: 9002,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: '192.168.90.132',
-        livereload: 35729
+        hostname: 'localhost',
+        livereload: 35730
       },
       proxies: [{
         context: '/enterprise/api/v1',
