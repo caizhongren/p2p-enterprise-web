@@ -473,7 +473,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
     '/withdraw',
     '/recharge',
     '/invest-verify',
-    'transaction-record'
+    '/transaction-record'
   ];
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
