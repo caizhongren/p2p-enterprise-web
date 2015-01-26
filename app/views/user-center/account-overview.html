@@ -46,9 +46,9 @@
 
   <div class="row">
     <div class="news-nav account-nav">
-      <span ng-click="repaymentPro()" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
-      <span ng-click="bidPro()" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
-      <span ng-click="settlePro()" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
+      <span ng-click="statusx=1;getProjects(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+      <span ng-click="statusx=2;getProjects(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
+      <span ng-click="statusx=3;getProjects(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
     </div>
     <div ng-if="projectBillDetails.length == 0" class="project-area">
       <br>
@@ -62,7 +62,7 @@
       <!--还款中-->
       <br>
       <br>
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 9">
+      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -88,7 +88,7 @@
       </div>
 
       <!--投标中-->
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 8 || status === 7 || status === 6">
+      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -114,7 +114,7 @@
       </div>
 
       <!--已结清-->
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="status === 3">
+      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
