@@ -7,6 +7,8 @@ angular.module('hongcaiApp')
         realName: '@realName',
         idNo: '@idNo'
       }),
+      yeepayEnterpriseRegister: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/enterpriseRegister', {
+      }),
       yeepayRecharge: $resource(DEFAULT_DOMAIN + '/yeepay/recharge', {
         amount: '@amount'
       }),

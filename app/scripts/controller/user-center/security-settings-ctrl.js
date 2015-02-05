@@ -137,6 +137,24 @@ angular.module('hongcaiApp')
       }
     };
 
+    $scope.enterpriseRegister = function(){
+      UserCenterService.yeepayEnterpriseRegister.get({
+      }, function(response) {
+        if (response.ret === 1) {
+          var req = response.data.req;
+          var sign = response.data.sign;
+          var _f = newForm();
+          createElements(_f, 'req', req);
+          createElements(_f, 'sign', sign);
+          _f.action = config.YEEPAY_ADDRESS + 'toEnterpriseRegister';
+          _f.submit();
+          $rootScope.securityStatus.realNameAuthStatus = 1;
+        } else {
+          console.log('ask security-settings, why yeepayRegister did not load data...');
+        }
+      });
+    }
+
     $scope.realNameAuth = function(user) {
       UserCenterService.yeepayRegister.get({
         realName: user.realName,

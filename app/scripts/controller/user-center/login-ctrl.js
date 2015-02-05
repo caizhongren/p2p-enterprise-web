@@ -24,6 +24,7 @@ angular.module('hongcaiApp')
       LoginService.userLogin.get({
         account: user.account,
         password: md5Password,
+        userType: user.userType,
         type: 1
       }, function(response) {
         if (response.ret === 1) {
@@ -55,7 +56,7 @@ angular.module('hongcaiApp')
       $state.go('root.login');
     };
     $scope.islogged = function() {
-      if (SessionService.get('user')) 
+      if (SessionService.get('user'))
         {return true;}
     };
   }]);
