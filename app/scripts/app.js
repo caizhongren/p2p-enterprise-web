@@ -482,6 +482,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
         if (response.data.data && response.data.data.name !== '' && response.data.data.name !== undefined && response.data.data.name !== null) {
           $rootScope.isLogged = true;
           $rootScope.loginName = response.data.data.name;
+          $rootScope.userType = response.data.data.userType;
           $rootScope.securityStatus = response.data.data.securityStatus;
         } else {
           $rootScope.isLogged = false;
@@ -494,6 +495,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
         if (response.data.data && response.data.data.name !== '' && response.data.data.name !== undefined && response.data.data.name !== null) {
           $rootScope.isLogged = true;
           $rootScope.loginName = response.data.data.name;
+          $rootScope.userType = response.data.data.userType;
           $rootScope.securityStatus = response.data.data.securityStatus;
         } else {
           $rootScope.isLogged = false;
