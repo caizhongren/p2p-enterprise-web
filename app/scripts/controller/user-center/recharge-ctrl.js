@@ -14,7 +14,6 @@ angular.module('hongcaiApp')
     $scope.checkAmount = function(amount) {
       if (!angular.isNumber(amount)) {
         $scope.amountErrMsg = '只能输入数字';
-        console.log('只能输入数字');
         return false;
       }
     };
