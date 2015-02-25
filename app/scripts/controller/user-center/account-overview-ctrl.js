@@ -81,49 +81,50 @@ angular.module('hongcaiApp')
     /**
      * 根据项目状态查询项目列表
      */
-    $scope.getProjects = function(status){
-        if (status == 1){
-            var searchStatus = '9';
-        } else if (status == 2){
-            var searchStatus = '6,7,8';
-        } else {
-            var searchStatus = '10';
+    $scope.getProjects = function(status) {
+      var searchStatus;
+      if (status === 1) {
+        searchStatus = '9';
+      } else if (status === 2) {
+        searchStatus = '6,7,8';
+      } else {
+        searchStatus = '10';
+      }
+      UserCenterService.getProjectByStatus.get({
+        status: searchStatus
+      }, function(response) {
+        if (response.ret !== 1) {
+          alert('查询出错，请联系客服！');
+          return;
         }
-        UserCenterService.getProjectByStatus.get({
-          status: searchStatus
-        }, function(response) {
-            if (response.ret !== 1){
-                alert('查询出错，请联系客服！');
-                return;
-            }
 
-            var projectBillDetails = response.data.projectBillDetails;
-            $scope.projectBillDetails = projectBillDetails;
+        var projectBillDetails = response.data.projectBillDetails;
+        $scope.projectBillDetails = projectBillDetails;
 
-            for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-                $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
-                $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
-                $scope.projectBillDetails[i].project.projectBackCapital = 0;
-                var projectBills = projectBillDetails[i].projectBills;
-                for (var j = projectBills.length - 1; j >= 0; j--) {
-                    if (projectBills[j].status === 0) {
-                        projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-                        projectBillDetails[i].recentProjectBill = projectBills[j];
-                        if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-                            new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-                            new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-                            projectBillDetails[i].project.isAvailableRepayment = true;
-                        } else {
-                            projectBillDetails[i].project.isAvailableRepayment = false;
-                        }
-                        break;
-                }else {
-                    $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
-                }
+        for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+          $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
+          $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
+          $scope.projectBillDetails[i].project.projectBackCapital = 0;
+          var projectBills = projectBillDetails[i].projectBills;
+          for (var j = projectBills.length - 1; j >= 0; j--) {
+            if (projectBills[j].status === 0) {
+              projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
+              projectBillDetails[i].recentProjectBill = projectBills[j];
+              if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+                new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+                new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+                projectBillDetails[i].project.isAvailableRepayment = true;
+              } else {
+                projectBillDetails[i].project.isAvailableRepayment = false;
               }
+              break;
+            } else {
+              $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
             }
+          }
+        }
 
-        });
+      });
     };
 
 

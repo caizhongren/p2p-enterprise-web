@@ -350,7 +350,7 @@ input:focus {
   color: #d8271c;
 }
 .regist-input-tips, .login-input-tips {
-  margin-top: -19px;
+  margin-top: -6px;
   margin-left: 19px;
 }
 .login-input-tips {
