@@ -56,6 +56,16 @@
       <div ng-show="areaFlag == 1" class="margin-b">
         <form class="form-horizontal" role="form" name="getPwdUserForm">
           <div class="form-group">
+            <label for="account" class="col-xs-3  col-xs-offset-1 control-label">账户类型:</label>
+            <div class="col-xs-7">
+              <select class="form-group" ng-model="userType" required>
+                <option value="">-- 请选择 --</option>
+                <option value="1">对私账户</option>
+                <option value="2">对公账户</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
             <label for="account" class="col-xs-3  col-xs-offset-1 control-label">用户名:</label>
             <div class="col-xs-5">
               <input type="text" class="form-pwd" name="account" ng-model="getPwd.account" find-account="account" required ng-focnus id="account" placeholder="用户名/邮箱/手机号码">
@@ -83,7 +93,7 @@
             </div>
           </div>
         </form>
-      </div>  
+      </div>
 
       <!-- STEP2-1 通过手机号进行手机验证 -->
       <div ng-show="areaFlag == 21" class="margin-b">
