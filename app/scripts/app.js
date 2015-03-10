@@ -230,7 +230,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       url: '/unBindbankcard-success/:status',
       views: {
         '': {
-          templateUrl: 'views/success.html',
+          templateUrl: 'views/user-center/success.html',
           controller: 'UnBindBankcardSuccessCtrl',
           controllerUrl: 'scripts/controller/user-center/unbind-bankcard-success-ctrl'
         }

@@ -1,7 +1,8 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('UnBindBankcardSuccessCtrl', ['$scope', function($scope) {
+  .controller('UnBindBankcardSuccessCtrl', ['$scope', '$timeout', '$state', function($scope, $timeout, $state) {
     $scope.page = 7;
+
     $scope.counter = 5;
     $scope.onTimeout = function() {
       $scope.counter--;
