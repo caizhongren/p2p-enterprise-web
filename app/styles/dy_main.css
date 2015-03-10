@@ -129,6 +129,23 @@ input:focus {
 .tips-area:active .grey-recharge, .tips-area:active .blue-recharge {
   background-position: -463px -604px;
 }
+/*unbankcard*/
+.bankCard {
+  position: relative;
+}
+.bankCard a {
+  position: absolute;
+  bottom: 10px;
+  left: -1px;
+  display: inline-block;
+  width: 330px;
+  height: 0px;
+  background: url(/images/sprite.png) no-repeat -725px -850px;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  -ms-transition: 0.3s ease-in-out;
+}
 
 .blue-transaction {
   background-position: -362px -674px;

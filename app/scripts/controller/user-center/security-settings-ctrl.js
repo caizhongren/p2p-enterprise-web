@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('SecuritySettingsCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'toaster', 'config', 'md5', '$alert', function($scope, $state, $rootScope, $stateParams, UserCenterService, toaster, config, md5, $alert) {
+  .controller('SecuritySettingsCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'config', 'md5', '$alert', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert) {
 
     $rootScope.selectSide = 'security-settings';
     UserCenterService.userSecurityInfo.get({}, function(response) {
@@ -13,9 +13,11 @@ angular.module('hongcaiApp')
         // $scope.idNo = userAuth.idNo;
         if (userAuth && userAuth.yeepayAccountStatus === 1) {
           $scope.haveTrusteeshipAccount = true;
+          $scope.openTrustReservation = userAuth.autoTransfer;
         } else {
           $scope.haveTrusteeshipAccount = false;
         }
+
       } else {
         console.log('ask security-settings, why userSecurityInfo did not load data...');
       }
@@ -50,7 +52,6 @@ angular.module('hongcaiApp')
       });
     };
 
-
     $scope.bindEmail = function(email) {
       UserCenterService.bindEmail.get({
         email: email
@@ -73,13 +74,15 @@ angular.module('hongcaiApp')
     };
 
     $scope.checkTwoPassword = function(password) {
-      if (password.repeatNewPassword !== password.newPassword) {
-        return false;
-      } else {
-        return true;
+      if (password) {
+        if (password.repeatNewPassword !== password.newPassword) {
+          return false;
+        } else {
+          return true;
+        }
       }
-
     };
+
     var md5Password = function(password) {
       return md5.createHash(password);
     };
@@ -106,71 +109,45 @@ angular.module('hongcaiApp')
     };
 
 
-    function newForm() {
-      var f = document.createElement('form');
-      document.body.appendChild(f);
-      f.method = 'post';
-      //f.target = '_blank';
-      return f;
-    }
-
-    function createElements(eForm, eName, eValue) {
-      var e = document.createElement('input');
-      eForm.appendChild(e);
-      e.type = 'text';
-      e.name = eName;
-      if (!document.all) {
-        e.style.display = 'none';
-      } else {
-        e.style.display = 'block';
-        e.style.width = '0px';
-        e.style.height = '0px';
-      }
-      e.value = eValue;
-      return e;
-    }
-
     $scope.checkEmailAndMobile = function() {
       if (!$scope.email || !$scope.mobile) {
         $scope.openTrusteeshipAccount = false;
-        alert('请先绑定邮箱和手机号码');
+        $scope.msg = '请先绑定邮箱和手机号码';
+        $alert({
+          scope: $scope,
+          template: 'views/modal/alert-dialog.html',
+          show: true
+        });
       }
     };
 
-    $scope.enterpriseRegister = function() {
-      UserCenterService.yeepayEnterpriseRegister.get({}, function(response) {
-        if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = config.YEEPAY_ADDRESS + 'toEnterpriseRegister';
-          _f.submit();
-          $rootScope.securityStatus.realNameAuthStatus = 1;
-        } else {
-          console.log('ask security-settings, why yeepayRegister did not load data...');
-        }
-      });
+    $scope.reload = function() {
+      window.location.reload();
     };
 
     $scope.realNameAuth = function(user) {
-      UserCenterService.yeepayRegister.get({
-        realName: user.realName,
-        idCardNo: user.idCardNo
-      }, function(response) {
-        if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = config.YEEPAY_ADDRESS + 'toRegister';
-          _f.submit();
-          $rootScope.securityStatus.realNameAuthStatus = 1;
-        } else {
-          console.log('ask security-settings, why yeepayRegister did not load data...');
-        }
+      $scope.msg = '1';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
       });
+
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
+    };
+
+    $scope.openReservation = function() {
+      $scope.msg = '6';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+
+      var user = {
+        'realName' : 'default',
+        'idCardNo' : 'default'
+      };
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/1');
     };
   }]);
