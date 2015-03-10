@@ -226,6 +226,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.unbind-bankcard-success', {
+      url: '/unBindbankcard-success/:status',
+      views: {
+        '': {
+          templateUrl: 'views/success.html',
+          controller: 'UnBindBankcardSuccessCtrl',
+          controllerUrl: 'scripts/controller/user-center/unbind-bankcard-success-ctrl'
+        }
+      }
+    })
     /*------------------------------------------  toYeepay transfer  -----------------------------------------------*/
     .state('root.recharge-transfer', {
       url: '/recharge-transfer/:amount',
