@@ -83,7 +83,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
 
-     .state('root.userCenter.transaction-record', {
+  .state('root.userCenter.transaction-record', {
       url: '/transaction-record',
       views: {
         'user-center': {
@@ -94,18 +94,18 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
     .state('root.userCenter.transaction-query', {
-        url: '/transaction-record/:dateInterval/:type',
-        views: {
-          'user-center': {
-            templateUrl: 'views/user-center/transaction-record.html',
-            controller: 'TransactionRecordCtrl',
-            controllerUrl: 'scripts/controller/user-center/transaction-record-ctrl'
-          }
+      url: '/transaction-record/:dateInterval/:type',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/transaction-record.html',
+          controller: 'TransactionRecordCtrl',
+          controllerUrl: 'scripts/controller/user-center/transaction-record-ctrl'
         }
-      })
+      }
+    })
 
 
-    .state('root.userCenter.security-settings', {
+  .state('root.userCenter.security-settings', {
       url: '/security-settings',
       views: {
         'user-center': {
@@ -226,28 +226,79 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.unbind-bankcard-success', {
+      url: '/unBindbankcard-success/:status',
+      views: {
+        '': {
+          templateUrl: 'views/success.html',
+          controller: 'UnBindBankcardSuccessCtrl',
+          controllerUrl: 'scripts/controller/user-center/unbind-bankcard-success-ctrl'
+        }
+      }
+    })
+    /*------------------------------------------  toYeepay transfer  -----------------------------------------------*/
+    .state('root.recharge-transfer', {
+      url: '/recharge-transfer/:amount',
+      views: {
+        '': {
+          templateUrl: 'views/transfer.html',
+          controller: 'RechargeTransferCtrl',
+          controllerUrl: 'scripts/controller/user-center/recharge-transfer-ctrl'
+        }
+      }
+    })
+    .state('root.rights-transfer', {
+      url: '/righs-transfer/:realName/:idCardNo/:type',
+      views: {
+        '': {
+          templateUrl: 'views/transfer.html',
+          controller: 'RightsTransferCtrl',
+          controllerUrl: 'scripts/controller/user-center/rights-transfer-ctrl'
+        }
+      }
+    })
+    .state('root.withdraw-transfer', {
+      url: '/withdraw-transfer/:amount/:captcha',
+      views: {
+        '': {
+          templateUrl: 'views/transfer.html',
+          controller: 'WithdrawTransferCtrl',
+          controllerUrl: 'scripts/controller/user-center/withdraw-transfer-ctrl'
+        }
+      }
+    })
+    .state('root.bankcard-transfer', {
+      url: '/bankcard-transfer/:type',
+      views: {
+        '': {
+          templateUrl: 'views/transfer.html',
+          controller: 'BankcardTransferCtrl',
+          controllerUrl: 'scripts/controller/user-center/bankcard-transfer-ctrl'
+        }
+      }
+    })
     /*------------------------------------------  get-pwd-back  -----------------------------------------------*/
-      .state('root.get-pwd-back', {
-        url: '/get-pwd-back',
-        views: {
-          '': {
-            templateUrl: 'views/get-pwd-back/get-pwd-back.html',
-            controller: 'GetPwdCtrl',
-            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
-          }
+    .state('root.get-pwd-back', {
+      url: '/get-pwd-back',
+      views: {
+        '': {
+          templateUrl: 'views/get-pwd-back/get-pwd-back.html',
+          controller: 'GetPwdCtrl',
+          controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
         }
-      })
+      }
+    })
     /*------------------------------------------  set-new-pwd  -----------------------------------------------*/
-      .state('root.set-new-pwd', {
-        url: '/set-new-pwd/:uuid/:etoken',
-        views: {
-          '': {
-            templateUrl: 'views/get-pwd-back/set-new-pwd.html',
-            controller: 'SetNewPwdCtrl',
-            controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
-          }
+    .state('root.set-new-pwd', {
+      url: '/set-new-pwd/:uuid/:etoken',
+      views: {
+        '': {
+          templateUrl: 'views/get-pwd-back/set-new-pwd.html',
+          controller: 'SetNewPwdCtrl',
+          controllerUrl: 'scripts/controller/get-pwd-back/get-pwd-back-ctrl'
         }
-      })
+      }
+    })
     /*---------------------------------------------  yeepay  ---------------------------------------------*/
     .state('root.userCenter.yeepay-callback', {
       url: '/yeepay-callback/:yeepayService/:yeepayStatus',
