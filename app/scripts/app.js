@@ -287,6 +287,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.transfer-transfer', {
+      url: '/transfer-transfer/:transferAmount',
+      views: {
+        '': {
+          templateUrl: 'views/transfer.html',
+          controller: 'TransferTransferCtrl',
+          controllerUrl: 'scripts/controller/user-center/transfer-transfer-ctrl'
+        }
+      }
+    })
     /*------------------------------------------  get-pwd-back  -----------------------------------------------*/
     .state('root.get-pwd-back', {
       url: '/get-pwd-back',

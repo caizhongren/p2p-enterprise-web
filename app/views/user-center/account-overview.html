@@ -165,7 +165,7 @@
              <div class="col-md-10 col-md-offset-1 table-stl">
                <div class="panel panel-info">
                  <div class="panel-heading">
-                   <h5>{{projectBillDetail.project.name}}</h5>
+                   <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
                  </div>
                  <div class="panel-body">
                    <table class="table">
@@ -190,7 +190,7 @@
              <div class="col-md-10 col-md-offset-1 table-stl">
                <div class="panel panel-info">
                  <div class="panel-heading">
-                   <h5>{{projectBillDetail.project.name}}</h5>
+                   <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
                  </div>
                  <div class="panel-body">
                    <table class="table">
@@ -201,7 +201,7 @@
                      </tr>
                      <tr>
                        <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
-                       <td>年化收益：{{projectBillDetail.project.annualEarnings| number: 2}}%</td>
+                       <td>基本收益：{{projectBillDetail.product.baseRate| number: 2}}%</td>
                        <td><span style="display:block;float:left">募集进度：</span><span class="gery-bg"><span class="red-show" style="width:{{projectBillDetail.project.investPercent | number : 2}}%;"></span></span>&nbsp{{projectBillDetail.project.investPercent | number : 2}}%</td>
                      </tr>
                    </table>
@@ -216,7 +216,7 @@
              <div class="col-md-10 col-md-offset-1 table-stl">
                <div class="panel panel-info">
                  <div class="panel-heading">
-                   <h5>{{projectBillDetail.project.name}}</h5>
+                   <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
                  </div>
                  <div class="panel-body">
                    <table class="table">

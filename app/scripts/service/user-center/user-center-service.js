@@ -79,5 +79,9 @@ angular.module('hongcaiApp')
       }),
       getFundsProjectByStatus: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/getFundsProjectByStatus', {
       }),
+      transferToPlatform: $resource(DEFAULT_DOMAIN + '/yeepay/transferToPlatform', {
+        amount: '@amount'
+      }),
+
     };
   });
