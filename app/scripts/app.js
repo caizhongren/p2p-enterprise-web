@@ -47,6 +47,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.pLogin', {
+      url: '/p',
+      views: {
+        '': {
+          templateUrl: 'views/pLogin.html',
+          controller: 'LoginCtrl',
+          controllerUrl: 'scripts/controller/user-center/login-ctrl'
+        }
+      }
+    })
     /*------------------------------------------  user-center  -----------------------------------------------*/
     .state('root.userCenter', {
       views: {
