@@ -55,7 +55,7 @@ angular.module('hongcaiApp')
       LoginService.userLogin.get({
         account: user.account,
         password: md5Password,
-        userType: 4,
+        userType: 5,
         type: 1
       }, function(response) {
         if (response.ret === 1) {
