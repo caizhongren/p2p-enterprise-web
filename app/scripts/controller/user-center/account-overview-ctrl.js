@@ -176,7 +176,7 @@ angular.module('hongcaiApp')
 
 
     // 默认查询还款中项目
-    if ($rootScope.userType != 4) {
+    if ($rootScope.userType != 5) {
       $scope.statusx = 1;
       $scope.getProjects(1);
     } else {
