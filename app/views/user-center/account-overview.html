@@ -172,7 +172,6 @@
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
                        <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
-                       <td>产品：{{projectBillDetail.product.name}}</td>
                      </tr>
                      <tr>
                        <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
@@ -197,11 +196,10 @@
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
                        <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
-                       <td>产品：{{projectBillDetail.product.name}}</td>
                      </tr>
                      <tr>
                        <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
-                       <td>基本收益：{{projectBillDetail.product.baseRate| number: 2}}%</td>
+                       <td>基本收益率：{{projectBillDetail.product.baseRate| number: 2}}%</td>
 <!--                        <td><span style="display:block;float:left">募集进度：</span><span class="gery-bg"><span class="red-show" style="width:{{projectBillDetail.project.investPercent | number : 2}}%;"></span></span>&nbsp{{projectBillDetail.project.investPercent | number : 2}}%</td> -->
                      </tr>
                    </table>
@@ -223,7 +221,6 @@
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
                        <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
-                       <td>产品：{{projectBillDetail.product.name}}</td>
                      </tr>
                      <tr>
                        <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
