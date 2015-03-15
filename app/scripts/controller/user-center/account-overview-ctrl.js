@@ -154,7 +154,7 @@ angular.module('hongcaiApp')
           $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
           $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
           $scope.projectBillDetails[i].project.projectBackCapital = 0;
-          var projectBills = projectBillDetails[i].projectBills;
+          var projectBills = projectBillDetails[i].projectBill;
           if (projectBills.status && projectBills.status === 0) {
             projectBills.repaymentTimeDate = new Date(projectBills.repaymentTime);
             projectBillDetails[i].recentProjectBill = projectBills;
@@ -176,13 +176,16 @@ angular.module('hongcaiApp')
 
 
     // 默认查询还款中项目
-    if ($rootScope.userType != 5) {
+  $scope.$watch('userType', function(userType) {
+     if ($rootScope.userType != 5) {
       $scope.statusx = 1;
       $scope.getProjects(1);
     } else {
       $scope.statusx = 1;
       $scope.getFundsProject(1);
     }
+  });
+
 
 
 
