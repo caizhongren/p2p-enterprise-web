@@ -6,6 +6,7 @@
     <strong ng-if="msg === '3'">申请提现</strong>
     <strong ng-if="msg === '4'">支付</strong>
     <strong ng-if="msg === '5'">绑定提现银行卡</strong>
+    <strong ng-if="msg === '8'">转账</strong>
   </div>
 
   <div class="content" ng-if="msg === '1'">
@@ -35,6 +36,10 @@
   <div class="content" ng-if="msg === '7'">
     <p>您已申请取消绑定的银行卡</p>
     <p>请在第三方托管平台所提供页面完成取消绑定</p>
+  </div>
+  <div class="content" ng-if="msg === '7'">
+    <p>您已申请转账</p>
+    <p>请在第三方托管平台所提供页面完成转账操作</p>
   </div>
   <div class="row text-center">
     <p>如遇到问题，请拨打客服电话： 400-990-7626</p>

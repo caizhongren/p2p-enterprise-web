@@ -127,10 +127,66 @@ angular.module('hongcaiApp')
       });
     };
 
+    /**
+     * 根据项目状态查询项目列表
+     */
+    $scope.getFundsProject = function(status) {
+      var searchStatus;
+      if (status === 1) {
+        searchStatus = '4';
+      } else if (status === 2) {
+        searchStatus = '1,2,3';
+      } else {
+        searchStatus = '5';
+      }
+      UserCenterService.getFundsProjectByStatus.get({
+        status: searchStatus
+      }, function(response) {
+        if (response.ret !== 1) {
+          alert('查询出错，请联系客服！');
+          return;
+        }
+
+        var projectBillDetails = response.data.fundsProjectDetails;
+        $scope.projectBillDetails = projectBillDetails;
+
+        for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+          $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
+          $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
+          $scope.projectBillDetails[i].project.projectBackCapital = 0;
+          var projectBills = projectBillDetails[i].projectBill;
+          if (projectBills.status && projectBills.status === 0) {
+            projectBills.repaymentTimeDate = new Date(projectBills.repaymentTime);
+            projectBillDetails[i].recentProjectBill = projectBills;
+            if (new Date(projectBills.repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+              new Date(projectBills.repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+              new Date(projectBills.repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+              projectBillDetails[i].project.isAvailableRepayment = true;
+            } else {
+              projectBillDetails[i].project.isAvailableRepayment = false;
+            }
+            break;
+          } else {
+            $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills.repaymentInterest;
+          }
+        }
+
+      });
+    };
+
 
     // 默认查询还款中项目
-    $scope.statusx = 1;
-    $scope.getProjects(1);
+  $scope.$watch('userType', function(userType) {
+     if ($rootScope.userType != 5) {
+      $scope.statusx = 1;
+      $scope.getProjects(1);
+    } else {
+      $scope.statusx = 1;
+      $scope.getFundsProject(1);
+    }
+  });
+
+
 
 
     function newForm() {
@@ -166,6 +222,33 @@ angular.module('hongcaiApp')
         return;
       }
       UserCenterService.repayment.get({
+        projectId: project.id
+      }, function(response) {
+        if (response.ret === 1) {
+          var req = response.data.req;
+          var sign = response.data.sign;
+          var _f = newForm();
+          createElements(_f, 'req', req);
+          createElements(_f, 'sign', sign);
+          _f.action = config.YEEPAY_ADDRESS + 'toRepayment';
+          _f.submit();
+        } else if (response.ret === -1) {
+          alert(response.msg);
+        } else {
+          console.log('ask account-overview, why repayment did not load data...');
+        }
+      });
+    };
+
+    // 企业用户点击还款按钮，进行还款
+    // @param  {[type]} projectId
+    // @return {[type]}
+    $scope.fundsRepayment = function(project) {
+      if (project.repaymentAmount > $scope.balance) {
+        alert('账户余额不足，请先充值');
+        return;
+      }
+      UserCenterService.repaymentFundsProject.get({
         projectId: project.id
       }, function(response) {
         if (response.ret === 1) {

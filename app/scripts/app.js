@@ -47,6 +47,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.pLogin', {
+      url: '/p',
+      views: {
+        '': {
+          templateUrl: 'views/pLogin.html',
+          controller: 'LoginCtrl',
+          controllerUrl: 'scripts/controller/user-center/login-ctrl'
+        }
+      }
+    })
     /*------------------------------------------  user-center  -----------------------------------------------*/
     .state('root.userCenter', {
       views: {
@@ -274,6 +284,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
           templateUrl: 'views/transfer.html',
           controller: 'BankcardTransferCtrl',
           controllerUrl: 'scripts/controller/user-center/bankcard-transfer-ctrl'
+        }
+      }
+    })
+    .state('root.transfer-transfer', {
+      url: '/transfer-transfer/:transferAmount',
+      views: {
+        '': {
+          templateUrl: 'views/transfer.html',
+          controller: 'TransferTransferCtrl',
+          controllerUrl: 'scripts/controller/user-center/transfer-transfer-ctrl'
         }
       }
     })
