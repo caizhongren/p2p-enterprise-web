@@ -8,13 +8,16 @@ angular.module('hongcaiApp')
     $scope.day = $scope.timestamp.getDate();
     UserCenterService.getEnterpriseUserInfo.get(function(response) {
       if (response.ret === 1) {
+        var account = response.data.account;
+        var enterpriseUserCapital = response.data.enterpriseCapitalVo;
+
         $scope.totalAssets = response.data.totalAssets;
-        $scope.totalFundRaising = response.data.enterpriseCapitalVo.totalFundRaising;
-        $scope.unPrincipal = response.data.enterpriseCapitalVo.unPrincipal;
-        $scope.accruedInterest = response.data.enterpriseCapitalVo.accruedInterest;
-        $scope.unInterest = response.data.enterpriseCapitalVo.unInterest;
-        $scope.receivedProfit = response.data.userCapital.receivedProfit;
-        $scope.balance = response.data.userCapital.balance;
+        $scope.totalFundRaising = enterpriseUserCapital.totalFundRaising;
+        $scope.unPrincipal = enterpriseUserCapital.unPrincipal;
+        $scope.accruedInterest = enterpriseUserCapital.accruedInterest;
+        $scope.unInterest = enterpriseUserCapital.unInterest;
+        $scope.receivedProfit = account.receivedProfit;
+        $scope.balance = account.balance;
 
         if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
           $scope.doughnutAccountData = [{
