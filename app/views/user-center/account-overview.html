@@ -145,6 +145,7 @@
         <!-- p -->
         <div class="row" ng-show="userType == 5">
           <div class="news-nav account-nav">
+            <span ng-click="statusx=0;getNeedAuthorizeAutoRepaymentFundsProjectList()" class="{{statusx == 0 ?'active':''}}"><a href="javascript:void(0);">自动还款授权</a></span>
             <span ng-click="statusx=1;getFundsProject(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
             <span ng-click="statusx=2;getFundsProject(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
             <span ng-click="statusx=3;getFundsProject(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
@@ -157,6 +158,30 @@
             <br>
           </div>
           <div ng-if="projectBillDetails.length != 0">
+
+
+          <!--自动还款授权-->
+          <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 0">
+            <div class="col-md-10 col-md-offset-1 table-stl">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
+                </div>
+                <div class="panel-body">
+                  <table class="table">
+                    <tr>
+                      <td>项目代码：{{projectBillDetail.project.number}}</td>
+                      <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                    </tr>
+                    <tr>
+                      <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                    </tr>
+                  </table>
+                  <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="projectBillDetail.project.isAuthorizeAutoRepayment ? '已授权' : '自动还款授权'" ng-click="authorizeFundsProjectAutoRepayment(projectBillDetail.project)"  />
+                </div>
+              </div>
+            </div>
+          </div>
 
            <!--还款中-->
            <br>

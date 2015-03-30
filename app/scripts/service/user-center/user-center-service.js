@@ -82,6 +82,11 @@ angular.module('hongcaiApp')
       transferToPlatform: $resource(DEFAULT_DOMAIN + '/yeepay/transferToPlatform', {
         amount: '@amount'
       }),
+      authorizeFundsProjectAutoRepayment: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/authorizeAutoRepayment', {
+        projectId: '@projectId'
+      }),
+      getNeedAuthorizeAutoRepaymentFundsProjectList: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/getNeedAuthorizeAutoRepaymentFundsProjectList', {
+      }),
 
     };
   });
