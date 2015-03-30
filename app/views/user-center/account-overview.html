@@ -175,6 +175,7 @@
                     </tr>
                     <tr>
                       <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                      <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
                     </tr>
                   </table>
                   <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="projectBillDetail.project.isAuthorizeAutoRepayment ? '已授权' : '自动还款授权'" ng-click="authorizeFundsProjectAutoRepayment(projectBillDetail.project)"  />
