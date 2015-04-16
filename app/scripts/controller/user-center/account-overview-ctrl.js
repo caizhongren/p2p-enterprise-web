@@ -18,6 +18,7 @@ angular.module('hongcaiApp')
         $scope.unInterest = enterpriseUserCapital.unInterest;
         $scope.receivedProfit = account.receivedProfit;
         $scope.balance = account.balance;
+        $scope.fundsBorrowerWaitingAmount = enterpriseUserCapital.fundsBorrowerWaitingAmount;
 
         if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
           $scope.doughnutAccountData = [{
