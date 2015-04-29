@@ -6,53 +6,129 @@ angular.module('hongcaiApp')
     $scope.year = $scope.timestamp.getFullYear();
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
-    UserCenterService.getEnterpriseUserInfo.get(function(response) {
-      if (response.ret === 1) {
-        var account = response.data.account;
-        var enterpriseUserCapital = response.data.enterpriseCapitalVo;
 
-        $scope.totalAssets = response.data.totalAssets;
-        $scope.totalFundRaising = enterpriseUserCapital.totalFundRaising;
-        $scope.unPrincipal = enterpriseUserCapital.unPrincipal;
-        $scope.accruedInterest = enterpriseUserCapital.accruedInterest;
-        $scope.unInterest = enterpriseUserCapital.unInterest;
-        $scope.receivedProfit = account.receivedProfit;
-        $scope.balance = account.balance;
-        $scope.fundsBorrowerWaitingAmount = enterpriseUserCapital.fundsBorrowerWaitingAmount;
 
-        if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
-          $scope.doughnutAccountData = [{
-            value: 30,
-            label: '累计募资',
-            //highlight: '#FF5A5E',
-            color: '#e94828'
-          }, {
-            value: 30,
-            label: '累计利息',
-            color: '#f9b81e'
-          }, {
-            value: 30,
-            label: '账户余额',
-            color: '#62cbc6'
-          }];
-        } else {
-          $scope.doughnutAccountData = [{
-            value: $scope.totalFundRaising,
-            label: '累计募资',
-            //highlight: '#FF5A5E',
-            color: '#e94828'
-          }, {
-            value: $scope.accruedInterest,
-            label: '累计利息',
-            color: '#f9b81e'
-          }, {
-            value: $scope.balance,
-            label: '账户余额',
-            color: '#62cbc6'
-          }];
+
+    $scope.getEnterpriseAccount = function(){
+      UserCenterService.getEnterpriseUserInfo.get(function(response) {
+        if (response.ret === 1) {
+          var account = response.data.account;
+          var enterpriseUserCapital = response.data.enterpriseCapitalVo;
+
+          $scope.totalAssets = response.data.totalAssets;
+          $scope.totalFundRaising = enterpriseUserCapital.totalFundRaising;
+          $scope.unPrincipal = enterpriseUserCapital.unPrincipal;
+          $scope.accruedInterest = enterpriseUserCapital.accruedInterest;
+          $scope.unInterest = enterpriseUserCapital.unInterest;
+          $scope.receivedProfit = account.receivedProfit;
+          $scope.balance = account.balance;
+          $scope.fundsBorrowerWaitingAmount = enterpriseUserCapital.fundsBorrowerWaitingAmount;
+
+          if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
+            $scope.doughnutAccountData = [{
+              value: 30,
+              label: '累计募资',
+              //highlight: '#FF5A5E',
+              color: '#e94828'
+            }, {
+              value: 30,
+              label: '累计利息',
+              color: '#f9b81e'
+            }, {
+              value: 30,
+              label: '账户余额',
+              color: '#62cbc6'
+            }];
+          } else {
+            $scope.doughnutAccountData = [{
+              value: $scope.totalFundRaising,
+              label: '累计募资',
+              //highlight: '#FF5A5E',
+              color: '#e94828'
+            }, {
+              value: $scope.accruedInterest,
+              label: '累计利息',
+              color: '#f9b81e'
+            }, {
+              value: $scope.balance,
+              label: '账户余额',
+              color: '#62cbc6'
+            }];
+          }
         }
-      }
-    });
+      });
+
+    };
+
+
+    $scope.getFundsUserAccount = function(){
+      UserCenterService.getFundsUserAccount.get(function(response) {
+        if (response.ret === 1) {
+          var account = response.data.account;
+          var enterpriseUserCapital = response.data.enterpriseCapital;
+          $scope.enterpriseCapital = enterpriseUserCapital;
+
+          $scope.totalAssets = response.data.totalAssets;
+          $scope.totalFundRaising = enterpriseUserCapital.totalFundRaising;
+          $scope.unPrincipal = enterpriseUserCapital.unPrincipal;
+          $scope.accruedInterest = enterpriseUserCapital.accruedInterest;
+          $scope.unInterest = enterpriseUserCapital.unInterest;
+          $scope.receivedProfit = account.receivedProfit;
+          $scope.balance = account.balance;
+          $scope.fundsBorrowerWaitingAmount = enterpriseUserCapital.fundsBorrowerWaitingAmount;
+
+          if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
+            $scope.doughnutAccountData = [{
+              value: 30,
+              label: '累计募资',
+              //highlight: '#FF5A5E',
+              color: '#e94828'
+            }, {
+              value: 30,
+              label: '累计利息',
+              color: '#f9b81e'
+            }, {
+              value: 30,
+              label: '账户余额',
+              color: '#62cbc6'
+            }];
+          } else {
+            $scope.doughnutAccountData = [{
+              value: $scope.totalFundRaising,
+              label: '累计募资',
+              //highlight: '#FF5A5E',
+              color: '#e94828'
+            }, {
+              value: $scope.accruedInterest,
+              label: '累计利息',
+              color: '#f9b81e'
+            }, {
+              value: $scope.balance,
+              label: '账户余额',
+              color: '#62cbc6'
+            }];
+          }
+        }
+      });
+
+    };
+
+  // 默认查询还款中项目
+  $scope.$watch('userType', function(userType) {
+
+    if (!$rootScope.userType){
+      return;
+    }
+    if ($rootScope.userType != 5) {
+      $scope.statusx = 1;
+      $scope.getProjects(1);
+      $scope.getEnterpriseAccount();
+    } else {
+      $scope.statusx = 0;
+      $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
+      $scope.getFundsUserAccount();
+    }
+  });
 
     if ($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
       $scope.doughnutOptions = {
@@ -193,17 +269,6 @@ angular.module('hongcaiApp')
       });
     };
 
-
-    // 默认查询还款中项目
-  $scope.$watch('userType', function(userType) {
-     if ($rootScope.userType != 5) {
-      $scope.statusx = 1;
-      $scope.getProjects(1);
-    } else {
-      $scope.statusx = 0;
-      $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
-    }
-  });
 
 
 

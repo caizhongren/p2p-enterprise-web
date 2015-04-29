@@ -36,9 +36,22 @@
         </div>
         <div class="last-show col-md-12 col-lg-12 " ng-show="userType === 5">
           <div class="assets-ico account-balance"></div>
-          <p class="asset-tips">授权待还金额</p>
+          <p class="asset-tips">已授权待还金额</p>
           <p class="asset-money">{{(fundsBorrowerWaitingAmount || 0)| number:2}} 元</p>
         </div>
+
+        <div class="last-show col-md-12 col-lg-12 " ng-show="userType === 5">
+          <div class="assets-ico account-balance"></div>
+          <p class="asset-tips">除去已授权自动还款后的可用金额</p>
+          <p class="asset-money">{{(balance - fundsBorrowerWaitingAmount || 0)| number:2}} 元</p>
+        </div>
+
+        <div class="last-show col-md-12 col-lg-12 " ng-show="userType === 5">
+          <div class="assets-ico account-balance"></div>
+          <p class="asset-tips">今天需还款金额</p>
+          <p class="asset-money">{{(enterpriseCapital.todayNeedRepayment || 0)| number:2}} 元</p>
+        </div>
+
         <input type="button" ui-sref="root.userCenter.recharge" class="blue-button account-button col-md-3 col-lg-3" value="充值" ng-show="userType != 5"/>
         <input type="button" ui-sref="root.userCenter.withdraw" class="white-button account-button account-right-button col-md-3 col-lg-3" value="提现" ng-show="userType != 5"/>
       </div>
