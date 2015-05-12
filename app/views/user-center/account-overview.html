@@ -80,7 +80,7 @@
       <!--还款中-->
       <br>
       <br>
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1" ng-show="userType != 5 ">
+      <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType != 5 ">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
