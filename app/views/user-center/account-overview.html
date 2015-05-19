@@ -215,11 +215,14 @@
                    <table class="table">
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
-                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
+                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>u
                      </tr>
                      <tr>
                        <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
                        <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
+                     </tr>
+                     <tr>
+                       <td colspan="2">自动还款授权：{{projectBillDetail.project.isAuthorizeAutoRepayment ? '已授权' : '未授权'}}</td>
                      </tr>
                    </table>
                    <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="fundsRepayment(projectBillDetail.project)"  />
