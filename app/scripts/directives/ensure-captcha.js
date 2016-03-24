@@ -8,7 +8,7 @@ angular.module('hongcaiApp').directive('ensureCaptcha', ['$http', 'DEFAULT_DOMAI
           method: 'POST',
           url: DEFAULT_DOMAIN + '/siteUser/checkPicCaptcha?captcha=' + angular.element('#' + attrs.ensureCaptcha).val()
         }).success(function(data) {
-          if (data.ret === 1) {
+          if(data.ret === 1) {
             ctrl.$setValidity('check', true);
           } else {
             ctrl.$setValidity('check', false);

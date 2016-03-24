@@ -1,14 +1,14 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('SecuritySettingsCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'config', 'md5', '$alert', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert) {
+  .controller('SecuritySettingsCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert, DEFAULT_DOMAIN) {
 
     $rootScope.selectSide = 'security-settings';
     UserCenterService.userSecurityInfo.get({}, function(response) {
       if (response.ret === 1) {
         var userAuth = response.data.userAuth;
-        var user = response.data.user;
-        $scope.email = user.email;
-        $scope.mobile = user.mobile;
+        $scope.user = response.data.user;
+        $scope.email = $scope.user.email;
+        $scope.mobile = $scope.user.mobile;
         // $scope.realName = userAuth.realName;
         // $scope.idNo = userAuth.idNo;
         if (userAuth && userAuth.yeepayAccountStatus === 1) {
@@ -23,8 +23,9 @@ angular.module('hongcaiApp')
       }
     });
 
-    $scope.sendMobileCaptcha = function(mobile) {
+    $scope.sendMobileCaptcha = function(mobile, picCaptcha) {
       UserCenterService.sendMobileCaptcha.get({
+        picCaptcha: picCaptcha,
         mobile: mobile
       }, function(response) {
         if (response.ret === 1) {
@@ -35,16 +36,22 @@ angular.module('hongcaiApp')
       });
     };
 
-    $scope.bindMobile = function(mobileNo, captcha) {
+    $scope.getPicCaptcha = DEFAULT_DOMAIN + '/siteUser/getPicCaptcha?';
+    $scope.refreshCode = function() {
+      angular.element('#checkCaptcha').attr('src', angular.element('#checkCaptcha').attr('src').substr(0, angular.element('#checkCaptcha').attr('src').indexOf('?')) + '?code=' + Math.random());
+    };
+
+    $scope.bindMobile = function(mobileNo, mobileCaptcha) {
       UserCenterService.bindMobile.get({
         mobile: mobileNo,
-        captcha: captcha
+        captcha: mobileCaptcha,
+        userType: $scope.user.type
       }, function(response) {
         if (response.ret === 1) {
           $scope.mobile = mobileNo.substr(0, 3) + '****' + mobileNo.substr(7, 11);
           $scope.changeMobile = false;
           $scope.mobileNo = null;
-          $scope.inputCaptcha = null;
+          $scope.mobileCaptcha = null;
           $rootScope.securityStatus.mobileStatus = 1;
         } else {
           console.log('ask security-settings, why bindMobile did not load data...');
@@ -150,4 +157,4 @@ angular.module('hongcaiApp')
       };
       window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/1');
     };
-  }]);
+  });
