@@ -22,8 +22,9 @@ angular.module('hongcaiApp')
       getUserOrder: $resource(DEFAULT_DOMAIN + '/siteOrder/getOrderByUser'),
       getOrderByUser: $resource(DEFAULT_DOMAIN + '/siteOrder/getOrderByUser'),
       getUserBalance: $resource(DEFAULT_DOMAIN + '/siteAccount/getUserBalance'),
-      sendMobileCaptcha: $resource(DEFAULT_DOMAIN + '/siteUser/sendMobileCaptcha', {
-        mobile: '@mobile'
+      sendMobileCaptcha: $resource(DEFAULT_DOMAIN + '/siteUser/mobileCaptcha', {
+        mobile: '@mobile',
+        picCaptcha: '@picCaptcha'
       }),
       bindMobile: $resource(DEFAULT_DOMAIN + '/siteUser/bindMobile', {
         mobile: '@mobile',
@@ -82,6 +83,11 @@ angular.module('hongcaiApp')
       transferToPlatform: $resource(DEFAULT_DOMAIN + '/yeepay/transferToPlatform', {
         amount: '@amount'
       }),
+      authorizeFundsProjectAutoRepayment: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/authorizeAutoRepayment', {
+        projectId: '@projectId'
+      }),
+      getNeedAuthorizeAutoRepaymentFundsProjectList: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/getNeedAuthorizeAutoRepaymentFundsProjectList', {}),
+      getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {})
 
     };
   });

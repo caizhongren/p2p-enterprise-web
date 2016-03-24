@@ -34,6 +34,24 @@
           <p class="asset-tips">账户余额</p>
           <p class="asset-money">{{(balance || 0)| number:2}} 元</p>
         </div>
+        <div class="last-show col-md-12 col-lg-12 " ng-show="userType === 5">
+          <div class="assets-ico account-balance"></div>
+          <p class="asset-tips">已授权待还金额</p>
+          <p class="asset-money">{{(fundsBorrowerWaitingAmount || 0)| number:2}} 元</p>
+        </div>
+
+        <div class="last-show col-md-12 col-lg-12 " ng-show="userType === 5">
+          <div class="assets-ico account-balance"></div>
+          <p class="asset-tips">除去已授权自动还款后的可用金额</p>
+          <p class="asset-money">{{(balance - fundsBorrowerWaitingAmount || 0)| number:2}} 元</p>
+        </div>
+
+        <div class="last-show col-md-12 col-lg-12 " ng-show="userType === 5">
+          <div class="assets-ico account-balance"></div>
+          <p class="asset-tips">今天需还款金额</p>
+          <p class="asset-money">{{(enterpriseCapital.todayNeedRepayment || 0)| number:2}} 元</p>
+        </div>
+
         <input type="button" ui-sref="root.userCenter.recharge" class="blue-button account-button col-md-3 col-lg-3" value="充值" ng-show="userType != 5"/>
         <input type="button" ui-sref="root.userCenter.withdraw" class="white-button account-button account-right-button col-md-3 col-lg-3" value="提现" ng-show="userType != 5"/>
       </div>
@@ -62,7 +80,7 @@
       <!--还款中-->
       <br>
       <br>
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1" ng-show="userType != 5 ">
+      <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType != 5 ">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -145,6 +163,7 @@
         <!-- p -->
         <div class="row" ng-show="userType == 5">
           <div class="news-nav account-nav">
+            <span ng-click="statusx=0;getNeedAuthorizeAutoRepaymentFundsProjectList()" class="{{statusx == 0 ?'active':''}}"><a href="javascript:void(0);">自动还款授权</a></span>
             <span ng-click="statusx=1;getFundsProject(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
             <span ng-click="statusx=2;getFundsProject(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
             <span ng-click="statusx=3;getFundsProject(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
@@ -157,6 +176,31 @@
             <br>
           </div>
           <div ng-if="projectBillDetails.length != 0">
+
+
+          <!--自动还款授权-->
+          <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 0">
+            <div class="col-md-10 col-md-offset-1 table-stl">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
+                </div>
+                <div class="panel-body">
+                  <table class="table">
+                    <tr>
+                      <td>项目代码：{{projectBillDetail.project.number}}</td>
+                      <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
+                    </tr>
+                    <tr>
+                      <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                      <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
+                    </tr>
+                  </table>
+                  <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="projectBillDetail.project.isAuthorizeAutoRepayment ? '已授权' : '自动还款授权'" ng-click="authorizeFundsProjectAutoRepayment(projectBillDetail.project)"  />
+                </div>
+              </div>
+            </div>
+          </div>
 
            <!--还款中-->
            <br>
@@ -171,11 +215,14 @@
                    <table class="table">
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
-                       <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
                      </tr>
                      <tr>
                        <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
                        <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
+                     </tr>
+                     <tr>
+                       <td colspan="2">自动还款授权：{{projectBillDetail.project.authorizeAutoRepayment ? '已授权' : '未授权'}}</td>
                      </tr>
                    </table>
                    <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="fundsRepayment(projectBillDetail.project)"  />
@@ -195,7 +242,7 @@
                    <table class="table">
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
-                       <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
                      </tr>
                      <tr>
                        <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
@@ -220,7 +267,7 @@
                    <table class="table">
                      <tr>
                        <td>项目代码：{{projectBillDetail.project.number}}</td>
-                       <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
                      </tr>
                      <tr>
                        <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
