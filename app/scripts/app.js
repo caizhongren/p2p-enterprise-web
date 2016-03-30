@@ -320,11 +320,11 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
     /*---------------------------------------------  yeepay  ---------------------------------------------*/
-    .state('root.userCenter.yeepay-callback', {
-      url: '/yeepay-callback/:yeepayService/:yeepayStatus',
+    .state('root.yeepay-callback', {
+      url: '/yeepay-callback/:business/:yeepayStatus?amount&number',
       views: {
         '': {
-          templateUrl: 'views/user-center/yeepay-callback.html',
+          templateUrl: 'views/user-center/success.html',
           controller: 'YeepayCtrl',
           controllerUrl: 'scripts/controller/yeepay/yeepay-ctrl'
         }
