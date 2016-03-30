@@ -3,11 +3,11 @@
   <div class="container bg" ng-switch-when="1">
     <div class="agreement-area row introduction-height">
       <div class="col-md-12 col-lg-12">
-        <p class="text-title">注册易宝成功</p>
+        <p class="text-title">恭喜您成功开通第三方资金托管账户！</p>
         <div class="row">
           <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
-            <p class="success-tips col-lg-8 col-md-8">恭喜您注册易宝成功~
+            <p class="success-tips col-lg-8 col-md-8">您的资料已完善成功~
               <br>{{counter}}秒后进入个人中心~</p>
           </div>
         </div>
@@ -18,11 +18,11 @@
   <div class="container bg" ng-switch-when="2">
     <div class="agreement-area row introduction-height">
       <div class="col-md-12 col-lg-12">
-        <p class="text-title">充值成功</p>
+        <p class="text-title">自动还款授权宏金盈项目成功！</p>
         <div class="row">
           <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
-            <p class="success-tips col-lg-8 col-md-8">恭喜您充值成功~
+            <p class="success-tips col-lg-8 col-md-8">自动还款授权宏金盈项目成功~
               <br>{{counter}}秒后进入个人中心~</p>
           </div>
         </div>
@@ -33,11 +33,11 @@
   <div class="container bg" ng-switch-when="3">
     <div class="agreement-area row introduction-height">
       <div class="col-md-12 col-lg-12">
-        <p class="text-title">取现成功</p>
+        <p class="text-title">恭喜您还款成功！</p>
         <div class="row">
           <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
-            <p class="success-tips col-lg-8 col-md-8">恭喜您取现成功~
+            <p class="success-tips col-lg-8 col-md-8">恭喜您还款成功~
               <br>{{counter}}秒后进入个人中心~</p>
           </div>
         </div>
@@ -45,10 +45,11 @@
     </div>
   </div>
 
+
   <div class="container bg" ng-switch-when="4">
     <div class="agreement-area row introduction-height">
       <div class="col-md-12 col-lg-12">
-        <p class="text-title">交易成功</p>
+        <p class="text-title">恭喜您成功充值{{amount || 0 | number:2 }}元！</p>
         <div class="row">
           <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
@@ -63,7 +64,7 @@
   <div class="container bg" ng-switch-when="5">
     <div class="agreement-area row introduction-height">
       <div class="col-md-12 col-lg-12">
-        <p class="text-title">绑定申请提交成功</p>
+        <p class="text-title">您的绑卡申请已成功提交！</p>
         <div class="row">
           <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
@@ -75,15 +76,39 @@
     </div>
   </div>
 
-  <div class="container bg" ng-switch-when="7">
+  <div class="container bg" ng-switch-when="6">
     <div class="agreement-area row introduction-height">
       <div class="col-md-12 col-lg-12">
-        <p class="text-title">您的银行卡已经成功解绑</p>
+        <p class="text-title">恭喜您成功提现{{amount || 0 | number:2}}元！</p>
         <div class="row">
           <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
-            <p class="success-tips col-lg-8 col-md-8">恭喜您解绑成功
+            <p class="success-tips col-lg-8 col-md-8">您的提现申请，平台已收到
               <br>{{counter}}秒后进入个人中心~</p>
+          </div>
+        </div>
+        <div class="col-lg-11 col-lg-offset-1" style="margin-top:20px;">
+          <p class="success-p">温馨提示：</p>
+          <p class="success-t">1. 由于宏财网平台不接触投资人资金，投资人资金完全通过第三方支付（易宝支付）来完成资金划拨。由于银行与易宝支付之间的划拨需要(T+1)日，所以当天充值金额（未投资），需要次日才能提现；</p>
+          <p class="success-t">2. 三方支付平台收到用户提现申请即对提现进行转账操作，由于不同银行处理速度不同，提现资金将会当天或下个工作日到账（如遇双休日或法定节假日顺延）；</p>
+          <p class="success-t">3. 如果用户迟迟未收到提现资金，可能为银行卡信息填写有误，银行做正在退票操作，预计会在7个工作日内完成退票，请用户耐心等候。用户还可以联系客服（400-990-7626），寻求帮助。</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="container bg" ng-switch-when="7">
+    <div class="agreement-area row introduction-height">
+      <div class="col-md-12 col-lg-12">
+        <p class="text-title">您的解绑申请已成功受理！</p>
+        <div class="row">
+          <div class="success-page col-lg-8 col-md-8 col-lg-offset-3 col-md-offset-2">
+            <div class="smile-bg col-lg-offset-1 col-md-offset-1"></div>
+            <p class="success-tips col-lg-8 col-md-8">1.普通绑卡用户发起解绑动作后立即解绑</p>
+            <p class="success-tips col-lg-8 col-md-8">2.快捷绑卡用户自解绑动作发起后，第三方资金托管平台需2个自然日自动生效</p>
+              <br>{{counter}}秒后进入个人中心~
           </div>
         </div>
       </div>
