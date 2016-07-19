@@ -16,7 +16,8 @@ var hongcaiApp = angular.module('hongcaiApp', [
   'toaster',
   'ipCookie',
   'config',
-  'angular-md5'
+  'angular-md5',
+  'bgf.paginateAnything'
 ]);
 
 hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {

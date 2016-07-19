@@ -225,7 +225,10 @@
                        <td colspan="2">自动还款授权：{{projectBillDetail.project.authorizeAutoRepayment ? '已授权' : '未授权'}}</td>
                      </tr>
                    </table>
-                   <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="fundsRepayment(projectBillDetail.project)"  />
+                   <span>
+                   <input type="button" class="col-xs-offset-1 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="fundsRepayment(projectBillDetail.project)"  />
+                   <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" value="提前还款" ng-click="earlyFundsRepayment(projectBillDetail.project)"  />
+                   </span>
                  </div>
                </div>
              </div>
@@ -281,7 +284,16 @@
 
             <!--没有项目-->
 
-          </div>
+<!--           </div>
+          <ul class="pager">
+            <li>
+              <button class="btn btn-default btn-sm" ng-disabled="currentPage == 1" ng-click="currentPage = currentPage - 1">上一页</button>
+            </li>
+            {{currentPage}} / {{pageCount}} 共 {{data.length}} 条
+            <li>
+              <button class="btn btn-default btn-sm" ng-disabled="currentPage >= pageCount" ng-click="currentPage = currentPage + 1">下一页</button>
+            </li>
+          </ul> -->
         </div>
 
 

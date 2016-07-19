@@ -78,6 +78,9 @@ angular.module('hongcaiApp')
       repaymentFundsProject: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/repaymentFundsProject', {
         projectId: '@projectId'
       }),
+      earlyRepaymentFundsProject: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/earlyRepaymentFundsProject', {
+        projectId: '@projectId'
+      }),
       getFundsProjectByStatus: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/getFundsProjectByStatus', {
       }),
       transferToPlatform: $resource(DEFAULT_DOMAIN + '/yeepay/transferToPlatform', {
