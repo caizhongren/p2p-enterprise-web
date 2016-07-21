@@ -6,6 +6,7 @@ angular.module('hongcaiApp')
     UserCenterService.getUserBankCard.get({}, function(response) {
       if (response.ret === 1) {
         var card = response.data.card;
+        $scope.card = card;
         if (card) {
           $scope.haveCard = (card.status === 'VERIFIED');
           $scope.bankName = card.openBank;

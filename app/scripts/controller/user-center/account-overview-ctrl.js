@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('AccountOverviewCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'config', function($scope, $state, $rootScope, $stateParams, UserCenterService, config) {
+  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, DEFAULT_DOMAIN) {
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
     $scope.year = $scope.timestamp.getFullYear();
@@ -258,13 +258,13 @@ angular.module('hongcaiApp')
      * 需要自动还款授权的项目
      */
     $scope.getNeedAuthorizeAutoRepaymentFundsProjectList = function() {
+      // $scope.url = DEFAULT_DOMAIN + '/enterpriseFunds/getNeedAuthorizeAutoRepaymentFundsProjectList';
       UserCenterService.getNeedAuthorizeAutoRepaymentFundsProjectList.get({
       }, function(response) {
         if (response.ret !== 1) {
           alert('查询出错，请联系客服！');
           return;
         }
-
         $scope.projectBillDetails = response.data.fundsProjectDetails;
       });
     };
@@ -351,6 +351,42 @@ angular.module('hongcaiApp')
       });
     };
 
+
+    
+    /**
+     * 提前还款
+     */
+    $scope.earlyFundsRepayment = function(project) {
+      var really = confirm('确定提前还款！！！！？');
+
+      if(!really){
+        return;
+      }
+
+
+      if (project.repaymentAmount > $scope.balance) {
+        alert('账户余额不足，请先充值');
+        return;
+      }
+      UserCenterService.earlyRepaymentFundsProject.get({
+        projectId: project.id
+      }, function(response) {
+        if (response.ret === 1) {
+          var req = response.data.req;
+          var sign = response.data.sign;
+          var _f = newForm();
+          createElements(_f, 'req', req);
+          createElements(_f, 'sign', sign);
+          _f.action = config.YEEPAY_ADDRESS + 'toRepayment';
+          _f.submit();
+        } else if (response.ret === -1) {
+          alert(response.msg);
+        } else {
+          console.log('ask account-overview, why repayment did not load data...');
+        }
+      });
+    };
+
     /*宏金盈自动还款授权*/
     $scope.authorizeFundsProjectAutoRepayment = function(project) {
       UserCenterService.authorizeFundsProjectAutoRepayment.get({
@@ -372,4 +408,4 @@ angular.module('hongcaiApp')
       });
     };
 
-  }]);
+  });
