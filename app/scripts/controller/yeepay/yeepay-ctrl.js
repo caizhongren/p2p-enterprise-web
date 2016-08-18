@@ -24,6 +24,8 @@ angular.module('hongcaiApp')
     	page = 2;
     } else if (business === 'REPAYMENT'){
     	page = 3;
+    } else if (business === 'USER_ACTIVE'){
+        page = 10;
     }
 
 
