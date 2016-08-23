@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('WithdrawTransferCtrl', ['$scope', 'toaster', '$stateParams', 'UserCenterService', 'config', '$alert', function ($scope, toaster, $stateParams, UserCenterService, config, $alert) {
+  .controller('WithdrawTransferCtrl', function ($scope, toaster, $stateParams, UserCenterService, config, $alert, PayUtils) {
     function newForm() {
       var f = document.createElement('form');
       document.body.appendChild(f);
@@ -29,14 +29,8 @@ angular.module('hongcaiApp')
       amount: $stateParams.amount,
       captcha: $stateParams.captcha
     }, function(response) {
-      if (response.ret === 1) {
-        var req = response.data.req;
-        var sign = response.data.sign;
-        var _f = newForm();
-        createElements(_f, 'req', req);
-        createElements(_f, 'sign', sign);
-        _f.action = config.YEEPAY_ADDRESS + 'toWithdraw';
-        _f.submit();
+      if (response && response.ret !== -1) {
+        PayUtils.redToTrusteeship('toWithdraw', response);
       } else if (response.ret === -1) {
         $scope.msg = response.msg;
         $alert({scope: $scope, template: 'views/modal/alert-dialog.html', show: true});
@@ -45,4 +39,4 @@ angular.module('hongcaiApp')
       }
     });
     
-  }]);
+  });

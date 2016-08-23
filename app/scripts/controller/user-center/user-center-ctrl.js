@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('UserCenterCtrl', ['$location', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', function($location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN) {
+  .controller('UserCenterCtrl', function($location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, PayUtils) {
     $scope.selectedDate = '2014-10-16T08:50:36.394Z'; // <- [object Date]
     $scope.selectedDateAsNumber = 509414400000; // <- [object Number]
     $scope.fromDate = new Date(2014, 9, 20);
@@ -30,31 +30,6 @@ angular.module('hongcaiApp')
       $scope.welcomeTip = '晚安~';
     }
 
-
-    function newForm() {
-      var f = document.createElement('form');
-      document.body.appendChild(f);
-      f.method = 'post';
-      //f.target = '_blank';
-      return f;
-    }
-
-    function createElements(eForm, eName, eValue) {
-      var e = document.createElement('input');
-      eForm.appendChild(e);
-      e.type = 'text';
-      e.name = eName;
-      if (!document.all) {
-        e.style.display = 'none';
-      } else {
-        e.style.display = 'block';
-        e.style.width = '0px';
-        e.style.height = '0px';
-      }
-      e.value = eValue;
-      return e;
-    }
-
     $scope.getPicCaptcha = DEFAULT_DOMAIN + '/siteUser/getPicCaptcha?' + Math.random();
     $scope.refreshCode = function() {
       angular.element('#checkCaptcha').attr('src', angular.element('#checkCaptcha').attr('src').substr(0, angular.element('#checkCaptcha').attr('src').indexOf('?')) + '?code=' + Math.random());
@@ -64,14 +39,9 @@ angular.module('hongcaiApp')
 
     $scope.bindBankCard = function() {
       UserCenterService.bindBankCard.get({}, function(response) {
-        if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = 'http://qa.yeepay.com/member/bha/toBindBankCard';
-          _f.submit();
+        if (response && response.ret !== -1) {
+
+          PayUtils.redToTrusteeship('toBindBankCard', response);
 
         } else {
 
@@ -79,4 +49,4 @@ angular.module('hongcaiApp')
       });
     };
 
-  }]);
+  });
