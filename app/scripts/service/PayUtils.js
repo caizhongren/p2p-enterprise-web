@@ -7,7 +7,7 @@ angular.module('hongcaiApp')
         var f = document.createElement('form');
         document.body.appendChild(f);
         f.method = 'post';
-        f.target = '_blank';
+        // f.target = '_blank';
         return f;
       },
 
