@@ -7,7 +7,7 @@ angular.module('hongcaiApp')
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
 
-
+    console.log($rootScope);
 
     $scope.getEnterpriseAccount = function(){
       UserCenterService.getEnterpriseUserInfo.get(function(response) {
@@ -360,5 +360,15 @@ angular.module('hongcaiApp')
         }
       });
     };
+
+    $scope.goActivateUser = function(){
+      UserCenterService.cgtActive.active({}, function(response){
+        if (response && response.ret !== -1) {
+          PayUtils.redToTrusteeship('toActive', response);
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }
 
   });

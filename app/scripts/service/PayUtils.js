@@ -58,9 +58,6 @@ angular.module('hongcaiApp')
             _f.action = config.YEEPAY_ADDRESS;
             _f.submit();
           }
-
-
-          
         } else {
           alert(encrpyMsg.msg);
         }

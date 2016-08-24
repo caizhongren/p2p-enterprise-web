@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .factory('UserCenterService', function($resource, DEFAULT_DOMAIN) {
+  .factory('UserCenterService', function($resource, DEFAULT_DOMAIN, RESTFUL_DOMAIN) {
     return {
       userSecurityInfo: $resource(DEFAULT_DOMAIN + '/siteUser/userSecurityInfo', {}),
       yeepayRegister: $resource(DEFAULT_DOMAIN + '/yeepay/register', {
@@ -90,7 +90,9 @@ angular.module('hongcaiApp')
         projectId: '@projectId'
       }),
       getNeedAuthorizeAutoRepaymentFundsProjectList: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/getNeedAuthorizeAutoRepaymentFundsProjectList', {}),
+      cgtActive: $resource(RESTFUL_DOMAIN + '/userAuths/cgtActive', {}, {
+        'active':   {method:'POST'}
+      }),
       getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {})
-
     };
   });
