@@ -55,7 +55,7 @@ angular.module('hongcaiApp')
             this.createElements(_f, 'reqData', reqData);
             this.createElements(_f, 'keySerial', keySerial);
             this.createElements(_f, 'sign', sign);
-            _f.action = config.YEEPAY_ADDRESS;
+            _f.action = config.CGT_ADDRESS;
             _f.submit();
           }
         } else {
