@@ -4,18 +4,13 @@ angular.module('hongcaiApp')
 
 
     
-    UserCenterService.yeepayRecharge.get({
+    UserCenterService.yeepayRecharge.post({
       amount: $stateParams.amount
     }, function(response) {
       if (response && response.ret !== -1) {
         PayUtils.redToTrusteeship('toRecharge', response);
       } else {
-        // TODO alert是更好的方式，暂且用toaster
-        // $scope.msg = response.msg;
-        // var alertDialog = $alert({scope: $scope, template: 'views/modal/alert-dialog.html', show: true});
         toaster.pop('warning', response.msg);
-        $state.go('root.userCenter.security-settings');
-        $rootScope.openTrusteeshipAccount = true;
       }
     });
 

@@ -1,31 +1,8 @@
 'use strict';
 angular.module('hongcaiApp')
   .controller('WithdrawTransferCtrl', function ($scope, toaster, $stateParams, UserCenterService, config, $alert, PayUtils) {
-    function newForm() {
-      var f = document.createElement('form');
-      document.body.appendChild(f);
-      f.method = 'post';
-      // f.target = '_blank';
-      return f;
-    }
 
-    function createElements(eForm, eName, eValue) {
-      var e = document.createElement('input');
-      eForm.appendChild(e);
-      e.type = 'text';
-      e.name = eName;
-      if (!document.all) {
-        e.style.display = 'none';
-      } else {
-        e.style.display = 'block';
-        e.style.width = '0px';
-        e.style.height = '0px';
-      }
-      e.value = eValue;
-      return e;
-    }
-
-    UserCenterService.yeepayWithdraw.get({
+    UserCenterService.yeepayWithdraw.post({
       amount: $stateParams.amount,
       captcha: $stateParams.captcha
     }, function(response) {
