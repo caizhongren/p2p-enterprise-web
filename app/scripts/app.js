@@ -526,7 +526,8 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 
 }]);
 
-hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN) {
+hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
+  $rootScope.pay_company = config.pay_company;
   // Array 在IE8下没有indexOf 方法。
   if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(obj, start) {

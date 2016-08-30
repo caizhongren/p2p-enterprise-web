@@ -1,5 +1,5 @@
 {
-  "YEEPAY_ADDRESS": "http://220.181.25.233:8602/bha-neo-app/lanmaotech/gateway",
+  "YEEPAY_ADDRESS": "http://220.181.25.233:8081/member/bha/",
   "CGT_ADDRESS":"http://220.181.25.233:8602/bha-neo-app/lanmaotech/gateway",
-  "pay_company":"cgt"
+  "pay_company":"yeepay"
 }
