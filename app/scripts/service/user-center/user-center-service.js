@@ -1,20 +1,22 @@
 'use strict';
 angular.module('hongcaiApp')
-  .factory('UserCenterService', function($resource, DEFAULT_DOMAIN) {
+  .factory('UserCenterService', function($resource, DEFAULT_DOMAIN, RESTFUL_DOMAIN) {
     return {
       userSecurityInfo: $resource(DEFAULT_DOMAIN + '/siteUser/userSecurityInfo', {}),
-      yeepayRegister: $resource(DEFAULT_DOMAIN + '/yeepay/register', {
+      yeepayRegister: $resource(RESTFUL_DOMAIN + '/users/0/yeepayRegister', {
         realName: '@realName',
         idNo: '@idNo'
+      }, {
+        'post':   {method:'POST'}
       }),
       yeepayEnterpriseRegister: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/enterpriseRegister', {
       }),
-      yeepayRecharge: $resource(DEFAULT_DOMAIN + '/yeepay/recharge', {
+      yeepayRecharge: $resource(RESTFUL_DOMAIN + '/users/0/recharge', {
         amount: '@amount'
-      }),
-      yeepayWithdraw: $resource(DEFAULT_DOMAIN + '/yeepay/withdraw', {
+      }, {'post':   {method:'POST'}}),
+      yeepayWithdraw: $resource(RESTFUL_DOMAIN + '/users/0/withdraw', {
         amount: '@amount'
-      }),
+      }, {'post':   {method:'POST'}}),
       bindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/bindBankCard', {}),
       unbindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/unbindBankCard', {}),
       getUserAccount: $resource(DEFAULT_DOMAIN + '/siteAccount/userAccount'),
@@ -90,7 +92,9 @@ angular.module('hongcaiApp')
         projectId: '@projectId'
       }),
       getNeedAuthorizeAutoRepaymentFundsProjectList: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/getNeedAuthorizeAutoRepaymentFundsProjectList', {}),
+      cgtActive: $resource(RESTFUL_DOMAIN + '/userAuths/cgtActive', {}, {
+        'active':   {method:'POST'}
+      }),
       getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {})
-
     };
   });

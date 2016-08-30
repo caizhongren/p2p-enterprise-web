@@ -1,13 +1,13 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, DEFAULT_DOMAIN) {
+  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, DEFAULT_DOMAIN, PayUtils) {
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
     $scope.year = $scope.timestamp.getFullYear();
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
 
-
+    console.log($rootScope);
 
     $scope.getEnterpriseAccount = function(){
       UserCenterService.getEnterpriseUserInfo.get(function(response) {
@@ -270,33 +270,6 @@ angular.module('hongcaiApp')
     };
 
 
-
-
-
-    function newForm() {
-      var f = document.createElement('form');
-      document.body.appendChild(f);
-      f.method = 'post';
-      f.target = '_blank';
-      return f;
-    }
-
-    function createElements(eForm, eName, eValue) {
-      var e = document.createElement('input');
-      eForm.appendChild(e);
-      e.type = 'text';
-      e.name = eName;
-      if (!document.all) {
-        e.style.display = 'none';
-      } else {
-        e.style.display = 'block';
-        e.style.width = '0px';
-        e.style.height = '0px';
-      }
-      e.value = eValue;
-      return e;
-    }
-
     // 企业用户点击还款按钮，进行还款
     // @param  {[type]} projectId
     // @return {[type]}
@@ -308,14 +281,8 @@ angular.module('hongcaiApp')
       UserCenterService.repayment.get({
         projectId: project.id
       }, function(response) {
-        if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = config.YEEPAY_ADDRESS + 'toRepayment';
-          _f.submit();
+        if (response && response.ret !== -1) {
+          PayUtils.redToTrusteeship('toRepayment', response);
         } else if (response.ret === -1) {
           alert(response.msg);
         } else {
@@ -336,13 +303,7 @@ angular.module('hongcaiApp')
         projectId: project.id
       }, function(response) {
         if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = config.YEEPAY_ADDRESS + 'toRepayment';
-          _f.submit();
+          PayUtils.redToTrusteeship('toRepayment', response.data);
         } else if (response.ret === -1) {
           alert(response.msg);
         } else {
@@ -372,13 +333,9 @@ angular.module('hongcaiApp')
         projectId: project.id
       }, function(response) {
         if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = config.YEEPAY_ADDRESS + 'toRepayment';
-          _f.submit();
+
+          PayUtils.redToTrusteeship('toRepayment', response.data);
+
         } else if (response.ret === -1) {
           alert(response.msg);
         } else {
@@ -393,13 +350,9 @@ angular.module('hongcaiApp')
         projectId: project.id
       }, function(response) {
         if (response.ret === 1) {
-          var req = response.data.req;
-          var sign = response.data.sign;
-          var _f = newForm();
-          createElements(_f, 'req', req);
-          createElements(_f, 'sign', sign);
-          _f.action = config.YEEPAY_ADDRESS + 'toAuthorizeAutoRepayment';
-          _f.submit();
+
+          PayUtils.redToTrusteeship('toAuthorizeAutoRepayment', response.data);
+
         } else if (response.ret === -1) {
           alert(response.msg);
         } else {
@@ -407,5 +360,15 @@ angular.module('hongcaiApp')
         }
       });
     };
+
+    $scope.goActivateUser = function(){
+      UserCenterService.cgtActive.active({}, function(response){
+        if (response && response.ret !== -1) {
+          PayUtils.redToTrusteeship('toActive', response);
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }
 
   });
