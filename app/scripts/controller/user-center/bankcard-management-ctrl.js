@@ -38,13 +38,26 @@ angular.module('hongcaiApp')
     };
 
     $scope.unbindBankCard = function() {
-      $scope.msg = '7';
-      $alert({
-        scope: $scope,
-        template: 'views/modal/alertYEEPAY.html',
-        show: true
+      UserCenterService.unbindBankCard.get({}, function(response) {
+        if (response && response.ret !== -1) {
+          $scope.dosi = true;
+          toaster.pop('success', 解绑成功);
+          $scope.card.status = 'VERIFIED';
+          // $state.reload();
+          // PayUtils.redToTrusteeship('toUnbindBankCard', response);
+        } else {
+          toaster.pop('error', response.msg);
+        }
       });
-      window.open('/#!/bankcard-transfer/1');
+
+
+      // $scope.msg = '7';
+      // $alert({
+      //   scope: $scope,
+      //   template: 'views/modal/alertYEEPAY.html',
+      //   show: true
+      // });
+      // window.open('/#!/bankcard-transfer/1');
     };
 
     angular.element('.bankCard .bank-card-show-verify').hover(function(event) {
