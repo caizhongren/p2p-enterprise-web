@@ -14,7 +14,7 @@
         <p class="add-card">解绑中，请耐心等待</p>
       </div>
     </a>
-    <a ng-show="isAuth && !card &&!isVerifying && dosi && (card.status !== 'INIT')" ng-init="isAuth=false" ng-click="bindBankCard()">
+    <a ng-show="isAuth && card.status !== 'VERIFIED' " ng-init="isAuth=false" ng-click="bindBankCard()">
       <div class="bank-card-show">
         <p class="add-card"></p>
       </div>
