@@ -41,7 +41,7 @@ angular.module('hongcaiApp')
       UserCenterService.unbindBankCard.get({}, function(response) {
         if (response && response.ret !== -1) {
           $scope.dosi = true;
-          toaster.pop('success', 解绑成功);
+          toaster.pop('success', '解绑成功!');
           $scope.card.status = 'VERIFIED';
           // $state.reload();
           // PayUtils.redToTrusteeship('toUnbindBankCard', response);
