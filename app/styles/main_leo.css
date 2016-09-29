@@ -7060,3 +7060,12 @@ a:link {
 #footer .footer-down {
   padding: 30px 0 75px 0;
 }
+.padding-t-3 {
+    margin-top: 3px;
+}
+.cursor-pt {
+  cursor: pointer;
+}
+.margin-t-0 {
+  margin-top: 0;
+}
