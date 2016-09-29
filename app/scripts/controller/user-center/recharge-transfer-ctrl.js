@@ -3,9 +3,11 @@ angular.module('hongcaiApp')
   .controller('RechargeTransferCtrl', function ($scope, $state, $rootScope, toaster, $stateParams, UserCenterService, config, PayUtils) {
 
 
-    
+
     UserCenterService.yeepayRecharge.post({
-      amount: $stateParams.amount
+      amount: $stateParams.amount,
+      rechargeWay: $stateParams.rechargeWay,
+      expectPayCompany: $stateParams.expectPayCompany
     }, function(response) {
       if (response && response.ret !== -1) {
         PayUtils.redToTrusteeship('toRecharge', response);

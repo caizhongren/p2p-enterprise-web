@@ -28,7 +28,7 @@ angular.module('hongcaiApp')
         template: 'views/modal/alertYEEPAY.html',
         show: true
       });
-      window.open('/#!/recharge-transfer/' + amount);
+      window.open('/#!/recharge-transfer/' + amount +"/"+ $scope.rechargeWay +"/" + $scope.expectPayCompany);
     };
 
     $scope.transferToPlaform = function(amount) {
@@ -42,5 +42,17 @@ angular.module('hongcaiApp')
       window.open('/#!/transfer-transfer/' + amount);
     };
 
+    //记录选择支付方式
+    $scope.selectPay = function(payment) {
+      $scope.payment = payment;
+      if(payment ===1){
+        $scope.rechargeWay = 'SWIFT';
+        $scope.expectPayCompany = 'FUIOU';
+      }else {
+        $scope.rechargeWay = 'WEB';
+        $scope.expectPayCompany = 'ALLINPAY';
+      }
+    }
+    $scope.selectPay(1);
 
   }]);
