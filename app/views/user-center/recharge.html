@@ -18,7 +18,7 @@
       <div class="row">
         <div class="form-group mgn-top ">
           <label class="col-md-2 col-lg-2">可用余额：</label>
-          <p class="col-2 fl" style="width:20%">{{ balance || "0" | number:2}}元</p>
+          <p class="col-2 fl" style="width:20%;float:left;">{{ balance || "0" | number:2}}元</p>
           <div class="payment col-md-3 padding-t-3 cursor-pt" ng-class="{'pay-active':payment ==1}" ng-click="selectPay(1)">快捷支付方式</div>
           <div class="payment col-md-3 padding-t-3 cursor-pt" ng-class="{'pay-active':payment ==2}" ng-click="selectPay(2)">网银支付方式</div>
         </div>
