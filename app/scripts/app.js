@@ -249,7 +249,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
     })
     /*------------------------------------------  toYeepay transfer  -----------------------------------------------*/
     .state('root.recharge-transfer', {
-      url: '/recharge-transfer/:amount',
+      url: '/recharge-transfer/:amount/:rechargeWay/:expectPayCompany',
       views: {
         '': {
           templateUrl: 'views/transfer.html',
