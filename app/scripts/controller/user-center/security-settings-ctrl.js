@@ -26,7 +26,8 @@ angular.module('hongcaiApp')
     $scope.sendMobileCaptcha = function(mobile, picCaptcha) {
       UserCenterService.sendMobileCaptcha.get({
         picCaptcha: picCaptcha,
-        mobile: mobile
+        mobile: mobile,
+        business:2
       }, function(response) {
         if (response.ret === 1) {
           console.log('sendMobileCaptcha success');
@@ -45,7 +46,9 @@ angular.module('hongcaiApp')
       UserCenterService.bindMobile.get({
         mobile: mobileNo,
         captcha: mobileCaptcha,
-        userType: $scope.user.type
+        userType: $scope.user.type,
+        business: 2
+
       }, function(response) {
         if (response.ret === 1) {
           $scope.mobile = mobileNo.substr(0, 3) + '****' + mobileNo.substr(7, 11);
