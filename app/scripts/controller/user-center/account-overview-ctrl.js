@@ -270,17 +270,28 @@ angular.module('hongcaiApp')
     };
 
 
+    //标志位，用户防止用户多次点击还款问题
+    $scope.canRepayment = true;
     // 企业用户点击还款按钮，进行还款
     // @param  {[type]} projectId
     // @return {[type]}
-    $scope.repayment = function(project) {
+    $scope.repayment = function(project, repaymentNo) {
       if (project.repaymentAmount > $scope.balance) {
         alert('账户余额不足，请先充值');
         return;
       }
+
+      if(!$scope.canRepayment){
+        return;
+      }
+
+      $scope.canRepayment = false;
       UserCenterService.repayment.get({
-        projectId: project.id
+        projectId: project.id,
+        repaymentNo: repaymentNo
       }, function(response) {
+        $scope.canRepayment = true;
+
         if (response && response.ret !== -1) {
           PayUtils.redToTrusteeship('toRepayment', response);
         } else if (response.ret === -1) {
