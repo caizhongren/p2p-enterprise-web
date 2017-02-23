@@ -107,9 +107,9 @@
         </div>
         <div class="row margin-t-20">
             <label class="col-md-3 col-lg-3">图片验证码:</label>
-            <input id="picCaptcha" class="margin-b-0 fl col-md-3 col-lg-3" name="picCaptcha" type="text" ensure-captcha="picCaptcha" ng-model="user.picCaptcha" placeholder="图片验证码" ng-pattern="/^[0-9a-z]{4}$/" required ng-focus>
-            <div class="col-md-3 margin-t--20">
-              <img class="img-height" ng-src="{{getPicCaptcha}}" alt="" width="100%" ng-click="refreshCode()" id="checkCaptcha">
+            <input id="picCaptcha" class="margin-b-0 fl col-md-3 col-lg-3" name="picCaptcha" type="text" ensure-captcha="picCaptcha" ng-model="user.picCaptcha" placeholder="" ng-pattern="/^[0-9a-z]{4}$/" required ng-focus>
+            <div class="col-md-3 margin-t--7">
+              <img class="img-height" ng-src="{{getPicCaptcha}}" alt="" width="100%" ng-click="refreshCode()" id="checkCaptcha" height="40px">
             </div>
             <div ng-show="changeMobileForm.picCaptcha.$dirty && changeMobileForm.picCaptcha.$invalid && !changeMobileForm.picCaptcha.$focused" class="col-lg-3 col-md-3">
               <div class="user-tips-area row" ng-show="!piccha">
