@@ -17,6 +17,7 @@ var hongcaiApp = angular.module('hongcaiApp', [
   'ipCookie',
   'config',
   'angular-md5',
+  'angularFileUpload',
   'bgf.paginateAnything'
 ]);
 
@@ -103,8 +104,17 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
-
-  .state('root.userCenter.transaction-record', {
+    .state('root.userCenter.perfect-information', {
+      url: '/perfect-information',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/perfect-information.html',
+          controller: 'PerfectInformationCtrl',
+          controllerUrl: 'scripts/controller/user-center/perfect-information-ctrl'
+        }
+      }
+    })
+    .state('root.userCenter.transaction-record', {
       url: '/transaction-record',
       views: {
         'user-center': {
