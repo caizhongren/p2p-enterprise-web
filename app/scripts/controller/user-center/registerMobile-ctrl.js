@@ -1,0 +1,43 @@
+'use strict';
+angular.module('hongcaiApp')
+  .controller('registerMobileCtrl', ['$scope', 'checkPwdUtils', 'DEFAULT_DOMAIN', 'RegisterService', 'toaster', '$state', 'md5', function($scope, checkPwdUtils, DEFAULT_DOMAIN, RegisterService, toaster, $state, md5) {
+
+    $scope.register = function(user) {
+      if ($scope.msg || !$scope.piccha) {
+        return;
+      }
+      RegisterService.saveRegister.save({
+        mobile: user.mobile,
+        captcha: user.mobileCaptcha,
+        password: md5.createHash(user.password),
+      }, function(response) {
+        if (response.ret === 1) {
+          toaster.pop('success', '注册成功');
+          $state.go('root.login');
+        } else {
+          toaster.pop('warning', '提示', response.msg);
+          $state.go('root.register');
+        }
+      });
+    };
+
+    //获取图形验证码
+    $scope.getPicCaptcha = DEFAULT_DOMAIN + '/siteUser/getPicCaptcha?';
+    //刷新图形验证码
+    $scope.refreshCode = function() {
+      angular.element('#checkCaptcha').attr('src', angular.element('#checkCaptcha').attr('src').substr(0, angular.element('#checkCaptcha').attr('src').indexOf('?')) + '?code=' + Math.random());
+    };
+  
+    //监测密码
+    $scope.$watch('user.password', function(newVal) {
+      if (!newVal) {
+        return;
+      }
+      //调用checkPwdUtils，判断密码是否含非法字符
+      $scope.msg = checkPwdUtils.showPwd1(newVal) || checkPwdUtils.showPwd2(newVal);
+
+    })
+
+
+    
+  }]);

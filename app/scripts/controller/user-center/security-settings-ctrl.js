@@ -23,19 +23,19 @@ angular.module('hongcaiApp')
       }
     });
 
-    $scope.sendMobileCaptcha = function(mobile, picCaptcha) {
-      UserCenterService.sendMobileCaptcha.get({
-        picCaptcha: picCaptcha,
-        mobile: mobile,
-        business:2
-      }, function(response) {
-        if (response.ret === 1) {
-          console.log('sendMobileCaptcha success');
-        } else {
-          console.log('ask security-settings, why sendMobileCaptcha did not load data...');
-        }
-      });
-    };
+    // $scope.sendMobileCaptcha = function(mobile, picCaptcha) {
+    //   UserCenterService.sendMobileCaptcha.get({
+    //     picCaptcha: picCaptcha,
+    //     mobile: mobile,
+    //     business:2
+    //   }, function(response) {
+    //     if (response.ret === 1) {
+    //       console.log('sendMobileCaptcha success');
+    //     } else {
+    //       console.log('ask security-settings, why sendMobileCaptcha did not load data...');
+    //     }
+    //   });
+    // };
 
     $scope.getPicCaptcha = DEFAULT_DOMAIN + '/siteUser/getPicCaptcha?';
     $scope.refreshCode = function() {
@@ -53,7 +53,7 @@ angular.module('hongcaiApp')
         if (response.ret === 1) {
           $scope.mobile = mobileNo.substr(0, 3) + '****' + mobileNo.substr(7, 11);
           $scope.changeMobile = false;
-          $scope.mobileNo = null;
+          $scope.user.mobile = null;
           $scope.mobileCaptcha = null;
           $rootScope.securityStatus.mobileStatus = 1;
         } else {
