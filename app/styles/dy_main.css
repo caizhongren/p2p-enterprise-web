@@ -330,6 +330,22 @@ input:focus {
 .login-area {
   height: 380px;
 }
+.bg-register {
+  height: 500px;
+}
+.register-area {
+  height: 430px;
+}
+.register-capcha {
+  display: inline-block !important;
+  width: 59% !important;
+}
+.capcha-left-7 {
+  margin-left: 7px;
+}
+.capcha-left-1 {
+  margin-left: 1px;
+}
 .login-left-area, .regist-left-area {
   margin-top: 20px;
   min-height: 92% !important;

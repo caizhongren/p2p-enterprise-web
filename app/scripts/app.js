@@ -49,6 +49,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.registerMobile', {
+      url: '/registerMobile',
+      views: {
+        '': {
+          templateUrl: 'views/registerMobile.html',
+          controller: 'registerMobileCtrl',
+          controllerUrl: 'scripts/controller/user-center/registerMobile-ctrl'
+        }
+      }
+    })
     .state('root.pLogin', {
       url: '/p',
       views: {
