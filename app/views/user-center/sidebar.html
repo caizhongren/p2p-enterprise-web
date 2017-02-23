@@ -42,6 +42,13 @@
     </a>
   </div>
   <div class="row">
+    <a ui-sref="root.userCenter.perfect-information" class="tips-area {{selectSide == 'perfect-information' ? 'tips-show' : ''}}">
+      <div class="left-show-area {{selectSide == 'perfect-information' ? 'left-show-area-bg' : ''}}"></div>
+      <div class="ico-area message-1 fa fa-credit-card {{selectSide == 'perfect-information' ? 'message1-blue' : ''}}"></div>
+      <p class="{{selectSide == 'perfect-information' ? 'now' : ''}}" style="margin-left:36px;">完善资料</p>
+    </a>
+  </div>
+  <div class="row">
     <a ui-sref="root.userCenter.security-settings" class="tips-area {{selectSide == 'security-settings' ? 'tips-show' : ''}}">
       <div class="left-show-area {{selectSide == 'security-settings' ? 'left-show-area-bg' : ''}}"></div>
       <div class="ico-area  message-2 fa fa-shield {{selectSide == 'security-settings' ? 'message1-blue' : ''}}"></div>

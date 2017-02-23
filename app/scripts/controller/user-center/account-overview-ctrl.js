@@ -7,8 +7,6 @@ angular.module('hongcaiApp')
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
 
-    console.log($rootScope);
-
     $scope.getEnterpriseAccount = function(){
       UserCenterService.getEnterpriseUserInfo.get(function(response) {
         if (response.ret === 1) {
