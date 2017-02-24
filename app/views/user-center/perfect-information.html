@@ -57,12 +57,13 @@
                                               </div>
                                               <div>
                                                 <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '')" multiple required required>
+                                                <div><span class="ft-12 col-lg-6">正面</span> <span class="ft-12 col-lg-5">反面</span></div>
                                               </div>
-                                              <div>
+                                              <!-- <div>
                                                 <div class="row">
-                                                  <div >
+                                                  <div > -->
                                                   <!--  ng-if="enterpriseData[$index] === 2"  ng-repeat="item in thumbnailData"-->
-                                                    <div class="col-xs-6 col-md-3">
+                                                   <!--  <div class="col-xs-6 col-md-3">
                                                       <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
                                                       <a href="{{originalData[$index].url}}" class="thumbnail" target="_blank">
                                                           <img src="{{item.url}}" data-holder-rendered="true" style="height: 180px; width: 100%; display: block;">
@@ -70,8 +71,34 @@
                                                     </div>
                                                   </div>
                                                 </div>
-                                              </div>
+                                              </div> -->
                                               <!-- <div class="IDcard">上传证件 <span class="ft-blue">正面</span> <span class="ft-blue">反面</span></div> -->
+                                              <div class="file-padding">
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <div class="thumbnail">
+                                                      <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
+                                                          <img width="100" height="50" style="height:100px;width:100%;" src="/images/safe-top.png" data-holder-rendered="true">
+                                                      </a>
+                                                      <div class="wrapper" fancybox style="display: none;">
+                                                          <div class="future_fancybox_content">
+                                                              <img src="/images/safe-top.png" / width="100%" height="100%">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="file-padding">
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <div class="thumbnail">
+                                                      <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
+                                                          <img width="100" height="50" style="height:100px;width:100%;" src="/images/safe-top.png" data-holder-rendered="true">
+                                                      </a>
+                                                      <div class="wrapper" fancybox style="display: none;">
+                                                          <div class="future_fancybox_content">
+                                                              <img src="/images/safe-top.png" />
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                           </div>
                                           <div class="form-group">
                                               <label for="legalRepresentative">法定代表人</label>
@@ -96,6 +123,19 @@
                                               <div>
                                                 <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '')" multiple required>
                                               </div>
+                                              <div class="file-padding">
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <div class="thumbnail">
+                                                      <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
+                                                          <img width="100" height="50" style="height:100px;width:100%;" src="/images/safe-top.png" data-holder-rendered="true">
+                                                      </a>
+                                                      <div class="wrapper" fancybox style="display: none;">
+                                                          <div class="future_fancybox_content">
+                                                              <img src="/images/safe-top.png" / width="100%" height="100%">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                           </div>
                                           <div class="form-group">
                                               <label for="registrationNo">企业营业执照注册号</label>
@@ -111,6 +151,19 @@
                                               <div>
                                                 <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '')" multiple required>
                                               </div>
+                                              <div class="file-padding">
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <div class="thumbnail">
+                                                      <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
+                                                          <img width="100" height="50" style="height:100px;width:100%;" src="/images/safe-top.png" data-holder-rendered="true">
+                                                      </a>
+                                                      <div class="wrapper" fancybox style="display: none;">
+                                                          <div class="future_fancybox_content">
+                                                              <img src="/images/safe-top.png" / width="100%" height="100%">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                           </div>
                                           <div class="form-group">
                                               <label>组织机构代码</label>
@@ -118,12 +171,38 @@
                                               <div>
                                                 <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '')" multiple>
                                               </div>
+                                              <div class="file-padding">
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <div class="thumbnail">
+                                                      <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
+                                                          <img width="100" height="50" style="height:100px;width:100%;" src="/images/safe-top.png" data-holder-rendered="true">
+                                                      </a>
+                                                      <div class="wrapper" fancybox style="display: none;">
+                                                          <div class="future_fancybox_content">
+                                                              <img src="/images/safe-top.png" / width="100%" height="100%">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
                                           </div>
                                           <div class="form-group">
                                               <label>税务登记号</label>
                                               <input name="taxNo" ng-maxlength="50" maxlength="50" class="form-control" placeholder="三证合一不必填" ng-model="enterprise.taxNo">
                                               <div>
                                                 <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '')" multiple>
+                                              </div>
+                                              <div class="file-padding">
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <div class="thumbnail">
+                                                      <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
+                                                          <img width="100" height="50" style="height:100px;width:100%;" src="/images/safe-top.png" data-holder-rendered="true">
+                                                      </a>
+                                                      <div class="wrapper" fancybox style="display: none;">
+                                                          <div class="future_fancybox_content">
+                                                              <img src="/images/safe-top.png" / width="100%" height="100%">
+                                                          </div>
+                                                      </div>
+                                                  </div>
                                               </div>
                                           </div>
                                           <div class="form-group">
