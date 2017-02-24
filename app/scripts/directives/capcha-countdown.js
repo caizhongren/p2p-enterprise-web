@@ -23,7 +23,7 @@ angular.module('hongcaiApp')
           UserCenterService.sendMobileCaptcha.get({
             picCaptcha: scope.user.picCaptcha,
             mobile: scope.user.mobile,
-            business: 2
+            business: scope.business
           }, function(response) {
             if (response.ret !== -1) {
               // scope.refreshCode();
