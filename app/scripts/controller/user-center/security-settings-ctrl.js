@@ -1,6 +1,7 @@
 'use strict';
 angular.module('hongcaiApp')
   .controller('SecuritySettingsCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert, DEFAULT_DOMAIN) {
+    $scope.business = 2;
 
     $rootScope.selectSide = 'security-settings';
     UserCenterService.userSecurityInfo.get({}, function(response) {
@@ -13,7 +14,8 @@ angular.module('hongcaiApp')
         // $scope.idNo = userAuth.idNo;
         if (userAuth && userAuth.yeepayAccountStatus === 1) {
           $scope.haveTrusteeshipAccount = true;
-          $scope.openTrustReservation = userAuth.autoTransfer;
+          $scope.openTrustReservation = userAuth.autoTransfer;  //自动投标
+          $scope.openAutoRepayment = userAuth.autoRepayment;  //自动还款
         } else {
           $scope.haveTrusteeshipAccount = false;
         }
@@ -22,20 +24,6 @@ angular.module('hongcaiApp')
         console.log('ask security-settings, why userSecurityInfo did not load data...');
       }
     });
-
-    // $scope.sendMobileCaptcha = function(mobile, picCaptcha) {
-    //   UserCenterService.sendMobileCaptcha.get({
-    //     picCaptcha: picCaptcha,
-    //     mobile: mobile,
-    //     business:2
-    //   }, function(response) {
-    //     if (response.ret === 1) {
-    //       console.log('sendMobileCaptcha success');
-    //     } else {
-    //       console.log('ask security-settings, why sendMobileCaptcha did not load data...');
-    //     }
-    //   });
-    // };
 
     $scope.getPicCaptcha = DEFAULT_DOMAIN + '/siteUser/getPicCaptcha?';
     $scope.refreshCode = function() {
@@ -160,4 +148,35 @@ angular.module('hongcaiApp')
       };
       window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/1');
     };
+
+    //开通自动投标、自动债权转让
+    $scope.goToTrustReservation = function() {
+      $scope.msg = '10';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+
+      var user = {
+        'realName' : 'default',
+        'idCardNo' : 'default'
+      };
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/1');
+    }
+    //开通自动还款
+    $scope.goToAutoRepayment = function() {
+      $scope.msg = '9';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+
+      var user = {
+        'realName' : 'default',
+        'idCardNo' : 'default'
+      };
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/2');
+    }
   });
