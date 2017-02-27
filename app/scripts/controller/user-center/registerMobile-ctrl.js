@@ -2,6 +2,7 @@
 angular.module('hongcaiApp')
   .controller('registerMobileCtrl', ['$scope', 'checkPwdUtils', 'DEFAULT_DOMAIN', 'RegisterService', 'toaster', '$state', 'md5', function($scope, checkPwdUtils, DEFAULT_DOMAIN, RegisterService, toaster, $state, md5) {
 
+    $scope.business = 0;
     $scope.register = function(user) {
       if ($scope.msg || !$scope.piccha) {
         return;
@@ -11,12 +12,12 @@ angular.module('hongcaiApp')
         captcha: user.mobileCaptcha,
         password: md5.createHash(user.password),
       }, function(response) {
-        if (response.ret === 1) {
-          toaster.pop('success', '注册成功');
-          $state.go('root.login');
-        } else {
+        if (response && response.ret === -1) {
           toaster.pop('warning', '提示', response.msg);
           $state.go('root.register');
+        } else {
+          toaster.pop('success', '注册成功');
+          $state.go('root.login');
         }
       });
     };

@@ -13,7 +13,7 @@ angular.module('hongcaiApp')
     //   $scope.timerRunning = true;
     // };
 
-    $scope.verifyAccount = function(account){
+    $scope.verifyAccount = function(account, captcha){
       var dataBoth=[{'CategoryId':0, 'Name':'手机找回' }, {'CategoryId':1, 'Name':'邮箱找回'}];
       var dataPhone=[{'CategoryId':0, 'Name':'手机找回'}];
       var dataEmail=[{'CategoryId':1, 'Name':'邮箱找回'}];
@@ -21,7 +21,7 @@ angular.module('hongcaiApp')
       var mobilePattern = /^((13[0-9])|(15[^4,\D])|(18[0-9])|(17[0678]))\d{8}$/;
       var emailPattern = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (mobilePattern.test(account)){ // 说明是手机号码找回
-        UserCenterService.sendMobileCaptcha.get({mobile: account }, function(response) {
+        UserCenterService.sendMobileCaptcha.get({mobile: account, picCaptcha: captcha, business: 1}, function(response) {
           if(response.ret === 1) {
             $scope.areaFlag = 21;
             $scope.phoneNum = account;
@@ -59,13 +59,15 @@ angular.module('hongcaiApp')
       }
     };
     // STEP2 根据account通过手机找回
-    $scope.sendMobileCaptcha = function(account, mobile){
+    $scope.sendMobileCaptcha = function(account, mobile, captcha){
       UserCenterService.infoVerify.get({account: account, mobile: mobile, email: ''}, function(response) {
         if(response.ret === 1){
-          UserCenterService.sendMobileCaptcha.get({mobile: mobile}, function(response){
+          UserCenterService.sendMobileCaptcha.get({mobile: mobile, picCaptcha: captcha, business: 1}, function(response){
             if(response.ret === 1) {
               // TODO
-              console.log('sendMobileCaptcha success!');
+              toaster.pop('success', '短信验证码发送成功，请查收');
+            }else {
+              toaster.pop('warning', '发送失败，' + response.msg);
             }
           });
         }
@@ -92,7 +94,7 @@ angular.module('hongcaiApp')
       } else {
         mobile = user.account;
       }
-      UserCenterService.checkMobileCaptcha.get({mobile: mobile, captcha: user.mobileCaptcha }, function(response) {
+      UserCenterService.checkMobileCaptcha.get({mobile: mobile, captcha: user.mobileCaptcha, business: 1 }, function(response) {
         if(response.ret === 1) {
           $scope.areaFlag = 3;
         } else {
@@ -113,7 +115,7 @@ angular.module('hongcaiApp')
         mobile = user.account;
       }
       var md5MobPassword = md5.createHash(newPwd.password);
-      UserCenterService.resetMobilePassword.get({mobile: mobile, captcha: user.mobileCaptcha, password: md5MobPassword }, function(response) {
+      UserCenterService.resetMobilePassword.post({mobile: mobile, captcha: user.mobileCaptcha, password: md5MobPassword }, function(response) {
         if(response.ret === 1) {
           $scope.areaFlag = 4;
           $scope.counter = 5;

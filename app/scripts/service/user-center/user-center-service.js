@@ -65,6 +65,8 @@ angular.module('hongcaiApp')
         mobile: '@mobile',
         captcha: '@captcha',
         password: '@password'
+      }, {
+        'post': {method:'POST'}
       }),
       sendResetPwdEmail: $resource(DEFAULT_DOMAIN + '/siteUser/sendResetPwdEmail', {
         email: '@email'
@@ -97,6 +99,18 @@ angular.module('hongcaiApp')
       cgtActive: $resource(RESTFUL_DOMAIN + '/userAuths/cgtActive', {}, {
         'active':   {method:'POST'}
       }),
-      getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {})
+      getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {}),
+      /**
+       * 借款企业开通自动还款
+       */
+      autoRepayment: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/0/autoRepayment', {
+        userId: '@userId'
+      }, {
+        'post': {method: 'POST'}
+      }),
+      /**
+       * 授权自动投标
+       */
+      authorizeAutoTransfer: $resource(RESTFUL_DOMAIN + '/users/0/authorizeAutoTransfer', {}, {'post':   {method:'POST'}}),
     };
   });
