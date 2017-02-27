@@ -62,317 +62,414 @@
   <div class="row">
     <div class="right-title">筹资信息</div>
   </div>
-
-  <div class="row" ng-show="userType != 5">
-    <div class="news-nav account-nav">
-      <span ng-click="statusx=4;" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中的项目</a></span>
-      <span ng-click="statusx=1;getProjects(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
-      <span ng-click="statusx=2;getProjects(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
-      <span ng-click="statusx=3;getProjects(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
-    </div>
-    <div ng-if="projectBillDetails.length == 0" class="project-area">
-      <br>
-      <br>
-      <h4>您暂时没有该类项目</h4>
-      <br>
-      <br>
-    </div>
-    <div ng-if="projectBillDetails.length != 0">
-
-      <!--审核中-->
-      <br>
-      <br>
-      <!-- <div ng-if="statusx === 4" ng-show="userType !== 5 ">
-        <div class="col-md-10 col-md-offset-1 table-stl">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h5>projectBillDetail.project.name</h5>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>项目规模：万元</td>
-                  <td  style="border-bottom: 1px solid #ddd;">项目期限：天</td>
-                  <td style="border-bottom: 1px solid #ddd;">借款利率：%</td>
-                </tr>
-                <tr>
-                  <td>借款用途：惊世毒妃交电话费</td>
-                  <td></td>
-                  <td style="margin-bottom: -20px;">审核中...</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <!-- 待投资 -->
-      <div ng-if="statusx === 4" ng-show="userType !== 5 ">
-        <div class="col-md-10 col-md-offset-1 table-stl">
-          <div class="panel panel-info">
-            <div class="panel-heading" style="padding: 2px 15px;">
-              <h4>2017年01月12日 16时06分00秒测试标</h4>
-            </div>
-            <div class="panel-body">
-              <div class="row col-md-12">
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">90.05</span>%</p> <p>预期年化收益</p></div>
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">20</span>万</p><p>项目规模</p></div>
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">85</span>天</p><p>项目期限</p></div>
-                <div class="col-md-3 text-center padding-t-10 padding-r-0"><input type="button" name="investBtn" value="立即投资" class="blue-button btn-info wid-pull"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- 借款方 -->
+  <div ng-if="userType !== 6">
+    <div class="row" ng-show="userType != 5">
+      <div class="news-nav account-nav">
+        <span ng-click="statusx=4;" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中的项目</a></span>
+        <span ng-click="statusx=1;getProjects(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+        <span ng-click="statusx=2;getProjects(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
+        <span ng-click="statusx=3;getProjects(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
       </div>
-
-      <!-- 转让中 -->
-      <!-- <div ng-if="statusx === 4" ng-show="userType !== 5 ">
-        <div class="col-md-10 col-md-offset-1 table-stl">
-          <div class="panel panel-info">
-            <div class="panel-heading" style="padding: 2px 15px;">
-              <h4>2017年01月12日 16时06分00秒测试标</h4>
-            </div>
-            <div class="panel-body">
-              <div class="row col-md-12">
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">90.05</span>%</p> <p>预期年化收益</p></div>
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">85</span>天</p><p>项目期限</p></div>
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">20</span>万</p><p>项目规模</p></div>
-                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">10</span>万</p><p>剩余金额</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType !== 5 ">
-        <div class="col-md-10 col-md-offset-1 table-stl">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h5>{{projectBillDetail.project.name}}</h5>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>项目代码：HC{{projectBillDetail.project.id}}</td>
-                  <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
-                  <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
-                </tr>
-                <tr>
-                  <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
-                  <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
-                  <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                </tr>
-                <tr>
-                  <td>还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
-                  <td>应付款项：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
-                  <td>期数： 第{{projectBillDetail.recentProjectBill.repaymentNo}}期</td>
-                </tr>
-                
-              </table>
-              <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBillDetail.recentProjectBill.repaymentNo)"  />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--投标中-->
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType !== 5 ">
-        <div class="col-md-10 col-md-offset-1 table-stl">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h5>{{projectBillDetail.project.name}}</h5>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>项目代码：HC{{projectBillDetail.project.id}}</td>
-                  <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
-                  <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
-                </tr>
-                <tr>
-                  <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
-                  <td>计息日期：无</td>
-                  <td>到期日期：无</td>
-                </tr>
-                <tr>
-                  <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
-                  <td>年化收益：{{projectBillDetail.project.annualEarnings| number: 2}}%</td>
-                  <td><span style="display:block;float:left">募集进度：</span><span class="gery-bg"><span class="red-show" style="width:{{projectBillDetail.project.investPercent | number : 2}}%;"></span></span>&nbsp{{projectBillDetail.project.investPercent | number : 2}}%</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
+      <div ng-if="projectBillDetails.length == 0" class="project-area">
+        <br>
+        <br>
+        <h4>您暂时没有该类项目</h4>
+        <br>
         <br>
       </div>
+      <div ng-if="projectBillDetails.length != 0">
 
-      <!--已结清-->
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType !== 5 ">
-        <div class="col-md-10 col-md-offset-1 table-stl">
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h5>{{projectBillDetail.project.name}}</h5>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>项目代码：HC{{projectBillDetail.project.id}}</td>
-                  <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
-                  <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
-                </tr>
-                <tr>
-                  <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
-                  <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
-                  <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                </tr>
-                <tr>
-                  <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                  <td>已付利息：{{projectBillDetail.project.projectBackCapital}}元</td>
-                </tr>
-              </table>
+        <!--审核中-->
+        <br>
+        <br>
+        <div ng-if="statusx === 4" ng-show="userType !== 5 ">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>projectBillDetail.project.name</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table margin-b-5">
+                  <tr>
+                    <td style="border-bottom: 1px solid #ddd;">项目规模：万元</td>
+                    <td style="border-bottom: 1px solid #ddd;">项目期限：天</td>
+                    <td style="border-bottom: 1px solid #ddd;">借款利率：%</td>
+                  </tr>
+                </table>
+                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ '惊世毒妃电话费惊...'| limitTo: 20}}{{item.name.length > 20 ? '...':''}}</p></div>
+                <div class="wid-pull text-right ft-blue">审核中...</div>
+              </div>
             </div>
           </div>
         </div>
+        <!-- 还款中 -->
+        <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType !== 5 ">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>{{projectBillDetail.project.name}}</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <tr>
+                    <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                    <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                    <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
+                  </tr>
+                  <tr>
+                    <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
+                    <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
+                    <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                  </tr>
+                  <tr>
+                    <td>还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
+                    <td>应付款项：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
+                    <td>期数： 第{{projectBillDetail.recentProjectBill.repaymentNo}}期</td>
+                  </tr>
+                  
+                </table>
+                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBillDetail.recentProjectBill.repaymentNo)"  />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--投标中-->
+        <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType !== 5 ">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>{{projectBillDetail.project.name}}</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <tr>
+                    <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                    <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                    <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
+                  </tr>
+                  <tr>
+                    <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
+                    <td>计息日期：无</td>
+                    <td>到期日期：无</td>
+                  </tr>
+                  <tr>
+                    <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
+                    <td>年化收益：{{projectBillDetail.project.annualEarnings| number: 2}}%</td>
+                    <td><span style="display:block;float:left">募集进度：</span><span class="gery-bg"><span class="red-show" style="width:{{projectBillDetail.project.investPercent | number : 2}}%;"></span></span>&nbsp{{projectBillDetail.project.investPercent | number : 2}}%</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <!--已结清-->
+        <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType !== 5 ">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>{{projectBillDetail.project.name}}</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <tr>
+                    <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                    <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                    <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
+                  </tr>
+                  <tr>
+                    <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
+                    <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
+                    <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                  </tr>
+                  <tr>
+                    <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                    <td>已付利息：{{projectBillDetail.project.projectBackCapital}}元</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--没有项目-->
+
       </div>
+    </div>
 
-      <!--没有项目-->
+      <!-- p -->
+      <div class="row" ng-show="userType == 5">
+        <div class="news-nav account-nav">
+          <span ng-click="statusx=0;getNeedAuthorizeAutoRepaymentFundsProjectList()" class="{{statusx == 0 ?'active':''}}"><a href="javascript:void(0);">自动还款授权</a></span>
+          <span ng-click="statusx=1;getFundsProject(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+          <span ng-click="statusx=2;getFundsProject(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
+          <span ng-click="statusx=3;getFundsProject(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
+        </div>
+        <div ng-if="projectBillDetails.length == 0" class="project-area">
+          <br>
+          <br>
+          <h4>您暂时没有该类项目</h4>
+          <br>
+          <br>
+        </div>
+        <div ng-if="projectBillDetails.length != 0">
 
+
+        <!--自动还款授权-->
+        <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 0">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <tr>
+                    <td>项目代码：{{projectBillDetail.project.number}}</td>
+                    <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
+                  </tr>
+                  <tr>
+                    <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                    <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
+                  </tr>
+                </table>
+                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="projectBillDetail.project.isAuthorizeAutoRepayment ? '已授权' : '自动还款授权'" ng-click="authorizeFundsProjectAutoRepayment(projectBillDetail.project)"  />
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <!--还款中-->
+         <br>
+         <br>
+         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1" ng-show="userType == 5 ">
+           <div class="col-md-10 col-md-offset-1 table-stl">
+             <div class="panel panel-info">
+               <div class="panel-heading">
+                 <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
+               </div>
+               <div class="panel-body">
+                 <table class="table">
+                   <tr>
+                     <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                     <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
+                   </tr>
+                   <tr>
+                     <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                     <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
+                   </tr>
+                   <tr>
+                     <td colspan="2">自动还款授权：{{projectBillDetail.project.authorizeAutoRepayment ? '已授权' : '未授权'}}</td>
+                   </tr>
+                 </table>
+                 <span>
+                 <input type="button" class="col-xs-offset-1 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="fundsRepayment(projectBillDetail.project)"  />
+                 <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" value="提前还款" ng-click="earlyFundsRepayment(projectBillDetail.project)"  />
+                 </span>
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <!--投标中-->
+         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType == 5 ">
+           <div class="col-md-10 col-md-offset-1 table-stl">
+             <div class="panel panel-info">
+               <div class="panel-heading">
+                 <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
+               </div>
+               <div class="panel-body">
+                 <table class="table">
+                   <tr>
+                     <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                     <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
+                   </tr>
+                   <tr>
+                     <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
+                     <td>基本收益率：{{projectBillDetail.product.baseRate| number: 2}}%</td>
+                   </tr>
+                 </table>
+               </div>
+             </div>
+           </div>
+           <br>
+         </div>
+
+         <!--已结清-->
+         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType == 5 ">
+           <div class="col-md-10 col-md-offset-1 table-stl">
+             <div class="panel panel-info">
+               <div class="panel-heading">
+                 <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
+               </div>
+               <div class="panel-body">
+                 <table class="table">
+                   <tr>
+                     <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                     <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
+                   </tr>
+                   <tr>
+                     <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                     <td>已付利息：{{projectBillDetail.project.projectBackProfit || 0  }}元</td>
+                   </tr>
+                 </table>
+               </div>
+             </div>
+           </div>
+         </div>
+
+          <!--没有项目-->
+  </div>
+
+  <!-- 居间人-->
+  <div ng-if="userType == 6">
+    <div class="row">
+      <div class="news-nav account-nav">
+        <span ng-click="statusx=4;" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中的项目</a></span>
+        <span ng-click="statusx=5;" class="{{statusx == 5 ?'active':''}}"><a href="javascript:void(0);">待投资的项目</a></span>
+        <span ng-click="statusx=2;getProjects(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">转让中的项目</a></span>
+        <span ng-click="statusx=1;getProjects(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+        <span ng-click="statusx=3;getProjects(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
+      </div>
+      <div ng-if="projectBillDetails.length == 0" class="project-area">
+        <br>
+        <br>
+        <h4>您暂时没有该类项目</h4>
+        <br>
+        <br>
+      </div>
+      <div ng-if="projectBillDetails.length != 0">
+
+        <!--审核中-->
+        <br>
+        <br>
+        <div ng-if="statusx === 4">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>projectBillDetail.project.name</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table margin-b-5">
+                  <tr>
+                    <td style="border-bottom: 1px solid #ddd;">项目规模：万元</td>
+                    <td style="border-bottom: 1px solid #ddd;">项目期限：天</td>
+                    <td style="border-bottom: 1px solid #ddd;">借款利率：%</td>
+                  </tr>
+                </table>
+                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ '惊世毒妃电话费惊...'| limitTo: 20}}{{item.name.length > 20 ? '...':''}}</p></div>
+                <div class="wid-pull text-right ft-blue">审核中...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 待投资 -->
+        <div ng-if="statusx === 5">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading" style="padding: 2px 15px;">
+                <h4>2017年01月12日 16时06分00秒测试标</h4>
+              </div>
+              <div class="panel-body">
+                <div class="row col-md-12">
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">90.05</span>%</p> <p>预期年化收益</p></div>
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">20</span>万</p><p>项目规模</p></div>
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">85</span>天</p><p>项目期限</p></div>
+                  <div class="col-md-3 text-center padding-t-10 padding-r-0"><input type="button" name="investBtn" value="立即投资" class="blue-button btn-info wid-pull"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 转让中 -->
+        <div ng-if="statusx === 2">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading" style="padding: 2px 15px;">
+                <h4>2017年01月12日 16时06分00秒测试标</h4>
+              </div>
+              <div class="panel-body">
+                <div class="row col-md-12">
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">90.05</span>%</p> <p>预期年化收益</p></div>
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">85</span>天</p><p>项目期限</p></div>
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">20</span>万</p><p>项目规模</p></div>
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">10</span>万</p><p>剩余金额</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 还款中 -->
+        <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>{{projectBillDetail.project.name}}</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <tr>
+                    <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                    <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                    <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
+                  </tr>
+                  <tr>
+                    <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
+                    <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
+                    <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                  </tr>
+                  <tr>
+                    <td>还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
+                    <td>应付款项：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
+                    <td>期数： 第{{projectBillDetail.recentProjectBill.repaymentNo}}期</td>
+                  </tr>
+                  
+                </table>
+                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBillDetail.recentProjectBill.repaymentNo)"  />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--已结清-->
+        <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType !== 5 ">
+          <div class="col-md-10 col-md-offset-1 table-stl">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h5>{{projectBillDetail.project.name}}</h5>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                  <tr>
+                    <td>项目代码：HC{{projectBillDetail.project.id}}</td>
+                    <td>项目规模：{{projectBillDetail.project.total/10000 | number : 2}}万元</td>
+                    <td>项目期限：{{projectBillDetail.project.projectDays}}天</td>
+                  </tr>
+                  <tr>
+                    <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
+                    <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
+                    <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                  </tr>
+                  <tr>
+                    <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
+                    <td>已付利息：{{projectBillDetail.project.projectBackCapital}}元</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--没有项目-->
+
+      </div>
     </div>
   </div>
 
-        <!-- p -->
-        <div class="row" ng-show="userType == 5">
-          <div class="news-nav account-nav">
-            <span ng-click="statusx=0;getNeedAuthorizeAutoRepaymentFundsProjectList()" class="{{statusx == 0 ?'active':''}}"><a href="javascript:void(0);">自动还款授权</a></span>
-            <span ng-click="statusx=1;getFundsProject(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
-            <span ng-click="statusx=2;getFundsProject(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
-            <span ng-click="statusx=3;getFundsProject(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
-          </div>
-          <div ng-if="projectBillDetails.length == 0" class="project-area">
-            <br>
-            <br>
-            <h4>您暂时没有该类项目</h4>
-            <br>
-            <br>
-          </div>
-          <div ng-if="projectBillDetails.length != 0">
-
-
-          <!--自动还款授权-->
-          <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 0">
-            <div class="col-md-10 col-md-offset-1 table-stl">
-              <div class="panel panel-info">
-                <div class="panel-heading">
-                  <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
-                </div>
-                <div class="panel-body">
-                  <table class="table">
-                    <tr>
-                      <td>项目代码：{{projectBillDetail.project.number}}</td>
-                      <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
-                    </tr>
-                    <tr>
-                      <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
-                      <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
-                    </tr>
-                  </table>
-                  <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="projectBillDetail.project.isAuthorizeAutoRepayment ? '已授权' : '自动还款授权'" ng-click="authorizeFundsProjectAutoRepayment(projectBillDetail.project)"  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-           <!--还款中-->
-           <br>
-           <br>
-           <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1" ng-show="userType == 5 ">
-             <div class="col-md-10 col-md-offset-1 table-stl">
-               <div class="panel panel-info">
-                 <div class="panel-heading">
-                   <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
-                 </div>
-                 <div class="panel-body">
-                   <table class="table">
-                     <tr>
-                       <td>项目代码：HC{{projectBillDetail.project.id}}</td>
-                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
-                     </tr>
-                     <tr>
-                       <td>还款日期：{{projectBillDetail.projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
-                       <td>应付款项：{{projectBillDetail.projectBill.repaymentAmount | number : 2}}元</td>
-                     </tr>
-                     <tr>
-                       <td colspan="2">自动还款授权：{{projectBillDetail.project.authorizeAutoRepayment ? '已授权' : '未授权'}}</td>
-                     </tr>
-                   </table>
-                   <span>
-                   <input type="button" class="col-xs-offset-1 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="fundsRepayment(projectBillDetail.project)"  />
-                   <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" value="提前还款" ng-click="earlyFundsRepayment(projectBillDetail.project)"  />
-                   </span>
-                 </div>
-               </div>
-             </div>
-           </div>
-
-           <!--投标中-->
-           <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType == 5 ">
-             <div class="col-md-10 col-md-offset-1 table-stl">
-               <div class="panel panel-info">
-                 <div class="panel-heading">
-                   <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
-                 </div>
-                 <div class="panel-body">
-                   <table class="table">
-                     <tr>
-                       <td>项目代码：HC{{projectBillDetail.project.id}}</td>
-                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
-                     </tr>
-                     <tr>
-                       <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
-                       <td>基本收益率：{{projectBillDetail.product.baseRate| number: 2}}%</td>
-<!--                        <td><span style="display:block;float:left">募集进度：</span><span class="gery-bg"><span class="red-show" style="width:{{projectBillDetail.project.investPercent | number : 2}}%;"></span></span>&nbsp{{projectBillDetail.project.investPercent | number : 2}}%</td> -->
-                     </tr>
-                   </table>
-                 </div>
-               </div>
-             </div>
-             <br>
-           </div>
-
-           <!--已结清-->
-           <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType == 5 ">
-             <div class="col-md-10 col-md-offset-1 table-stl">
-               <div class="panel panel-info">
-                 <div class="panel-heading">
-                   <h5>{{projectBillDetail.product.name + '  ' + projectBillDetail.project.name}}</h5>
-                 </div>
-                 <div class="panel-body">
-                   <table class="table">
-                     <tr>
-                       <td>项目代码：HC{{projectBillDetail.project.id}}</td>
-                       <td>募资总额：{{projectBillDetail.project.soldStock*projectBillDetail.project.increaseAmount/10000 | number : 2}}万元</td>
-                     </tr>
-                     <tr>
-                       <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                       <td>已付利息：{{projectBillDetail.project.projectBackProfit || 0  }}元</td>
-                     </tr>
-                   </table>
-                 </div>
-               </div>
-             </div>
-           </div>
-
-            <!--没有项目-->
-
-<!--           </div>
-          <ul class="pager">
-            <li>
-              <button class="btn btn-default btn-sm" ng-disabled="currentPage == 1" ng-click="currentPage = currentPage - 1">上一页</button>
-            </li>
-            {{currentPage}} / {{pageCount}} 共 {{data.length}} 条
-            <li>
-              <button class="btn btn-default btn-sm" ng-disabled="currentPage >= pageCount" ng-click="currentPage = currentPage + 1">下一页</button>
-            </li>
-          </ul> -->
-        </div>
+</div>
 
 

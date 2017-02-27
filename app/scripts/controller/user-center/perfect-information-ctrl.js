@@ -8,7 +8,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
       EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
         $scope.readOnly = true;
         if(response && response.ret !== -1) {
-          if(response.id == undefined) {
+          if(response.infoStatus == 0) {
             $scope.readOnly = false;
           }
           $scope.enterprise = response;
