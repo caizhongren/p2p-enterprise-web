@@ -2,9 +2,32 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.enterprise = {};
     $rootScope.selectSide = 'perfect-information';
     /*
+     * 查询借款企业信息
+    */
+    $scope.getEnterpriseInfo = function(){
+      EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
+        $scope.readOnly = true;
+        if(response && response.ret !== -1) {
+          if(response.id == undefined) {
+            $scope.readOnly = false;
+          }
+          $scope.enterprise = response;
+          $scope.enterpriseId = response.id;
+          console.log(typeof(response.registerCapital));
+          $scope.enterprise.registerCapital = response.registerCapital.toString();
+        }
+      });
+    }
+    $scope.getEnterpriseInfo();
+    // 隐藏编辑按钮
+    $scope.toggleReadOnly = function() {
+        // $("[readonly]").removeAttr("readonly");
+        $scope.readOnly = !$scope.readOnly;
+    }
+    /*
      * 查询上传的文件
     */
-    EnterpriseService.getEnterpriseFiles.get({enterpriseId : $stateParams.enterpriseId}, function(response) {
+    EnterpriseService.getEnterpriseFiles.get({enterpriseId : $scope.enterpriseId}, function(response) {
         $scope.thumbnail = response.data.thumbnailFile;
         $scope.original = response.data.originalFile;
         $scope.enterpriseData = [];
@@ -27,6 +50,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     });
     $scope.originalFiles = [];
     $scope.thumbnailFiles = [];
+
     /*
      * category 关联类型 contract guarantee 或 enterprise
      * fileType 上传文件类型 jpg png doc pdf 等 0:image 1:application
@@ -38,7 +62,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
              var file = $files[i];
              $scope.upload = $upload.upload({
                  url: DEFAULT_DOMAIN + '/adminUploadFile/uploadFile' 
-                 + '?categoryId='+ $stateParams.enterpriseId  
+                 + '?categoryId='+ $scope.enterpriseId  
                  + '&category=' + category
                  + '&fileType=' + fileType
                  + '&archiveType=' + archiveType
@@ -56,7 +80,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
  	$scope.deleteFile = function(category,thumbnailFile,originalFile) {
          if(confirm("确认删除吗？")) {
              EnterpriseService.deleteFile.delete({
-                 categoryId: $stateParams.enterpriseId,
+                 categoryId:$scope.enterpriseId,
                  category: category, 
                  thumbnailFileId: thumbnailFile.id, 
                  thumbnailFileUrl: thumbnailFile.url,
@@ -73,40 +97,44 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
          }
      }
 
-     $scope.submitEnterprise = function(enterprise, status) {
-     	var registerDate = new Date($scope.registDate).getTime().toString();
-         enterprise.registerDate = registerDate;
-         enterprise.infoStatus = status;
-         enterprise.type = $scope.type;
-
-         // if($scope.type === 2){
-         //     enterprise.publicUserName = 'public' + enterprise.contactName;
-         //     enterprise.userName = 'private' + enterprise.contactName;
-         //     enterprise.password = md5.createHash('888888');
-         //     enterprise.publicUserPassword = md5.createHash('888888');
-         //     enterprise.infoStatus = 2;
-         // }else{
-             // var password = enterprise.password;
-             // var publicUserPassword = enterprise.publicUserPassword; 
-             // enterprise.password = md5.createHash(password);
-             // enterprise.publicUserPassword = md5.createHash(publicUserPassword);
-         // }
-
-     	EnterpriseService.saveEnterprise.save($.param(enterprise), function(response) {
+     $scope.submitEnterprise = function(enterprise) {
+        var regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        var regCapital = /[0-9]*[1-9][0-9]*$/;
+        var regMobile = /^1[3|4|5|7|8][0-9]\d{8}$/;
+        var regEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail)) {
+            return;
+        }
+        enterprise.registerDate = new Date(enterprise.registerDate).getTime();
+      //保存信息
+     	EnterpriseService.saveEnterprise.update({
+        userId: $rootScope.securityStatus.userId,
+        name: enterprise.name,
+        legalName: enterprise.legalName,
+        legalIdNo: enterprise.legalIdNo,
+        legalRepresentative: enterprise.legalRepresentative,
+        bankLicense: enterprise.bankLicense,
+        registrationNo: enterprise.registrationNo,
+        orgNo: enterprise.orgNo,
+        taxNo: enterprise.taxNo,
+        registerCapital: enterprise.registerCapital,
+        background: enterprise.background,
+        businessScope: enterprise.businessScope,
+        businessState: enterprise.businessState,
+        address: enterprise.address,
+        contactName: enterprise.contactName,
+        contactMobile: enterprise.contactMobile,
+        contactEmail: enterprise.contactEmail,
+        registerDate: enterprise.registerDate
+      }, function(response) {
            if(response.msg == "success") {
-                 // if($scope.type === 3){
-                 //     $location.path("/enterprise/credit-enterprise-list");
-
-                 // }else{
-                 //     $location.path("/enterprise/enterprise-list");
-                 // }
                  alert('ok');
                } else {
-                 alert(response.msg);
+                 // alert(response.msg);
+                 console.log(response);
                }
           });
  	};
-
 
     
 });

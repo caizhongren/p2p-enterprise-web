@@ -806,7 +806,7 @@ input:focus {
 .news-nav {
   height: 35px;
   border-bottom: 1px solid #dfdfdf;
-  padding-left: 60px;
+  padding-left: 40px;
   margin-top: -10px;
 }
 .news-nav span {

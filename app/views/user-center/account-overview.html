@@ -65,6 +65,7 @@
 
   <div class="row" ng-show="userType != 5">
     <div class="news-nav account-nav">
+      <span ng-click="statusx=4;" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中的项目</a></span>
       <span ng-click="statusx=1;getProjects(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
       <span ng-click="statusx=2;getProjects(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
       <span ng-click="statusx=3;getProjects(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
@@ -78,10 +79,71 @@
     </div>
     <div ng-if="projectBillDetails.length != 0">
 
-      <!--还款中-->
+      <!--审核中-->
       <br>
       <br>
-      <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType != 5 ">
+      <!-- <div ng-if="statusx === 4" ng-show="userType !== 5 ">
+        <div class="col-md-10 col-md-offset-1 table-stl">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h5>projectBillDetail.project.name</h5>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <td>项目规模：万元</td>
+                  <td  style="border-bottom: 1px solid #ddd;">项目期限：天</td>
+                  <td style="border-bottom: 1px solid #ddd;">借款利率：%</td>
+                </tr>
+                <tr>
+                  <td>借款用途：惊世毒妃交电话费</td>
+                  <td></td>
+                  <td style="margin-bottom: -20px;">审核中...</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- 待投资 -->
+      <div ng-if="statusx === 4" ng-show="userType !== 5 ">
+        <div class="col-md-10 col-md-offset-1 table-stl">
+          <div class="panel panel-info">
+            <div class="panel-heading" style="padding: 2px 15px;">
+              <h4>2017年01月12日 16时06分00秒测试标</h4>
+            </div>
+            <div class="panel-body">
+              <div class="row col-md-12">
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">90.05</span>%</p> <p>预期年化收益</p></div>
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">20</span>万</p><p>项目规模</p></div>
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">85</span>天</p><p>项目期限</p></div>
+                <div class="col-md-3 text-center padding-t-10 padding-r-0"><input type="button" name="investBtn" value="立即投资" class="blue-button btn-info wid-pull"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 转让中 -->
+      <!-- <div ng-if="statusx === 4" ng-show="userType !== 5 ">
+        <div class="col-md-10 col-md-offset-1 table-stl">
+          <div class="panel panel-info">
+            <div class="panel-heading" style="padding: 2px 15px;">
+              <h4>2017年01月12日 16时06分00秒测试标</h4>
+            </div>
+            <div class="panel-body">
+              <div class="row col-md-12">
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">90.05</span>%</p> <p>预期年化收益</p></div>
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">85</span>天</p><p>项目期限</p></div>
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">20</span>万</p><p>项目规模</p></div>
+                <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">10</span>万</p><p>剩余金额</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType !== 5 ">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -113,7 +175,7 @@
       </div>
 
       <!--投标中-->
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType != 5 ">
+      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType !== 5 ">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -144,7 +206,7 @@
       </div>
 
       <!--已结清-->
-      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType != 5 ">
+      <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType !== 5 ">
         <div class="col-md-10 col-md-offset-1 table-stl">
           <div class="panel panel-info">
             <div class="panel-heading">

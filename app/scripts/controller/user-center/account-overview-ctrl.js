@@ -118,7 +118,7 @@ angular.module('hongcaiApp')
       return;
     }
     if ($rootScope.userType != 5) {
-      $scope.statusx = 1;
+      $scope.statusx = 4;
       $scope.getProjects(1);
       $scope.getEnterpriseAccount();
     } else {
