@@ -179,9 +179,9 @@
         <p class="message message col-md-4 col-lg-4" ng-show="!haveTrusteeshipAccount">未开通</p>
         <p class="message message col-md-4 col-lg-4" ng-show="haveTrusteeshipAccount">已开通</p>
         <div class="col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1">
-          <p class="activity" ng-show="!haveTrusteeshipAccount && userType != 2"><a href="javascript:;" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;checkEmailAndMobile()">开通</a>
+          <p class="activity" ng-show="!haveTrusteeshipAccount && userType != 2"><a href="javascript:;" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;gotoOpen()">开通</a>
           </p>
-          <p class="activity" ng-show="!haveTrusteeshipAccount &&  userType == 2"><a href="javascript:;" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;checkEmailAndMobile();enterpriseRegister()">开通</a>
+          <p class="activity" ng-show="!haveTrusteeshipAccount &&  userType == 2"><a href="javascript:;" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;gotoOpen();enterpriseRegister()">开通</a>
           </p>
           <p class="activity hadset" ng-show="haveTrusteeshipAccount">已开通</p>
           <div class="check-ok" ng-show="haveTrusteeshipAccount"></div>
@@ -235,7 +235,7 @@
   </div>
 
   <!-- 自动自动投标、自动债权转让 -->
-  <div class="row" ng-show="true">
+  <div class="row" ng-show="user.type ==  6">
     <div class="safe-part col-md-12 col-lg-12">
       <div class="row">
         <p class="tips message col-md-4 col-lg-4">自动投标</p>

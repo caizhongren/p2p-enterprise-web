@@ -108,17 +108,11 @@ angular.module('hongcaiApp')
     };
 
     // 检查是否绑定邮箱和手机号码
-    $scope.checkEmailAndMobile = function() {
-      if (!$scope.email || !$scope.mobile) {
+    $scope.gotoOpen = function() {
+      if (!$rootScope.checkEmailAndMobile($scope.email, $scope.mobile)) {
         $scope.openTrusteeshipAccount = false;
-        $scope.msg = '请先绑定邮箱和手机号码';
-        $alert({
-          scope: $scope,
-          template: 'views/modal/alert-dialog.html',
-          show: true
-        });
       }
-    };
+    }
 
     //检查请是否开通第三方托管账户
     $scope.checkRealNameAuth = function() {
@@ -138,16 +132,6 @@ angular.module('hongcaiApp')
       window.location.reload();
     };
 
-    $scope.realNameAuth = function(user) {
-      $scope.msg = '1';
-      $alert({
-        scope: $scope,
-        template: 'views/modal/alertYEEPAY.html',
-        show: true
-      });
-
-      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
-    };
 
     $scope.openReservation = function() {
       $scope.msg = '6';

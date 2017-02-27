@@ -135,14 +135,24 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
 
-
-  .state('root.userCenter.security-settings', {
+    .state('root.userCenter.security-settings', {
       url: '/security-settings',
       views: {
         'user-center': {
           templateUrl: 'views/user-center/security-settings.html',
           controller: 'SecuritySettingsCtrl',
           controllerUrl: 'scripts/controller/user-center/security-settings-ctrl'
+        }
+      }
+    })
+
+    .state('root.userCenter.lend-money', {
+      url: '/lend-money',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/lend-money.html',
+          controller: 'LendMoneyCtrl',
+          controllerUrl: 'scripts/controller/user-center/lend-money-ctrl'
         }
       }
     })
@@ -157,7 +167,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
 
-  .state('root.recharge-success', {
+    .state('root.recharge-success', {
       url: '/recharge-success/:status',
       views: {
         '': {
@@ -546,7 +556,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 
 }]);
 
-hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
+hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $alert) {
   $rootScope.pay_company = config.pay_company;
   // Array 在IE8下没有indexOf 方法。
   if (!Array.prototype.indexOf) {
@@ -568,6 +578,38 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
     '/invest-verify',
     '/transaction-record'
   ];
+
+  /*
+   * 开通存管通
+  */
+  $rootScope.realNameAuth = function(user) {
+    if (!$rootScope.checkEmailAndMobile($rootScope.userDetail.user.email, $rootScope.userDetail.user.mobile)) {
+      return;
+    }
+    $rootScope.msg = '1';
+    $alert({
+      scope: $rootScope,
+      template: 'views/modal/alertYEEPAY.html',
+      show: true
+    });
+
+    window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
+  };
+
+  // 检查是否绑定邮箱和手机号码
+  $rootScope.checkEmailAndMobile = function(email, mobile) {
+    if (!email || !mobile) {
+      $rootScope.msg = '请先绑定邮箱和手机号码';
+      $alert({
+        scope: $rootScope,
+        template: 'views/modal/alert-dialog.html',
+        show: true
+      });
+      return false;
+    }
+    return true;
+  };
+
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if (routespermission.indexOf('/' + $location.path().split('/')[1]) !== -1) {
@@ -577,6 +619,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
           $rootScope.loginName = response.data.data.name;
           $rootScope.userType = response.data.data.userType;
           $rootScope.securityStatus = response.data.data.securityStatus;
+          $rootScope.userDetail = response.data.data.userDetail;
         } else {
           $rootScope.isLogged = false;
           $rootScope.loginName = '';
@@ -590,6 +633,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
           $rootScope.loginName = response.data.data.name;
           $rootScope.userType = response.data.data.userType;
           $rootScope.securityStatus = response.data.data.securityStatus;
+          $rootScope.userDetail = response.data.data.userDetail;
         } else {
           $rootScope.isLogged = false;
           $rootScope.loginName = '';
