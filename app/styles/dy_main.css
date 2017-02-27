@@ -242,7 +242,7 @@ input:focus {
 .real-name .set-transactionPwd, {
   display: inline-block;
 }
-.account-investment, .safe-process, .dynamic-show {
+.account-investment, .safe-process, .dynamic-show, .lend-process {
   height: 135px;
 }
 .total-assets {
@@ -738,6 +738,18 @@ input:focus {
   margin-bottom: 25px;
   border-bottom: 1px solid #cecdcd;
   margin-left: 25px;
+}
+.lend-process {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #cecdcd;
+}
+.lend-process-w {
+  width: 20%;
+  float: left;
+  position: relative;
+}
+.lend-openRealName {
+  padding: 30px 0;
 }
 .process-tips {
   height: 80px;
