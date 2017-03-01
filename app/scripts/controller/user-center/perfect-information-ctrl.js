@@ -1,4 +1,4 @@
-hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $upload, DEFAULT_DOMAIN, $window, EnterpriseService, md5) {
+hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $upload, DEFAULT_DOMAIN, $window, EnterpriseService, md5, ipCookie) {
     $scope.enterprise = {};
     $rootScope.selectSide = 'perfect-information';
     /*
@@ -127,12 +127,16 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         contactEmail: enterprise.contactEmail,
         registerDate: enterprise.registerDate
       }, function(response) {
-           if(response.msg == "success") {
-                 alert('ok');
-               } else {
-                 // alert(response.msg);
-                 console.log(response);
-               }
+            if(response && response.ret !== -1) {
+                alert('ok');
+                    if (ipCookie('lendMoney') === 1) {
+                    $state.go('root.userCenter.lend-money');
+                    ipCookie('lendMoney', null);
+                }
+           } else {
+                // alert(response.msg);
+                console.log(response);
+           }
           });
  	};
 

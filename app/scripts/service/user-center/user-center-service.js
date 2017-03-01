@@ -112,5 +112,22 @@ angular.module('hongcaiApp')
        * 授权自动投标
        */
       authorizeAutoTransfer: $resource(RESTFUL_DOMAIN + '/users/0/authorizeAutoTransfer', {}, {'post':   {method:'POST'}}),
+      /**
+       * 保存借款信息
+       */
+      preProject: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProject', {
+        userId: '@userId',
+        amount: '@amount',
+        projectDays: '@projectDays',
+        financingPurpose: '@financingPurpose',
+      }, {
+        'post': {method: 'POST'}
+      }),
+      /**
+       * 借款企业借款申请统计
+       */
+      borrowPreprojectStat: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/borrowPreprojectStat', {
+        userId: '@userId'
+      })
     };
   });
