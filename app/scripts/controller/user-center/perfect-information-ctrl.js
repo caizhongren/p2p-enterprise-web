@@ -12,10 +12,17 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         if(response && response.ret !== -1) {
           if(response.infoStatus == 0 || response.infoStatus === undefined) {
             $scope.readOnly = false;
+            $('.form-control').removeAttr('readOnly');
           }
+          $scope.readOnly = true;
           $scope.enterprise = response;
           $scope.enterpriseId = response.id;
           $scope.enterprise.registerCapital = response.registerCapital.toString();
+          
+        
+        }else {
+            $scope.readOnly = false;
+            $('.form-control').removeAttr('readOnly');
         }
       });
     }
@@ -148,5 +155,5 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         });
  	};
 
-    
+    // alert($scope.readOnly)
 });

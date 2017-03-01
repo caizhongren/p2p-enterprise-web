@@ -11,6 +11,8 @@ angular.module('hongcaiApp')
 			EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
 		      	if (response && response.ret !== -1) {
 		      		$scope.infoStatus = response.infoStatus;
+		      	}else {
+		      		$scope.infoStatus = 0;
 		      	}
 		    })
 		}

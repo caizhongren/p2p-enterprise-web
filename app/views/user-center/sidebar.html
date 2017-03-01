@@ -41,14 +41,14 @@
       <p class="{{selectSide == 'bankcard-management' ? 'now' : ''}}" style="margin-left:36px;">银行卡管理</p>
     </a>
   </div>
-  <div class="row">
+  <div class="row" ng-if="userType !== 6">
     <a ui-sref="root.userCenter.perfect-information" class="tips-area {{selectSide == 'perfect-information' ? 'tips-show' : ''}}">
       <div class="left-show-area {{selectSide == 'perfect-information' ? 'left-show-area-bg' : ''}}"></div>
       <div class="ico-area message-1 fa fa-flag" aria-hidden="true" {{selectSide == 'perfect-information' ? 'message1-blue' : ''}}"></div>
       <p class="{{selectSide == 'perfect-information' ? 'now' : ''}}" style="margin-left:36px;">完善资料</p>
     </a>
   </div> 
-  <div class="row">
+  <div class="row" ng-if="userType !== 6">
     <a ui-sref="root.userCenter.lend-money" class="tips-area {{selectSide == 'lend-money' ? 'tips-show' : ''}}">
       <div class="left-show-area {{selectSide == 'lend-money' ? 'left-show-area-bg' : ''}}"></div>
       <div class="ico-area message-1 fa fa-retweet {{selectSide == 'lend-money' ? 'message1-blue' : ''}}"></div>
