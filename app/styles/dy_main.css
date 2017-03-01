@@ -589,6 +589,9 @@ input:focus {
 .account-message {
   height: 325px;
 }
+.account-message1 {
+  height: 200px;
+}
 .account-pic, .assets-pic {
   height: 313px;
   margin: 0px auto 30px auto;
