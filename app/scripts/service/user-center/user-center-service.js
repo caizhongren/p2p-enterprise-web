@@ -100,6 +100,34 @@ angular.module('hongcaiApp')
         'active':   {method:'POST'}
       }),
       getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {}),
+      //居间人 账户总览
+      getIntermediaryAccount: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/intermediaryAccountStat', {userId:'@userId'}),
+
+      //居间人&借款方 审核中的项目
+      getPreProjects: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProjects', {
+        userId:'@userId',
+        page: '@page',
+        pageSize: '@pageSize',
+        status: '@status'
+      }),
+
+      //居间人 待投资、还款完成 && 借款方 募集中\还款中\已结清的项目：
+      getEnterpriseProjects: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/projects', {
+        userId:'@userId',
+        type: '@type',
+        page: '@page',
+        pageSize: '@pageSize',
+        status: '@status'
+      }),
+      //居间人 转让中、已转让
+      //  /enterprise/enterpriseProjects/{userId}/assignments
+      getEnterpriseAssignments: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/0/assignments', {
+        userId:'@userId',
+        type: '@type',
+        page: '@page',
+        pageSize: '@pageSize',
+        status: '@status'
+      }),
       /**
        * 借款企业开通自动还款
        */
@@ -112,5 +140,22 @@ angular.module('hongcaiApp')
        * 授权自动投标
        */
       authorizeAutoTransfer: $resource(RESTFUL_DOMAIN + '/users/0/authorizeAutoTransfer', {}, {'post':   {method:'POST'}}),
+      /**
+       * 保存借款信息
+       */
+      preProject: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProject', {
+        userId: '@userId',
+        amount: '@amount',
+        projectDays: '@projectDays',
+        financingPurpose: '@financingPurpose',
+      }, {
+        'post': {method: 'POST'}
+      }),
+      /**
+       * 借款企业借款申请统计
+       */
+      borrowPreprojectStat: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/borrowPreprojectStat', {
+        userId: '@userId'
+      })
     };
   });

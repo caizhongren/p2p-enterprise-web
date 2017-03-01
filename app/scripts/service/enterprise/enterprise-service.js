@@ -61,25 +61,7 @@ angular.module('hongcaiApp')
       //获取用户信息
       getEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/', {userId:'@userId'}),
 
-      //居间人 账户总览
-      getEnterpriseProjects: $resource(RESTFUL_DOMAIN + '/enterprise/enterpriseUsers/intermediaryAccountStat', {userId:'@userId'}),
-
-      //居间人&借款方 审核中的项目
-      getEnterpriseProjects: $resource(RESTFUL_DOMAIN + '/enterprise/enterpriseProjects/preProjects', {
-        userId:'@userId',
-        page: '@page',
-        pageSize: '@pageSize',
-        status: '@status'
-      }),
-
-      //居间人 待投资、还款完成 && 借款方 募集中\还款中\已结清的项目：
-      getEnterpriseProjects: $resource(RESTFUL_DOMAIN + '/enterprise/enterpriseProjects/projects', {
-        userId:'@userId',
-        type: '@tyoe',
-        page: '@page',
-        pageSize: '@pageSize',
-        status: '@status'
-      }),
+      
 
     };
   });

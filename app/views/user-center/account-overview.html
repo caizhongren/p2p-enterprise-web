@@ -3,7 +3,7 @@
   <div class="row">
     <div class="right-title">账户总览</div>
   </div>
-  <div class="row">
+  <div class="row" ng-if="userType !== 6">
     <div class="account-message">
       <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
         <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" height="313"></cjs-doughnut>
@@ -55,6 +55,43 @@
         <input type="button" ui-sref="root.userCenter.recharge" class="blue-button account-button col-md-3 col-lg-3" value="充值" ng-show="userType != 5"/>
         <input type="button" ui-sref="root.userCenter.withdraw" class="white-button account-button account-right-button col-md-3 col-lg-3" value="提现" ng-show="userType != 5"/>
         <input type="button" class="white-button account-button account-right-button col-md-3 col-lg-3" value="激活存管通" ng-show="pay_company === 'cgt' && isLogged === true && securityStatus.realNameAuthStatus ===1 && securityStatus.userAuth.active === false" ng-click="goActivateUser()"/>
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-if="userType == 6">
+    <div class="account-message1">
+      <div class="right-message col-md-12 col-lg-12 margin-t-30">
+        <div class="last-show col-md-4 col-lg-4 ">
+          <div class="assets-ico account-balance"></div>
+          <p class="asset-tips">账户余额</p>
+          <p class="asset-money margin-0">{{(balance || 0)| number:2}} 元</p>
+          <ul class="margin-t-50 padding-0 text-center">
+            <li><span class="asset-tips asset-mar"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+          </ul>
+        </div>
+
+        <div class="col-md-4 col-lg-4">
+          <div class="assets-ico total-assets"></div>
+          <p class="asset-tips">贷投资总额</p>
+          <p class="asset-money margin-0">{{(totalFundRaising || 0) | number:2}} 元</p>
+          <ul class="margin-t-50 padding-0 text-center">
+            <li><span class="asset-tips asset-mar"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+          </ul>
+        </div>
+        <div class="col-md-4 col-lg-4 ">
+          <div class="assets-ico net-income"></div>
+          <p class="asset-tips">累计利息</p>
+          <p class="asset-money margin-0">{{(accruedInterest || 0) | number:2}} 元</p>
+          <ul class="margin-t-50 padding-0 text-center">
+            <li><span class="asset-tips asset-mar"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-mg-12 col-lg-12 padding-l-0 margin-t-30">
+          <input type="button" ui-sref="root.userCenter.recharge" class="blue-button account-button col-md-2 col-lg-2 {{(pay_company === 'cgt' && isLogged === true && securityStatus.realNameAuthStatus ===1 && securityStatus.userAuth.active) === false ? 'col-md-offset-3':'col-md-offset-4'}}" value="充值"/>
+          <input type="button" ui-sref="root.userCenter.withdraw" class="white-button account-button account-right-button col-md-2 col-lg-2" value="提现"/>
+          <input type="button" class="white-button account-button account-right-button col-md-2 col-lg-2" value="激活存管通" ng-show="pay_company === 'cgt' && isLogged === true && securityStatus.realNameAuthStatus ===1 && securityStatus.userAuth.active === false" ng-click="goActivateUser()"/>
+        </div>
       </div>
     </div>
   </div>

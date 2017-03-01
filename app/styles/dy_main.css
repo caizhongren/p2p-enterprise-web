@@ -129,6 +129,43 @@ input:focus {
 .tips-area:active .grey-recharge, .tips-area:active .blue-recharge {
   background-position: -463px -604px;
 }
+
+.grey-safe-cgt, .grey-safe-repayment, .grey-safe-info, .grey-safe-loan, .grey-safe-audit {
+  background: url(/images/lend-money-grey.png) no-repeat;
+}
+.blue-safe-cgt, .blue-safe-repayment, .blue-safe-info, .blue-safe-loan, .blue-safe-audit {
+  background: url(/images/lend-money-blue.png) no-repeat;
+}
+.grey-safe-cgt {
+  background-position: 39px 0px;
+} 
+.grey-safe-repayment {
+  background-position: -89px 0px;
+} 
+.grey-safe-info {
+  background-position: -217px 0px;
+}
+.grey-safe-loan {
+  background-position: -347px 0px;
+} 
+.grey-safe-audit {
+  background-position: -475px 0px;
+}
+.blue-safe-cgt {
+  background-position: 39px 0px;
+} 
+.blue-safe-repayment {
+  background-position: -89px 0px;
+} 
+.blue-safe-info {
+  background-position: -217px 0px;
+}
+.blue-safe-loan {
+  background-position: -347px 0px;
+} 
+.blue-safe-audit {
+  background-position: -475px 0px;
+}
 /*unbankcard*/
 .bankCard {
   position: relative;
@@ -588,6 +625,9 @@ input:focus {
 }
 .account-message {
   height: 325px;
+}
+.account-message1 {
+  height: 200px;
 }
 .account-pic, .assets-pic {
   height: 313px;
