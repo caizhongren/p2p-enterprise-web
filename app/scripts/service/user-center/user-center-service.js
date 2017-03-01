@@ -114,7 +114,6 @@ angular.module('hongcaiApp')
       //居间人 待投资、还款完成 && 借款方 募集中\还款中\已结清的项目：
       getEnterpriseProjects: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/projects', {
         userId:'@userId',
-        type: '@type',
         page: '@page',
         pageSize: '@pageSize',
         status: '@status'
@@ -123,7 +122,6 @@ angular.module('hongcaiApp')
       //  /enterprise/enterpriseProjects/{userId}/assignments
       getEnterpriseAssignments: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/0/assignments', {
         userId:'@userId',
-        type: '@type',
         page: '@page',
         pageSize: '@pageSize',
         status: '@status'

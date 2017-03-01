@@ -57,30 +57,83 @@ angular.module('hongcaiApp')
       });
 
     };
-    //居间人账户总览userId:'@userId',
-        
+    //居间人账户总览 
     $scope.getIntermediaryAccount =function(){
       UserCenterService.getIntermediaryAccount.get({userId: $rootScope.securityStatus.userId},function(response){
-
+        if(response && response.ret !== -1) {
+          $scope.intermediaryAccount = response;
+        }
       })
     };
-    $scope.getIntermediaryAccount();
 
     //居间人&借款方 审核中的项目
-    // page: '@page',
-    // pageSize: '@pageSize',
-    // status: '@status'
-    $scope.getPreProjects =function(){
+    
+    $scope.page = 1;
+    $scope.getPreProjects =function(page){
       UserCenterService.getPreProjects.get({
         userId: $rootScope.securityStatus.userId,
-        page: 1,
+        page: page,
         pageSize: 10,
         status: '0,1'
         },function(response){
-
+          if(response && response.ret !== -1){
+            $scope.preProjects = response.data;
+            $scope.total = response.total;
+            $scope.totalPage = response.totalPage;
+            $scope.pageSize = response.pageSize;
+          }
       })
     };
-    $scope.getPreProjects();
+
+    //居间人 待投资、还款完成 && 借款方 募集中\还款中\已结清的项目：getEnterpriseProjects
+    $scope.getEnterpriseProjects =function(page, status){
+      var searchStatus;
+      if (status === 1) {
+        searchStatus = '9';
+      } else if (status === 2) {
+        searchStatus = '6,7,8';
+      } else {
+        searchStatus = '10';
+      }
+      UserCenterService.getEnterpriseProjects.get({
+        userId: $rootScope.securityStatus.userId,
+        page: page,
+        pageSize: 10,
+        status: searchStatus
+        },function(response){
+          if(response && response.ret !== -1) {
+            $scope.total = response.total;
+            $scope.totalPage = response.totalPage;
+            $scope.pageSize = response.pageSize;
+            var projectBillDetails = response.data;
+            $scope.projectBillDetails = projectBillDetails;
+
+            for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+              $scope.projectBillDetails[i].releaseEndTimeDate = new Date($scope.projectBillDetails[i].releaseEndTime);
+              $scope.projectBillDetails[i].investPercent = ($scope.projectBillDetails[i].soldStock + $scope.projectBillDetails[i].occupancyStock) / $scope.projectBillDetails[i].countInvest * 100;
+              $scope.projectBillDetails[i].projectBackCapital = 0;
+              var projectBills = projectBillDetails[i].projectBills;
+              for (var j = projectBills.length - 1; j >= 0; j--) {
+                if (projectBills[j].status === 0) {
+                  projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
+                  projectBillDetails[i].recentProjectBill = projectBills[j];
+                  if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+                    new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+                    new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+                    projectBillDetails[i].isAvailableRepayment = true;
+                  } else {
+                    projectBillDetails[i].isAvailableRepayment = false;
+                  }
+                  break;
+                } else {
+                  $scope.projectBillDetails[i].projectBackCapital = $scope.projectBillDetails[i].projectBackCapital + projectBills[j].repaymentInterest;
+                }
+              }
+            }
+          } 
+      })
+    };
+
     $scope.getFundsUserAccount = function(){
       UserCenterService.getFundsUserAccount.get(function(response) {
         if (response.ret === 1) {
@@ -139,14 +192,18 @@ angular.module('hongcaiApp')
     if (!$rootScope.userType){
       return;
     }
-    if ($rootScope.userType != 5) {
-      $scope.statusx = 4;
-      $scope.getProjects(1);
-      $scope.getEnterpriseAccount();
-    } else {
+    if ($rootScope.userType == 5) {
       $scope.statusx = 0;
       $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
       $scope.getFundsUserAccount();
+    } else if($rootScope.userType == 6) {
+      $scope.statusx = 4;
+      $scope.getIntermediaryAccount();
+    }
+     else {
+      $scope.statusx = 4;
+      $scope.getPreProjects($scope.page);
+      $scope.getEnterpriseAccount();
     }
   });
 
@@ -181,51 +238,51 @@ angular.module('hongcaiApp')
     /**
      * 根据项目状态查询项目列表
      */
-    $scope.getProjects = function(status) {
-      var searchStatus;
-      if (status === 1) {
-        searchStatus = '9';
-      } else if (status === 2) {
-        searchStatus = '6,7,8';
-      } else {
-        searchStatus = '10';
-      }
-      UserCenterService.getProjectByStatus.get({
-        status: searchStatus
-      }, function(response) {
-        if (response.ret !== 1) {
-          alert('查询出错，请联系客服！');
-          return;
-        }
+    // $scope.getProjects = function(status) {
+    //   var searchStatus;
+    //   if (status === 1) {
+    //     searchStatus = '9';
+    //   } else if (status === 2) {
+    //     searchStatus = '6,7,8';
+    //   } else {
+    //     searchStatus = '10';
+    //   }
+    //   UserCenterService.getProjectByStatus.get({
+    //     status: searchStatus
+    //   }, function(response) {
+    //     if (response.ret !== 1) {
+    //       alert('查询出错，请联系客服！');
+    //       return;
+    //     }
 
-        var projectBillDetails = response.data.projectBillDetails;
-        $scope.projectBillDetails = projectBillDetails;
+    //     var projectBillDetails = response.data.projectBillDetails;
+    //     $scope.projectBillDetails = projectBillDetails;
 
-        for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-          $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
-          $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
-          $scope.projectBillDetails[i].project.projectBackCapital = 0;
-          var projectBills = projectBillDetails[i].projectBills;
-          for (var j = projectBills.length - 1; j >= 0; j--) {
-            if (projectBills[j].status === 0) {
-              projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-              projectBillDetails[i].recentProjectBill = projectBills[j];
-              if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-                new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-                new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-                projectBillDetails[i].project.isAvailableRepayment = true;
-              } else {
-                projectBillDetails[i].project.isAvailableRepayment = false;
-              }
-              break;
-            } else {
-              $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
-            }
-          }
-        }
+    //     for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+    //       $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
+    //       $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
+    //       $scope.projectBillDetails[i].project.projectBackCapital = 0;
+    //       var projectBills = projectBillDetails[i].projectBills;
+    //       for (var j = projectBills.length - 1; j >= 0; j--) {
+    //         if (projectBills[j].status === 0) {
+    //           projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
+    //           projectBillDetails[i].recentProjectBill = projectBills[j];
+    //           if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+    //             new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+    //             new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+    //             projectBillDetails[i].project.isAvailableRepayment = true;
+    //           } else {
+    //             projectBillDetails[i].project.isAvailableRepayment = false;
+    //           }
+    //           break;
+    //         } else {
+    //           $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
+    //         }
+    //       }
+    //     }
 
-      });
-    };
+    //   });
+    // };
 
     /**
      * 根据项目状态查询项目列表
