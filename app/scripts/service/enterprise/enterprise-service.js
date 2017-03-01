@@ -3,7 +3,7 @@ angular.module('hongcaiApp')
   .factory('EnterpriseService', function($resource, $location, RESTFUL_DOMAIN) {
     return {
       //查询用户已上传的文件
-      getEnterpriseFiles: $resource(RESTFUL_DOMAIN + '/enterprises/0/enterpriseFiles', {enterpriseId:'@enterpriseId'}),
+      getEnterpriseFiles: $resource(RESTFUL_DOMAIN + '/enterprises/1/enterpriseFiles', {enterpriseId:'@enterpriseId'}),
 
       //保存信息
       saveEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/',{}, {

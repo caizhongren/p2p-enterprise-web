@@ -863,7 +863,7 @@ input:focus {
 }
 .news-nav span {
   height: 35px;
-  width: 110px;
+  width: 90px;
   background-color: #faf8f8;
   margin-right: 20px;
   border-top-left-radius: 5px;
@@ -871,7 +871,8 @@ input:focus {
 }
 .news-nav span a {
   margin-top: 8px;
-  margin-left: 12px;
+  /*margin-left: 12px;*/
+  text-align: center;
 }
 .news-nav .active {
   border-bottom: 1px solid white;
