@@ -41,6 +41,9 @@ a:link {
 .margin-0 {
     margin: 0 !important;
 }
+.margin-b-20 {
+    margin-bottom: 20px;
+}
 .padding-t-3 {
     margin-top: 3px;
 }
@@ -68,7 +71,14 @@ a:link {
 .col-2 {
   width: 20%;
 }
-
+.clearfix::after, .clearfix::before {
+    content: ".";
+    height: 0;
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
 
 .full-column {
     .margin-l-15 {

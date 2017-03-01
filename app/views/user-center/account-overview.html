@@ -3,7 +3,8 @@
   <div class="row">
     <div class="right-title">账户总览</div>
   </div>
-  <div class="row" ng-if="userType !== 6">
+  <!-- 借款方 -->
+  <div class="row" ng-if="userType == 6">
     <div class="account-message">
       <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
         <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" height="313"></cjs-doughnut>
@@ -58,32 +59,33 @@
       </div>
     </div>
   </div>
-  <div class="row" ng-if="userType == 6">
+  <!-- 居间人 -->
+  <div class="row" ng-if="userType !== 6">
     <div class="account-message1">
       <div class="right-message col-md-12 col-lg-12 margin-t-30">
         <div class="last-show col-md-4 col-lg-4 ">
           <div class="assets-ico account-balance"></div>
           <p class="asset-tips">账户余额</p>
-          <p class="asset-money margin-0">{{(balance || 0)| number:2}} 元</p>
+          <p class="asset-money margin-0">{{(intermediaryAccount.account.balance || 0)| number:2}} 元</p>
           <ul class="margin-t-50 padding-0 text-center">
-            <li><span class="asset-tips asset-mar"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+            <li><span class="asset-tips asset-mar"><strong>累计充值:</strong> {{intermediaryAccount.accruedCharge | number:2}} 元</span> </li>
           </ul>
         </div>
 
         <div class="col-md-4 col-lg-4">
           <div class="assets-ico total-assets"></div>
-          <p class="asset-tips">贷投资总额</p>
-          <p class="asset-money margin-0">{{(totalFundRaising || 0) | number:2}} 元</p>
+          <p class="asset-tips">待投资总额</p>
+          <p class="asset-money margin-0">{{(intermediaryAccount.totalUnInvest || 0) | number:2}} 元</p>
           <ul class="margin-t-50 padding-0 text-center">
-            <li><span class="asset-tips asset-mar"><strong>已还本金:</strong> {{totalFundRaising - unPrincipal | number:2}} 元</span> </li>
+            <li><span class="asset-tips asset-mar"><strong>累计提现:</strong> {{intermediaryAccount.accruedWithdraw | number:2}} 元</span> </li>
           </ul>
         </div>
         <div class="col-md-4 col-lg-4 ">
           <div class="assets-ico net-income"></div>
           <p class="asset-tips">累计利息</p>
-          <p class="asset-money margin-0">{{(accruedInterest || 0) | number:2}} 元</p>
+          <p class="asset-money margin-0">{{intermediaryAccount.account.totalProfit || 0 | number:2}} 元</p>
           <ul class="margin-t-50 padding-0 text-center">
-            <li><span class="asset-tips asset-mar"><strong>待还利息:</strong>{{unInterest | number:2}} 元</span>
+            <li><span class="asset-tips asset-mar"><strong>募集期累计计息:</strong>{{intermediaryAccount.account.receivedProfit | number:2}} 元</span>
             </li>
           </ul>
         </div>
@@ -103,41 +105,49 @@
   <div ng-if="userType !== 6">
     <div class="row" ng-show="userType != 5">
       <div class="news-nav account-nav">
-        <span ng-click="statusx=4;" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中的项目</a></span>
-        <span ng-click="statusx=1;getProjects(1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
-        <span ng-click="statusx=2;getProjects(2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">投标中的项目</a></span>
-        <span ng-click="statusx=3;getProjects(3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
+        <span ng-click="statusx=4;getPreProjects(page)" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中的项目</a></span>
+        <span ng-click="statusx=1;getEnterpriseProjects(page,1);" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中的项目</a></span>
+        <span ng-click="statusx=2;getEnterpriseProjects(page,2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">募集中的项目</a></span>
+        <span ng-click="statusx=3;getEnterpriseProjects(page,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清的项目</a></span>
       </div>
-      <div ng-if="projectBillDetails.length == 0" class="project-area">
+      <div ng-if="(projectBillDetails.length == 0 && statusx !== 4) || (preProject.length == 0 && statusx == 4)" class="project-area">
         <br>
         <br>
         <h4>您暂时没有该类项目</h4>
         <br>
         <br>
       </div>
-      <div ng-if="projectBillDetails.length != 0">
+      <div ng-if="(projectBillDetails.length !== 0 && statusx !== 4) || (preProject.length !== 0 && statusx == 4)">
 
         <!--审核中-->
         <br>
         <br>
-        <div ng-if="statusx === 4" ng-show="userType !== 5 ">
+        <div ng-repeat="preProject in preProjects" ng-if="statusx === 4" ng-show="userType !== 5 ">
           <div class="col-md-10 col-md-offset-1 table-stl">
             <div class="panel panel-info">
               <div class="panel-heading">
-                <h5>projectBillDetail.project.name</h5>
+                <h5>{{preProject.name}}{{preProject.createTime | date: 'yyyy/MM/dd HH:mm:ss'}}</h5>
               </div>
               <div class="panel-body">
                 <table class="table margin-b-5">
                   <tr>
-                    <td style="border-bottom: 1px solid #ddd;">项目规模：万元</td>
-                    <td style="border-bottom: 1px solid #ddd;">项目期限：天</td>
-                    <td style="border-bottom: 1px solid #ddd;">借款利率：%</td>
+                    <td style="border-bottom: 1px solid #ddd;">项目规模：{{preProject.amount | number : 2}}万元</td>
+                    <td style="border-bottom: 1px solid #ddd;">项目期限：{{preProject.projectDays}}天</td>
+                    <td style="border-bottom: 1px solid #ddd;">借款利率：{{preProject.annualEarnings | number:2}}%</td>
                   </tr>
                 </table>
-                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ '惊世毒妃电话费惊...'| limitTo: 20}}{{item.name.length > 20 ? '...':''}}</p></div>
-                <div class="wid-pull text-right ft-blue">审核中...</div>
+                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ preProject.financingPurpose| limitTo: 20}}{{item.name.length > 20 ? '...':''}}</p></div>
+                <div class="wid-pull text-right ft-blue" ng-if="preProject.status == 0">审核中...</div>
+                <div class="wid-pull text-right ft-blue" ng-if="preProject.status == 1">未通过</div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="clearfix margin-b-20" ng-if="statusx === 4" ng-show="userType !== 5">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getPreProjects(page)">上一页</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getPreProjects(page)">下一页</button>
           </div>
         </div>
         <!-- 还款中 -->
@@ -171,7 +181,13 @@
             </div>
           </div>
         </div>
-
+        <div class="clearfix margin-b-20" ng-if="statusx === 1" ng-show="userType !== 5">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm" ng-disabled="page == 1" ng-click="page = page -1;getEnterpriseProjects(page,1)">上一页</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm" ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseProjects(page,1)">下一页</button>
+          </div>
+        </div>
         <!--投标中-->
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 2" ng-show="userType !== 5 ">
           <div class="col-md-10 col-md-offset-1 table-stl">
@@ -202,6 +218,13 @@
           </div>
           <br>
         </div>
+        <div class="clearfix margin-b-20" ng-if="statusx === 2" ng-show="userType !== 5">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm" ng-disabled="page === 1" ng-click="page = page -1;getEnterpriseProjects(page,2)">上一页</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm" ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseProjects(page,2)">下一页</button>
+          </div>
+        </div>
 
         <!--已结清-->
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType !== 5 ">
@@ -231,7 +254,13 @@
             </div>
           </div>
         </div>
-
+        <div class="clearfix margin-b-20" ng-if="statusx === 3" ng-show="userType !== 5">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm" ng-disabled="page === 1" ng-click="page = page -1;getEnterpriseProjects(page,3)">上一页</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm" ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseProjects(page,3)">下一页</button>
+          </div>
+        </div>
         <!--没有项目-->
 
       </div>
