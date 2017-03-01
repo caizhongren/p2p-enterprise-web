@@ -1,8 +1,11 @@
 'use strict';
 angular.module('hongcaiApp')
-  .factory('EnterpriseService', function($resource, $location, DEFAULT_DOMAIN, RESTFUL_DOMAIN) {
+  .factory('EnterpriseService', function($resource, $location, RESTFUL_DOMAIN) {
     return {
-      getEnterpriseFiles: $resource(DEFAULT_DOMAIN + '/adminEnterprise/getEnterpriseFiles', {enterpriseId:'@enterpriseId'}),
+      //查询用户已上传的文件
+      getEnterpriseFiles: $resource(RESTFUL_DOMAIN + '/enterprises/0/enterpriseFiles', {enterpriseId:'@enterpriseId'}),
+
+      //保存信息
       saveEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/',{}, {
         update: {
             method: "PUT",
@@ -29,9 +32,10 @@ angular.module('hongcaiApp')
             }
           }
       }),
-      deleteFile: $resource(DEFAULT_DOMAIN + '/adminUploadFile/deleteFile', {}, {
-        delete: {method: "POST",params: {
-             categoryId:'@categoryId',
+
+      //删除文件
+      deleteFile: $resource(RESTFUL_DOMAIN + '/enterprises/deleteFile', {}, {
+        update: {method: "PUT",params: {
              category: '@category', 
              thumbnailFileId: '@thumbnailFileId', 
              thumbnailFileUrl: '@thumbnailFileUrl',
@@ -39,7 +43,27 @@ angular.module('hongcaiApp')
              originalFileUrl: '@originalFileUrl'
           }}
       }),
+
+      //上传文件
+      uploadFile: $resource(RESTFUL_DOMAIN + '/enterprises/uploadFile', {}, {
+          save: {
+          method: 'POST',
+          params: {
+             category: '@category',
+             categoryId: '@categoryId',
+             fileType: '@fileType',
+             archiveType: '@archiveType',
+             description: '@description'
+          }
+        }
+      }),
+
+      //获取用户信息
       getEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/', {userId:'@userId'}),
+
+      
 
     };
   });
+
+      

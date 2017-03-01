@@ -57,8 +57,30 @@ angular.module('hongcaiApp')
       });
 
     };
+    //居间人账户总览userId:'@userId',
+        
+    $scope.getIntermediaryAccount =function(){
+      UserCenterService.getIntermediaryAccount.get({userId: $rootScope.securityStatus.userId},function(response){
 
+      })
+    };
+    $scope.getIntermediaryAccount();
 
+    //居间人&借款方 审核中的项目
+    // page: '@page',
+    // pageSize: '@pageSize',
+    // status: '@status'
+    $scope.getPreProjects =function(){
+      UserCenterService.getPreProjects.get({
+        userId: $rootScope.securityStatus.userId,
+        page: 1,
+        pageSize: 10,
+        status: '0,1'
+        },function(response){
+
+      })
+    };
+    $scope.getPreProjects();
     $scope.getFundsUserAccount = function(){
       UserCenterService.getFundsUserAccount.get(function(response) {
         if (response.ret === 1) {

@@ -5,7 +5,9 @@ angular.module('hongcaiApp').directive('toggleEdit', [function() {
     restrict: 'A',
     link: function(scope, element, attrs, ctrl) {
       element.bind('click', function() {
-        element.parent().siblings().find('input[ng-model]').removeAttr(attr);
+        element.parents(".panel-collapse").find('input[ng-model]').removeAttr(attr);
+        element.parents(".panel-collapse").find('textarea[ng-model]').removeAttr(attr);
+        element.parents(".panel-collapse").siblings().find('input[ng-model]').removeAttr(attr);
       })
     }
   };
