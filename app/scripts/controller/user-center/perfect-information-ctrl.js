@@ -1,4 +1,4 @@
-hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $upload, DEFAULT_DOMAIN, $window, EnterpriseService, md5, ipCookie) {
+hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $upload, RESTFUL_DOMAIN, DEFAULT_DOMAIN, $window, EnterpriseService, md5, ipCookie) {
 
     $scope.enterprise = {};
     $rootScope.selectSide = 'perfect-information';
@@ -66,7 +66,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
              var file = $files[i];
              console.log(file);
              $scope.upload = $upload.upload({
-                 url: RESTFUL_DOMAIN + '/enterprises/uploadFile' 
+                 url: DEFAULT_DOMAIN + '/enterpriseUser/uploadFile' 
                  + '?categoryId='+ $scope.enterpriseId  
                  + '&category=' + category
                  + '&fileType=' + fileType
