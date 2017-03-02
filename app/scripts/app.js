@@ -318,6 +318,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.user-order-transfer', {
+        url: '/user-order-transfer/:projectId/:orderId/:orderType',
+        views: {
+          '': {
+            templateUrl: 'views/transfer.html',
+            controller: 'UserOrderTransferCtrl',
+            controllerUrl: 'scripts/controller/user-center/user-order-transfer-ctrl'
+          }
+        }
+      })
     .state('root.transfer-transfer', {
       url: '/transfer-transfer/:transferAmount',
       views: {

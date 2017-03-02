@@ -161,5 +161,17 @@ angular.module('hongcaiApp')
       cancelOrder: $resource(DEFAULT_DOMAIN + '/siteOrder/cancelOrder', {
         number: '$number'
       }),
+      //下单成功 orderType = 2
+      transferAssignment: $resource(RESTFUL_DOMAIN + '/orders/:number/users/0/payment', {
+        number: '@number'
+      }, {
+        'POST': {
+          method: 'POST'
+        }
+      }),
+      //下单 orderType =1
+      transfer: $resource(DEFAULT_DOMAIN + '/yeepay/transfer', {projectId: '@projectId', orderId: '@orderId'}),
+      //下单 orderTypr = 4
+      transferFunds: $resource(DEFAULT_DOMAIN + '/yeepay/transferFunds', {projectId: '@projectId', orderId: '@orderId'}),
     };
   });

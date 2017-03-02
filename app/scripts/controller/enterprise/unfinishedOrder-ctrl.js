@@ -18,7 +18,7 @@ angular.module('hongcaiApp')
   	  var orderAmount = order.orderAmount;
   	  var orderNumber = order.number;
 
-  	  $scope.msg = '12';
+  	  $scope.msg = '4';
   	  $scope.investAmount = orderAmount;
   	  $scope.page = 'investment';
   	  $alert({
