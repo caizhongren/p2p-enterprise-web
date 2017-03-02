@@ -35,12 +35,12 @@
           </div>
 
           <div class="form-group col-md-12 col-lg-12">
-            <label for="picCaptcha" class="col-md-3 col-lg-3 control-label">{{!piccha}}{{registerForm.picCaptcha.$dirty}}图形验证码：</label>
+            <label for="picCaptcha" class="col-md-3 col-lg-3 control-label">图形验证码：</label>
             <div class="col-md-7 col-lg-7">
-              <input type="text" class="form-control register-capcha" id="picCaptcha" name="picCaptcha" ng-model="user.picCaptcha" ng-pattern="/^[0-9a-z]{4}$/" ng-class="{'error-border':registerForm.picCaptcha.$dirty && registerForm.picCaptcha.$invalid}" ensure-captcha="picCaptcha" required placeholder="图形验证码" ng-focus>
+              <input type="text" class="form-control register-capcha" id="picCaptcha" name="picCaptcha" ng-model="user.picCaptcha" ng-class="{'error-border':registerForm.picCaptcha.$dirty && registerForm.picCaptcha.$invalid}" ensure-captcha="picCaptcha" required placeholder="图形验证码" ng-focus>
               <img src="{{getPicCaptcha}}" id="checkCaptcha" class="pic-verify capcha-left-7" ng-click="refreshCode()" width="78" height="40">
             </div>
-            <div ng-if="registerForm.picCaptcha.$dirty && !registerForm.picCaptcha.$focused && isDirty" class="col-xs-offset-3 col-xs-8 form-div">
+            <div ng-if="registerForm.picCaptcha.$dirty && !registerForm.picCaptcha.$focused" class="col-xs-offset-3 col-xs-8 form-div">
               <div ng-if="!piccha" class="row">
                 <p class="input-tips login-input-tips">图形验证码错误</p>
               </div>

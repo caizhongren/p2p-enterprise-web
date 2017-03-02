@@ -9,9 +9,13 @@ angular.module('hongcaiApp').directive('ensureCaptcha', ['$http', 'DEFAULT_DOMAI
   return {
     require: 'ngModel',
     link: function(scope, elem, attrs, ctrl) {
-      scope.$watch(attrs.ngModel, function() {
+      scope.$watch(attrs.ngModel, function(newVal) {
         var captcha = angular.element('#' + attrs.ensureCaptcha).val();
-        if(!captcha || captcha.length !== 4 ){
+        if(captcha == '' || captcha == undefined){
+          scope.piccha = true;
+          return;
+        }
+        if(captcha && captcha.length !== 4 ){
           ctrl.$setValidity('check', false);
           scope.piccha = false;
           return;
