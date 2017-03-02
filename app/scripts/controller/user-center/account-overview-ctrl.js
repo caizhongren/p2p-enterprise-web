@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, DEFAULT_DOMAIN, PayUtils) {
+  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, $alert, config, DEFAULT_DOMAIN, PayUtils, $window) {
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
     $scope.year = $scope.timestamp.getFullYear();
@@ -208,26 +208,27 @@ angular.module('hongcaiApp')
 
     };
 
-  // 默认查询还款中项目
-  $scope.$watch('userType', function(userType) {
+    // 默认查询还款中项目
+    $scope.$watch('userType', function(userType) {
 
-    if (!$rootScope.userType){
-      return;
-    }
-    if ($rootScope.userType == 5) {
-      $scope.statusx = 0;
-      $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
-      $scope.getFundsUserAccount();
-    } else if($rootScope.userType == 6) {
-      $scope.statusx = 4;
-      $scope.getIntermediaryAccount();
-    }
-     else {
-      $scope.statusx = 4;
-      $scope.getPreProjects($scope.page);
-      $scope.getEnterpriseAccount();
-    }
-  });
+      if (!$rootScope.userType){
+        return;
+      }
+      if ($rootScope.userType == 5) {
+        $scope.statusx = 0;
+        $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
+        $scope.getFundsUserAccount();
+      } else if($rootScope.userType == 6) {
+        $scope.statusx = 4;
+        $scope.getIntermediaryAccount();
+        $scope.getPreProjects($scope.page);
+      }
+       else {
+        $scope.statusx = 4;
+        $scope.getPreProjects($scope.page);
+        $scope.getEnterpriseAccount();
+      }
+    });
 
     if ($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
       $scope.doughnutOptions = {
@@ -256,7 +257,55 @@ angular.module('hongcaiApp')
       };
     }
 
+    
+    /**
+     * 投资 调到易宝支付
+     */
+    $scope.transfer = function(project) {
+      if($rootScope.securityStatus.userAuth.active == false) {
+        $rootScope.realNameAuth();
+        return;
+      }
+      if($scope.intermediaryAccount.account.balance < project.total) {
+        alert('账户余额不足，请先充值');
+        $state.go('root.userCenter.recharge');
+        return;
+      }
+      
+      // 使用同步请求， 解决有可能弹窗被浏览器拦截的问题 
+      $.ajax({
+        url: DEFAULT_DOMAIN + '/siteOrder/saveOrder?projectId=' + project.id + '&investAmount=' + project.total + '&giftCount=0' + '&couponNumber=',
+        'type': 'POST',
+        async: false,
+        dataType: 'json',
+        success: function(response) {
+          if (response.ret === 1) {
+            var orderId = response.data.orderId;
+            var orderType = 1;
+            $alert({
+              scope: $scope,
+              template: 'views/modal/alertYEEPAY.html',
+              show: true
+            });
 
+            $window.open('/#!/user-order-transfer/' + project.id + '/' + orderId + '/' + orderType, '_blank');
+          } else {
+            // toaster.pop('error', response.msg);
+            alert(response.msg);
+          }
+        }
+      });
+    };
+    //预回购
+    $scope.continueInvest =function() {
+      $scope.msg = '将冻结资金222元，用于还款日回购投资者债券';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alert-dialog.html',
+        show: true
+      });
+
+    }
     /**
      * 根据项目状态查询项目列表
      */
