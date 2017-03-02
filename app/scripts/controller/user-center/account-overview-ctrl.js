@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, $alert, config, DEFAULT_DOMAIN, PayUtils, $window) {
+  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, $alert, config, toaster, DEFAULT_DOMAIN, PayUtils, $modal, $window) {
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
     $scope.year = $scope.timestamp.getFullYear();
@@ -91,7 +91,7 @@ angular.module('hongcaiApp')
       if (status === 1) {
         searchStatus = '9';
       } else if (status === 2) {
-        searchStatus = '6,7,8';
+        searchStatus = '7';
       } else {
         searchStatus = '10';
       }
@@ -287,11 +287,12 @@ angular.module('hongcaiApp')
      */
     $scope.transfer = function(project) {
       if($rootScope.securityStatus.userAuth.active == false) {
+        toaster.error('未开通第三方资金存管账户');
         $rootScope.realNameAuth();
         return;
       }
       if($scope.intermediaryAccount.account.balance < project.total) {
-        alert('账户余额不足，请先充值');
+        toaster.error('账户余额不足，请先充值');
         $state.go('root.userCenter.recharge');
         return;
       }
@@ -304,6 +305,8 @@ angular.module('hongcaiApp')
         dataType: 'json',
         success: function(response) {
           if (response.ret === 1) {
+            $scope.msg = '4';
+            $scope.investAmount = project.total;
             var orderId = response.data.orderId;
             var orderType = 1;
             $alert({
@@ -312,10 +315,13 @@ angular.module('hongcaiApp')
               show: true
             });
 
-            $window.open('/#!/user-order-transfer/' + project.id + '/' + orderId + '/' + orderType, '_blank');
+            // $window.open('/#!/user-order-transfer/' + project.id + '/' + orderId + '/' + orderType, '_blank');
+            window.open('/#!/transfer-transfer/' + project.total);
+          } else if(response.code == -1037) {
+            $rootScope.toFinishOrder();
           } else {
             // toaster.pop('error', response.msg);
-            alert(response.msg);
+            toaster.error(response.msg);
           }
         }
       });

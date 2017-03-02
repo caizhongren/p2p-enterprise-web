@@ -154,6 +154,12 @@ angular.module('hongcaiApp')
        */
       borrowPreprojectStat: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/borrowPreprojectStat', {
         userId: '@userId'
-      })
+      }),
+      //未支付订单
+      unFinishedOrder: $resource(RESTFUL_DOMAIN + '/orders/unpay', {}),
+      //取消订单
+      cancelOrder: $resource(DEFAULT_DOMAIN + '/siteOrder/cancelOrder', {
+        number: '$number'
+      }),
     };
   });
