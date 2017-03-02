@@ -45,9 +45,9 @@
   <!-- 自动还款 -->
   <div class="row" ng-show="haveTrusteeshipAccount && !autoRepayment">
     <div class="lend-openRealName text-center">为便于您还款操作，请开通自动还款功能</div>
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3"">
+    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
       <div class="safe-form-group row">
-        <label class="col-md-4 col-lg-4"></label>
+        <label class="col-md-4 col-lg-4 col-xs-5"></label>
         <input type="submit" value="立即开通" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="goToAutoRepayment()" />
       </div>
     </div>
@@ -56,9 +56,9 @@
   <!-- 完善资料 -->
   <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 0">
     <div class="lend-openRealName text-center">为便于您的借款，请您完善资料后再借款</div>
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3"">
+    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
       <div class="safe-form-group row">
-        <label class="col-md-4 col-lg-4"></label>
+        <label class="col-md-4 col-lg-4 col-xs-5"></label>
         <input type="submit" value="立即完善" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="gotoPerfectInformation()" />
       </div>
     </div>
@@ -107,7 +107,7 @@
           </div>
         </div>
         <!-- 下一步 -->
-        <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3"">
+        <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
           <div class="safe-form-group row">
             <label class="col-md-4 col-lg-4"></label>
             <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.loanDate.$error.pattern || preProjectForm.loanAmount.$error.pattern"/>
