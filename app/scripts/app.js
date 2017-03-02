@@ -556,7 +556,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 
 }]);
 
-hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $alert) {
+hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $alert, UserCenterService, $modal) {
   $rootScope.pay_company = config.pay_company;
   // Array 在IE8下没有indexOf 方法。
   if (!Array.prototype.indexOf) {
@@ -594,6 +594,25 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     });
 
     window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
+  };
+
+  /**
+   * 未完成订单
+   */
+  $rootScope.toFinishOrder = function() {
+    UserCenterService.unFinishedOrder.get({},function(order){
+      // console.log(order.orderAmount);
+      if(!order.orderAmount) {
+        $state.reload();
+        return;
+      }
+      $modal({
+        scope: $rootScope,
+        template: 'views/modal/alert-unfinishedOrder.html',
+        show: true
+      });
+    });
+    
   };
 
   // 检查是否绑定邮箱和手机号码
