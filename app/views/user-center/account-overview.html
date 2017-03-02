@@ -466,7 +466,7 @@
                   <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">{{assignment.project.annualEarnings || 0| number:2}}</span>%</p> <p>预期年化收益</p></div>
                   <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">{{assignment.project.projectDays || 0}}</span>天</p><p>项目期限</p></div>
                   <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-18">{{assignment.project.total/10000 || 0 | number : 2}}</span>万</p><p>项目规模</p></div>
-                  <div class="col-md-3 text-center" ng-repeat="item in "><p class="ft-16"><span class="ft-blue ft-20">{{assignment.project.currentStock * 100 || 0 | number: 2}}</span>万</p><p>剩余金额</p></div>
+                  <div class="col-md-3 text-center"><p class="ft-16"><span class="ft-blue ft-20">{{assignment.project.currentStock * 100 || 0 | number: 2}}</span>万</p><p>剩余金额</p></div>
                 </div>
               </div>
             </div>
@@ -498,10 +498,10 @@
                     <td>计息日期：{{assignment.project.valueDate || 0| date:"yyyy-MM-dd"}}</td>
                     <td>到期日期：{{assignment.project.repaymentDate || 0 | date:"yyyy-MM-dd"}}</td>
                   </tr>
-                  <tr>
-                    <td>还款日期：{{assignment.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
-                    <td>应付款项：{{assignment.recentProjectBill.repaymentAmount || 0 | number : 2}}元</td>
-                    <td>期数： 第{{assignment.recentProjectBill.repaymentNo}}期</td>
+                  <tr ng-repeat="item in assignment.projectBills" ng-show="item.status == 1">
+                    <td>还款日期：{{item.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                    <td>应付款项：{{item.repaymentAmount || 0 | number : 2}}元</td>
+                    <td>期数： 第{{item.repaymentNo}}期</td>
                   </tr>
                 </table>
                 <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" value="预回购" ng-click="continueInvest()"  />

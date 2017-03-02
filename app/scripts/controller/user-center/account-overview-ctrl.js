@@ -108,28 +108,28 @@ angular.module('hongcaiApp')
             var projectBillDetails = response.data;
             $scope.projectBillDetails = projectBillDetails;
 
-            // for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-            //   $scope.projectBillDetails[i].releaseEndTimeDate = new Date($scope.projectBillDetails[i].releaseEndTime);
-            //   $scope.projectBillDetails[i].investPercent = ($scope.projectBillDetails[i].soldStock + $scope.projectBillDetails[i].occupancyStock) / $scope.projectBillDetails[i].countInvest * 100;
-            //   $scope.projectBillDetails[i].projectBackCapital = 0;
-            //   var projectBills = projectBillDetails[i].projectBills;
-            //   for (var j = projectBills.length - 1; j >= 0; j--) {
-            //     if (projectBills[j].status === 0) {
-            //       projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-            //       projectBillDetails[i].recentProjectBill = projectBills[j];
-            //       if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-            //         new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-            //         new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-            //         projectBillDetails[i].isAvailableRepayment = true;
-            //       } else {
-            //         projectBillDetails[i].isAvailableRepayment = false;
-            //       }
-            //       break;
-            //     } else {
-            //       $scope.projectBillDetails[i].projectBackCapital = $scope.projectBillDetails[i].projectBackCapital + projectBills[j].repaymentInterest;
-            //     }
-            //   }
-            // }
+            for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+              $scope.projectBillDetails[i].releaseEndTimeDate = new Date($scope.projectBillDetails[i].releaseEndTime);
+              $scope.projectBillDetails[i].investPercent = ($scope.projectBillDetails[i].soldStock + $scope.projectBillDetails[i].occupancyStock) / $scope.projectBillDetails[i].countInvest * 100;
+              $scope.projectBillDetails[i].projectBackCapital = 0;
+              var projectBills = projectBillDetails[i].projectBills;
+              for (var j = projectBills.length - 1; j >= 0; j--) {
+                if (projectBills[j].status === 0) {
+                  projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
+                  projectBillDetails[i].recentProjectBill = projectBills[j];
+                  if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+                    new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+                    new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+                    projectBillDetails[i].isAvailableRepayment = true;
+                  } else {
+                    projectBillDetails[i].isAvailableRepayment = false;
+                  }
+                  break;
+                } else {
+                  $scope.projectBillDetails[i].projectBackCapital = $scope.projectBillDetails[i].projectBackCapital + projectBills[j].repaymentInterest;
+                }
+              }
+            }
           } 
       })
     };
@@ -285,6 +285,7 @@ angular.module('hongcaiApp')
     /**
      * 投资 调到易宝支付
      */
+    $scope.busy = false;
     $scope.transfer = function(project) {
       if($rootScope.securityStatus.userAuth.active == false) {
         toaster.error('未开通第三方资金存管账户');
@@ -296,6 +297,7 @@ angular.module('hongcaiApp')
         $state.go('root.userCenter.recharge');
         return;
       }
+      $scope.busy = true;
       
       // 使用同步请求， 解决有可能弹窗被浏览器拦截的问题 
       $.ajax({
@@ -307,6 +309,7 @@ angular.module('hongcaiApp')
           if (response.ret === 1) {
             $scope.msg = '4';
             $scope.investAmount = project.total;
+            $scope.busy = false;
             var orderId = response.data.orderId;
             var orderType = 1;
             $alert({
@@ -314,13 +317,12 @@ angular.module('hongcaiApp')
               template: 'views/modal/alertYEEPAY.html',
               show: true
             });
-
-            // $window.open('/#!/user-order-transfer/' + project.id + '/' + orderId + '/' + orderType, '_blank');
-            window.open('/#!/transfer-transfer/' + project.total);
+            $window.open('/#!/user-order-transfer/' + project.id + '/' + orderId + '/' + orderType, '_blank');
           } else if(response.code == -1037) {
+            $scope.busy = false;
             $rootScope.toFinishOrder();
           } else {
-            // toaster.pop('error', response.msg);
+            $scope.busy = false;
             toaster.error(response.msg);
           }
         }
