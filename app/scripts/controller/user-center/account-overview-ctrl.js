@@ -154,28 +154,28 @@ angular.module('hongcaiApp')
             $scope.totalPage = response.totalPage;
             $scope.pageSize = response.pageSize;
             var enterpriseAssignments = response.data;
-            for (var i = enterpriseAssignments.length - 1; i >= 0; i--) {
-              $scope.enterpriseAssignments[i].project.releaseEndTimeDate = new Date($scope.enterpriseAssignments[i].project.releaseEndTime);
-              $scope.enterpriseAssignments[i].project.investPercent = ($scope.enterpriseAssignments[i].project.soldStock + $scope.enterpriseAssignments[i].project.occupancyStock) / $scope.enterpriseAssignments[i].project.countInvest * 100;
-              $scope.enterpriseAssignments[i].project.projectBackCapital = 0;
-              var projectBills = enterpriseAssignments[i].projectBills;
-              for (var j = projectBills.length - 1; j >= 0; j--) {
-                if (projectBills[j].status === 0) {
-                  projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-                  enterpriseAssignments[i].recentProjectBill = projectBills[j];
-                  if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-                    new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-                    new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-                    enterpriseAssignments[i].project.isAvailableRepayment = true;
-                  } else {
-                    enterpriseAssignments[i].project.isAvailableRepayment = false;
-                  }
-                  break;
-                } else {
-                  $scope.enterpriseAssignments[i].project.projectBackCapital = $scope.enterpriseAssignments[i].project.projectBackCapital + projectBills[j].repaymentInterest;
-                }
-              }
-            }
+            // for (var i = enterpriseAssignments.length - 1; i >= 0; i--) {
+            //   $scope.enterpriseAssignments[i].project.releaseEndTimeDate = new Date($scope.enterpriseAssignments[i].project.releaseEndTime);
+            //   $scope.enterpriseAssignments[i].project.investPercent = ($scope.enterpriseAssignments[i].project.soldStock + $scope.enterpriseAssignments[i].project.occupancyStock) / $scope.enterpriseAssignments[i].project.countInvest * 100;
+            //   $scope.enterpriseAssignments[i].project.projectBackCapital = 0;
+            //   var projectBills = enterpriseAssignments[i].projectBills;
+            //   for (var j = projectBills.length - 1; j >= 0; j--) {
+            //     if (projectBills[j].status === 0) {
+            //       projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
+            //       enterpriseAssignments[i].recentProjectBill = projectBills[j];
+            //       if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+            //         new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+            //         new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+            //         enterpriseAssignments[i].project.isAvailableRepayment = true;
+            //       } else {
+            //         enterpriseAssignments[i].project.isAvailableRepayment = false;
+            //       }
+            //       break;
+            //     } else {
+            //       $scope.enterpriseAssignments[i].project.projectBackCapital = $scope.enterpriseAssignments[i].project.projectBackCapital + projectBills[j].repaymentInterest;
+            //     }
+            //   }
+            // }
 
           }
       })
@@ -353,28 +353,28 @@ angular.module('hongcaiApp')
         var projectBillDetails = response.data.projectBillDetails;
         $scope.projectBillDetails = projectBillDetails;
 
-        // for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-        //   $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
-        //   $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
-        //   $scope.projectBillDetails[i].project.projectBackCapital = 0;
-        //   var projectBills = projectBillDetails[i].projectBills;
-        //   for (var j = projectBills.length - 1; j >= 0; j--) {
-        //     if (projectBills[j].status === 0) {
-        //       projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-        //       projectBillDetails[i].recentProjectBill = projectBills[j];
-        //       if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-        //         new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-        //         new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-        //         projectBillDetails[i].project.isAvailableRepayment = true;
-        //       } else {
-        //         projectBillDetails[i].project.isAvailableRepayment = false;
-        //       }
-        //       break;
-        //     } else {
-        //       $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
-        //     }
-        //   }
-        // }
+        for (var i = projectBillDetails.length - 1; i >= 0; i--) {
+          $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
+          $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
+          $scope.projectBillDetails[i].project.projectBackCapital = 0;
+          var projectBills = projectBillDetails[i].projectBills;
+          for (var j = projectBills.length - 1; j >= 0; j--) {
+            if (projectBills[j].status === 0) {
+              projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
+              projectBillDetails[i].recentProjectBill = projectBills[j];
+              if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
+                new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
+                new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
+                projectBillDetails[i].project.isAvailableRepayment = true;
+              } else {
+                projectBillDetails[i].project.isAvailableRepayment = false;
+              }
+              break;
+            } else {
+              $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
+            }
+          }
+        }
 
       });
     };
