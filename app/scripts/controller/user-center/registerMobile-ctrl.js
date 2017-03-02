@@ -1,7 +1,10 @@
 'use strict';
 angular.module('hongcaiApp')
   .controller('registerMobileCtrl', ['$scope', 'checkPwdUtils', 'DEFAULT_DOMAIN', 'RegisterService', 'toaster', '$state', 'md5', function($scope, checkPwdUtils, DEFAULT_DOMAIN, RegisterService, toaster, $state, md5) {
-
+    $scope.isDirty = false;
+    if(!$scope.piccha){
+      $scope.isDirty = true;
+    }
     $scope.business = 0;
     $scope.register = function(user) {
       if ($scope.msg || !$scope.piccha) {
