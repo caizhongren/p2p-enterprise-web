@@ -14,7 +14,7 @@ angular.module('hongcaiApp')
       }, function(response) {
         if (response && response.ret === -1) {
           toaster.pop('warning', '提示', response.msg);
-          $state.go('root.register');
+          $state.go('root.registerMobile');
         } else {
           toaster.pop('success', '注册成功');
           $state.go('root.login');
