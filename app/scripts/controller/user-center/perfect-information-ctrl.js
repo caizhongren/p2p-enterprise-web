@@ -4,18 +4,19 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.originalFiles = [];
     $scope.thumbnailFiles = [];
     $rootScope.selectSide = 'perfect-information';
-    $scope.readOnly = true;
     /*
      * 查询借款企业信息
     */
       EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
         console.log(response.infoStatus);
         if(response && response.ret !== -1) {
-          if(response.infoStatus == 0 || response.infoStatus === undefined) {
+          if(response.infoStatus == 0) {
             $scope.readOnly = false;
             $('.form-control').removeAttr('readonly');
+          }else{
+            $scope.readOnly = true;
           }
-          $scope.readOnly = true;
+          
           $scope.enterprise = response;
           $scope.enterpriseId = response.id;
           $scope.enterprise.registerCapital = response.registerCapital.toString();
@@ -28,7 +29,6 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
       });
     // 隐藏编辑按钮
     $scope.toggleReadOnly = function() {
-        // $("[readonly]").removeAttr("readonly");
         $scope.readOnly = !$scope.readOnly;
         $('.form-control').removeAttr('readonly');
     }
