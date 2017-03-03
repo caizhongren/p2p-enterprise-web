@@ -1,63 +1,64 @@
 hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $upload, RESTFUL_DOMAIN, DEFAULT_DOMAIN, $window, EnterpriseService, md5, ipCookie) {
 
     $scope.enterprise = {};
+    $scope.originalFiles = [];
+    $scope.thumbnailFiles = [];
     $rootScope.selectSide = 'perfect-information';
-    $scope.readOnly = true;
     /*
      * 查询借款企业信息
     */
-    $scope.getEnterpriseInfo = function(){
       EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
         console.log(response.infoStatus);
         if(response && response.ret !== -1) {
-          if(response.infoStatus == 0 || response.infoStatus === undefined) {
+          if(response.infoStatus == 0) {
             $scope.readOnly = false;
-            $('.form-control').removeAttr('readOnly');
+            $('.form-control').removeAttr('readonly');
+          }else{
+            $scope.readOnly = true;
           }
-          $scope.readOnly = true;
+          
           $scope.enterprise = response;
           $scope.enterpriseId = response.id;
           $scope.enterprise.registerCapital = response.registerCapital.toString();
-          
+          $scope.getFiles($scope.enterpriseId);
         
         }else {
             $scope.readOnly = false;
-            $('.form-control').removeAttr('readOnly');
+            $('.form-control').removeAttr('readonly');
         }
       });
-    }
-    $scope.getEnterpriseInfo();
     // 隐藏编辑按钮
     $scope.toggleReadOnly = function() {
-        // $("[readonly]").removeAttr("readonly");
         $scope.readOnly = !$scope.readOnly;
+        $('.form-control').removeAttr('readonly');
     }
     /*
      * 查询上传的文件
     */
-    EnterpriseService.getEnterpriseFiles.get({enterpriseId : $scope.enterpriseId}, function(response) {
-        $scope.thumbnail = response.thumbnailFile;
-        $scope.original = response.originalFile;
-        $scope.enterpriseData = [];
-        $scope.thumbnailData = [];
-        $scope.originalData = [];
-        $scope.baseFileUrl = response.baseFileUrl;
+    $scope.getFiles = function(enterpriseId) {
+        EnterpriseService.getEnterpriseFiles.get({enterpriseId : enterpriseId}, function(response) {
+            $scope.thumbnail = response.thumbnailFile;
+            $scope.original = response.originalFile;
+            $scope.enterpriseData = [];
+            $scope.thumbnailData = [];
+            $scope.originalData = [];
+            $scope.baseFileUrl = response.baseFileUrl;
 
-        for (var i = 0; i < $scope.thumbnail.length; i++) {
-            var url = $scope.thumbnail[i].uploadFile.url;
-            $scope.thumbnail[i].uploadFile.url = $scope.baseFileUrl + url;
-            $scope.thumbnailData.push($scope.thumbnail[i].uploadFile);
-        }
-        for (var i = 0; i < $scope.original.length; i++) {
-            var url = $scope.original[i].uploadFile.url;
-            $scope.original[i].uploadFile.url = $scope.baseFileUrl + url;
-            $scope.originalData.push($scope.original[i].uploadFile);
-            $scope.enterpriseData.push($scope.original[i].enterpriseFile.type);
-        }
+            for (var i = 0; i < $scope.thumbnail.length; i++) {
+                var url = $scope.thumbnail[i].uploadFile.url;
+                $scope.thumbnail[i].uploadFile.url = $scope.baseFileUrl + url;
+                $scope.thumbnailData.push($scope.thumbnail[i].uploadFile);
+            }
+            for (var i = 0; i < $scope.original.length; i++) {
+                var url = $scope.original[i].uploadFile.url;
+                $scope.original[i].uploadFile.url = $scope.baseFileUrl + url;
+                $scope.originalData.push($scope.original[i].uploadFile);
+                $scope.enterpriseData.push($scope.original[i].enterpriseFile.type);
+            }
 
-    });
-    $scope.originalFiles = [];
-    $scope.thumbnailFiles = [];
+        });
+    }
+    
 
     /*
      * category 关联类型 contract guarantee 或 enterprise
@@ -84,9 +85,8 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
              }).progress(function(evt) {
                  console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
              }).success(function(data, status, headers, config) {
-                 // $window.location.reload();
-                 console.log(data);
-
+                 alert("上传成功！");
+                 $scope.getFiles($scope.enterpriseId);
              });
          }
      };
@@ -96,6 +96,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             return;
          }
          if(confirm("确认删除吗？")) {
+            console.log(thumbnailFile.url);
              EnterpriseService.deleteFile.update({
                  category: category, 
                  thumbnailFileId: thumbnailFile.id, 
@@ -103,12 +104,8 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
                  originalFileId: originalFile.id ,
                  originalFileUrl: originalFile.url
              }, function(response) {
-                 if(response.msg == "success") {
-                     alert("删除成功！");
-                     $window.location.reload();
-                 } else {
-                     alert(response.msg);
-                 }
+                 alert("删除成功！");
+                 $scope.getFiles($scope.enterpriseId);
              });
          }
      }

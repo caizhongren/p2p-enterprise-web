@@ -107,29 +107,6 @@ angular.module('hongcaiApp')
             $scope.pageSize = response.pageSize;
             var projectBillDetails = response.data;
             $scope.projectBillDetails = projectBillDetails;
-
-            for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-              $scope.projectBillDetails[i].releaseEndTimeDate = new Date($scope.projectBillDetails[i].releaseEndTime);
-              $scope.projectBillDetails[i].investPercent = ($scope.projectBillDetails[i].soldStock + $scope.projectBillDetails[i].occupancyStock) / $scope.projectBillDetails[i].countInvest * 100;
-              $scope.projectBillDetails[i].projectBackCapital = 0;
-              var projectBills = projectBillDetails[i].projectBills;
-              for (var j = projectBills.length - 1; j >= 0; j--) {
-                if (projectBills[j].status === 0) {
-                  projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-                  projectBillDetails[i].recentProjectBill = projectBills[j];
-                  if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-                    new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-                    new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-                    projectBillDetails[i].isAvailableRepayment = true;
-                  } else {
-                    projectBillDetails[i].isAvailableRepayment = false;
-                  }
-                  break;
-                } else {
-                  $scope.projectBillDetails[i].projectBackCapital = $scope.projectBillDetails[i].projectBackCapital + projectBills[j].repaymentInterest;
-                }
-              }
-            }
           } 
       })
     };
