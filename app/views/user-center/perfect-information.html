@@ -60,7 +60,7 @@
                                                   </div>
                                               </div>
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 1, '')" multiple required readonly>
+                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 1, '')" multiple ng-disabled="readOnly" required readonly>
                                                 <div><span class="ft-12 col-lg-6">正面</span> <span class="ft-12 col-lg-5">反面</span></div>
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 1" ng-repeat="item in originalData">
@@ -95,9 +95,8 @@
                                                   </div>
                                               </div>
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 2, '开户银行许可证')" multiple required readonly>
+                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 2, '开户银行许可证')" multiple ng-disabled="readOnly" required readonly>
                                               </div>
-                                              <div class="file-padding" ng-if="enterpriseData[$index] === 2" ng-repeat="item in originalData">
                                           </div>
                                           <div class="form-group">
                                               <label for="registrationNo">企业营业执照注册号</label>
@@ -108,21 +107,21 @@
                                                   </div>
                                               </div>
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '企业营业执照注册号')" multiple required readonly>
+                                                <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '企业营业执照注册号')" multiple ng-disabled="readOnly" required readonly>
                                               </div>
                                           </div>
                                           <div class="form-group">
                                               <label>组织机构代码</label>
                                               <input name="orgNo" ng-maxlength="50" maxlength="50" class="form-control" placeholder="三证合一不必填" readonly ng-model="enterprise.orgNo">
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '组织机构代码')" multiple>
+                                                <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '组织机构代码')" multiple ng-disabled="readOnly">
                                               </div>
                                           </div>
                                           <div class="form-group">
                                               <label>税务登记号</label>
                                               <input name="taxNo" ng-maxlength="50" maxlength="50" class="form-control" placeholder="三证合一不必填"  readonly ng-model="enterprise.taxNo">
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '税务登记号')" multiple>
+                                                <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '税务登记号')" multiple ng-disabled="readOnly">
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 2" ng-repeat="item in originalData">
                                                   <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
@@ -234,7 +233,7 @@
                                                       <p class="input-tips">手机格式错误</p>
                                                   </div>
                                                   <div ng-if="enterpriseAddForm.contactMobile.$error.required">
-                                                      <p class="input-tips">请填写号码</p>
+                                                      <p class="input-tips">请填写联系人电话</p>
                                                   </div>
                                               </div>
                                           </div>
@@ -268,7 +267,7 @@
                                       <div class="col-lg-8">
                                           <div class="form-group">
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect(3, 0, 1, '其他文件上传')" multiple>
+                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 4, '其他资料')" multiple ng-disabled="readOnly">
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 4" ng-repeat="item in originalData">
                                                   <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>

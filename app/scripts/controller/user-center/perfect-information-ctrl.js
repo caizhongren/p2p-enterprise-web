@@ -69,7 +69,6 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     */
      
      $scope.onFileSelect = function($files, category, fileType, archiveType, description) {
-        // console.log($scope.myModelObj);
          for (var i = 0; i < $files.length; i++) {
              var file = $files[i];
              console.log(file);
@@ -85,7 +84,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
              }).progress(function(evt) {
                  console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
              }).success(function(data, status, headers, config) {
-                 alert("上传成功！");
+                 // alert("上传成功！");
                  $scope.getFiles($scope.enterpriseId);
              });
          }
@@ -104,7 +103,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
                  originalFileId: originalFile.id ,
                  originalFileUrl: originalFile.url
              }, function(response) {
-                 alert("删除成功！");
+                 // alert("删除成功！");
                  $scope.getFiles($scope.enterpriseId);
              });
          }

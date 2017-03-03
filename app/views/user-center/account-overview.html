@@ -110,19 +110,18 @@
         <span ng-click="statusx=2;getEnterpriseProjects(page,2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">募集中</a></span>
         <span ng-click="statusx=3;getEnterpriseProjects(page,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清</a></span>
       </div>
-      <div ng-if="(projectBillDetails.length == 0 && statusx !== 4) || (preProject.length == 0 && statusx == 4)" class="project-area">
+      <div ng-if="(projectBillDetails && projectBillDetails.length == 0 && statusx !== 4) || (projectBillDetails && preProjects.length == 0 && statusx == 4)" class="project-area">
         <br>
         <br>
         <h4>您暂时没有该类项目</h4>
         <br>
         <br>
       </div>
-      <div ng-if="(projectBillDetails.length !== 0 && statusx !== 4) || (preProject.length !== 0 && statusx == 4)">
-
+      <div ng-if="(projectBillDetails.length > 0 && statusx !== 4) || (preProjects.length > 0 && statusx == 4)">
+      <br>
+      <br>
         <!--审核中-->
-        <br>
-        <br>
-        <div ng-repeat="preProject in preProjects" ng-if="statusx === 4" ng-show="userType !== 5">
+        <div ng-repeat="preProject in preProjects" ng-if="statusx === 4">
           <div class="col-md-10 col-md-offset-1 table-stl">
             <div class="panel panel-info">
               <div class="panel-heading">
@@ -136,14 +135,22 @@
                     <td style="border-bottom: 1px solid #ddd;">借款利率：{{preProject.annualEarnings | number:2}}%</td>
                   </tr>
                 </table>
-                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ preProject.financingPurpose| limitTo: 20}}{{item.name.length > 20 ? '...':''}}</p></div>
+                <div style="border-bottom: 1px solid #ddd; padding: 8px;">
+                  <p class="margin-b-0">借款用途：{{ preProject.financingPurpose| limitTo: 20}}{{preProject.financingPurpose.length > 20 ? '...':''}}</p>
+                </div>
                 <div class="wid-pull text-right ft-blue" ng-if="preProject.status == 0">审核中...</div>
                 <div class="wid-pull text-right ft-blue" ng-if="preProject.status == 1">未通过</div>
               </div>
             </div>
           </div>
         </div>
-        <pagination ng-show="userType !== 5"></pagination> 
+        <div class="clearfix margin-b-20" ng-if="statusx === 4">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getPreProjects(page)">上一页</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getPreProjects(page)">下一页</button>
+          </div>
+        </div>
         <!-- 还款中 -->
         <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType !== 5 ">
           <div class="col-md-10 col-md-offset-1 table-stl">
@@ -151,7 +158,7 @@
               <div class="panel-heading">
                 <h5>{{projectBillDetail.project.name}}</h5>
               </div>
-              <div class="panel-body">
+              <div class="panel-body" ng-repeat="projectBill in projectBillDetail.projectBills" ng-if="projectBill.status == 0">
                 <table class="table">
                   <tr>
                     <td>项目代码：HC{{projectBillDetail.project.id}}</td>
@@ -164,13 +171,13 @@
                     <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
                   </tr>
                   <tr>
-                    <td>还款日期：{{projectBillDetail.recentProjectBill.repaymentTimeDate | date:"yyyy-MM-dd"}}</td>
-                    <td>应付款项：{{projectBillDetail.recentProjectBill.repaymentAmount | number : 2}}元</td>
-                    <td>期数： 第{{projectBillDetail.recentProjectBill.repaymentNo}}期</td>
+                    <td>还款日期：{{projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                    <td>应付款项：{{projectBill.repaymentAmount | number : 2}}元</td>
+                    <td>期数： 第{{projectBill.repaymentNo}}期</td>
                   </tr>
                   
                 </table>
-                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBillDetail.recentProjectBill.repaymentNo)"  />
+                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
               </div>
             </div>
           </div>
@@ -198,8 +205,8 @@
                   </tr>
                   <tr>
                     <td>项目利率：{{projectBillDetail.project.annualEarnings | number:2}}%</td>
-                    <td>计息日期：无</td>
-                    <td>到期日期：无</td>
+                    <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd" }}</td>
+                    <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
                   </tr>
                   <tr>
                     <td>募集截止日期：{{projectBillDetail.project.releaseEndTime | date:"yyyy-MM-dd"}}</td>
@@ -209,8 +216,7 @@
                 </table>
               </div>
             </div>
-          </div>
-          <br>
+          </div><br>
         </div>
         <div class="clearfix margin-b-20" ng-if="statusx === 2" ng-show="userType !== 5">
           <div class="col-sx-12 text-center">
@@ -395,7 +401,7 @@
         <span ng-click="statusx=3;getEnterpriseProjects(page,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清</a></span>
       </div>
       <!-- 无数据 -->
-      <div ng-if="(projectBillDetails.length == 0 && (statusx == 5 || statusx == 3)) || (preProjects.length == 0 && statusx === 4) || (enterpriseAssignments.length == 0 && (statusx ==1 || statusx ==2))" class="project-area">
+      <div ng-if="(projectBillDetails && projectBillDetails.length == 0 && (statusx == 5 || statusx == 3)) || (projectBillDetails && preProjects.length == 0 && statusx === 4) || (enterpriseAssignments && enterpriseAssignments.length == 0 && (statusx ==1 || statusx ==2))" class="project-area">
         <br>
         <br>
         <h4>您暂时没有该类项目</h4>
@@ -403,7 +409,7 @@
         <br>
       </div>
 
-      <div ng-if="!(projectBillDetails.length == 0 && (statusx == 5 || statusx == 3)) && !(preProjects.length == 0 && statusx === 4) && !(enterpriseAssignments.length == 0 && (statusx ==1 || statusx ==2))">
+      <div ng-if="(projectBillDetails.length > 0 && (statusx == 5 || statusx == 3)) || (preProjects.length > 0 && statusx === 4) || (enterpriseAssignments.length > 0 && (statusx ==1 || statusx ==2))">
         <!--审核中-->
         <br>
         <br>
@@ -421,14 +427,20 @@
                     <td style="border-bottom: 1px solid #ddd;">借款利率：{{preProject.annualEarnings | number:2}}%</td>
                   </tr>
                 </table>
-                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ preProject.financingPurpose| limitTo: 20}}{{item.name.length > 20 ? '...':''}}</p></div>
+                <div style="border-bottom: 1px solid #ddd; padding: 8px;"><p class="margin-b-0">借款用途：{{ preProject.financingPurpose| limitTo: 20}}{{preProject.financingPurpose.length > 20 ? '...':''}}</p></div>
                 <div class="wid-pull text-right ft-blue" ng-if="preProject.status == 0">审核中...</div>
                 <div class="wid-pull text-right ft-blue" ng-if="preProject.status == 1">未通过</div>
               </div>
             </div>
           </div>
         </div>
-        <pagination></pagination>  
+        <div class="clearfix margin-b-20" ng-if="statusx === 4">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getPreProjects(page)">上一页</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getPreProjects(page)">下一页</button>
+          </div>
+        </div>
         <!-- 待投资 -->
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 5">
           <div class="col-md-10 col-md-offset-1 table-stl">
