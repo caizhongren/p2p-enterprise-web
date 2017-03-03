@@ -69,13 +69,16 @@ angular.module('hongcaiApp')
 
     			if ($scope.loanCounter == 0 && enterprise.loanAmount > 1000000) {
     				$scope.msg = '借款上限为100万，请您修改借款金额。';
-    			}else if ($scope.loanCounter >0 && enterprise.loanAmount + $scope.loanTotalAmount >= 1000000) {
+    			}else if ($scope.loanCounter >0 && enterprise.loanAmount + $scope.loanTotalAmount > 1000000) {
     				$scope.msg = '您当前已申请'+ $scope.loanCounter + '笔借款，总金额为' + $scope.loanTotalAmount/10000 +'万元。';
     				$scope.isKnow = true;
-    			}else if ($scope.loanCounter >0 && enterprise.loanAmount + $scope.loanTotalAmount < 1000000) {
+    			}else if ($scope.loanCounter >0 && enterprise.loanAmount + $scope.loanTotalAmount <= 1000000) {
     				$scope.msg = '您当前已申请'+ $scope.loanCounter + '笔借款，总金额为' + $scope.loanTotalAmount/10000 +'万元。是否确定继续借款？';
     				$scope.isContinue = true;
-    			}
+    			}else if ($scope.loanCounter == 0 && enterprise.loanAmount <= 1000000) {
+                    $scope.msg = '';
+                    $scope.gotoLoan(enterprise);
+                }
     			
     			if ($scope.msg) {
     				$alert({
@@ -110,8 +113,8 @@ angular.module('hongcaiApp')
 					$scope.counter--;
 					mytimeout = $timeout($scope.onTimeout,1000);
 					if($scope.counter === 0) {
+                      $scope.loanInformation = true;
 					  $state.go('root.userCenter.account-overview');
-					  $scope.loanInformation = true;
 					}
 				};
 				var mytimeout = $timeout($scope.onTimeout,1000);
