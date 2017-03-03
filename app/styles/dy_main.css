@@ -952,5 +952,32 @@ input:focus {
   padding-left: 21px;
   padding-top: 7px;
 }
+.margin-b-0 {
+  margin-bottom: 0 !important;
+}
+.margin-l-20 {
+  margin-left: 20px;
+}
+.padding-0 {
+  padding: 0 !important;
+}
+.wid-pull {
+  width: 100%;
+}
+.text-right {
+  text-align: right;
+}
+.wid-pull,
+.text-right {
+  margin-top: 10px;
+  padding-right: 10px;
+}
+col-md-3,
+.padding-r-0 {
+  padding-right: 0 !important;
+}
+.wid-51 {
+  width: 61%;
+}
 
 
