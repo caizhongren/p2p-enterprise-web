@@ -952,6 +952,13 @@ input:focus {
   padding-left: 21px;
   padding-top: 7px;
 }
+
+.margin-t-50 {
+  margin-top: 50px;
+}
+.margin-b-20 {
+  margin-bottom: 20px;
+}
 .margin-b-0 {
   margin-bottom: 0 !important;
 }
@@ -972,12 +979,10 @@ input:focus {
   margin-top: 10px;
   padding-right: 10px;
 }
-col-md-3,
+.col-md-3,
 .padding-r-0 {
   padding-right: 0 !important;
 }
-.wid-51 {
-  width: 61%;
-}
+
 
 

@@ -153,12 +153,12 @@
         </div>
         <!-- 还款中 -->
         <div ng-repeat="projectBillDetail in projectBillDetails | orderBy:'recentProjectBill.repaymentTimeDate'" ng-if="statusx === 1" ng-show="userType !== 5 ">
-          <div class="col-md-10 col-md-offset-1 table-stl">
+          <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in projectBillDetail.projectBills" ng-if="projectBill.status == 0">
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h5>{{projectBillDetail.project.name}}</h5>
               </div>
-              <div class="panel-body" ng-repeat="projectBill in projectBillDetail.projectBills" ng-if="projectBill.status == 0">
+              <div class="panel-body">
                 <table class="table">
                   <tr>
                     <td>项目代码：HC{{projectBillDetail.project.id}}</td>
@@ -493,7 +493,7 @@
         </div>
         <!-- 已转让 "-->
         <div ng-repeat="assignment in enterpriseAssignments" ng-if="statusx === 1">
-          <div class="col-md-10 col-md-offset-1 table-stl">
+          <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in assignment.projectBills" ng-if="projectBill.status === 0">
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h5>{{assignment.project.name}}</h5>
@@ -510,13 +510,13 @@
                     <td>计息日期：{{assignment.project.valueDate || 0| date:"yyyy-MM-dd"}}</td>
                     <td>到期日期：{{assignment.project.repaymentDate || 0 | date:"yyyy-MM-dd"}}</td>
                   </tr>
-                  <tr ng-repeat="item in assignment.projectBills" ng-show="item.status == 1">
-                    <td>还款日期：{{item.repaymentTime | date:"yyyy-MM-dd"}}</td>
-                    <td>应付款项：{{item.repaymentAmount || 0 | number : 2}}元</td>
-                    <td>期数： 第{{item.repaymentNo}}期</td>
+                  <tr>
+                    <td>还款日期：{{projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                    <td>应付款项：{{projectBill.repaymentAmount || 0 | number : 2}}元</td>
+                    <td>期数： 第{{projectBill.repaymentNo}}期</td>
                   </tr>
                 </table>
-                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" value="预回购" ng-click="continueInvest()"  />
+                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" value="预回购" ng-click="continueInvest()">
               </div>
             </div>
           </div>
