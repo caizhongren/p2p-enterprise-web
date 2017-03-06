@@ -283,8 +283,8 @@ angular.module('hongcaiApp')
       });
     };
     //预回购
-    $scope.continueInvest =function() {
-      $scope.msg = '将冻结资金222元，用于还款日回购投资者债券';
+    $scope.continueInvest =function(repaymentAmount) {
+      $scope.msg = '将冻结资金'+repaymentAmount+'元，用于还款日回购投资者债券';
       $alert({
         scope: $scope,
         template: 'views/modal/alert-dialog.html',
