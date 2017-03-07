@@ -982,6 +982,10 @@ input:focus {
 .padding-r-0 {
   padding-right: 0 !important;
 }
-
+.grey-btn {
+  background: #ebebeb !important;
+  color: #9A9594 !important;
+  border: none !important;
+}
 
 

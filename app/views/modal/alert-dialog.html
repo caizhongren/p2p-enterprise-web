@@ -10,7 +10,9 @@
   </div>
 
   <div class="bottom col-xs-10 col-xs-offset-1" ng-if="!isContinue">
-    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="$hide()">知道啦</a>
+
+    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="$hide();" ui-sref="root.userCenter.recharge" ng-if="showRechargeTip == true">去充值</a>
+    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="$hide();continueInvest();" ng-if="showRechargeTip == undefined">知道啦</a>
   </div>
 
   <div class="bottom col-xs-10 col-xs-offset-1" ng-if="isContinue">

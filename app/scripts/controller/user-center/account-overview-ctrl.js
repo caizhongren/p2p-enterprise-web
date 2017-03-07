@@ -282,15 +282,30 @@ angular.module('hongcaiApp')
         }
       });
     };
-    //预回购
+
+    /**
+     * 点击预回购
+     */
+    $scope.currentT = new Date().getTime();
+    $scope.showRechargeTip = false;
     $scope.continueInvest =function(repaymentAmount) {
+      if($scope.intermediaryAccount.account.balance < repaymentAmount) {
+        $scope.msg = '账户余额不足，请先充值';
+        $scope.showRechargeTip = true;
+        $alert({
+          scope: $scope,
+          template: 'views/modal/alert-dialog.html',
+          show: true
+        });
+        return;
+      }
       $scope.msg = '将冻结资金'+repaymentAmount+'元，用于还款日回购投资者债券';
       $alert({
         scope: $scope,
         template: 'views/modal/alert-dialog.html',
         show: true
       });
-
+      
     }
     /**
      * 根据项目状态查询项目列表
