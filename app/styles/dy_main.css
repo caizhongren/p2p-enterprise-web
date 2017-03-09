@@ -987,5 +987,10 @@ input:focus {
   color: #9A9594 !important;
   border: none !important;
 }
-
+.ft-blue {
+  color:#3399cc;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 

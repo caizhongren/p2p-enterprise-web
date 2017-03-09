@@ -4,6 +4,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.originalFiles = [];
     $scope.thumbnailFiles = [];
     $rootScope.selectSide = 'perfect-information';
+    $scope.tab = 0;
     /*
      * 查询借款企业信息
     */

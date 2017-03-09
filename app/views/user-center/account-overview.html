@@ -492,9 +492,8 @@
           </div>
         </div>
         <!-- 已转让 "-->
-         <!-- ng-repeat="projectBill in assignment.projectBills" ng-if="projectBill.status === 0" -->
         <div ng-repeat="assignment in enterpriseAssignments" ng-if="statusx === 1">
-          <div class="col-md-10 col-md-offset-1 table-stl">
+          <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in assignment.projectBills" ng-if="projectBill.status === 0">
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h5>{{assignment.project.name}}</h5>

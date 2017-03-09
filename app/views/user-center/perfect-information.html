@@ -3,9 +3,9 @@
     <div class="right-title">完善资料</div>
   </div>
   <div class="border-b tab-header">
-    <span class="ft-blue ft-16" ng-click="toggleTab($index)">公司借款信息</span><span class="ft-16">个人借款信息</span>
+    <span class="ft-16 cursor-pointer {{tab == 0?'ft-blue':''}}" ng-click="tab = 0;">公司借款信息</span><span class="ft-16 cursor-pointer {{tab == 1?'ft-blue':''}}">个人借款信息</span>
   </div>
-  <div class="row">
+  <div class="row" ng-if="tab == 0">
       <div class="col-lg-12">
           <div class="panel">
               <!-- alerts-container --><!-- 
@@ -14,13 +14,6 @@
               <div class="panel-group" bs-collapse>
                   <form role="form" name="enterpriseAddForm" ng-submit="submitEnterprise(enterprise)">
                       <div class="panel border-none">
-                            <!-- <div class="panel-heading">
-                                <h4 class="panel-title">
-                                  <a>
-                                    基本信息
-                                  </a>
-                                </h4>
-                            </div> -->
                           <div class="panel-collapse">
                               <div class="panel-body">
                                   <div class="row">
