@@ -90,7 +90,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
          }
      };
      //删除证件
- 	$scope.deleteFile = function(category,thumbnailFile,originalFile) {
+ 	$scope.deleteFile = function(category, originalFile, thumbnailFile) {
          if($scope.readOnly == true) {
             return;
          }

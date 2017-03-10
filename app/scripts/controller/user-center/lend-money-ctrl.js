@@ -94,11 +94,19 @@ angular.module('hongcaiApp')
     }
 
     //继续提交借款申请
+    $scope.busy = false;
     $scope.gotoLoan = function(enterprise) {
     	if (enterprise.loanDate <=0 ) {
     		toaster.pop('warning', '填写信息有误，请重新填写');
     		return;
     	}
+        if($scope.busy){
+            return;
+        }
+        $scope.busy = true;
+        $timeout(function() {
+            $scope.busy = false;
+        }, 1000);
     	UserCenterService.preProject.post({
     		userId: $rootScope.securityStatus.userId,
 	        amount: enterprise.loanAmount,

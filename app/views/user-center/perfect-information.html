@@ -57,7 +57,7 @@
                                                 <!-- <div><span class="ft-12 col-lg-6">正面</span> <span class="ft-12 col-lg-5">反面</span></div> -->
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 1" ng-repeat="item in originalData">
-                                                <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,thumbnailData[$index])">删除</a>
                                                 <div class="thumbnail">
                                                     <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
                                                         <img width="100" height="50" style="height:100px;width:100%;" ng-src="{{thumbnailData[$index].url}}" data-holder-rendered="true">
@@ -117,7 +117,7 @@
                                                 <input type="file" ng-file-select="onFileSelect($files, 3, 0, 2, '税务登记号')" multiple ng-disabled="readOnly">
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 2" ng-repeat="item in originalData">
-                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,thumbnailData[$index])">删除</a>
                                                   <div class="thumbnail">
                                                       <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
                                                           <img width="100" height="50" style="height:100px;width:100%;" ng-src="{{thumbnailData[$index].url}}" data-holder-rendered="true">
@@ -263,7 +263,7 @@
                                                 <input type="file" ng-file-select="onFileSelect($files,3, 0, 4, '其他资料')" multiple ng-disabled="readOnly">
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 4" ng-repeat="item in originalData">
-                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,originalData[$index])">删除</a>
+                                                  <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,thumbnailData[$index])">删除</a>
                                                   <div class="thumbnail">
                                                       <a class="grouped_elements" rel="group1" href="javascript:;" ng-click="openFancybox()">
                                                           <img width="100" height="50" style="height:100px;width:100%;" ng-src="{{thumbnailData[$index].url}}" data-holder-rendered="true">
