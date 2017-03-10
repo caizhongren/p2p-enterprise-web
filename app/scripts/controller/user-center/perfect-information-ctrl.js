@@ -1,4 +1,4 @@
-hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $upload, RESTFUL_DOMAIN, DEFAULT_DOMAIN, $window, EnterpriseService, md5, ipCookie) {
+hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $state, $stateParams, $alert, $location, $window, $upload, RESTFUL_DOMAIN, DEFAULT_DOMAIN, EnterpriseService, md5, ipCookie, toaster) {
 
     $scope.enterprise = {};
     $scope.originalFiles = [];
@@ -9,7 +9,6 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
      * 查询借款企业信息
     */
       EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
-        console.log(response.infoStatus);
         if(response && response.ret !== -1) {
           if(response.infoStatus == 0) {
             $scope.readOnly = false;
@@ -141,7 +140,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         registerDate: enterprise.registerDate
       }, function(response) {
             if(response && response.ret !== -1) {
-                alert('ok');
+                toaster.success('信息保存成功！');
                 if (ipCookie('lendMoney') === 1) {
                     $state.go('root.userCenter.lend-money');
                     ipCookie('lendMoney', null);
@@ -152,5 +151,4 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         });
  	};
 
-    // alert($scope.readOnly)
 });

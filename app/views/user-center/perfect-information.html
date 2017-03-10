@@ -53,8 +53,8 @@
                                                   </div>
                                               </div>
                                               <div>
-                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 1, '')" multiple ng-disabled="readOnly" required readonly>
-                                                <div><span class="ft-12 col-lg-6">正面</span> <span class="ft-12 col-lg-5">反面</span></div>
+                                                <input type="file" ng-file-select="onFileSelect($files,3, 0, 1, 'shenfenzheng')" multiple ng-disabled="readOnly" required readonly>
+                                                <!-- <div><span class="ft-12 col-lg-6">正面</span> <span class="ft-12 col-lg-5">反面</span></div> -->
                                               </div>
                                               <div class="file-padding" ng-if="enterpriseData[$index] === 1" ng-repeat="item in originalData">
                                                 <a class="btn btn-default btn-sm" ng-click="deleteFile(3,item,thumbnailData[$index])">删除</a>
