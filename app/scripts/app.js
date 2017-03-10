@@ -640,6 +640,20 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     return true;
   };
 
+  // 绑卡
+  $rootScope.toBindBank = function(){
+    if($rootScope.userDetail.bankCardStatus !== 'VERIFIED') {
+      $rootScope.msg = '5';
+      $alert({
+        scope: $rootScope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+      window.open('/#!/bankcard-transfer/0');
+      return;
+    }
+  }
+
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if (routespermission.indexOf('/' + $location.path().split('/')[1]) !== -1) {
