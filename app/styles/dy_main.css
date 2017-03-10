@@ -331,6 +331,9 @@ input:focus {
 .blue-button:active {
   background-color: #3399cc;
 }
+.blue-button:focus {
+  background-color: #3399cc;
+}
 .white-button {
   border: 1px solid #3399cc;
   outline-style: none;
