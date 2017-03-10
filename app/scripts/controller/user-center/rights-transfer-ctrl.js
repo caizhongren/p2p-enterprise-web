@@ -48,7 +48,7 @@ angular.module('hongcaiApp')
         userId: 0
       }, function(response) {
         if (response && response.ret !== -1) {
-          PayUtils.redToTrusteeship('toAutoRepayment', response);
+          PayUtils.redToTrusteeship('AUTOREPAYMENT', response);
         } else {
           toaster.pop('warning', response.msg);
         }

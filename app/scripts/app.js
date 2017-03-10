@@ -593,7 +593,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
    * 开通存管通
   */
   $rootScope.realNameAuth = function(user) {
-    if (!$rootScope.checkEmailAndMobile($rootScope.userDetail.user.email, $rootScope.userDetail.user.mobile)) {
+    if (user && (!user.realName || !user.idCardNo)) {
       return;
     }
     $rootScope.msg = '1';

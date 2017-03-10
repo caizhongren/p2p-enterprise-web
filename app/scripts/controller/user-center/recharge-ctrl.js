@@ -3,6 +3,7 @@ angular.module('hongcaiApp')
   .controller('RechargeCtrl', ['$location', '$scope', 'toaster', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', 'config', '$alert', function($location, $scope, toaster, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, config, $alert) {
     $rootScope.selectSide = 'recharge';
     $scope.balance = 0;
+    $scope.isSecurityAuth = $rootScope.securityStatus.realNameAuthStatus === 1 ? true : false;
     UserCenterService.getUserBalance.get({}, function(response) {
       if (response.ret === 1) {
         $scope.balance = response.data.balance;
