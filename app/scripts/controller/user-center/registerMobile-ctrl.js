@@ -1,11 +1,19 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('registerMobileCtrl', ['$scope', 'checkPwdUtils', 'DEFAULT_DOMAIN', 'RegisterService', 'toaster', '$state', 'md5', function($scope, checkPwdUtils, DEFAULT_DOMAIN, RegisterService, toaster, $state, md5) {
+  .controller('registerMobileCtrl', ['$scope', 'checkPwdUtils', 'DEFAULT_DOMAIN', 'RegisterService', 'toaster', '$state', 'md5', '$timeout', function($scope, checkPwdUtils, DEFAULT_DOMAIN, RegisterService, toaster, $state, md5, $timeout) {
     $scope.business = 0;
+    $scope.busy = false;
     $scope.register = function(user) {
       if ($scope.msg || !$scope.piccha) {
         return;
       }
+      if($scope.busy){
+        return;
+      }
+      $scope.busy = true;
+      $timeout(function() {
+        $scope.busy = false;
+      }, 1000);
       RegisterService.saveRegister.save({
         mobile: user.mobile,
         captcha: user.mobileCaptcha,
