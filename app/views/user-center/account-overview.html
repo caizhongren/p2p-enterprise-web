@@ -393,12 +393,12 @@
   <div ng-if="userType ==  6">
     <div class="row">
       <div class="news-nav account-nav">
-        <span ng-click="statusx=4;getPreProjects(page)" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中</a></span>
-        <span ng-click="statusx=5;getEnterpriseProjects(page,2)" class="{{statusx == 5 ?'active':''}}"><a href="javascript:void(0);">待投资</a></span>
-        <span ng-click="statusx=2;getEnterpriseAssignments(page,2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">转让中</a></span>
-        <span ng-click="statusx=1;getEnterpriseAssignments(page,1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">已转让</a></span>
+        <span ng-click="statusx=4;getPreProjects(1)" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中</a></span>
+        <span ng-click="statusx=5;getEnterpriseProjects(1,2)" class="{{statusx == 5 ?'active':''}}"><a href="javascript:void(0);">待投资</a></span>
+        <span ng-click="statusx=2;getEnterpriseAssignments(1,2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">转让中</a></span>
+        <span ng-click="statusx=1;getEnterpriseAssignments(1,1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">已转让</a></span>
         <span ng-click="statusx=6;" class="{{statusx == 6 ?'active':''}}"><a href="javascript:void(0);">已逾期</a></span>
-        <span ng-click="statusx=3;getEnterpriseProjects(page,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清</a></span>
+        <span ng-click="statusx=3;getEnterpriseProjects(1,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清</a></span>
       </div>
       <!-- 无数据 -->
       <div ng-if="(projectBillDetails && projectBillDetails.length == 0 && (statusx == 5 || statusx == 3)) || (projectBillDetails && preProjects.length == 0 && statusx === 4) || (enterpriseAssignments && enterpriseAssignments.length == 0 && (statusx ==1 || statusx ==2))" class="project-area">
@@ -434,13 +434,7 @@
             </div>
           </div>
         </div>
-        <div class="clearfix margin-b-20" ng-if="statusx === 4">
-          <div class="col-sx-12 text-center">
-            <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getPreProjects(page)">上一页</button>
-            {{ page }} / {{totalPage}} 共 {{total}} 条
-            <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getPreProjects(page)">下一页</button>
-          </div>
-        </div>
+        
         <!-- 待投资 -->
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 5">
           <div class="col-md-10 col-md-offset-1 table-stl">
@@ -459,13 +453,13 @@
             </div>
           </div>
         </div>
-        <div class="clearfix margin-b-20" ng-if="statusx === 5">
+        <!-- <div class="clearfix margin-b-20" ng-if="statusx === 5">
           <div class="col-sx-12 text-center">
             <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getEnterpriseProjects(page, 2)">上一页</button>
             {{ page }} / {{totalPage}} 共 {{total}} 条
             <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseProjects(page, 2)">下一页</button>
           </div>
-        </div>
+        </div> -->
         <!-- 转让中 -->
         <div ng-repeat="assignment in enterpriseAssignments" ng-if="statusx === 2">
           <div class="col-md-10 col-md-offset-1 table-stl">
@@ -484,13 +478,13 @@
             </div>
           </div>
         </div>
-        <div class="clearfix margin-b-20" ng-if="statusx === 2">
+        <!-- <div class="clearfix margin-b-20" ng-if="statusx === 2">
           <div class="col-sx-12 text-center">
             <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getEnterpriseAssignments(page,2)">上一页</button>
             {{ page }} / {{totalPage}} 共 {{total}} 条
             <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseAssignments(page,2)">下一页</button>
           </div>
-        </div>
+        </div> -->
         <!-- 已转让 "-->
         <div ng-repeat="assignment in enterpriseAssignments" ng-if="statusx === 1">
           <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in assignment.projectBills" ng-if="projectBill.status === 0">
@@ -522,13 +516,13 @@
             </div>
           </div>
         </div>
-        <div class="clearfix margin-b-20" ng-if="statusx === 1">
+        <!-- <div class="clearfix margin-b-20" ng-if="statusx === 1">
           <div class="col-sx-12 text-center">
             <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getEnterpriseAssignments(page,1)">上一页</button>
             {{ page }} / {{totalPage}} 共 {{total}} 条
             <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseAssignments(page,1)">下一页</button>
           </div>
-        </div>
+        </div> -->
 
         <!-- 已逾期-->
         <div ng-if="statusx === 6">
@@ -562,11 +556,18 @@
             </div>
           </div>
         </div>
-        <div class="clearfix margin-b-20" ng-if="statusx === 3">
+        <!-- <div class="clearfix margin-b-20" ng-if="statusx === 3">
           <div class="col-sx-12 text-center">
             <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;getEnterpriseProjects(page,3)">上一页</button>
             {{ page }} / {{totalPage}} 共 {{total}} 条
             <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;getEnterpriseProjects(page,3)">下一页</button>
+          </div>
+        </div> -->
+        <div class="clearfix margin-b-20">
+          <div class="col-sx-12 text-center">
+            <button class="btn btn-sm"  ng-disabled="page === 1"  ng-click="page = page -1;togglePage(page)">上一页{{page}}</button>
+            {{ page }} / {{totalPage}} 共 {{total}} 条
+            <button class="btn btn-sm"  ng-disabled="page >= totalPage" ng-click="page = page + 1;togglePage(page)">下一页</button>
           </div>
         </div>
       </div>
