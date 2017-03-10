@@ -18,7 +18,8 @@ var hongcaiApp = angular.module('hongcaiApp', [
   'config',
   'angular-md5',
   'angularFileUpload',
-  'bgf.paginateAnything'
+  'bgf.paginateAnything',
+  'ui.bootstrap'
 ]);
 
 hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
