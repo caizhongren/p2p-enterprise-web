@@ -71,6 +71,7 @@ angular.module('hongcaiApp')
     $scope.page = 1;
     $scope.getPreProjects =function(page){
       $scope.page = page;
+      $scope.statusx=4;
       UserCenterService.getPreProjects.get({
         userId: $rootScope.securityStatus.userId,
         page: page,
@@ -92,10 +93,14 @@ angular.module('hongcaiApp')
       $scope.page = page;
       if (status === 1) {
         searchStatus = '9';
+        $scope.statusx =1;
+        
       } else if (status === 2) {
         searchStatus = '7';
+        $scope.statusx = $rootScope.userType ===6 ? 5:2;
       } else {
         searchStatus = '10';
+        $scope.statusx=3;
       }
       UserCenterService.getEnterpriseProjects.get({
         userId: $rootScope.securityStatus.userId,
@@ -118,8 +123,10 @@ angular.module('hongcaiApp')
       var searchStatus;
       if (status === 1) {
         searchStatus = '1,2,5';
+        $scope.statusx=1;
       } else{
         searchStatus = '3,4';
+        $scope.statusx=2;
       } 
       $scope.page = page;
       UserCenterService.getEnterpriseAssignments.get({
@@ -214,9 +221,11 @@ angular.module('hongcaiApp')
 
     //上一页 下一页
     $scope.togglePage = function(page) {
-      if($scope.statusx == 4) {
-          $scope.getPreProjects(page);
-        }
+      // $scope.page = page;
+      // if($scope.statusx == 4) {
+
+      //     $scope.getPreProjects(page);
+      //   }
       if($rootScope.userType === 6) {
         if($scope.statusx == 1 || $scope.statusx == 2) {
           $scope.getEnterpriseAssignments(page,$scope.statusx);
@@ -224,10 +233,17 @@ angular.module('hongcaiApp')
           $scope.getEnterpriseProjects(page,2);
         } else if($scope.statusx === 3) {
           $scope.getEnterpriseProjects(page,3);
+        } else {
+           $scope.getPreProjects(page);
         }
       }
-      if($rootScope.userType !== 5 && $rootScope.userType !== 6 && $scope.statusx !== 4) {
-        $scope.getEnterpriseProjects(page,$scope.statusx);
+      if($rootScope.userType !== 5 && $rootScope.userType !== 6) {
+        console.log($scope.statusx);
+        if($scope.statusx !== 4){
+          $scope.getEnterpriseProjects(page,$scope.statusx);
+        }else {
+          $scope.getPreProjects(page);
+        }
       }
     }
 
