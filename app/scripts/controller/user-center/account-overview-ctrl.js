@@ -221,11 +221,7 @@ angular.module('hongcaiApp')
 
     //上一页 下一页
     $scope.togglePage = function(page) {
-      // $scope.page = page;
-      // if($scope.statusx == 4) {
-
-      //     $scope.getPreProjects(page);
-      //   }
+      
       if($rootScope.userType === 6) {
         if($scope.statusx == 1 || $scope.statusx == 2) {
           $scope.getEnterpriseAssignments(page,$scope.statusx);
@@ -238,7 +234,7 @@ angular.module('hongcaiApp')
         }
       }
       if($rootScope.userType !== 5 && $rootScope.userType !== 6) {
-        console.log($scope.statusx);
+        // console.log($scope.statusx);
         if($scope.statusx !== 4){
           $scope.getEnterpriseProjects(page,$scope.statusx);
         }else {
