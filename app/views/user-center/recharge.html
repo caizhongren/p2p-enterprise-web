@@ -13,8 +13,8 @@
   <!--end 安全认证提示 -->
 
   <!--<p>{{isSecurityAuth}}</p>-->
-  <div class="row">
-    <form class="col-md-offset-1 col-lg-offset-1 col-md-10" name="rechargeForm" ng-show="isSecurityAuth">
+  <div class="row" ng-show="isSecurityAuth">
+    <form class="col-md-offset-1 col-lg-offset-1 col-md-10" name="rechargeForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="row">
         <div class="form-group mgn-top ">
           <label class="col-md-2 col-lg-2">可用余额：</label>
@@ -42,11 +42,15 @@
         </div>
       </div>
     </form>
+    <!--start 未绑卡 -->
+    <div class="introduction-area border-none row" ng-show="userDetail.bankCardStatus !== 'VERIFIED'">
+      <p class="verify-tip safe-card-tips">充值需要绑定银行卡，请您前往<a ng-click="toBindBank()">【存管通资金系统】</a>完成绑卡操作</p>
+    </div>
   </div>
 
   <!--<p>{{isSecurityAuth}}</p>-->
-  <div class="row" ng-show="userType == 5">
-    <form class="col-md-offset-1  col-lg-offset-1 col-md-10" name="transferForm" ng-show="isSecurityAuth">
+  <div class="row" ng-show="userType == 5 && isSecurityAuth">
+    <form class="col-md-offset-1  col-lg-offset-1 col-md-10" name="transferForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="row">
         <div class="form-group mgn-top">
           <label class="col-md-3 col-lg-2">可转账余额：</label>
@@ -71,6 +75,10 @@
         </div>
       </div>
     </form>
+    <!--start 未绑卡 -->
+    <div class="introduction-area border-none row" ng-show="userDetail.bankCardStatus !== 'VERIFIED'">
+      <p class="verify-tip safe-card-tips">充值需要绑定银行卡，请您前往<a ng-click="toBindBank()">【存管通资金系统】</a>完成绑卡操作</p>
+    </div>
   </div>
   <div class="row">
     <div class="ft-12 col-md-offset-1 col-lg-offset-1 col-md-10">
