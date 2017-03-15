@@ -70,6 +70,8 @@ angular.module('hongcaiApp')
     
     $scope.page = 1;
     $scope.getPreProjects =function(page){
+      $scope.page = page;
+      $scope.statusx=4;
       UserCenterService.getPreProjects.get({
         userId: $rootScope.securityStatus.userId,
         page: page,
@@ -88,12 +90,17 @@ angular.module('hongcaiApp')
     //居间人 待投资、还款完成 & 借款方 募集中\还款中\已结清的项目：
     $scope.getEnterpriseProjects =function(page, status){
       var searchStatus;
+      $scope.page = page;
       if (status === 1) {
         searchStatus = '9';
+        $scope.statusx =1;
+        
       } else if (status === 2) {
         searchStatus = '7';
+        $scope.statusx = $rootScope.userType ===6 ? 5:2;
       } else {
         searchStatus = '10';
+        $scope.statusx=3;
       }
       UserCenterService.getEnterpriseProjects.get({
         userId: $rootScope.securityStatus.userId,
@@ -116,9 +123,12 @@ angular.module('hongcaiApp')
       var searchStatus;
       if (status === 1) {
         searchStatus = '1,2,5';
+        $scope.statusx=1;
       } else{
         searchStatus = '3,4';
+        $scope.statusx=2;
       } 
+      $scope.page = page;
       UserCenterService.getEnterpriseAssignments.get({
         userId: $rootScope.securityStatus.userId,
         page: page,
@@ -207,6 +217,31 @@ angular.module('hongcaiApp')
         $scope.getEnterpriseAccount();
       }
     });
+
+
+    //上一页 下一页
+    $scope.togglePage = function(page) {
+      
+      if($rootScope.userType === 6) {
+        if($scope.statusx == 1 || $scope.statusx == 2) {
+          $scope.getEnterpriseAssignments(page,$scope.statusx);
+        } else if($scope.statusx == 5) {
+          $scope.getEnterpriseProjects(page,2);
+        } else if($scope.statusx === 3) {
+          $scope.getEnterpriseProjects(page,3);
+        } else {
+           $scope.getPreProjects(page);
+        }
+      }
+      if($rootScope.userType !== 5 && $rootScope.userType !== 6) {
+        // console.log($scope.statusx);
+        if($scope.statusx !== 4){
+          $scope.getEnterpriseProjects(page,$scope.statusx);
+        }else {
+          $scope.getPreProjects(page);
+        }
+      }
+    }
 
     if ($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
       $scope.doughnutOptions = {
