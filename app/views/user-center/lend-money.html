@@ -8,7 +8,7 @@
       <div class="row">
         <p class="process-tips grey-safe-cgt lend-process-w {{ haveTrusteeshipAccount ? 'blue-safe-cgt' : ''}}">开通存管通</p>
         <p class="process-tips grey-safe-repayment lend-process-w {{ autoRepayment ? 'blue-safe-repayment' : ''}}">开通自动还款</p>
-        <p class="process-tips grey-safe-info lend-process-w {{ infoStatus === 1 ? 'blue-safe-info' : ''}}">完善资料</p>
+        <p class="process-tips grey-safe-info lend-process-w {{ infoStatus === 2 ? 'blue-safe-info' : ''}}">完善资料</p>
         <p class="process-tips grey-safe-loan lend-process-w {{ loanInformation ? 'blue-safe-loan' : ''}}">填写借款信息</p>
         <p class="process-tips grey-safe-audit lend-process-w {{ pendingAudit  ? 'blue-safe-audit' : ''}}">等待审核</p>
       </div>
@@ -65,7 +65,7 @@
   </div>
   
   <!-- 填写借款信息 -->
-  <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 1 && !loanInformation">
+  <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && !loanInformation">
     <form name="preProjectForm" ng-submit="checkLoanAmount(enterprise)">
       <div class="col-lg-2 ft-16"></div>
       <div class="col-lg-8">
