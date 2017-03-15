@@ -206,7 +206,7 @@
           <div class="user-tips-area safe-tips-area" ng-show="openTrusteeshipAccountForm.idCardNo.$dirty && openTrusteeshipAccountForm.idCardNo.$error.required">
             <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能为空</p>
           </div>
-          <div class="user-tips-area safe-tips-area" ng-show="openTrusteeshipAccountForm.idCardNo.$dirty && !openTrusteeshipAccountForm.idCardNo.$focused && user.idCardNo && user.idCardNo.length">
+          <div class="user-tips-area safe-tips-area" ng-show="openTrusteeshipAccountForm.idCardNo.$dirty && !openTrusteeshipAccountForm.idCardNo.$focused && user.idCardNo && user.idCardNo.length < 18">
             <p class="input-tips user-input-tips security-stl col-md-offset-3"><i class="fa fa-times-circle-o login-check-img"></i>请您填写18位身份证号码</p>
           </div>
         </div>
