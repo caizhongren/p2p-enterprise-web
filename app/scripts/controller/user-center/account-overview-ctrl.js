@@ -323,26 +323,50 @@ angular.module('hongcaiApp')
      */
     $scope.currentT = new Date().getTime();
     $scope.showRechargeTip = false;
-    $scope.continueInvest =function(repaymentAmount) {
+    $scope.continueInvest =function(repaymentAmount, number) {
       if($scope.intermediaryAccount.account.balance < repaymentAmount) {
-        $scope.msg = '账户余额不足，请先充值';
-        $scope.showRechargeTip = true;
-        $alert({
-          scope: $scope,
-          template: 'views/modal/alert-dialog.html',
-          show: true
-        });
-        return;
+          $scope.msg = '账户余额不足，请先充值';
+          $scope.showRechargeTip = true;
+          $alert({
+            scope: $scope,
+            template: 'views/modal/alert-dialog.html',
+            show: true
+          });
+          return;
       }
+
+      $scope.assignmentNumber = number;
       $scope.msg = '将冻结资金'+repaymentAmount+'元，用于还款日回购投资者债券';
       $alert({
         scope: $scope,
         template: 'views/modal/alert-dialog.html',
         show: true
       });
-      
     }
-   
+  
+    $scope.expectRedeem = function(assignmentNumber){
+      UserCenterService.expectRedeem.post({
+        number: assignmentNumber
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          alert("预回购成功！");
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }
+
+    $scope.redeem = function(assignmentNumber){
+      UserCenterService.redeem.post({
+        number: assignmentNumber
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          alert("回购成功！");
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }    
     /**
      * 根据项目状态查询项目列表 userTYpe == 5
      */

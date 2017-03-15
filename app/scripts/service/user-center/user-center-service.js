@@ -19,6 +19,12 @@ angular.module('hongcaiApp')
       yeepayWithdraw: $resource(RESTFUL_DOMAIN + '/users/0/withdraw', {
         amount: '@amount'
       }, {'post':   {method:'POST'}}),
+      expectRedeem: $resource(RESTFUL_DOMAIN + '/assignments/0/expectRedeem', {
+        number: '@number'
+      }, {'post':   {method:'POST'}}),
+      redeem: $resource(RESTFUL_DOMAIN + '/assignments/0/redeem', {
+        number: '@number'
+      }, {'post':   {method:'POST'}}),
       bindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/bindBankCard', {}),
       unbindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/unbindBankCard', {}),
       getUserAccount: $resource(DEFAULT_DOMAIN + '/siteAccount/userAccount'),
