@@ -1,19 +1,22 @@
 'use strict';
 angular.module('hongcaiApp')
   .controller('SecuritySettingsCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert, DEFAULT_DOMAIN) {
-
+    $scope.business = 2;
+    var userAuth = {};
     $rootScope.selectSide = 'security-settings';
     UserCenterService.userSecurityInfo.get({}, function(response) {
       if (response.ret === 1) {
-        var userAuth = response.data.userAuth;
+        userAuth = response.data.userAuth;
         $scope.user = response.data.user;
         $scope.email = $scope.user.email;
         $scope.mobile = $scope.user.mobile;
         // $scope.realName = userAuth.realName;
         // $scope.idNo = userAuth.idNo;
+        $scope.openTrustReservation = userAuth.autoTransfer;  //自动投标
+        $scope.openAutoRepayment = userAuth.autoRepayment;  //自动还款
+
         if (userAuth && userAuth.yeepayAccountStatus === 1) {
           $scope.haveTrusteeshipAccount = true;
-          $scope.openTrustReservation = userAuth.autoTransfer;
         } else {
           $scope.haveTrusteeshipAccount = false;
         }
@@ -22,20 +25,6 @@ angular.module('hongcaiApp')
         console.log('ask security-settings, why userSecurityInfo did not load data...');
       }
     });
-
-    $scope.sendMobileCaptcha = function(mobile, picCaptcha) {
-      UserCenterService.sendMobileCaptcha.get({
-        picCaptcha: picCaptcha,
-        mobile: mobile,
-        business:2
-      }, function(response) {
-        if (response.ret === 1) {
-          console.log('sendMobileCaptcha success');
-        } else {
-          console.log('ask security-settings, why sendMobileCaptcha did not load data...');
-        }
-      });
-    };
 
     $scope.getPicCaptcha = DEFAULT_DOMAIN + '/siteUser/getPicCaptcha?';
     $scope.refreshCode = function() {
@@ -53,7 +42,7 @@ angular.module('hongcaiApp')
         if (response.ret === 1) {
           $scope.mobile = mobileNo.substr(0, 3) + '****' + mobileNo.substr(7, 11);
           $scope.changeMobile = false;
-          $scope.mobileNo = null;
+          $scope.user.mobile = null;
           $scope.mobileCaptcha = null;
           $rootScope.securityStatus.mobileStatus = 1;
         } else {
@@ -118,33 +107,31 @@ angular.module('hongcaiApp')
       });
     };
 
-
-    $scope.checkEmailAndMobile = function() {
-      if (!$scope.email || !$scope.mobile) {
+    // 检查是否绑定邮箱和手机号码
+    $scope.gotoOpen = function() {
+      if (!$rootScope.checkEmailAndMobile($scope.email, $scope.mobile)) {
         $scope.openTrusteeshipAccount = false;
-        $scope.msg = '请先绑定邮箱和手机号码';
+      }
+    }
+
+    //检查请是否开通第三方托管账户
+    $scope.checkRealNameAuth = function() {
+      if (userAuth && userAuth.yeepayAccountStatus !== 1) {
+        $scope.msg = '请先开通第三方托管账户';
         $alert({
           scope: $scope,
           template: 'views/modal/alert-dialog.html',
           show: true
         });
+        return false;
       }
+      return true;
     };
 
     $scope.reload = function() {
       window.location.reload();
     };
 
-    $scope.realNameAuth = function(user) {
-      $scope.msg = '1';
-      $alert({
-        scope: $scope,
-        template: 'views/modal/alertYEEPAY.html',
-        show: true
-      });
-
-      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
-    };
 
     $scope.openReservation = function() {
       $scope.msg = '6';
@@ -160,4 +147,41 @@ angular.module('hongcaiApp')
       };
       window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/1');
     };
+
+    //开通自动投标、自动债权转让
+    $scope.goToTrustReservation = function() {
+      if (!$scope.checkRealNameAuth()) { //检查请是否开通第三方托管账户
+        return;
+      }
+      $scope.msg = '10';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+
+      var user = {
+        'realName' : 'default',
+        'idCardNo' : 'default'
+      };
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/1');
+    }
+    //开通自动还款
+    $scope.goToAutoRepayment = function() {
+      if (!$scope.checkRealNameAuth()) { //检查请是否开通第三方托管账户
+        return;
+      }
+      $scope.msg = '9';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+
+      var user = {
+        'realName' : 'default',
+        'idCardNo' : 'default'
+      };
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/2');
+    }
   });

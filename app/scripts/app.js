@@ -17,7 +17,9 @@ var hongcaiApp = angular.module('hongcaiApp', [
   'ipCookie',
   'config',
   'angular-md5',
-  'bgf.paginateAnything'
+  'angularFileUpload',
+  'bgf.paginateAnything',
+  'ui.bootstrap'
 ]);
 
 hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
@@ -45,6 +47,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
           templateUrl: 'views/login.html',
           controller: 'LoginCtrl',
           controllerUrl: 'scripts/controller/user-center/login-ctrl'
+        }
+      }
+    })
+    .state('root.registerMobile', {
+      url: '/registerMobile',
+      views: {
+        '': {
+          templateUrl: 'views/registerMobile.html',
+          controller: 'registerMobileCtrl',
+          controllerUrl: 'scripts/controller/user-center/registerMobile-ctrl'
         }
       }
     })
@@ -93,8 +105,17 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
-
-  .state('root.userCenter.transaction-record', {
+    .state('root.userCenter.perfect-information', {
+      url: '/perfect-information',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/perfect-information.html',
+          controller: 'PerfectInformationCtrl',
+          controllerUrl: 'scripts/controller/user-center/perfect-information-ctrl'
+        }
+      }
+    })
+    .state('root.userCenter.transaction-record', {
       url: '/transaction-record',
       views: {
         'user-center': {
@@ -115,14 +136,24 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
 
-
-  .state('root.userCenter.security-settings', {
+    .state('root.userCenter.security-settings', {
       url: '/security-settings',
       views: {
         'user-center': {
           templateUrl: 'views/user-center/security-settings.html',
           controller: 'SecuritySettingsCtrl',
           controllerUrl: 'scripts/controller/user-center/security-settings-ctrl'
+        }
+      }
+    })
+
+    .state('root.userCenter.lend-money', {
+      url: '/lend-money',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/lend-money.html',
+          controller: 'LendMoneyCtrl',
+          controllerUrl: 'scripts/controller/user-center/lend-money-ctrl'
         }
       }
     })
@@ -137,7 +168,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
 
-  .state('root.recharge-success', {
+    .state('root.recharge-success', {
       url: '/recharge-success/:status',
       views: {
         '': {
@@ -288,6 +319,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.user-order-transfer', {
+        url: '/user-order-transfer/:projectId/:orderId/:orderType',
+        views: {
+          '': {
+            templateUrl: 'views/transfer.html',
+            controller: 'UserOrderTransferCtrl',
+            controllerUrl: 'scripts/controller/user-center/user-order-transfer-ctrl'
+          }
+        }
+      })
     .state('root.transfer-transfer', {
       url: '/transfer-transfer/:transferAmount',
       views: {
@@ -526,7 +567,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
 
 }]);
 
-hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
+hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $alert, UserCenterService, $modal) {
   $rootScope.pay_company = config.pay_company;
   // Array 在IE8下没有indexOf 方法。
   if (!Array.prototype.indexOf) {
@@ -548,6 +589,71 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
     '/invest-verify',
     '/transaction-record'
   ];
+
+  /*
+   * 开通存管通
+  */
+  $rootScope.realNameAuth = function(user) {
+    if (user && (!user.realName || !user.idCardNo || user.idCardNo.length < 18)) {
+      return;
+    }
+    $rootScope.msg = '1';
+    $alert({
+      scope: $rootScope,
+      template: 'views/modal/alertYEEPAY.html',
+      show: true
+    });
+
+    window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
+  };
+
+  /**
+   * 未完成订单
+   */
+  $rootScope.toFinishOrder = function() {
+    UserCenterService.unFinishedOrder.get({},function(order){
+      // console.log(order.orderAmount);
+      if(!order.orderAmount) {
+        $state.reload();
+        return;
+      }
+      $modal({
+        scope: $rootScope,
+        template: 'views/modal/alert-unfinishedOrder.html',
+        show: true
+      });
+    });
+    
+  };
+
+  // 检查是否绑定邮箱和手机号码
+  $rootScope.checkEmailAndMobile = function(email, mobile) {
+    if (!email || !mobile) {
+      $rootScope.msg = '请先绑定邮箱和手机号码';
+      $alert({
+        scope: $rootScope,
+        template: 'views/modal/alert-dialog.html',
+        show: true
+      });
+      return false;
+    }
+    return true;
+  };
+
+  // 绑卡
+  $rootScope.toBindBank = function(){
+    if($rootScope.userDetail.bankCardStatus !== 'VERIFIED') {
+      $rootScope.msg = '5';
+      $alert({
+        scope: $rootScope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+      window.open('/#!/bankcard-transfer/0');
+      return;
+    }
+  }
+
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if (routespermission.indexOf('/' + $location.path().split('/')[1]) !== -1) {
@@ -557,6 +663,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
           $rootScope.loginName = response.data.data.name;
           $rootScope.userType = response.data.data.userType;
           $rootScope.securityStatus = response.data.data.securityStatus;
+          $rootScope.userDetail = response.data.data.userDetail;
         } else {
           $rootScope.isLogged = false;
           $rootScope.loginName = '';
@@ -570,6 +677,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config) {
           $rootScope.loginName = response.data.data.name;
           $rootScope.userType = response.data.data.userType;
           $rootScope.securityStatus = response.data.data.securityStatus;
+          $rootScope.userDetail = response.data.data.userDetail;
         } else {
           $rootScope.isLogged = false;
           $rootScope.loginName = '';

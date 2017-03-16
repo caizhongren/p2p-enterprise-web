@@ -19,6 +19,12 @@ angular.module('hongcaiApp')
       yeepayWithdraw: $resource(RESTFUL_DOMAIN + '/users/0/withdraw', {
         amount: '@amount'
       }, {'post':   {method:'POST'}}),
+      expectRedeem: $resource(RESTFUL_DOMAIN + '/assignments/0/expectRedeem', {
+        number: '@number'
+      }, {'post':   {method:'POST'}}),
+      redeem: $resource(RESTFUL_DOMAIN + '/assignments/0/redeem', {
+        number: '@number'
+      }, {'post':   {method:'POST'}}),
       bindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/bindBankCard', {}),
       unbindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/unbindBankCard', {}),
       getUserAccount: $resource(DEFAULT_DOMAIN + '/siteAccount/userAccount'),
@@ -65,6 +71,8 @@ angular.module('hongcaiApp')
         mobile: '@mobile',
         captcha: '@captcha',
         password: '@password'
+      }, {
+        'post': {method:'POST'}
       }),
       sendResetPwdEmail: $resource(DEFAULT_DOMAIN + '/siteUser/sendResetPwdEmail', {
         email: '@email'
@@ -97,6 +105,79 @@ angular.module('hongcaiApp')
       cgtActive: $resource(RESTFUL_DOMAIN + '/userAuths/cgtActive', {}, {
         'active':   {method:'POST'}
       }),
-      getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {})
+      getFundsUserAccount: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getFundsUserAccount', {}),
+      //居间人 账户总览
+      getIntermediaryAccount: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/intermediaryAccountStat', {userId:'@userId'}),
+
+      //居间人&借款方 审核中的项目
+      getPreProjects: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProjects', {
+        userId:'@userId',
+        page: '@page',
+        pageSize: '@pageSize',
+        status: '@status'
+      }),
+
+      //居间人 待投资、还款完成 && 借款方 募集中\还款中\已结清的项目：
+      getEnterpriseProjects: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/projects', {
+        userId:'@userId',
+        page: '@page',
+        pageSize: '@pageSize',
+        status: '@status'
+      }),
+      //居间人 转让中、已转让
+      //  /enterprise/enterpriseProjects/{userId}/assignments
+      getEnterpriseAssignments: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/0/assignments', {
+        userId:'@userId',
+        page: '@page',
+        pageSize: '@pageSize',
+        status: '@status'
+      }),
+      /**
+       * 借款企业开通自动还款
+       */
+      autoRepayment: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/0/autoRepayment', {
+        userId: '@userId'
+      }, {
+        'post': {method: 'POST'}
+      }),
+      /**
+       * 授权自动投标
+       */
+      authorizeAutoTransfer: $resource(RESTFUL_DOMAIN + '/users/0/authorizeAutoTransfer', {}, {'post':   {method:'POST'}}),
+      /**
+       * 保存借款信息
+       */
+      preProject: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProject', {
+        userId: '@userId',
+        amount: '@amount',
+        projectDays: '@projectDays',
+        financingPurpose: '@financingPurpose',
+      }, {
+        'post': {method: 'POST'}
+      }),
+      /**
+       * 借款企业借款申请统计
+       */
+      borrowPreprojectStat: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/borrowPreprojectStat', {
+        userId: '@userId'
+      }),
+      //未支付订单
+      unFinishedOrder: $resource(RESTFUL_DOMAIN + '/orders/unpay', {}),
+      //取消订单
+      cancelOrder: $resource(DEFAULT_DOMAIN + '/siteOrder/cancelOrder', {
+        number: '$number'
+      }),
+      //下单成功 orderType = 2
+      transferAssignment: $resource(RESTFUL_DOMAIN + '/orders/:number/users/0/payment', {
+        number: '@number'
+      }, {
+        'POST': {
+          method: 'POST'
+        }
+      }),
+      //下单 orderType =1
+      transfer: $resource(DEFAULT_DOMAIN + '/yeepay/transfer', {projectId: '@projectId', orderId: '@orderId'}),
+      //下单 orderTypr = 4
+      transferFunds: $resource(DEFAULT_DOMAIN + '/yeepay/transferFunds', {projectId: '@projectId', orderId: '@orderId'}),
     };
   });

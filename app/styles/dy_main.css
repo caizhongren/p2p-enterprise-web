@@ -129,6 +129,43 @@ input:focus {
 .tips-area:active .grey-recharge, .tips-area:active .blue-recharge {
   background-position: -463px -604px;
 }
+
+.grey-safe-cgt, .grey-safe-repayment, .grey-safe-info, .grey-safe-loan, .grey-safe-audit {
+  background: url(/images/lend-money-grey.png) no-repeat;
+}
+.blue-safe-cgt, .blue-safe-repayment, .blue-safe-info, .blue-safe-loan, .blue-safe-audit {
+  background: url(/images/lend-money-blue.png) no-repeat;
+}
+.grey-safe-cgt {
+  background-position: 39px 2px;
+} 
+.grey-safe-repayment {
+  background-position: -89px 2px;
+} 
+.grey-safe-info {
+  background-position: -217px 2px;
+}
+.grey-safe-loan {
+  background-position: -347px 2px;
+} 
+.grey-safe-audit {
+  background-position: -475px 2px;
+}
+.blue-safe-cgt {
+  background-position: 39px 0px;
+} 
+.blue-safe-repayment {
+  background-position: -89px 0px;
+} 
+.blue-safe-info {
+  background-position: -217px 0px;
+}
+.blue-safe-loan {
+  background-position: -347px 0px;
+} 
+.blue-safe-audit {
+  background-position: -475px 0px;
+}
 /*unbankcard*/
 .bankCard {
   position: relative;
@@ -242,7 +279,7 @@ input:focus {
 .real-name .set-transactionPwd, {
   display: inline-block;
 }
-.account-investment, .safe-process, .dynamic-show {
+.account-investment, .safe-process, .dynamic-show, .lend-process {
   height: 135px;
 }
 .total-assets {
@@ -294,6 +331,9 @@ input:focus {
 .blue-button:active {
   background-color: #3399cc;
 }
+.blue-button:focus {
+  background-color: #3399cc;
+}
 .white-button {
   border: 1px solid #3399cc;
   outline-style: none;
@@ -329,6 +369,30 @@ input:focus {
 }
 .login-area {
   height: 380px;
+}
+.bg-register {
+  height: 500px;
+}
+.register-area {
+  height: 430px;
+}
+@media(max-width: 1200px) {
+  .register-capcha {
+    display: inline-block !important;
+    width: 43% !important;
+  }
+}
+ @media (min-width: 1201px) {
+  .register-capcha {
+    display: inline-block !important;
+    width: 56% !important;
+  }
+}
+.capcha-left-7 {
+  margin-left: 7px;
+}
+.capcha-left-1 {
+  margin-left: 1px;
 }
 .login-left-area, .regist-left-area {
   margin-top: 20px;
@@ -573,6 +637,9 @@ input:focus {
 .account-message {
   height: 325px;
 }
+.account-message1 {
+  height: 200px;
+}
 .account-pic, .assets-pic {
   height: 313px;
   margin: 0px auto 30px auto;
@@ -723,6 +790,18 @@ input:focus {
   border-bottom: 1px solid #cecdcd;
   margin-left: 25px;
 }
+.lend-process {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #cecdcd;
+}
+.lend-process-w {
+  width: 20%;
+  float: left;
+  position: relative;
+}
+.lend-openRealName {
+  padding: 30px 0;
+}
 .process-tips {
   height: 80px;
   padding-top: 70px;
@@ -790,12 +869,12 @@ input:focus {
 .news-nav {
   height: 35px;
   border-bottom: 1px solid #dfdfdf;
-  padding-left: 60px;
+  padding-left: 40px;
   margin-top: -10px;
 }
 .news-nav span {
   height: 35px;
-  width: 110px;
+  width: 90px;
   background-color: #faf8f8;
   margin-right: 20px;
   border-top-left-radius: 5px;
@@ -803,7 +882,8 @@ input:focus {
 }
 .news-nav span a {
   margin-top: 8px;
-  margin-left: 12px;
+  /*margin-left: 12px;*/
+  text-align: center;
 }
 .news-nav .active {
   border-bottom: 1px solid white;
@@ -876,4 +956,44 @@ input:focus {
   padding-top: 7px;
 }
 
+.margin-t-50 {
+  margin-top: 50px;
+}
+.margin-b-20 {
+  margin-bottom: 20px;
+}
+.margin-b-0 {
+  margin-bottom: 0 !important;
+}
+.margin-l-20 {
+  margin-left: 20px;
+}
+.padding-0 {
+  padding: 0 !important;
+}
+.wid-pull {
+  width: 100%;
+}
+.text-right {
+  text-align: right;
+}
+.wid-pull,
+.text-right {
+  margin-top: 10px;
+  padding-right: 10px;
+}
+.padding-r-0 {
+  padding-right: 0 !important;
+}
+.grey-btn {
+  background: #ebebeb !important;
+  color: #9A9594 !important;
+  border: none !important;
+}
+.ft-blue {
+  color:#3399cc;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 

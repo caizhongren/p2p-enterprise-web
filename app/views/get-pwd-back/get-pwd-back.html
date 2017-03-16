@@ -89,7 +89,7 @@
           </div>
           <div class="form-group">
             <div class="col-xs-offset-3">
-              <button type="submit" class="col-xs-6 col-xs-offset-1 btn-blue btn-lg" ng-disabled="getPwdUserForm.$invalid" ng-click="verifyAccount(getPwd.account)">下一步</button>
+              <button type="submit" class="col-xs-6 col-xs-offset-1 btn-blue btn-lg" ng-disabled="getPwdUserForm.$invalid" ng-click="verifyAccount(getPwd.account, user.captcha)">下一步</button>
             </div>
           </div>
         </form>
@@ -161,7 +161,7 @@
                 <input type="text" class="form-pwd" name="phoneCaptcha" id="phoneCaptcha" ng-model="getPwd.mobileCaptcha" />
               </div>
               <div class="col-xs-3">
-                <input type="button", class="btn btn-info" value="获取验证码" ng-click="sendMobileCaptcha(getPwd.account, getPwd.phone);" onclick="countDown(this,60);" ng-disabled="Step2GetPhone.phone.$invalid">
+                <input type="button", class="btn btn-info" value="获取验证码" ng-click="sendMobileCaptcha(getPwd.account, getPwd.phone, user.captcha);" onclick="countDown(this,60);" ng-disabled="Step2GetPhone.phone.$invalid">
               </div>
             </div>
 

@@ -1,13 +1,11 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, DEFAULT_DOMAIN, PayUtils) {
+  .controller('AccountOverviewCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, $alert, config, toaster, DEFAULT_DOMAIN, PayUtils, $modal, $window) {
     $rootScope.selectSide = 'account-overview';
     $scope.timestamp = new Date();
     $scope.year = $scope.timestamp.getFullYear();
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
-
-    console.log($rootScope);
 
     $scope.getEnterpriseAccount = function(){
       UserCenterService.getEnterpriseUserInfo.get(function(response) {
@@ -59,8 +57,93 @@ angular.module('hongcaiApp')
       });
 
     };
+    //居间人账户总览 
+    $scope.getIntermediaryAccount =function(){
+      UserCenterService.getIntermediaryAccount.get({userId: $rootScope.securityStatus.userId},function(response){
+        if(response && response.ret !== -1) {
+          $scope.intermediaryAccount = response;
+        }
+      })
+    };
 
+    //居间人&借款方 审核中的项目
+    
+    $scope.page = 1;
+    $scope.getPreProjects =function(page){
+      $scope.page = page;
+      $scope.statusx=4;
+      UserCenterService.getPreProjects.get({
+        userId: $rootScope.securityStatus.userId,
+        page: page,
+        pageSize: 10,
+        status: '0,1'
+        },function(response){
+          if(response && response.ret !== -1){
+            $scope.preProjects = response.data;
+            $scope.total = response.total;
+            $scope.totalPage = response.totalPage;
+            $scope.pageSize = response.pageSize;
+          }
+      })
+    };
 
+    //居间人 待投资、还款完成 & 借款方 募集中\还款中\已结清的项目：
+    $scope.getEnterpriseProjects =function(page, status){
+      var searchStatus;
+      $scope.page = page;
+      if (status === 1) {
+        searchStatus = '9';
+        $scope.statusx =1;
+        
+      } else if (status === 2) {
+        searchStatus = '7';
+        $scope.statusx = $rootScope.userType ===6 ? 5:2;
+      } else {
+        searchStatus = '10';
+        $scope.statusx=3;
+      }
+      UserCenterService.getEnterpriseProjects.get({
+        userId: $rootScope.securityStatus.userId,
+        page: page,
+        pageSize: 10,
+        status: searchStatus
+        },function(response){
+          if(response && response.ret !== -1) {
+            $scope.total = response.total;
+            $scope.totalPage = response.totalPage;
+            $scope.pageSize = response.pageSize;
+            var projectBillDetails = response.data;
+            $scope.projectBillDetails = projectBillDetails;
+          } 
+      })
+    };
+
+    //居间人 转让中、已转让 125,已转，34转让中
+    $scope.getEnterpriseAssignments =function(page, status){
+      var searchStatus;
+      if (status === 1) {
+        searchStatus = '1,2,5';
+        $scope.statusx=1;
+      } else{
+        searchStatus = '3,4';
+        $scope.statusx=2;
+      } 
+      $scope.page = page;
+      UserCenterService.getEnterpriseAssignments.get({
+        userId: $rootScope.securityStatus.userId,
+        page: page,
+        pageSize: 10,
+        status: searchStatus
+        },function(response){
+          if(response && response.ret !== -1){
+            $scope.enterpriseAssignments = response.data;
+            $scope.total = response.total;
+            $scope.totalPage = response.totalPage;
+            $scope.pageSize = response.pageSize;
+            var enterpriseAssignments = response.data;
+          }
+      })
+    };
     $scope.getFundsUserAccount = function(){
       UserCenterService.getFundsUserAccount.get(function(response) {
         if (response.ret === 1) {
@@ -113,22 +196,52 @@ angular.module('hongcaiApp')
 
     };
 
-  // 默认查询还款中项目
-  $scope.$watch('userType', function(userType) {
+    // 默认查询项目
+    $scope.$watch('userType', function(userType) {
 
-    if (!$rootScope.userType){
-      return;
+      if (!$rootScope.userType){
+        return;
+      }
+      if ($rootScope.userType == 5) {
+        $scope.statusx = 0;
+        $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
+        $scope.getFundsUserAccount();
+      } else if($rootScope.userType == 6) {
+        $scope.statusx = 4;
+        $scope.getIntermediaryAccount();
+        $scope.getPreProjects($scope.page);
+      }
+       else {
+        $scope.statusx = 4;
+        $scope.getPreProjects($scope.page);
+        $scope.getEnterpriseAccount();
+      }
+    });
+
+
+    //上一页 下一页
+    $scope.togglePage = function(page) {
+      
+      if($rootScope.userType === 6) {
+        if($scope.statusx == 1 || $scope.statusx == 2) {
+          $scope.getEnterpriseAssignments(page,$scope.statusx);
+        } else if($scope.statusx == 5) {
+          $scope.getEnterpriseProjects(page,2);
+        } else if($scope.statusx === 3) {
+          $scope.getEnterpriseProjects(page,3);
+        } else {
+           $scope.getPreProjects(page);
+        }
+      }
+      if($rootScope.userType !== 5 && $rootScope.userType !== 6) {
+        // console.log($scope.statusx);
+        if($scope.statusx !== 4){
+          $scope.getEnterpriseProjects(page,$scope.statusx);
+        }else {
+          $scope.getPreProjects(page);
+        }
+      }
     }
-    if ($rootScope.userType != 5) {
-      $scope.statusx = 1;
-      $scope.getProjects(1);
-      $scope.getEnterpriseAccount();
-    } else {
-      $scope.statusx = 0;
-      $scope.getNeedAuthorizeAutoRepaymentFundsProjectList();
-      $scope.getFundsUserAccount();
-    }
-  });
 
     if ($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
       $scope.doughnutOptions = {
@@ -157,58 +270,105 @@ angular.module('hongcaiApp')
       };
     }
 
-
+    
     /**
-     * 根据项目状态查询项目列表
+     * 投资 调到易宝支付
      */
-    $scope.getProjects = function(status) {
-      var searchStatus;
-      if (status === 1) {
-        searchStatus = '9';
-      } else if (status === 2) {
-        searchStatus = '6,7,8';
-      } else {
-        searchStatus = '10';
+    $scope.busy = false;
+    $scope.transfer = function(project) {
+      if($rootScope.securityStatus.userAuth.active == false) {
+        toaster.error('未开通第三方资金存管账户');
+        $rootScope.realNameAuth();
+        return;
       }
-      UserCenterService.getProjectByStatus.get({
-        status: searchStatus
-      }, function(response) {
-        if (response.ret !== 1) {
-          alert('查询出错，请联系客服！');
-          return;
-        }
-
-        var projectBillDetails = response.data.projectBillDetails;
-        $scope.projectBillDetails = projectBillDetails;
-
-        for (var i = projectBillDetails.length - 1; i >= 0; i--) {
-          $scope.projectBillDetails[i].project.releaseEndTimeDate = new Date($scope.projectBillDetails[i].project.releaseEndTime);
-          $scope.projectBillDetails[i].project.investPercent = ($scope.projectBillDetails[i].project.soldStock + $scope.projectBillDetails[i].project.occupancyStock) / $scope.projectBillDetails[i].project.countInvest * 100;
-          $scope.projectBillDetails[i].project.projectBackCapital = 0;
-          var projectBills = projectBillDetails[i].projectBills;
-          for (var j = projectBills.length - 1; j >= 0; j--) {
-            if (projectBills[j].status === 0) {
-              projectBills[j].repaymentTimeDate = new Date(projectBills[j].repaymentTime);
-              projectBillDetails[i].recentProjectBill = projectBills[j];
-              if (new Date(projectBills[j].repaymentTime).getFullYear() === new Date(response.data.time).getFullYear() &&
-                new Date(projectBills[j].repaymentTime).getMonth() === new Date(response.data.time).getMonth() &&
-                new Date(projectBills[j].repaymentTime).getDate() === new Date(response.data.time).getDate()) {
-                projectBillDetails[i].project.isAvailableRepayment = true;
-              } else {
-                projectBillDetails[i].project.isAvailableRepayment = false;
-              }
-              break;
-            } else {
-              $scope.projectBillDetails[i].project.projectBackCapital = $scope.projectBillDetails[i].project.projectBackCapital + projectBills[j].repaymentInterest;
-            }
+      if($scope.intermediaryAccount.account.balance < project.total) {
+        toaster.error('账户余额不足，请先充值');
+        $state.go('root.userCenter.recharge');
+        return;
+      }
+      $scope.busy = true;
+      
+      // 使用同步请求， 解决有可能弹窗被浏览器拦截的问题 
+      $.ajax({
+        url: DEFAULT_DOMAIN + '/siteOrder/saveOrder?projectId=' + project.id + '&investAmount=' + project.total + '&giftCount=0' + '&couponNumber=',
+        'type': 'POST',
+        async: false,
+        dataType: 'json',
+        success: function(response) {
+          if (response.ret === 1) {
+            $scope.msg = '4';
+            $scope.investAmount = project.total;
+            $scope.busy = false;
+            var orderId = response.data.orderId;
+            var orderType = 1;
+            $alert({
+              scope: $scope,
+              template: 'views/modal/alertYEEPAY.html',
+              show: true
+            });
+            $window.open('/#!/user-order-transfer/' + project.id + '/' + orderId + '/' + orderType, '_blank');
+          } else if(response.code == -1037) {
+            $scope.busy = false;
+            $rootScope.toFinishOrder();
+          } else {
+            $scope.busy = false;
+            toaster.error(response.msg);
           }
         }
-
       });
     };
 
     /**
-     * 根据项目状态查询项目列表
+     * 点击预回购
+     */
+    $scope.currentT = new Date().getTime();
+    $scope.showRechargeTip = false;
+    $scope.continueInvest =function(repaymentAmount, number) {
+      if($scope.intermediaryAccount.account.balance < repaymentAmount) {
+          $scope.msg = '账户余额不足，请先充值';
+          $scope.showRechargeTip = true;
+          $alert({
+            scope: $scope,
+            template: 'views/modal/alert-dialog.html',
+            show: true
+          });
+          return;
+      }
+
+      $scope.assignmentNumber = number;
+      $scope.msg = '将冻结资金'+repaymentAmount+'元，用于还款日回购投资者债券';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alert-dialog.html',
+        show: true
+      });
+    }
+  
+    $scope.expectRedeem = function(assignmentNumber){
+      UserCenterService.expectRedeem.post({
+        number: assignmentNumber
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          alert("预回购成功！");
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }
+
+    $scope.redeem = function(assignmentNumber){
+      UserCenterService.redeem.post({
+        number: assignmentNumber
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          alert("回购成功！");
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }    
+    /**
+     * 根据项目状态查询项目列表 userTYpe == 5
      */
     $scope.getFundsProject = function(status) {
       var searchStatus;

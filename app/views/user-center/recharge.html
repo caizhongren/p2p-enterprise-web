@@ -7,14 +7,14 @@
     <div class="right-title word-less-title">充值和转账</div>
   </div>
   <!--start 安全认证提示 -->
-  <div class="row">
-    <p class="verify-tip safe-card-tips col-md-offset-2 col-lg-offset-2 col-md-7 col-lg-7" ng-show="!isSecurityAuth" ng-init="isSecurityAuth=true">您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p>
+  <div class="introduction-area border-none row">
+    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth" >您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p>
   </div>
   <!--end 安全认证提示 -->
 
   <!--<p>{{isSecurityAuth}}</p>-->
-  <div class="row">
-    <form class="col-md-offset-2 col-lg-offset-2" name="rechargeForm" ng-show="isSecurityAuth">
+  <div class="row" ng-show="isSecurityAuth">
+    <form class="col-md-offset-1 col-lg-offset-1 col-md-10" name="rechargeForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="row">
         <div class="form-group mgn-top ">
           <label class="col-md-2 col-lg-2">可用余额：</label>
@@ -42,11 +42,15 @@
         </div>
       </div>
     </form>
+    <!--start 未绑卡 -->
+    <div class="introduction-area border-none row" ng-show="userDetail.bankCardStatus !== 'VERIFIED'">
+      <p class="verify-tip safe-card-tips">充值需要绑定银行卡，请您前往<a ng-click="toBindBank()">【存管通资金系统】</a>完成绑卡操作</p>
+    </div>
   </div>
 
   <!--<p>{{isSecurityAuth}}</p>-->
-  <div class="row" ng-show="userType == 5">
-    <form class="col-md-offset-2 col-lg-offset-2" name="transferForm" ng-show="isSecurityAuth">
+  <div class="row" ng-show="userType == 5 && isSecurityAuth">
+    <form class="col-md-offset-1  col-lg-offset-1 col-md-10" name="transferForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="row">
         <div class="form-group mgn-top">
           <label class="col-md-3 col-lg-2">可转账余额：</label>
@@ -71,9 +75,13 @@
         </div>
       </div>
     </form>
+    <!--start 未绑卡 -->
+    <div class="introduction-area border-none row" ng-show="userDetail.bankCardStatus !== 'VERIFIED'">
+      <p class="verify-tip safe-card-tips">充值需要绑定银行卡，请您前往<a ng-click="toBindBank()">【存管通资金系统】</a>完成绑卡操作</p>
+    </div>
   </div>
   <div class="row">
-    <div class="ft-12 col-md-offset-2 col-lg-offset-2">
+    <div class="ft-12 col-md-offset-1 col-lg-offset-1 col-md-10">
       <p>温馨提示</p>
       <p>1. 您的账户资金将由有银监会颁发牌照的第三方支付平台托管；</p>
       <p>2. 首先请注意您是否开通网上银行等功能,可能存在充值超过限额：（充值限额，是银行、第三方支付平台、和用户您自己设定的支付限额决定的，取三者最小值）以免造成充值不成功；</p>

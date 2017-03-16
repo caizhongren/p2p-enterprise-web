@@ -1,0 +1,74 @@
+<!--register-->
+<div class="container bg bg-register">
+  <div class="row register-area">
+    <div class="login-left-area col-md-6 col-lg-6">
+      <div class="row">
+        <h4 class="login-title">注册宏财</h4>
+      </div>
+      <div class="row">
+        <form class="form-login col-md-12 col-lg-12" role="form" name="registerForm" ng-submit="register(user)">
+          <div class="form-group col-md-12 col-lg-12">
+            <label for="mobile" class="col-md-3 col-lg-3 control-label">手机号：</label>
+            <div class="col-md-7 col-lg-7">
+              <input type="text" class="form-control" id="mobile" name="mobile" ng-model="user.mobile" ng-pattern="/^((13[0-9])|(15[^4,\D])|(18[0-9])|(17[03678])|(14[0-9]))\d{8}$/" ensure-unique-mobile="mobile" ng-class="{'error-border':registerForm.mobile.$dirty && registerForm.mobile.$invalid}" required autofocus placeholder="请输入手机号码" ng-focus>
+            </div>
+            <div ng-if="registerForm.mobile.$dirty && registerForm.mobile.$invalid && !registerForm.mobile.$focused" class="col-lg-9 col-md-9 col-md-offset-3 col-lg-offset-3 form-div">
+              <div ng-if="registerForm.mobile.$error.unique" class="row">
+                <p class="input-tips regist-input-tips">手机号码已被占用</p>
+              </div>
+              <div ng-if="registerForm.mobile.$error.pattern" class="row">
+                <p class="input-tips regist-input-tips">请输入正确的手机号码</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12 col-lg-12">
+            <label for="password" class="col-md-3 col-lg-3 control-label">密码：</label>
+            <div class="col-md-7 col-lg-7">
+              <input type="password" class="form-control" name="password" ng-model="user.password" ng-class="{'error-border':registerForm.password.$dirty && registerForm.password.$invalid||isPasswordError}" required placeholder="请输入您的密码" ng-focus>
+            </div>
+            <div ng-if="registerForm.password.$dirty && !registerForm.password.$focused && msg" class="col-lg-9 col-md-9 col-md-offset-3 col-lg-offset-3 form-div">
+              <div ng-if="msg" class="row">
+                <p class="input-tips login-input-tips">{{msg}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12 col-lg-12">
+            <label for="picCaptcha" class="col-md-3 col-lg-3 control-label">图形验证码：</label>
+            <div class="col-md-7 col-lg-7">
+              <input type="text" class="form-control register-capcha" id="picCaptcha" name="picCaptcha" ng-model="user.picCaptcha" ng-class="{'error-border':registerForm.picCaptcha.$dirty && registerForm.picCaptcha.$invalid}" ensure-captcha="picCaptcha" required placeholder="图形验证码" ng-focus>
+              <img src="{{getPicCaptcha}}" id="checkCaptcha" class="pic-verify capcha-left-7" ng-click="refreshCode()" width="78" height="40">
+            </div>
+            <div ng-if="registerForm.picCaptcha.$dirty && !registerForm.picCaptcha.$focused" class="col-xs-offset-3 col-xs-8 form-div">
+              <div ng-if="!piccha" class="row">
+                <p class="input-tips login-input-tips">图形验证码错误</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12 col-lg-12">
+            <label for="mobileCaptcha" class="col-md-3 col-lg-3 control-label">短信验证码：</label>
+            <div class="col-md-7 col-lg-7">
+              <input type="text" class="form-control register-capcha" id="mobileCaptcha" name="mobileCaptcha" ng-model="user.mobileCaptcha" ng-class="{'error-border':registerForm.mobileCaptcha.$dirty && registerForm.mobileCaptcha.$invalid}" required placeholder="短信验证码" ng-focus>
+              <button class="{{registerForm.mobile.$invalid || registerForm.picCaptcha.$error.required || !piccha || registerForm.picCaptcha.$error.pattern ? 'blue-button verify-index grey ' : 'blue-button verify-index'}}" ng-disabled="registerForm.mobile.$invalid || registerForm.captcha.$error.required" capcha-countdown="" disabled="disabled">获取验证码</button>
+            </div>
+            <div ng-if="registerForm.mobileCaptcha.$dirty && registerForm.mobileCaptcha.$invalid && registerForm.mobileCaptcha.$error.check && !registerForm.mobileCaptcha.$focused" class="col-xs-offset-3 col-xs-8 form-div">
+              <div ng-if="registerForm.mobileCaptcha.$error.required" class="row">
+                <p class="input-tips login-input-tips">短信验证码错误</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-md-12 col-lg-12 margin-t-20">
+            <input type="submit" class="blue-button col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3" ng-disabled="registerForm.$invalid || registerForm.mobile.$error.unique || registerForm.mobile.$error.pattern || registerForm.mobileCaptcha.$error.required " value="立即注册">
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="login-right-area col-md-6 col-lg-6">
+      <p class="p-login-right col-md-12 col-lg-12">已有宏财帐号？<a ui-sref="root.login">立即登录</a>
+      </p>
+    </div>
+  </div>
+</div>
