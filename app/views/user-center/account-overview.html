@@ -126,6 +126,7 @@
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h5>{{preProject.enterprise.name || '无'}}&nbsp;&nbsp;<span>{{preProject.createTime | date: 'yyyy/MM/dd HH:mm:ss'}}</span></h5>
+                <h5>{{projectBillDetail.projectBackCapital}}</h5>
               </div>
               <div class="panel-body">
                 <table class="table margin-b-5">
@@ -206,6 +207,7 @@
         </div>
 
         <!--已结清-->
+
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 3" ng-show="userType !== 5 ">
           <div class="col-md-10 col-md-offset-1 table-stl">
             <div class="panel panel-info">
@@ -226,7 +228,7 @@
                   </tr>
                   <tr>
                     <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                    <td>已付利息：{{projectBillDetail.projectBackCapital}}元</td>
+                    <td>已付利息：{{projectBillDetail.repaymentInterests || 0}}元</td>
                   </tr>
                 </table>
               </div>
@@ -507,7 +509,7 @@
                   </tr>
                   <tr>
                     <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                    <td>已付利息：{{projectBillDetail.projectBackCapital}}元</td>
+                    <td>已付利息：{{projectBillDetail.repaymentInterests|| 0}}元</td>
                   </tr>
                 </table>
               </div>
