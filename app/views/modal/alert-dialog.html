@@ -1,15 +1,23 @@
 <div class="alert" ng-class="[type ? 'alert-' + type : null]">
   <button type="button" class="close" ng-if="dismissable" ng-click="$hide()">&times;</button>
   <div class="title">
-    <strong>温馨提示：</strong>
+    <strong>温馨提示</strong>
   </div>
 
   <div class="content">
     <p>{{msg}}</p>
+    <p ng-if="isKnow">累计借款上限为100万，请您修改借款金额。</p>
   </div>
 
-  <div class="bottom col-xs-10 col-xs-offset-1">
-    <a class="btn btn-danger btn-block pull-left margin-l" href="javascript:;" ng-click="$hide()">知道啦</a>
+  <div class="bottom col-xs-10 col-xs-offset-1" ng-if="!isContinue">
+
+    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="$hide();" ui-sref="root.userCenter.recharge" ng-if="showRechargeTip == true">去充值</a>
+    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="$hide();expectRedeem(assignmentNumber);">确认冻结</a>
+  </div>
+
+  <div class="bottom col-xs-10 col-xs-offset-1" ng-if="isContinue">
+    <a class="btn blue-button btn-block pull-left" href="javascript:;" ng-click="$hide()">取消</a>
+    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="gotoLoan(enterprise);$hide()">继续</a>
   </div>
 
 </div>

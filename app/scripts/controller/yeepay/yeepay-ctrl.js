@@ -26,6 +26,8 @@ angular.module('hongcaiApp')
     	page = 3;
     } else if (business === 'USER_ACTIVE'){
         page = 10;
+    } else if (business === 'AUTOREPAYMENT'){
+        page = 11;
     }
 
 

@@ -111,8 +111,8 @@ module.exports = function(grunt) {
         livereload: 35730
       },
       proxies: [{
-        context: '/enterprise/api/v1',
-        host: '192.168.1.43',
+        context: '/enterprise',
+        host: '192.168.80.139',
         port: 8080
       }],
       livereload: {

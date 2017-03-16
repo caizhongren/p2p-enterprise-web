@@ -11,6 +11,7 @@ angular.module('hongcaiApp')
           $rootScope.securityStatus.realNameAuthStatus = 1;
           PayUtils.redToTrusteeship('toRegister', response);
         } else {
+          toaster.pop('warning', response.msg);
           console.log('ask security-settings, why yeepayRegister did not load data...');
         }
       });
@@ -26,8 +27,8 @@ angular.module('hongcaiApp')
         return;
       }
 
-      // 调用预约的方法，当预约开通后
-      UserCenterService.authorizeAutoTransfer.get({
+      // 调用自动投标接口
+      UserCenterService.authorizeAutoTransfer.post({
       }, function(response) {
         if (response && response.ret !== -1) {
           
@@ -38,6 +39,18 @@ angular.module('hongcaiApp')
         } else {
           toaster.pop('warning', response.msg);
           console.log('ask security-settings, why authorizeAutoTransfer did not load data...');
+        }
+      });
+    } else if ($stateParams.type === '2') {
+
+      // 调用开通自动还款接口
+      UserCenterService.autoRepayment.post({
+        userId: 0
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          PayUtils.redToTrusteeship('AUTOREPAYMENT', response);
+        } else {
+          toaster.pop('warning', response.msg);
         }
       });
     }

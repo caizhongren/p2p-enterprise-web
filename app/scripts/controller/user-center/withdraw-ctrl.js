@@ -4,6 +4,7 @@ angular.module('hongcaiApp')
 
     $rootScope.selectSide = $location.path().substr($location.path().indexOf('/') + 1);
     $scope.availableCash = 0;
+    $scope.isSecurityAuth = $rootScope.securityStatus.realNameAuthStatus === 1 ? true : false;
     UserCenterService.getUserAvailableCash.get({}, function(response) {
       if (response.ret === 1) {
         $scope.availableCash = response.data.availableCash;

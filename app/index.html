@@ -16,8 +16,11 @@
   <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.css" />
   <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.css" />
   <!-- endbower -->
+  <link rel="stylesheet" href="bower_components/fancybox/source/jquery.fancybox.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <!-- endbuild -->
-  <script src="scripts/util/modernizr.min.js"></script>
+  
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <!--[if lt IE 9]>
       <script type='text/javascript'>
         document.createElement('aboutsidebar');
@@ -60,6 +63,7 @@
   <link rel="stylesheet" href="styles/dy_main.css">
   <link rel="stylesheet" href="styles/main_leo.css">
   <link rel="stylesheet" href="styles/get-pwd-back.css">
+  <link rel="stylesheet" href="styles/perfect-info.css">
   <!-- endbuild -->
   <style>
     .pay-active{
@@ -101,7 +105,7 @@
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-touch/angular-touch.js"></script>
   <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
-  <script src="bower_components/Chart.js/Chart.js"></script>
+  <script src="bower_components/Chart.js/dist/Chart.js"></script>
   <script src="bower_components/ng-chartjs/dist/angular-chartjs.min.js"></script>
   <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
   <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
@@ -109,8 +113,12 @@
   <script src="bower_components/angular-cookie/angular-cookie.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <script src="bower_components/angular-paginate-anything/dist/paginate-anything-tpls.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <!-- endbower -->
+  <script src="bower_components/fancybox/source/jquery.fancybox.js"></script>
+  <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
   <!-- endbuild -->
+  <script src="scripts/util/modernizr.min.js"></script>
   <toaster-container toaster-options="{
       'close-button': true,
       'debug': false,
@@ -130,10 +138,14 @@
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
   <script src="scripts/app.js"></script>
   <script src="scripts/config.js"></script>
+  <script src="scripts/i18n/angular-locale_zh-cn.js"></script>
   <script src="scripts/controller/user-center/login-ctrl.js"></script>
+  <script src="scripts/controller/user-center/registerMobile-ctrl.js"></script>
   <script src="scripts/controller/user-center/user-center-ctrl.js"></script>
   <script src="scripts/controller/user-center/bankcard-management-ctrl.js"></script>
+  <script src="scripts/controller/user-center/perfect-information-ctrl.js"></script>
   <script src="scripts/controller/user-center/security-settings-ctrl.js"></script>
+  <script src="scripts/controller/user-center/lend-money-ctrl.js"></script>
   <script src="scripts/controller/user-center/withdraw-ctrl.js"></script>
   <script src="scripts/controller/user-center/recharge-ctrl.js"></script>
   <script src="scripts/controller/user-center/recharge-success-ctrl.js"></script>
@@ -146,19 +158,28 @@
   <script src="scripts/controller/user-center/bankcard-success-ctrl.js"></script>
   <script src="scripts/controller/user-center/unbind-bankcard-success-ctrl.js"></script>
   <script src="scripts/controller/enterprise/guarantee-list-ctrl.js"></script>
+  <script src="scripts/controller/enterprise/unfinishedOrder-ctrl.js"></script>
+  <script src="scripts/controller/get-pwd-back/get-pwd-back-ctrl.js"></script>
+
   <!-- 跳转易宝中间页 -->
   <script src="scripts/controller/user-center/recharge-transfer-ctrl.js"></script>
   <script src="scripts/controller/user-center/transfer-transfer-ctrl.js"></script>
   <script src="scripts/controller/user-center/rights-transfer-ctrl.js"></script>
   <script src="scripts/controller/user-center/withdraw-transfer-ctrl.js"></script>
   <script src="scripts/controller/user-center/bankcard-transfer-ctrl.js"></script>
+  <script src="scripts/controller/user-center/user-order-transfer-ctrl.js"></script>
 
   <script src="scripts/service/PayUtils.js"></script>
   <script src="scripts/service/user-center/user-center-service.js"></script>
   <script src="scripts/service/user-center/session-service.js"></script>
   <script src="scripts/service/user-center/login-service.js"></script>
+  <script src="scripts/service/user-center/register-service.js"></script>
+  <script src="scripts/service/order/order-service.js"></script>
   <script src="scripts/service/yeepay/yeepay-service.js"></script>
   <script src="scripts/service/enterprise/guarantee-service.js"></script>
+  <script src="scripts/service/enterprise/enterprise-service.js"></script>
+  <script src="scripts/service/checkPwdUtil.js"></script>
+
   <script src="scripts/directives/check-password.js"></script>
   <script src="scripts/directives/ensure-captcha.js"></script>
   <script src="scripts/directives/ensure-unique-name.js"></script>
@@ -169,7 +190,10 @@
   <script src="scripts/directives/find-account.js"></script>
   <script src="scripts/directives/help-sidebar.js"></script>
   <script src="scripts/directives/ie-select-fix.js"></script>
-  <script src="scripts/controller/get-pwd-back/get-pwd-back-ctrl.js"></script>
+  <script src="scripts/directives/capcha-countdown.js"></script>
+  <script src="scripts/directives/fancybox.js"></script>
+  <script src="scripts/directives/toggle-edit.js"></script>
+
   <script src="scripts/filters/startfrom.js"></script>
   <script src="scripts/filters/menoyformat.js"></script>
   <!-- endbuild -->
