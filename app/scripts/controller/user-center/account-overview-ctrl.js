@@ -114,18 +114,6 @@ angular.module('hongcaiApp')
             $scope.pageSize = response.pageSize;
             var projectBillDetails = response.data;
             $scope.projectBillDetails = projectBillDetails;
-            $scope.repaymentInterest = 0;
-            if(searchStatus == 10) {
-              for(var i=0; i<projectBillDetails.length;i++) {
-                var repaymentInterest = 0;
-                var projectBills = projectBillDetails[i].projectBills;
-                for(var j=0;j<projectBills.length; j++){
-                  repaymentInterest += projectBillDetails[i].projectBills[j].repaymentInterest;
-                  //已付利息
-                  $scope.projectBillDetails[i].repaymentInterests = repaymentInterest;
-                }
-              }
-            }
           } 
       })
     };

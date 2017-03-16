@@ -228,7 +228,7 @@
                   </tr>
                   <tr>
                     <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                    <td>已付利息：{{projectBillDetail.repaymentInterests || 0}}元</td>
+                    <td>已付利息：{{projectBillDetail.projectInfo.projectBackProfit | number:2 || 0}}元</td>
                   </tr>
                 </table>
               </div>
@@ -509,7 +509,7 @@
                   </tr>
                   <tr>
                     <td>本息两清日：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
-                    <td>已付利息：{{projectBillDetail.repaymentInterests|| 0}}元</td>
+                    <td>已付利息：{{projectBillDetail.projectInfo.projectBackProfit | number:2 || 0}}元</td>
                   </tr>
                 </table>
               </div>
