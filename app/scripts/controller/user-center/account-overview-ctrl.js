@@ -144,6 +144,11 @@ angular.module('hongcaiApp')
           }
       })
     };
+    //已逾期
+    $scope.getoverDue =function() {
+      //TODO
+      $scope.statusx = 6;
+    }
     $scope.getFundsUserAccount = function(){
       UserCenterService.getFundsUserAccount.get(function(response) {
         if (response.ret === 1) {

@@ -15,7 +15,7 @@ angular.module('hongcaiApp')
         $scope.openTrustReservation = userAuth.autoTransfer;  //自动投标
         $scope.openAutoRepayment = userAuth.autoRepayment;  //自动还款
 
-        if (userAuth && userAuth.yeepayAccountStatus === 1) {
+        if (userAuth && userAuth.authStatus === 2) {
           $scope.haveTrusteeshipAccount = true;
         } else {
           $scope.haveTrusteeshipAccount = false;
@@ -116,7 +116,7 @@ angular.module('hongcaiApp')
 
     //检查请是否开通第三方托管账户
     $scope.checkRealNameAuth = function() {
-      if (userAuth && userAuth.yeepayAccountStatus !== 1) {
+      if (userAuth && userAuth.authStatus !== 2) {
         $scope.msg = '请先开通第三方托管账户';
         $alert({
           scope: $scope,

@@ -21,7 +21,7 @@ angular.module('hongcaiApp')
 
     if ($rootScope.securityStatus && $rootScope.securityStatus.userAuth) {
     	//判断是否开通存管通
-	    if ($rootScope.securityStatus.userAuth.yeepayAccountStatus === 1) {
+	    if ($rootScope.securityStatus.userAuth.authStatus === 2) {
 	    	$scope.haveTrusteeshipAccount = true;
 	    }else {
 	    	$scope.haveTrusteeshipAccount = false;
