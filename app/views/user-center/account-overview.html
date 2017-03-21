@@ -82,8 +82,8 @@
         </div>
         <div class="col-md-4 col-lg-4 ">
           <div class="assets-ico net-income"></div>
-          <p class="asset-tips">累计利息</p>
-          <p class="asset-money margin-0">{{intermediaryAccount.account.totalProfit || 0 | number:2}} 元</p>
+          <p class="asset-tips">冻结金额</p>
+          <p class="asset-money margin-0">{{intermediaryAccount.account.freezeCapital || 0 | number:2}} 元</p>
           <ul class="margin-t-50 padding-0 text-center">
             <li><span class="asset-tips asset-mar"><strong>募集期累计计息:</strong>{{intermediaryAccount.account.receivedProfit || 0 | number:2}} 元</span>
             </li>
@@ -378,7 +378,7 @@
         <span ng-click="getEnterpriseProjects(1,2)" class="{{statusx == 5 ?'active':''}}"><a href="javascript:void(0);">待投资</a></span>
         <span ng-click="getEnterpriseAssignments(1,1)" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">转让中</a></span>
         <span ng-click="getEnterpriseAssignments(1,2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">已转让</a></span>
-        <span ng-click="statusx=6;" class="{{statusx == 6 ?'active':''}}"><a href="javascript:void(0);">已逾期</a></span>
+        <span ng-click="getoverDue();" class="{{statusx == 6 ?'active':''}}"><a href="javascript:void(0);">已逾期</a></span>
         <span ng-click="getEnterpriseProjects(1,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清</a></span>
       </div>
       <!-- 无数据 -->
