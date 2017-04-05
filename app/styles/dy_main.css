@@ -312,6 +312,10 @@ input:focus {
 .input-tips {
   color: #d8271c;
 }
+.input-strong-tips {
+  color: #d8271c;
+  font-weight: 600;
+}
 .p-date, .p-title-dynamic, .p-dynamic-show, .table-link-us, .p-dynamic-show:hover, .web-show a, .web-show p, .news-nav span a {
   color: #9a9595;
 }
