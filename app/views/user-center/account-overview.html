@@ -165,7 +165,9 @@
                     <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
                   </tr>
                   <tr>
-                    <td>还款日期：{{projectBill.repaymentTime | date:"yyyy-MM-dd"}}</td>
+                    <td class="{{projectBill.repaymentTime-3*24*3600*1000<=timestamp.getTime() ?'input-strong-tips':''}}">还款日期：
+                        {{projectBill.repaymentTime | date:"yyyy-MM-dd"}}
+                    </td>
                     <td>应付款项：{{projectBill.repaymentAmount | number : 2}}元</td>
                     <td>期数： 第{{projectBill.repaymentNo}}期</td>
                   </tr>
