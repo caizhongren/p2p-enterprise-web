@@ -51,6 +51,9 @@
     <p>您已申请开通自动投标</p>
     <p>请在新窗口内填写信息，完成自动投标的开通</p>
   </div>
+  <div class="content padding-b-0" ng-if="msg === '11' && userDetail.account.tTotalAssets > 2">
+    <p class="text-justify padding-l-10 padding-r-10">尊敬的用户，检测到您的账户总资产大于2元，为了您的资金安全，请联系客服进行授权。</p>
+  </div>
   <div class="row text-center">
     <p>如遇到问题，请拨打客服电话： 400-990-7626</p>
   </div>
