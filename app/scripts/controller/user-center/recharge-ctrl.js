@@ -48,7 +48,7 @@ angular.module('hongcaiApp')
       $scope.payment = payment;
       if(payment ===1){
         $scope.rechargeWay = 'SWIFT';
-        $scope.expectPayCompany = 'YEEPAY';
+        $scope.expectPayCompany = 'UCFPAY';
       }else {
         $scope.rechargeWay = 'WEB';
         $scope.expectPayCompany = 'YEEPAY';
