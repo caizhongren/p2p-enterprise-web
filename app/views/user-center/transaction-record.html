@@ -91,26 +91,23 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="item in data | startFrom:currentPage * pageSize | limitTo:pageSize">
-<!--       <tr ng-repeat="item in data"> -->
+      <tr ng-repeat="item in dealList">
         <td>{{ item.createTime | date: 'yyyy-MM-dd'}}</td>
         <td>{{ typeValue[item.type] }}</td>
         <td>{{item.description}}</td>
         <td>{{item.getAmount | number: 2}}</td>
         <td>{{item.payAmount | number: 2}}</td>
-        <td>{{item.balance | number: 2}}
-
-        </td>
+        <td>{{item.balance | number: 2}}</td>
       </tr>
     </tbody>
   </table>
   <ul class="pager">
     <li>
-      <button class="btn btn-default btn-sm" ng-disabled="currentPage == 0" ng-click="currentPage = currentPage - 1">上一页</button>
+      <button class="btn btn-default btn-sm" ng-disabled="currentPage == 1" ng-click="getDeals(currentPage - 1)">上一页</button>
     </li>
-    {{currentPage +1 }} / {{numberOfPages()}} 共 {{data.length}} 条
+    {{currentPage}} / {{totalPage}} 共 {{count}} 条
     <li>
-      <button class="btn btn-default btn-sm" ng-disabled="currentPage >= data.length / pageSize - 1" ng-click="currentPage = currentPage + 1">下一页</button>
+      <button class="btn btn-default btn-sm" ng-disabled="currentPage >= totalPage" ng-click="getDeals(currentPage + 1)">下一页</button>
     </li>
   </ul>
 </div>

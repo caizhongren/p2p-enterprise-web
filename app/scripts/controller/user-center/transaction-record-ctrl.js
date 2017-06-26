@@ -30,27 +30,36 @@ angular.module('hongcaiApp')
       '25': '冻结资金',
       '26': '解冻资金'
     };
-    var getDealByUser = UserCenterService.getDealListByUser.get({
-      dateInterval: $stateParams.dateInterval,
-      type: $stateParams.type
-    }, function() {
-      if (getDealByUser.ret === 1) {
-        $scope.dealList = getDealByUser.data.dealList;
-        $scope.type = getDealByUser.data.type;
-        $scope.dateInterval = getDealByUser.data.dateInterval;
-        $scope.userId = getDealByUser.data.userId;
-        $scope.capital = getDealByUser.data.capital;
-        $scope.currentPage = 0;
-        $scope.pageSize = 10;
-        $scope.data = [];
-        $scope.numberOfPages = function() {
-          return Math.ceil($scope.data.length / $scope.pageSize);
-        };
-        for (var i = 0; i < $scope.dealList.length; i++) {
-          $scope.data.push($scope.dealList[i]);
+    $scope.currentPage = 1;
+    $scope.pageSize = 10;
+    $scope.getDeals = function(page) {
+      $scope.currentPage = page;
+      var getDealByUser = UserCenterService.getDealListByUser.get({ 
+        dateInterval: $stateParams.dateInterval,
+        type: $stateParams.type,
+        page: page,
+        pageSize: $scope.pageSize
+      },function(response) {
+        if (getDealByUser.ret === 1) {
+          $scope.dealList = getDealByUser.data.dealList;
+          $scope.type = getDealByUser.data.type;
+          $scope.dateInterval = getDealByUser.data.dateInterval;
+          $scope.userId = getDealByUser.data.userId;
+          $scope.capital = getDealByUser.data.capital;
+          $scope.dealTypes = getDealByUser.data.dealTypes;
+          $scope.count = getDealByUser.data.count;
+          $scope.data = [];
+          $scope.totalPage = Math.ceil(getDealByUser.data.count / $scope.pageSize);
+
+          for (var i = 0; i < $scope.dealList.length; i++) {
+            $scope.data.push($scope.dealList[i]);
+          }
+
+        } else {
+          toaster.pop('warning',response.msg);
         }
-      } else {
-        console.log('ask record, why getDealByUser did not load data...');
-      }
-    });
+      });
+    };
+    
+    $scope.getDeals(1);
   }]);
