@@ -60,7 +60,7 @@ angular.module('hongcaiApp')
         from: 0
       }, function(response) {
         if (response && response.ret !== -1) {
-          PayUtils.redToTrusteeship('ENTERPRISE_REGISTER', response);
+          PayUtils.redToTrusteeship('ENTERPRISE_REGISTER', response.data.payIn);
         } else {
           toaster.pop('warning', response.msg);
         }
