@@ -10,6 +10,9 @@ angular.module('hongcaiApp')
         'post':   {method:'POST'}
       }),
       yeepayEnterpriseRegister: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/enterpriseRegister', {
+        from: '@from'
+      }, {
+        'post':   {method:'POST'}
       }),
       yeepayRecharge: $resource(RESTFUL_DOMAIN + '/users/0/recharge', {
         amount: '@amount',

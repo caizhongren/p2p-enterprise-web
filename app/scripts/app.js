@@ -72,6 +72,8 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
     })
     /*------------------------------------------  user-center  -----------------------------------------------*/
     .state('root.userCenter', {
+      'url':'/user-center',
+      abstract: false,
       views: {
         'user-center': {
           templateUrl: 'views/user-center/user-center.html',
@@ -581,13 +583,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     };
   }
   var routespermission = ['/account-overview',
-    '/assets-overview',
-    '/bankcard-management',
-    '/security-settings',
-    '/withdraw',
-    '/recharge',
-    '/invest-verify',
-    '/transaction-record'
+    '/user-center'
   ];
 
   /*

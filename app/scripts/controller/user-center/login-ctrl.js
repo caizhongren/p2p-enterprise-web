@@ -41,10 +41,8 @@ angular.module('hongcaiApp')
           $rootScope.loginName = response.data.user.name;
           $rootScope.isLogged = true;
           toaster.pop('success', '恭喜您，登录成功！');
-        } else if (response.code === -1009) {
+        } else {
           toaster.pop('error', response.msg);
-          $scope.isPasswordError = true;
-
         }
       });
     };
