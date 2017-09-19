@@ -184,4 +184,8 @@ angular.module('hongcaiApp')
       };
       window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/2');
     }
+
+    $scope.enterpriseRegister = function(){
+      window.open('/#!/righs-transfer/0/0/3');
+    }
   });

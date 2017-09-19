@@ -53,6 +53,18 @@ angular.module('hongcaiApp')
           toaster.pop('warning', response.msg);
         }
       });
+    } else if ($stateParams.type === '3') {
+
+      // 调用开通自动还款接口
+      UserCenterService.yeepayEnterpriseRegister.post({
+        from: 0
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          PayUtils.redToTrusteeship('ENTERPRISE_REGISTER', response.data.payIn);
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
     }
     
   });
