@@ -183,5 +183,10 @@ angular.module('hongcaiApp')
       //下单 orderTypr = 4
       transferFunds: $resource(DEFAULT_DOMAIN + '/yeepay/transferFunds', {projectId: '@projectId', orderId: '@orderId'}),
       unbindBankCardApply: $resource(RESTFUL_DOMAIN + '/users/0/unbindBankCardApply',{}),
+      updateCgtEnterpriseInfo: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/enterpriseInfoUpdate', {
+        from: '@from'
+      }, {
+        'post':   {method:'POST'}
+      }),
     };
   });

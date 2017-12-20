@@ -547,4 +547,16 @@ angular.module('hongcaiApp')
       });
     }
 
+    $scope.enterpriseInfoUpdate = function(){
+      UserCenterService.updateCgtEnterpriseInfo.post({
+        from: 0
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          PayUtils.redToTrusteeship('ENTERPRISE_INFORMATION_UPDATE', response.data.payIn);
+        } else {
+          toaster.pop('warning', response.msg);
+        }
+      });
+    }
+
   });
