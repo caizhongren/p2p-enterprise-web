@@ -32,8 +32,8 @@ angular.module('hongcaiApp')
       LoginService.userLogin.get({
         account: user.account,
         password: md5Password,
-        userType: user.userType,
-        type: 1
+        userType: 0,
+        type: user.type
       }, function(response) {
         if (response.ret === 1) {
           SessionService.set('user', response.data.user.name);
