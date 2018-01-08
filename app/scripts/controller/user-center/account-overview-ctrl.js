@@ -217,8 +217,8 @@ angular.module('hongcaiApp')
         $scope.getPreProjects($scope.page);
       }
        else {
-        $scope.statusx = 4;
-        $scope.getPreProjects($scope.page);
+        $scope.statusx = 1;
+        $scope.getEnterpriseProjects($scope.page, 1);
         $scope.getEnterpriseAccount();
       }
     });

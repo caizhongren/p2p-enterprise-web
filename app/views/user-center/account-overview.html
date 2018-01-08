@@ -106,7 +106,6 @@
   <div ng-if="userType !== 6">
     <div class="row" ng-show="userType != 5">
       <div class="news-nav account-nav">
-        <span ng-click="getPreProjects(1)" class="{{statusx == 4 ?'active':''}}"><a href="javascript:void(0);">审核中</a></span>
         <span ng-click="getEnterpriseProjects(1,1);" class="{{statusx == 1 ?'active':''}}"><a href="javascript:void(0);">还款中</a></span>
         <span ng-click="getEnterpriseProjects(1,2)" class="{{statusx == 2 ?'active':''}}"><a href="javascript:void(0);">募集中</a></span>
         <span ng-click="getEnterpriseProjects(1,3)" class="{{statusx == 3 ?'active':''}}"><a href="javascript:void(0);">已结清</a></span>
@@ -121,7 +120,7 @@
       <div ng-if="(projectBillDetails.length > 0 && statusx !== 4) || (preProjects.length > 0 && statusx == 4)">
       <br>
       <br>
-        <!--审核中-->
+        <!--审核中
         <div ng-repeat="preProject in preProjects" ng-if="statusx === 4">
           <div class="col-md-10 col-md-offset-1 table-stl">
             <div class="panel panel-info">
@@ -146,6 +145,7 @@
             </div>
           </div>
         </div>
+        -->
         <!-- 还款中 -->
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1" ng-show="userType !== 5 ">
           <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in projectBillDetail.projectBills" ng-if="projectBill.status == 0">
