@@ -217,8 +217,8 @@ angular.module('hongcaiApp')
         $scope.getPreProjects($scope.page);
       }
        else {
-        $scope.statusx = 4;
-        $scope.getPreProjects($scope.page);
+        $scope.statusx = 1;
+        $scope.getEnterpriseProjects($scope.page, 1);
         $scope.getEnterpriseAccount();
       }
     });
@@ -449,11 +449,13 @@ angular.module('hongcaiApp')
       if(!$scope.canRepayment){
         return;
       }
-
+      var repaymentSource = $rootScope.userType === 7 || $rootScope.userType === 8 ? 2 : 0;
       $scope.canRepayment = false;
       UserCenterService.repayment.get({
         projectId: project.id,
-        repaymentNo: repaymentNo
+        repaymentNo: repaymentNo,
+        repaymentSource: repaymentSource,
+        from: 0
       }, function(response) {
         $scope.canRepayment = true;
 
@@ -538,9 +540,25 @@ angular.module('hongcaiApp')
     };
 
     $scope.goActivateUser = function(){
-      UserCenterService.cgtActive.active({}, function(response){
+      UserCenterService.entrustEnterpriseRegister.post({
+        idNo:'232303198611250815',
+        realName:'liujia22',
+        from:0,
+        enterpriseName:'受托方借款企业测试',
+        noticeUrl:'test321.hongcai.com/enterprise/rest/enterpiseUsers/borrowPreprojectStat',
+        entrustKey:'2365',
+        entrustName:'国信'
+      }, function(response){
+        window.location.href=response;
+      });
+    }
+
+    $scope.enterpriseInfoUpdate = function(){
+      UserCenterService.updateCgtEnterpriseInfo.post({
+        from: 0
+      }, function(response) {
         if (response && response.ret !== -1) {
-          PayUtils.redToTrusteeship('toActive', response);
+          PayUtils.redToTrusteeship('ENTERPRISE_INFORMATION_UPDATE', response.data.payIn);
         } else {
           toaster.pop('warning', response.msg);
         }

@@ -9,6 +9,17 @@ angular.module('hongcaiApp')
       }, {
         'post':   {method:'POST'}
       }),
+      entrustEnterpriseRegister: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/entrustEnterpriseRegister', {
+        realName: '@realName',
+        idNo: '@idNo',
+        enterpriseName:'@enterpriseName',
+        noticeUrl:'@noticeUrl',
+        entrustKey:'@entrustKey',
+        entrustName:'@entrustName',
+        from:'@from'
+      }, {
+        'post':   {method:'POST'}
+      }),
       yeepayEnterpriseRegister: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/enterpriseRegister', {
         from: '@from'
       }, {
@@ -56,7 +67,10 @@ angular.module('hongcaiApp')
         orderId: '@orderId'
       }),
       repayment: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/repayment', {
-        projectId: '@projectId'
+        projectId: '@projectId',
+        from: '@from',
+        repaymentNo: '@repaymentNo',
+        repaymentSource: '@repaymentSource'
       }),
       getProjectByStatus: $resource(DEFAULT_DOMAIN + '/enterpriseProject/getProjectByStatus', {
         status: '@status'
@@ -183,5 +197,10 @@ angular.module('hongcaiApp')
       //下单 orderTypr = 4
       transferFunds: $resource(DEFAULT_DOMAIN + '/yeepay/transferFunds', {projectId: '@projectId', orderId: '@orderId'}),
       unbindBankCardApply: $resource(RESTFUL_DOMAIN + '/users/0/unbindBankCardApply',{}),
+      updateCgtEnterpriseInfo: $resource(DEFAULT_DOMAIN + '/enterpriseYeepay/enterpriseInfoUpdate', {
+        from: '@from'
+      }, {
+        'post':   {method:'POST'}
+      }),
     };
   });
