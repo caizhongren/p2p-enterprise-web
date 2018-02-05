@@ -1,7 +1,7 @@
 <div class="alert" ng-class="[type ? 'alert-' + type : null]">
   <button type="button" class="close" ng-if="dismissable" ng-click="$hide()">&times;</button>
   <div class="title text-center">
-    <strong ng-if="msg === '1'">开通第三方托管账户</strong>
+    <strong ng-if="msg === '1'">开通银行资金存管账户</strong>
     <strong ng-if="msg === '2'">申请充值</strong>
     <strong ng-if="msg === '3'">申请提现</strong>
     <strong ng-if="msg === '4'">支付</strong>
@@ -12,8 +12,8 @@
   </div>
 
   <div class="content" ng-if="msg === '1'">
-    <p>您已申请开通第三方托管账户</p>
-    <p>请在新窗口内填写信息，完成第三方托管账户的开通</p>
+    <p>您已申请开通银行资金存管账户</p>
+    <p>请在新窗口内填写信息，完成银行资金存管账户的开通</p>
   </div>
   <div class="content" ng-if="msg === '2'">
     <p>您已申请进行充值操作，充值金额{{rechargeAmount}}元</p>
