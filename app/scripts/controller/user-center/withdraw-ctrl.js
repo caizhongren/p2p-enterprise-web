@@ -4,6 +4,7 @@ angular.module('hongcaiApp')
 
     $rootScope.selectSide = $location.path().substr($location.path().indexOf('/') + 1);
     $scope.availableCash = 0;
+    $scope.maxWithdrawAmount = 0;
     $scope.isSecurityAuth = $rootScope.securityStatus.realNameAuthStatus === 1 ? true : false;
     UserCenterService.getUserAvailableCash.get({}, function(response) {
       if (response.ret === 1) {
@@ -13,8 +14,15 @@ angular.module('hongcaiApp')
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
       }
     });
+    UserCenterService.getMaxWithdrawAmount.get({}, function(response) {
+      if (response.ret === 1) {
+        $scope.maxWithdrawAmount = response;
+      } else {
+        console.log('ask withdraw, why getUserAvailableCash did not load data...');
+      }
+    });
     $scope.checkLargestAmount = function(amount) {
-      if (amount > $scope.availableCashRealNo) {
+      if (amount > Math.min($scope.availableCashRealNo, $scope.maxWithdrawAmount)) {
         return true;
       } else {
         return false;
