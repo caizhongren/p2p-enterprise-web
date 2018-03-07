@@ -19,6 +19,8 @@ angular.module('hongcaiApp')
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
       } else {
         $scope.maxWithdrawAmount = response.amount;
+        console.log(response)
+        console.log($scope.maxWithdrawAmount)
       }
     });
     $scope.checkLargestAmount = function(amount) {
