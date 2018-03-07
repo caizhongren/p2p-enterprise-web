@@ -15,10 +15,10 @@ angular.module('hongcaiApp')
       }
     });
     UserCenterService.getMaxWithdrawAmount.get({}, function(response) {
-      if (response.ret === 1) {
-        $scope.maxWithdrawAmount = response;
-      } else {
+      if (response.ret === -1) {
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
+      } else {
+        $scope.maxWithdrawAmount = response;
       }
     });
     $scope.checkLargestAmount = function(amount) {

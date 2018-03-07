@@ -25,7 +25,7 @@
       <div class="row">
         <div class="form-group mgn-top">
           <label class="col-md-3 col-lg-3">可提现金额：</label>
-          <p>{{Math.min(availableCashRealNo, maxWithdrawAmount) < 2 ? 0 : Math.min(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</p>
+          <p>{{Math.min(availableCashRealNo, maxWithdrawAmount) - 2 < 0 ? 0 : Math.min(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</p>
         </div>
       </div>
       <div class="row">
