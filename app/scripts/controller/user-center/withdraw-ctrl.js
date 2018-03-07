@@ -9,7 +9,7 @@ angular.module('hongcaiApp')
     UserCenterService.getUserAvailableCash.get({}, function(response) {
       if (response.ret === 1) {
         $scope.availableCash = response.data.availableCash;
-        $scope.availableCashRealNo = $scope.availableCash >= 2 ? $scope.availableCash - 2 : 0;
+        $scope.availableCashRealNo = $scope.availableCash;
       } else {
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
       }
@@ -18,7 +18,7 @@ angular.module('hongcaiApp')
       if (response.ret === -1) {
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
       } else {
-        $scope.maxWithdrawAmount = response;
+        $scope.maxWithdrawAmount = response.amount;
       }
     });
     $scope.checkLargestAmount = function(amount) {
