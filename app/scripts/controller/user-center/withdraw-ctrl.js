@@ -1,7 +1,7 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('WithdrawCtrl', ['$location', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', '$alert', function($location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, $alert) {
-
+  .controller('WithdrawCtrl', ['$window', '$location', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', '$alert', function($window, $location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, $alert) {
+    $scope.MathMin = $window.Math.min;
     $rootScope.selectSide = $location.path().substr($location.path().indexOf('/') + 1);
     $scope.availableCash = 0;
     $scope.maxWithdrawAmount = 0;
@@ -19,8 +19,6 @@ angular.module('hongcaiApp')
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
       } else {
         $scope.maxWithdrawAmount = response.amount;
-        console.log(response)
-        console.log($scope.maxWithdrawAmount)
       }
     });
     $scope.checkLargestAmount = function(amount) {

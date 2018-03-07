@@ -43,7 +43,7 @@ angular.module('hongcaiApp')
       unbindBankCard: $resource(DEFAULT_DOMAIN + '/yeepay/cgtUnbindBankCard', {}),
       getUserAccount: $resource(DEFAULT_DOMAIN + '/siteAccount/userAccount'),
       getUserAvailableCash: $resource(DEFAULT_DOMAIN + '/siteAccount/getUserAvailableCash'),
-      getMaxWithdrawAmount: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/0/getMaxWithdrawAmount'),
+      getMaxWithdrawAmount: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/0/maxWithdrawAmount'),
       getUserOrder: $resource(DEFAULT_DOMAIN + '/siteOrder/getOrderByUser'),
       getOrderByUser: $resource(DEFAULT_DOMAIN + '/siteOrder/getOrderByUser'),
       getUserBalance: $resource(DEFAULT_DOMAIN + '/siteAccount/getUserBalance'),

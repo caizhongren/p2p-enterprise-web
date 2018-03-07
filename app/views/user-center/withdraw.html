@@ -24,14 +24,14 @@
       </div>
       <div class="row">
         <div class="form-group mgn-top">
-          <label class="col-md-3 col-lg-3">{{Math.min(availableCashRealNo, maxWithdrawAmount)}}可提现金额：</label>
-          <p>{{Math.min(availableCashRealNo, maxWithdrawAmount) - 2 < 0 ? 0 : Math.min(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</p>
+          <label class="col-md-3 col-lg-3">可提现金额：</label>
+          <p>{{MathMin(availableCashRealNo, maxWithdrawAmount) - 2 < 0 ? 0 : MathMin(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</p>
         </div>
       </div>
       <div class="row">
         <div class="form-group">
           <label class="col-md-3 col-lg-3">提现金额：</label>
-          <input name="amount" type="text" class="verify-input" ng-model="amount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-focus ng-disabled="Math.min(availableCashRealNo, maxWithdrawAmount) <= 0" required autofocus/>&nbsp;&nbsp;元
+          <input name="amount" type="text" class="verify-input" ng-model="amount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-focus ng-disabled="MathMin(availableCashRealNo, maxWithdrawAmount) <= 0" required autofocus/>&nbsp;&nbsp;元
           <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="withdrawForm.amount.$dirty && withdrawForm.amount.$error.pattern">
             <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>请输入数字(最多精确到小数点后两位)</p>
           </div>
