@@ -22,7 +22,7 @@ angular.module('hongcaiApp')
       }
     });
     $scope.checkLargestAmount = function(amount) {
-      if (amount > Math.min($scope.availableCashRealNo, $scope.maxWithdrawAmount)) {
+      if (amount > Math.min($scope.availableCashRealNo, $scope.maxWithdrawAmount) - 2) {
         return true;
       } else {
         return false;
