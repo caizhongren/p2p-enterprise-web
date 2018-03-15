@@ -3,7 +3,7 @@ angular.module('hongcaiApp')
   .controller('BankcardTransferCtrl', function ( $scope, toaster, $stateParams, UserCenterService, config, PayUtils) {
 
     if ($stateParams.type === '0') {
-      UserCenterService.bindBankCard.get({}, function(response) {
+      UserCenterService.bindBankCard.post({}, function(response) {
         if (response && response.ret !== -1) {
           $scope.dosi = false;
           PayUtils.redToTrusteeship('toBindBankCard', response);

@@ -1,20 +1,28 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('WithdrawCtrl', ['$location', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', '$alert', function($location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, $alert) {
-
+  .controller('WithdrawCtrl', ['$window', '$location', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', '$alert', function($window, $location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, $alert) {
+    $scope.MathMin = $window.Math.min;
     $rootScope.selectSide = $location.path().substr($location.path().indexOf('/') + 1);
     $scope.availableCash = 0;
+    $scope.maxWithdrawAmount = 0;
     $scope.isSecurityAuth = $rootScope.securityStatus.realNameAuthStatus === 1 ? true : false;
     UserCenterService.getUserAvailableCash.get({}, function(response) {
       if (response.ret === 1) {
         $scope.availableCash = response.data.availableCash;
-        $scope.availableCashRealNo = $scope.availableCash >= 2 ? $scope.availableCash - 2 : 0;
+        $scope.availableCashRealNo = $scope.availableCash;
       } else {
         console.log('ask withdraw, why getUserAvailableCash did not load data...');
       }
     });
+    UserCenterService.getMaxWithdrawAmount.get({}, function(response) {
+      if (response.ret === -1) {
+        console.log('ask withdraw, why getUserAvailableCash did not load data...');
+      } else {
+        $scope.maxWithdrawAmount = response.amount;
+      }
+    });
     $scope.checkLargestAmount = function(amount) {
-      if (amount > $scope.availableCashRealNo) {
+      if (amount > Math.min($scope.availableCashRealNo, $scope.maxWithdrawAmount) - 2) {
         return true;
       } else {
         return false;
