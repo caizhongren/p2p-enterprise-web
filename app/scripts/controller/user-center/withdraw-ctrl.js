@@ -2,7 +2,7 @@
 angular.module('hongcaiApp')
   .controller('WithdrawCtrl', ['$window', '$location', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', 'DEFAULT_DOMAIN', '$alert', function($window, $location, $scope, $state, $rootScope, $stateParams, UserCenterService, DEFAULT_DOMAIN, $alert) {
     $scope.MathMin = $window.Math.min;
-    $rootScope.selectSide = $location.path().substr($location.path().indexOf('/') + 1);
+    $rootScope.selectSide = 'withdraw';
     $scope.availableCash = 0;
     $scope.maxWithdrawAmount = 0;
     $scope.isSecurityAuth = $rootScope.securityStatus.realNameAuthStatus === 1 ? true : false;

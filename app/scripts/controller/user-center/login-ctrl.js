@@ -5,6 +5,13 @@ angular.module('hongcaiApp')
     // if ($rootScope.isLogged === true) {
     //   $state.go('root.userCenter.account-overview');
     // }
+    $scope.goMain = function() {
+      if ($rootScope.isLogged === true) {
+        $state.go('root.userCenter.account-overview');
+      } else {
+        $state.go('root.login');
+      }
+    }
 
     // 从cookie中读取用户名
     if (ipCookie('bUserName')) {
@@ -88,7 +95,7 @@ angular.module('hongcaiApp')
       SessionService.destory('user');
       $rootScope.loginName = '';
       $rootScope.isLogged = false;
-      $state.go('root.login');
+      $scope.goMain();
     };
     $scope.islogged = function() {
       if (SessionService.get('user'))
