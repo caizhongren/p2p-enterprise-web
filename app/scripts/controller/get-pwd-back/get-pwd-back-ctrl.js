@@ -13,6 +13,25 @@ angular.module('hongcaiApp')
     //   $scope.timerRunning = true;
     // };
 
+    /**
+      * 校验用户名只能输入数字
+      */
+     $scope.$watch('getPwd.account', function (newVal, oldVal) {
+      var captchaPattern = /^\d{1,11}$/
+      if (newVal && !captchaPattern.test(newVal)) {
+        $scope.getPwd.account = newVal.replace(/\D/g, '').toString().slice(0, 11)
+      }
+    })
+    /**
+      * 校验图形验证码只能输入数字
+      */
+     $scope.$watch('user.captcha', function (newVal, oldVal) {
+      var captchaPattern = /^\d{1,4}$/
+      if (newVal && !captchaPattern.test(newVal)) {
+        $scope.user.captcha = newVal.replace(/\D/g, '').toString().slice(0, 4)
+      }
+    })
+
     $scope.verifyAccount = function(account, captcha){
       var dataBoth=[{'CategoryId':0, 'Name':'手机找回' }, {'CategoryId':1, 'Name':'邮箱找回'}];
       var dataPhone=[{'CategoryId':0, 'Name':'手机找回'}];
@@ -30,33 +49,34 @@ angular.module('hongcaiApp')
             console.log('');
           }
         });
-      } else if(emailPattern.test(account)){// 说明是邮箱
-        UserCenterService.sendResetPwdEmail.get({email: account }, function(response) {
-          if(response.ret === 1) {
-              $scope.areaFlag = 22;
-              $scope.emailAddr = account;
-          } else {
-            // TODO
-            console.log('');
-          }
-        });
-      } else {
-        $scope.areaFlag = 2;
-        if($scope.usermessage.mobile && $scope.usermessage.email){
-          $scope.Category = dataBoth;
-        }else if($scope.usermessage.mobile){
-          $scope.Category = dataPhone;
-        }else if($scope.usermessage.email){
-          $scope.Category = dataEmail;
-        }
-        $scope.$watch('CategoryVal', function (CategoryId) {
-          if(CategoryId !== 0) {
-            $scope.isDisplay = false;
-          }else{
-            $scope.isDisplay = true;
-          }
-        });
       }
+      //  else if(emailPattern.test(account)){// 说明是邮箱
+      //   UserCenterService.sendResetPwdEmail.get({email: account }, function(response) {
+      //     if(response.ret === 1) {
+      //         $scope.areaFlag = 22;
+      //         $scope.emailAddr = account;
+      //     } else {
+      //       // TODO
+      //       console.log('');
+      //     }
+      //   });
+      // } else {
+      //   $scope.areaFlag = 2;
+      //   if($scope.usermessage.mobile && $scope.usermessage.email){
+      //     $scope.Category = dataBoth;
+      //   }else if($scope.usermessage.mobile){
+      //     $scope.Category = dataPhone;
+      //   }else if($scope.usermessage.email){
+      //     $scope.Category = dataEmail;
+      //   }
+      //   $scope.$watch('CategoryVal', function (CategoryId) {
+      //     if(CategoryId !== 0) {
+      //       $scope.isDisplay = false;
+      //     }else{
+      //       $scope.isDisplay = true;
+      //     }
+      //   });
+      // }
     };
     // STEP2 根据account通过手机找回
     $scope.sendMobileCaptcha = function(account, mobile, captcha){

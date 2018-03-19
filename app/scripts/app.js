@@ -671,7 +671,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
   });
   $rootScope.$on('$stateChangeSuccess', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
-    if ($location.path().split('/')[1] === '' || $location.path().split('/')[1] === 'registerMobile') {
+    if ($location.path().split('/')[1] !== 'user-center') {
       return
     } else {
       $checkSessionServer.error(function(response) {
