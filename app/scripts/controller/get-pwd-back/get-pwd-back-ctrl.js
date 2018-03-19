@@ -152,6 +152,7 @@ angular.module('hongcaiApp')
           });
           // $scope.startTimer();
         } else {
+          toaster.pop('warning', response.msg);
         }
       });
     };
