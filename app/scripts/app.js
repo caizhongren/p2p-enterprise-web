@@ -652,7 +652,6 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
 
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
-    if (routespermission.indexOf('/' + $location.path().split('/')[1]) !== -1) {
       $checkSessionServer.error(function(response) {
         return;
       }).success(function(response) {
@@ -667,7 +666,6 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
           $location.path('/login/');
         }
       });
-    }
   });
   $rootScope.$on('$stateChangeSuccess', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');

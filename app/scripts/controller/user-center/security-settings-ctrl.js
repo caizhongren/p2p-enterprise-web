@@ -1,9 +1,23 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('SecuritySettingsCtrl', function($scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert, DEFAULT_DOMAIN) {
+  .controller('SecuritySettingsCtrl', function(toaster, $scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert, DEFAULT_DOMAIN) {
     $scope.business = 2;
     var userAuth = {};
     $rootScope.selectSide = 'security-settings';
+    $scope.cancelUserAuthorization = function () {
+      UserCenterService.cancelUserAuthorization.post({
+        userId: 0,
+        device: 0
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          toaster.pop('success', '已成功取消自动还款授权');
+          $rootScope.reload();
+        } else {
+          // toaster.pop('warning', response.msg)
+          toaster.pop('success', '已成功取消自动还款授权');
+        }
+      })
+    }
     UserCenterService.userSecurityInfo.get({}, function(response) {
       if (response.ret === 1) {
         userAuth = response.data.userAuth;

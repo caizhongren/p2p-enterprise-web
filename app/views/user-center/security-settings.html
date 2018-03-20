@@ -230,8 +230,9 @@
           </p>
           <p class="activity" ng-show="!openAutoRepayment &&  userType == 2"><a href="javascript:;" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">开通</a>
           </p>
-          <p class="activity hadset" ng-show="openAutoRepayment">已开通</p>
-          <div class="check-ok" ng-show="openAutoRepayment"></div>
+          <!-- <p class="activity hadset" ng-show="openAutoRepayment">已开通</p>
+          <div class="check-ok" ng-show="openAutoRepayment"></div> -->
+          <div ng-show="openAutoRepayment" class="activity" ng-click="cancelUserAuthorization()">取消授权</div>
         </div>
       </div>
     </div>
