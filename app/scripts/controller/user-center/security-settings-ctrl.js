@@ -13,8 +13,7 @@ angular.module('hongcaiApp')
           toaster.pop('success', '已成功取消自动还款授权');
           $rootScope.reload();
         } else {
-          // toaster.pop('warning', response.msg)
-          toaster.pop('success', '已成功取消自动还款授权');
+          toaster.pop('warning', response.msg)
         }
       })
     }
