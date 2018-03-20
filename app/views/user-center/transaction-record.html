@@ -93,7 +93,7 @@
     <tbody>
       <tr ng-repeat="item in dealList">
         <td>{{ item.createTime | date: 'yyyy-MM-dd'}}</td>
-        <td>{{ typeValue[item.type] }}</td>
+        <td>{{ dealTypes[item.type] }}</td>
         <td>{{item.description}}</td>
         <td>{{item.getAmount | number: 2}}</td>
         <td>{{item.payAmount | number: 2}}</td>

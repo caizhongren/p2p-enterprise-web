@@ -106,7 +106,7 @@ angular.module('hongcaiApp')
       }),
       getDealListByUser: $resource(DEFAULT_DOMAIN + '/siteUser/getDealListByUser', {
         dateInterval: '@dateInterval',
-        type: '@type'
+        dealType: '@dealType'
       }),
       getEnterpriseUserInfo: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getEnterpriseUserInfo', {}),
       repaymentFundsProject: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/repaymentFundsProject', {
