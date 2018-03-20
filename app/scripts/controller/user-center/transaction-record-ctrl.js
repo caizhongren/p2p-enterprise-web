@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('TransactionRecordCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', function($scope, $state, $rootScope, $stateParams, UserCenterService) {
+  .controller('TransactionRecordCtrl', ['toaster', '$scope', '$state', '$rootScope', '$stateParams', 'UserCenterService', function(toaster, $scope, $state, $rootScope, $stateParams, UserCenterService) {
     $rootScope.selectSide = 'transaction-record';
     $scope.type = $stateParams.type || 0;
     $scope.dateInterval = $stateParams.dateInterval || 0;

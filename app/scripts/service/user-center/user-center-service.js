@@ -207,5 +207,11 @@ angular.module('hongcaiApp')
       }, {
         'post':   {method:'POST'}
       }),
+      cancelUserAuthorization: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/cancelUserAuthorization', {
+        userId: '@userId',
+        device: '@device'
+      }, {
+        'post':   {method:'POST'}
+      }),
     };
   });

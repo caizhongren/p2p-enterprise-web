@@ -652,35 +652,43 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
 
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
-    if (routespermission.indexOf('/' + $location.path().split('/')[1]) !== -1) {
-      $checkSessionServer.then(function(response) {
-        if (response.data.data && response.data.data.name !== '' && response.data.data.name !== undefined && response.data.data.name !== null) {
-          $rootScope.isLogged = true;
-          $rootScope.loginName = response.data.data.name;
-          $rootScope.userType = response.data.data.userType;
-          $rootScope.securityStatus = response.data.data.securityStatus;
-          $rootScope.userDetail = response.data.data.userDetail;
+      $checkSessionServer.error(function(response) {
+        return;
+      }).success(function(response) {
+        if (response.ret !== -1 && response.data && response.data.userDetail !== '' && response.data.userDetail.user !== undefined && response.data.userDetail.user !== null) {
+          $rootScope.loginName = response.data.name;
+          $rootScope.userType = response.data.userType;
+          $rootScope.securityStatus = response.data.securityStatus;
+          $rootScope.userDetail = response.data.userDetail;
         } else {
           $rootScope.isLogged = false;
           $rootScope.loginName = '';
           $location.path('/login/');
         }
       });
+  });
+  $rootScope.$on('$stateChangeSuccess', function() {
+    var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
+    if ($location.path().split('/')[1] !== 'user-center') {
+      return
     } else {
-      $checkSessionServer.then(function(response) {
-        if (response.data.data && response.data.data.name !== '' && response.data.data.name !== undefined && response.data.data.name !== null) {
+      $checkSessionServer.error(function(response) {
+        return;
+      }).success(function(response) {
+        if (response.ret !== -1 && response.data && response.data.userDetail !== '' && response.data.userDetail.user !== undefined && response.data.userDetail.user !== null) {
           $rootScope.isLogged = true;
-          $rootScope.loginName = response.data.data.name;
-          $rootScope.userType = response.data.data.userType;
-          $rootScope.securityStatus = response.data.data.securityStatus;
-          $rootScope.userDetail = response.data.data.userDetail;
+          $rootScope.loginName = response.data.name;
+          $rootScope.userType = response.data.userType;
+          $rootScope.securityStatus = response.data.securityStatus;
+          $rootScope.userDetail = response.data.userDetail;
         } else {
           $rootScope.isLogged = false;
           $rootScope.loginName = '';
+          $location.path('/login/');
         }
       });
     }
-  });
+  })
 });
 
 hongcaiApp.constant('DEFAULT_DOMAIN', '/enterprise/api/v1');
