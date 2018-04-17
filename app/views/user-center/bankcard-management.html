@@ -1,9 +1,9 @@
 <!--银行卡管理-->
-<div class="right-area right-account-height col-md-8 col-lg-9">
+<div class="right-area right-account-height col-xs-12 col-md-8 col-lg-9">
   <div class="row">
     <div class="right-title">银行卡管理</div>
   </div>
-  <div class="verify-area introduction-area border-none row">
+  <div class="introduction-area border-none row">
     <a ng-show="isVerifying" ng-init="isAuth=false; haveCard=false;">
       <div class="bank-card-show-verify">
         <p class="add-card">认证中</p>
@@ -32,12 +32,15 @@
       </div>
     </div>
     <!--start 安全认证提示 -->
-    <p class="verify-tip safe-card-tips" ng-show="!isAuth">您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p>
+    <p class="verify-tip safe-card-tips" ng-show="!isAuth">您未完成安全认证，请先<a ng-click="alertRealName()">开通</a>海口联合农商银行资金存管账户</p>
+    <!-- <p class="verify-tip safe-card-tips" ng-show="!isAuth">您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p> -->
     <!--end 安全认证提示 -->
     <p class="ft-12">
+      <br>
       温馨提示
-      <br> 为确保您的资金划转安全高效，宏财建议您完善开户行信息。您只需在分支行框内输入分支行关键词。
-      <br> 比如您的开户行名称为“工商银行北京宣武门支行”，只需输入关键词“宣武”即可。如果推荐列表中没有符合关键词的信息，请您务必在列表中选择开户城市的的银行分行，如：工商银行北京市分行营业部。
+      <br> 1.您所绑定的银行卡可以用来接收提现资金，也可以用来完成快捷充值；
+      <br> 2.更换银行卡时，需要先解绑当前的银行卡；
+      <br> 3.仅当您在宏财网的借款项目全部还清后，才可解绑银行卡。
     </p>
   </div>
   <!--end 添加银行卡 -->

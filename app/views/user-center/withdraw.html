@@ -1,52 +1,38 @@
 <!--提现-->
-<div class="right-area right-assets-height withdraw col-md-8 col-lg-9">
+<div class="right-area right-assets-height withdraw col-md-8 col-lg-9 col-xs-12">
   <div class="row">
     <div class="right-title word-less-title">提现</div>
   </div>
   <div class="introduction-area border-none row">
-    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth">您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p>
+    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth">您未完成安全认证，请先<a ng-click="alertRealName()">开通</a>海口联合农商银行资金存管账户</p>
   </div>
   <div class="row" ng-show="isSecurityAuth">
-    <form class="col-md-offset-1 col-lg-offset-1 col-md-10" name="withdrawForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
-      <div class="row">
-        <div class="form-group mgn-top">
-          <label class="col-md-3 col-lg-3">可用余额：</label>
-          <p>{{availableCash | number:2}}元</p>
+    <form class="col-xs-offset-2 col-xs-10" name="withdrawForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
+      <div class="form-group mgn-top">可用余额：{{availableCash | number:2}}元</div>
+      <div class="form-group mgn-top">可提现金额：{{MathMin(availableCashRealNo, maxWithdrawAmount) - 2 < 0 ? 0 : MathMin(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</div>
+      <div class="form-group mgn-top">
+        <div class="row">
+          <div class="fl margin-l-15 margin-t-5">提现金额：</div>
+          <div class="col-xs-4 padding-0" >
+            <input name="amount" type="text" class="verify-input" ng-model="amount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-focus ng-disabled="MathMin(availableCashRealNo, maxWithdrawAmount) <= 0" required autofocus/>&nbsp;&nbsp;元
+          </div>
+          <div class="fl margin-t-5">手续费：2元</div>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group mgn-top">
-          <label class="col-md-3 col-lg-3">手续费：
-            <br><small>(第三方支付收取)</small>
-          </label>
-          <p>2元</p>
+        
+        <div class="user-tips-area col-xs-6 col-lg-6 col-xs-offset-1 col-lg-offset-1 margin-b-15" ng-show="withdrawForm.amount.$dirty && withdrawForm.amount.$error.pattern">
+          <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>请输入数字(最多精确到小数点后两位)</p>
         </div>
-      </div>
-      <div class="row">
-        <div class="form-group mgn-top">
-          <label class="col-md-3 col-lg-3">可提现金额：</label>
-          <p>{{MathMin(availableCashRealNo, maxWithdrawAmount) - 2 < 0 ? 0 : MathMin(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</p>
+        <div class="user-tips-area col-xs-6 col-lg-6 col-xs-offset-1 col-lg-offset-1 margin-b-15" ng-show="withdrawForm.amount.$dirty && checkLargestAmount(amount)">
+          <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能大于可提现金额</p>
+        </div>
+        <div class="user-tips-area col-xs-6 col-lg-6 col-xs-offset-1 col-lg-offset-1 margin-b-15" ng-show="withdrawForm.amount.$dirty && withdrawForm.amount.$error.required && !withdrawForm.amount.$focused">
+          <img ng-src="images/check_no.png" class="user-check-img">
+          <p class="input-tips user-input-tips">提现金额不能为空</p>
         </div>
       </div>
       <div class="row">
         <div class="form-group">
-          <label class="col-md-3 col-lg-3">提现金额：</label>
-          <input name="amount" type="text" class="verify-input" ng-model="amount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-focus ng-disabled="MathMin(availableCashRealNo, maxWithdrawAmount) <= 0" required autofocus/>&nbsp;&nbsp;元
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="withdrawForm.amount.$dirty && withdrawForm.amount.$error.pattern">
-            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>请输入数字(最多精确到小数点后两位)</p>
-          </div>
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="withdrawForm.amount.$dirty && checkLargestAmount(amount)">
-            <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>不能大于可提现金额</p>
-          </div>
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="withdrawForm.amount.$dirty && withdrawForm.amount.$error.required && !withdrawForm.amount.$focused">
-            <img ng-src="images/check_no.png" class="user-check-img">
-            <p class="input-tips user-input-tips">提现金额不能为空</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group">
-          <label class="col-md-3 col-lg-3"></label>
+          <label class="col-xs-3 col-lg-3"></label>
           <input type="button" value="确认提现" class="white-button" ng-click="withdraw(amount, captcha)" ng-disabled="withdrawForm.$invalid || checkLargestAmount(amount)" ng-class="{'white-button':withdrawForm.$invalid || checkLargestAmount(amount), 'blue-button':!withdrawForm.$invalid && !checkLargestAmount(amount)}" />
         </div>
       </div>
@@ -57,7 +43,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="ft-12 col-md-offset-1 col-lg-offset-1 col-md-10">
+    <div class="ft-12 col-xs-offset-1 col-lg-offset-1 col-xs-10">
+      <br>
       <p>温馨提示</p>
       <p>1. 目前提现收取2元每笔的提现费用。提现金额的最小额度为1元，即额度大于或等于1元。宏财网平台不收取任何提现费用；</p>
       <p>2. 银行存管系统收到用户提现申请即对提现进行转账操作，提现资金将会在下个工作日到账（如遇双休日或法定节假日顺延）；</p>

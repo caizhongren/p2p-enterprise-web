@@ -1,12 +1,41 @@
 <!--账户总览-->
-<div class="right-area right-account-height col-md-8 col-lg-9">
+<div class="right-area right-account-height col-xs-12 col-md-8 col-lg-9">
   <div class="row">
     <div class="right-title">账户总览</div>
   </div>
   <!-- 借款方 -->
   <div class="row" ng-if="userType !== 6">
     <div class="account-message">
-      <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-1 col-xs-5 col-xs-offset-1 ft-16 account-button">账户余额： {{(balance || 0)| number:2}} 元</div>
+        <input type="button" ui-sref="root.userCenter.recharge" class="blue-button col-md-1 col-md-offset-1 col-xs-1 col-xs-offset-1" value="充值" ng-show="userType != 5"/>
+        <input type="button" ui-sref="root.userCenter.withdraw" class="white-button col-md-1 col-md-offset-1 col-xs-1 col-xs-offset-1" value="提现" ng-show="userType != 5"/>
+      </div>
+      <div class="row loan">
+        <div class="col-md-5 col-md-offset-1 col-xs-5 col-xs-offset-1">
+            <div class="assets-ico total-assets"></div>
+            <p class="asset-tips">累计借款本金： {{(totalFundRaising || 0) | number:2}} 元</p>
+        </div>
+        <div class="col-md-5 col-xs-5">
+          <div class="assets-ico net-income"></div>
+          <p class="asset-tips">累计借款利息： {{(accruedInterest || 0) | number:2}} 元</p>
+        </div>
+      </div>
+      <ul class="row col-md-offset-1 col-xs-offset-1 padding-0">
+        <li class="col-md-4 col-xs-4 padding-0">
+          <p>{{(totalFundRaising+ accruedInterest) || 0 | number:2}} 元</p>
+          <p>应还金额</p>
+        </li>
+        <li class="col-md-4 col-xs-4 padding-0">
+          <p>{{(totalFundRaising - unPrincipal + accruedInterest - unInterest) || 0 | number:2}} 元</p>
+          <p>已还金额</p>
+        </li>
+        <li class="col-md-4 col-xs-4 padding-0">
+          <p>{{(unInterest + unPrincipal || 0) | number:2}} 元</p>
+          <p>待还金额</p>
+        </li>
+      </ul>
+      <!-- <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
         <cjs-doughnut dataset="doughnutAccountData" options="doughnutOptions" height="313"></cjs-doughnut>
       </div>
       <div class="right-message col-md-6 col-lg-5">
@@ -55,9 +84,7 @@
 
         <input type="button" ui-sref="root.userCenter.recharge" class="blue-button account-button col-md-3 col-lg-3" value="充值" ng-show="userType != 5"/>
         <input type="button" ui-sref="root.userCenter.withdraw" class="white-button account-button account-right-button col-md-3 col-lg-3" value="提现" ng-show="userType != 5"/>
-        <!-- <input type="button" class="white-button account-button account-right-button col-md-3 col-lg-3" value="激活存管通" ng-show="pay_company === 'cgt' && isLogged === true && securityStatus.realNameAuthStatus ===1 && securityStatus.userAuth.active === false" ng-click="goActivateUser()"/>
-        <input type="button" class="white-button account-button account-right-button col-md-2 col-lg-2" value="修改企业信息" ng-click="enterpriseInfoUpdate()"/> -->
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- 居间人 -->
@@ -100,7 +127,7 @@
   </div>
   <!-- TODO -->
   <div class="row">
-    <div class="right-title">筹资信息</div>
+    <div class="right-title">借款信息</div>
   </div>
   <!-- 借款方 -->
   <div ng-if="userType !== 6">
@@ -165,16 +192,17 @@
                     <td>计息日期：{{projectBillDetail.project.valueDate | date:"yyyy-MM-dd"}}</td>
                     <td>到期日期：{{projectBillDetail.project.repaymentDate | date:"yyyy-MM-dd"}}</td>
                   </tr>
-                  <tr>
+                  <tr class="ftw-b">
                     <td class="{{projectBill.repaymentTime-3*24*3600*1000<=timestamp.getTime() ?'input-strong-tips':''}}">还款日期：
                         {{projectBill.repaymentTime | date:"yyyy-MM-dd"}}
                     </td>
                     <td>应付款项：{{projectBill.repaymentAmount | number : 2}}元</td>
-                    <td>期数： 第{{projectBill.repaymentNo}}期</td>
+                    <td>期数： 第{{projectBill.repaymentNo}}/{{projectBillDetail.project.cycle}}期</td>
                   </tr>
                   
                 </table>
-                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg active" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
+                <input type="button" class="col-xs-3 project-button btn-lg" ng-class="{'col-xs-offset-4': projectBill.repaymentTime - serverTime >= ms, 'col-xs-offset-2': projectBill.repaymentTime - serverTime < ms}" ng-value="'查看详情'" ng-click="toDetail(projectBillDetail.project.number)"  />
+                <input ng-if="projectBill.repaymentTime - serverTime < ms" type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="true ? '立即还款' : '未到还款日期'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
               </div>
             </div>
           </div>
@@ -234,6 +262,7 @@
                     <td>已付利息：{{projectBillDetail.projectInfo.projectBackProfit | number:2 || 0}}元</td>
                   </tr>
                 </table>
+                <input type="button" class="col-xs-offset-4 col-xs-3 btn btn-info btn-lg" ng-value="'查看详情'" ng-click="toDetail(projectBillDetail.project.number)"  />
               </div>
             </div>
           </div>

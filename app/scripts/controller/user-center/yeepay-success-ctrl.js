@@ -2,7 +2,7 @@
 angular.module('hongcaiApp')
   .controller('YeepaySuccessCtrl', ['$scope', '$state', '$timeout', function($scope, $state, $timeout) {
     $scope.page = 1;
-    $scope.counter = 5;
+    $scope.counter = 3;
     $scope.onTimeout = function() {
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);

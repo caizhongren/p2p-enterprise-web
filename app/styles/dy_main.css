@@ -31,40 +31,40 @@ input:focus {
   background: url(/images/sprite.png) no-repeat;
 }
 .login-right-area {
-  background-position: -1481px -1121px;
+  background-position: -1388px -1121px;
 }
 .right-title {
   background-position: -858px -130px;
 }
 .check-ok {
-  background-position: -96px -305px;
+  background-position: -83px -305px;
 }
 .right-user-head {
   background-position: -512px -533px;
 }
 .grey-safe-pwd {
-  background-position: -12px -1277px;
+  background-position: 44px -1277px;
 }
 .grey-safe-phone {
-  background-position: -140px -1277px;
+  background-position: -179px -1277px;
 }
 .grey-safe-mail {
   background-position: -269px -1277px;
 }
 .grey-safe-realname {
-  background-position: -400px -1277px;
+  background-position: -364px -1277px;
 }
 .blue-safe-pwd {
-  background-position: -12px -1485px;
+  background-position: 44px -1485px;
 }
 .blue-safe-phone {
-  background-position: -140px -1485px;
+  background-position: -179px -1485px;
 }
 .blue-safe-mail {
   background-position: -269px -1485px;
 }
 .blue-safe-realname {
-  background-position: -400px -1485px;
+  background-position: -364px -1485px;
 }
 .card-no {
   background-position: -77px -424px;
@@ -85,13 +85,13 @@ input:focus {
   background-position: -77px -481px;
 }
 .high-level {
-  background-position: -35px -1165px;
+  background-position: -23px -1165px;
 }
 .mid-level {
-  background-position: -35px -1228px;
+  background-position: -23px -1228px;
 }
 .low-level {
-  background-position: -35px -1197px;
+  background-position: -23px -1197px;
 }
 .grey-account {
   background-position: -394px -463px;
@@ -641,6 +641,9 @@ input:focus {
 .account-message {
   height: 325px;
 }
+.account-message .loan {
+  margin: 50px -15px;
+}
 .account-message1 {
   height: 200px;
 }
@@ -849,7 +852,7 @@ input:focus {
   margin-top: 4px;
 }
 .right-area {
-  margin-left: 40px;
+  /* margin-left: 40px; */
   margin-bottom: 30px;
   min-height: 600px !important;
 }
@@ -959,7 +962,9 @@ input:focus {
   padding-left: 21px;
   padding-top: 7px;
 }
-
+.margin-t-5 {
+  margin-top: 5px;
+}
 .margin-t-50 {
   margin-top: 50px;
 }
@@ -968,6 +973,12 @@ input:focus {
 }
 .margin-b-0 {
   margin-bottom: 0 !important;
+}
+.margin-l-5 {
+  margin-left: 5px;
+}
+.margin-l-15 {
+  margin-left: 15px;
 }
 .margin-l-20 {
   margin-left: 20px;

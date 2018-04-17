@@ -213,5 +213,21 @@ angular.module('hongcaiApp')
       }, {
         'post':   {method:'POST'}
       }),
+      waitRepaymentAmount: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/0/waitRepaymentAmount',{
+        repaymentDays: '@repaymentDays'
+      }),
+      getProjectBill: $resource(RESTFUL_DOMAIN + '/projects/:number/projectBills', {
+        number: '@number'
+      }, {
+        'get': {
+          method:'GET',
+          isArray: true  
+        }
+      }),
+      getProjectDetail: $resource(RESTFUL_DOMAIN + '/projects/:id/detail', {
+        id: '@id'
+      }),
+      getServerTime: $resource(RESTFUL_DOMAIN + '/systems/serverTime', {}),
+      getEnterpriseInfo: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/enterpriseInfo', {})
     };
   });

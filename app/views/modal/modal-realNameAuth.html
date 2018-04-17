@@ -1,0 +1,57 @@
+<div class="alert" ng-class="[type ? 'alert-' + type : null]" ng-controller="RealNameCtrl">
+  <button type="button" class="close" ng-if="dismissable" ng-click="$hide()">&times;</button>
+  <div class="title">开通海口联合农商银行资金存管账户</div>
+  <div class="content">
+    <div class="row text-justify col-xs-12">尊敬的宏财用户，欢迎来到宏财网！ 请填写或核对以下信息后开通银行资金存管账户。只有当您开通银行资金存管账户后，才能继续完成借款。</div>
+    <div class="row">
+      <form ng-show="userType == 1 || userType == 7" class="form-login col-xs-12 padding-b-30" role="form" name="registerForm" ng-submit="realNameAuth(user);$hide();">
+        <div class="form-group col-xs-12">
+          <label for="realName" class="col-xs-3">姓名：</label>
+          <input type="text" class="col-xs-6" id="realName" name="realName" ng-model="user.realName" required auto-fill-sync autofocus />
+          <div ng-if="registerForm.realName.$dirty && registerForm.realName.$invalid" class="form-div col-xs-offset-3 col-xs-9">
+            <div ng-if="registerForm.realName.$error.required" class="row">
+              <i class="fa fa-times-circle-o login-check-img"></i>
+              <span class="input-tips">姓名不能为空</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12">
+          <label for="idCardNo" class="col-xs-3">身份证号：</label>
+          <input type="text" class="col-xs-6" name="idCardNo" ng-model="user.idCardNo" ng-pattern="/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i"  required auto-fill-sync autofocus />
+          <div ng-if="registerForm.idCardNo.$dirty && registerForm.idCardNo.$invalid" class="col-xs-9 col-xs-offset-3 form-div">
+            <div ng-if="registerForm.idCardNo.$error.required" class="row">
+              <i class="fa fa-times-circle-o login-check-img"></i>
+              <span class="input-tips">身份证号码不能为空</span>
+            </div>
+            <div ng-if="registerForm.idCardNo.$error.pattern" class="row">
+              <i class="fa fa-times-circle-o login-check-img"></i>
+              <span class="input-tips">身份证号码格式不对</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-xs-12">
+          <input type="submit" class="blue-button col-xs-6 col-xs-offset-3" ng-disabled="registerForm.$invalid" value="立即开通" />
+        </div>
+      </form>
+      <form ng-show="userType == 2 || userType == 8" class="form-login col-xs-12 padding-b-30" role="form" name="loginForm" ng-submit="realNameAuth(user);$hide();">
+        <div class="form-group col-xs-12">
+          <label for="companyName" class="col-xs-4">公司名称：</label>
+          <input type="text" class="col-xs-6" id="companyName" name="companyName" ng-model="companyName" required auto-fill-sync disabled />
+        </div>
+        <div class="form-group col-xs-12">
+          <label for="accountNumber" class="col-xs-4">收款账号：</label>
+          <input type="text" class="col-xs-6" name="accountNumber" ng-model="accountNumber" required auto-fill-sync disabled />
+        </div>
+        <div class="form-group col-xs-12">
+          <label for="userMobile" class="col-xs-4">联系人手机号：</label>
+          <input type="text" class="col-xs-6" name="userMobile" ng-model="userMobile" required auto-fill-sync disabled />
+        </div>
+        <div class="form-group col-xs-12">
+          <input type="submit" class="blue-button col-xs-6 col-xs-offset-3" ng-disabled="loginForm.$invalid" value="立即开通" />
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="text-center ft-12">信息有误，联系工作人员：400-9907626</div>
+</div>
+<div class="mask_layer"></div>

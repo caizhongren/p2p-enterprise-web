@@ -20,6 +20,9 @@ angular.module('hongcaiApp')
     }
 
 
+    $scope.user ={
+      type: 1
+    }
     $scope.busy = false;
     $scope.login = function(user) {
       if($scope.busy){
@@ -48,6 +51,7 @@ angular.module('hongcaiApp')
           $rootScope.loginName = response.data.user.name;
           $rootScope.isLogged = true;
           toaster.pop('success', '恭喜您，登录成功！');
+          $rootScope.realNameAuthStatus !== 1 ? $rootScope.alertRealName() : null
         } else {
           toaster.pop('error', response.msg);
         }

@@ -1,5 +1,5 @@
 <!--充值-->
-<div class="right-area right-assets-height recharge col-md-8 col-lg-9">
+<div class="right-area right-assets-height recharge col-md-8 col-lg-9 col-xs-12">
   <div class="row" ng-show="userType != 5">
     <div class="right-title word-less-title">充值</div>
   </div>
@@ -8,7 +8,7 @@
   </div>
   <!--start 安全认证提示 -->
   <div class="introduction-area border-none row">
-    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth" >您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p>
+    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth" >您未完成安全认证，请先<a ng-click="alertRealName()">开通</a>海口联合农商银行资金存管账户</p>
   </div>
   <!--end 安全认证提示 -->
 
@@ -17,28 +17,31 @@
     <form class="col-md-offset-1 col-lg-offset-1 col-md-10" name="rechargeForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="row">
         <div class="form-group mgn-top ">
-          <label class="col-md-2 col-lg-2">可用余额：</label>
-          <p class="col-2 fl" style="width:20%;float:left;">{{ balance || "0" | number:2}}元</p>
-          <div class="payment col-md-3 padding-t-3 cursor-pt" ng-class="{'pay-active':payment ==1}" ng-click="selectPay(1)">快捷支付方式</div>
-          <div class="payment col-md-3 padding-t-3 cursor-pt" ng-class="{'pay-active':payment ==2}" ng-click="selectPay(2)">网银支付方式</div>
+          <label class="col-xs-2 col-lg-2">可用余额：</label>
+          <p class="col-xs-4">{{ balance || "0" | number:2}}元</p>
+          <div class="payment col-xs-3 margin-t-3 padding-r-0 cursor-pt" ng-class="{'pay-active':payment ==2}" ng-click="selectPay(2)"><label for="pay2"><input type="radio" id="pay2" name="pay" checked/> 网银支付方式</label></div>
+          <div class="payment col-xs-3 margin-t-3 padding-r-0 cursor-pt" ng-class="{'pay-active':payment ==1}" ng-click="selectPay(1)"><label for="pay1"><input type="radio" id="pay1" name="pay" /> 快捷支付方式</label></div>
         </div>
       </div>
       <hr color="#888181" width="97%" height="2px" class="margin-t-0">
       <div class="row">
+        <div class="form-group mgn-top col-xs-10 margin-l-5" ng-if="unpaidAmount > 0">当期待还款金额为{{unpaidAmount | number: 2}}元，建议充值金额<span class="ft-blue">{{unpaidAmount - balance < 0 ? 0 : unpaidAmount - balance | number: 2}}</span>元</div>
+      </div>
+      <div class="row mgn-top">
         <div class="form-group">
-          <label class="col-md-3 col-lg-2">充值金额：</label>
+          <label class="col-xs-2">充值金额：</label>
           <input name="amount" type="text" class="verify-input" ng-model="rechargeAmount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-foucus required autofocus/>&nbsp;&nbsp;元
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="rechargeForm.amount.$dirty && rechargeForm.amount.$error.pattern">
+          <div class="user-tips-area col-xs-offset-2 col-lg-offset-2" ng-show="rechargeForm.amount.$dirty && rechargeForm.amount.$error.pattern">
             <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>请输入数字(最多精确到小数点后两位)</p>
           </div>
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="rechargeForm.amount.$dirty && rechargeForm.amount.$error.required && !rechargeForm.amount.$focused">
+          <div class="user-tips-area col-xs-offset-2 col-lg-offset-2" ng-show="rechargeForm.amount.$dirty && rechargeForm.amount.$error.required && !rechargeForm.amount.$focused">
             <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>充值金额不能为空</p>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="form-group">
-          <input type="button" value="确认充值" class="white-button col-md-offset-3 col-lg-offset-2" ng-click="recharge(rechargeAmount)" ng-disabled="rechargeForm.$invalid" ng-class="{'white-button':rechargeForm.$invalid, 'blue-button':!rechargeForm.$invalid}" />
+          <input type="button" value="确认充值" class="white-button col-xs-offset-3 col-lg-offset-2" ng-click="recharge(rechargeAmount)" ng-disabled="rechargeForm.$invalid" ng-class="{'white-button':rechargeForm.$invalid, 'blue-button':!rechargeForm.$invalid}" />
         </div>
       </div>
     </form>
@@ -50,28 +53,28 @@
 
   <!--<p>{{isSecurityAuth}}</p>-->
   <div class="row" ng-show="userType == 5 && isSecurityAuth">
-    <form class="col-md-offset-1  col-lg-offset-1 col-md-10" name="transferForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
+    <form class="col-xs-offset-1  col-lg-offset-1 col-xs-10" name="transferForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="row">
         <div class="form-group mgn-top">
-          <label class="col-md-3 col-lg-2">可转账余额：</label>
+          <label class="col-xs-3 col-lg-2">可转账余额：</label>
           <p>{{ balance || "0" | number:2}}元</p>
         </div>
       </div>
       <div class="row">
         <div class="form-group">
-          <label class="col-md-3 col-lg-2">转账金额：</label>
+          <label class="col-xs-3 col-lg-2">转账金额：</label>
           <input name="amount" type="text" class="verify-input" ng-model="transferAmount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-foucus required autofocus/>&nbsp;&nbsp;元
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="transferForm.amount.$dirty && transferForm.amount.$error.pattern">
+          <div class="user-tips-area col-xs-offset-2 col-lg-offset-2" ng-show="transferForm.amount.$dirty && transferForm.amount.$error.pattern">
             <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>请输入数字(最多精确到小数点后两位)</p>
           </div>
-          <div class="user-tips-area col-md-offset-2 col-lg-offset-2" ng-show="transferForm.amount.$dirty && transferForm.amount.$error.required && !transferForm.amount.$focused">
+          <div class="user-tips-area col-xs-offset-2 col-lg-offset-2" ng-show="transferForm.amount.$dirty && transferForm.amount.$error.required && !transferForm.amount.$focused">
             <p class="input-tips user-input-tips security-stl"><i class="fa fa-times-circle-o login-check-img"></i>充值金额不能为空</p>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="form-group">
-          <input type="button" value="确认转账" class="white-button col-md-offset-3 col-lg-offset-2" ng-click="transferToPlaform(transferAmount)" ng-disabled="transferForm.$invalid" ng-class="{'white-button':transferForm.$invalid, 'blue-button':!transferForm.$invalid}" />
+          <input type="button" value="确认转账" class="white-button col-xs-offset-3 col-lg-offset-2" ng-click="transferToPlaform(transferAmount)" ng-disabled="transferForm.$invalid" ng-class="{'white-button':transferForm.$invalid, 'blue-button':!transferForm.$invalid}" />
         </div>
       </div>
     </form>
@@ -81,7 +84,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="ft-12 col-md-offset-1 col-lg-offset-1 col-md-10">
+    <div class="ft-12 col-xs-offset-1 col-lg-offset-1 col-xs-10">
+      <br>
       <p>温馨提示</p>
       <p>1. 您的账户资金将由海口联合农村商业银行进行资金存管；</p>
       <p>2. 首先请注意您是否开通网上银行等功能,可能存在充值超过限额：（充值限额，是银行、第三方支付平台和用户您自己设定的支付限额决定的，取三者最小值）以免造成充值不成功；</p>

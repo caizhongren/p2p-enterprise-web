@@ -33,7 +33,7 @@ angular.module('hongcaiApp')
 
     $scope.page = page;
 
-    $scope.counter = 5;
+    $scope.counter = 3;
     $scope.onTimeout = function() {
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);
