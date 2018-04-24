@@ -9,7 +9,8 @@
   <div class="row" ng-show="isSecurityAuth">
     <form class="col-xs-offset-2 col-xs-10" name="withdrawForm" ng-show="userDetail.bankCardStatus === 'VERIFIED'">
       <div class="form-group mgn-top">可用余额：{{availableCash | number:2}}元</div>
-      <div class="form-group mgn-top">可提现金额：{{MathMin(availableCashRealNo, maxWithdrawAmount) - 2 < 0 ? 0 : MathMin(availableCashRealNo, maxWithdrawAmount) - 2 | number:2}}元</div>
+      <div class="form-group mgn-top" ng-show="MathMin(availableCashRealNo, maxWithdrawAmount) - 2 <= 0">可提现金额：0.00元</div>
+      <div class="form-group mgn-top" ng-show="MathMin(availableCashRealNo, maxWithdrawAmount) - 2 > 0">可提现金额：{{(MathMin(availableCashRealNo, maxWithdrawAmount) - 2) | number:2}}元</div>
       <div class="form-group mgn-top">
         <div class="row">
           <div class="fl margin-l-15 margin-t-5">提现金额：</div>
