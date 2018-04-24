@@ -25,7 +25,7 @@
       </div>
       <hr color="#888181" width="97%" height="2px" class="margin-t-0">
       <div class="row">
-        <div class="form-group mgn-top col-xs-10 margin-l-5" ng-if="unpaidAmount > 0">当期待还款金额为{{unpaidAmount | number: 2}}元，建议充值金额<span class="ft-blue">{{unpaidAmount - balance < 0 ? 0 : unpaidAmount - balance | number: 2}}</span>元</div>
+        <div class="form-group mgn-top col-xs-10 margin-l-5" ng-if="unpaidAmount > 0">当期待还款金额为{{unpaidAmount | number: 2}}元，建议充值金额<span class="ft-blue">{{(unpaidAmount - balance < 0 ? 0 : (unpaidAmount - balance)) | number: 2}}</span>元</div>
       </div>
       <div class="row mgn-top">
         <div class="form-group">
