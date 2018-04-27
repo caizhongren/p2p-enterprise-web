@@ -20,9 +20,8 @@ angular.module('hongcaiApp')
         from: 0
       }, function(response) {
         if (response && response.ret !== -1) {
-          console.log(response)
           // $rootScope.securityStatus.realNameAuthStatus = 1;
-          // PayUtils.redToTrusteeship('toRegister', response.data);
+          PayUtils.redToTrusteeship('toRegister', response.data.payIn);
         } else {
           toaster.pop('warning', response.msg);
           console.log('ask security-settings, why yeepayRegister did not load data...');
