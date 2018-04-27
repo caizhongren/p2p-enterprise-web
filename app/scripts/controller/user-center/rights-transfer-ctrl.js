@@ -20,6 +20,7 @@ angular.module('hongcaiApp')
         from: 0
       }, function(response) {
         if (response && response.ret !== -1) {
+          console.log(response)
           // $rootScope.securityStatus.realNameAuthStatus = 1;
           PayUtils.redToTrusteeship('toRegister', response.data);
         } else {
