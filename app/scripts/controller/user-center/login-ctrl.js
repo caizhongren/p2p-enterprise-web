@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LoginCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'LoginService', 'SessionService', 'ipCookie', 'toaster', 'md5', '$timeout', function($scope, $state, $rootScope, $stateParams, LoginService, SessionService, ipCookie, toaster, md5, $timeout) {
+  .controller('LoginCtrl', ['$scope', '$state', '$rootScope', '$stateParams', 'LoginService', 'SessionService', 'ipCookie', 'toaster', 'md5', '$timeout', 'UserCenterService', function($scope, $state, $rootScope, $stateParams, LoginService, SessionService, ipCookie, toaster, md5, $timeout, UserCenterService) {
     // b端登录后没有首页展示，当判断用户已经登录，自动跳转个人中心
     // if ($rootScope.isLogged === true) {
     //   $state.go('root.userCenter.account-overview');
@@ -51,7 +51,12 @@ angular.module('hongcaiApp')
           $rootScope.loginName = response.data.user.name;
           $rootScope.isLogged = true;
           toaster.pop('success', '恭喜您，登录成功！');
-          $rootScope.realNameAuthStatus !== 1 ? $rootScope.alertRealName() : null
+          // $rootScope.realNameAuthStatus !== 1 ? $rootScope.alertRealName() : null
+          UserCenterService.userSecurityInfo.get({}, function(response) {
+            if (response.ret === 1) {
+              !response.data.userAuth.realnameAuth ? $rootScope.alertRealName() : null
+            }
+          })
         } else {
           toaster.pop('error', response.msg);
         }
