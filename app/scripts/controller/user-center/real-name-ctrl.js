@@ -10,7 +10,7 @@ angular.module('hongcaiApp')
         }
       })
       UserCenterService.getUserBankCard.get({}, function(response) {
-        if (response.ret !== 1) {
+        if (response.ret === 1) {
           var card = response.data.card;
           if (card) {
             $scope.accountNumber = card.cardNo;
