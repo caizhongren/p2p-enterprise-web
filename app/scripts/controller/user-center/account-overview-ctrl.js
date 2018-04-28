@@ -105,7 +105,7 @@ angular.module('hongcaiApp')
         $scope.statusx =1;
         
       } else if (status === 2) {
-        searchStatus = '7, 8';
+        searchStatus = '7,8';
         $scope.statusx = $rootScope.userType ===6 ? 5:2;
       } else {
         searchStatus = '10';
