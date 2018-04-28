@@ -32,7 +32,7 @@
       </div>
     </div>
     <!--start 安全认证提示 -->
-    <p class="verify-tip safe-card-tips" ng-show="!isAuth">您未完成安全认证，请先<a ng-click="alertRealName()">开通</a>海口联合农商银行资金存管账户</p>
+    <p class="verify-tip safe-card-tips" ng-hide="isVerifying || card.status === 'INIT' || isAuth && card.status !== 'VERIFIED' || dosi === false || isAuth && haveCard && !isVerifying">您未完成安全认证，请先<a ng-click="alertRealName()">开通</a>海口联合农商银行资金存管账户</p>
     <!-- <p class="verify-tip safe-card-tips" ng-show="!isAuth">您未完成安全认证，请前往<a ui-sref="root.userCenter.security-settings">【安全设置】</a>更新状态</p> -->
     <!--end 安全认证提示 -->
     <p class="ft-12">
