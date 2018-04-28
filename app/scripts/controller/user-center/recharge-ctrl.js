@@ -8,7 +8,7 @@ angular.module('hongcaiApp')
       repaymentDays: 28,
     }, function (response) {
       if (response.ret !== -1) {
-        $scope.unpaidAmount = response;
+        $scope.unpaidAmount = response.waitRepaymentAmount;
       } else {
         console.log(response.msg);
       }

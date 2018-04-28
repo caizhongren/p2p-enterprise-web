@@ -978,7 +978,7 @@ input:focus {
   margin-left: 5px;
 }
 .margin-l-15 {
-  margin-left: 15px;
+  margin-left: 15px !important;
 }
 .margin-l-20 {
   margin-left: 20px;
