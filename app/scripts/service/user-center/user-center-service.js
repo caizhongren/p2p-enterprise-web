@@ -92,7 +92,8 @@ angular.module('hongcaiApp')
       resetMobilePassword: $resource(DEFAULT_DOMAIN + '/siteUser/resetMobilePassword', {
         mobile: '@mobile',
         captcha: '@captcha',
-        password: '@password'
+        password: '@password',
+        userType: '@userType'
       }, {
         'post': {method:'POST'}
       }),

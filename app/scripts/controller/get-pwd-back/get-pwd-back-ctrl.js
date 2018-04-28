@@ -147,7 +147,7 @@ angular.module('hongcaiApp')
         mobile = user.mobile;
       }
       var md5MobPassword = md5.createHash(user.password);
-      UserCenterService.resetMobilePassword.post({mobile: mobile, captcha: user.mobileCaptcha, password: md5MobPassword }, function(response) {
+      UserCenterService.resetMobilePassword.post({mobile: mobile, captcha: user.mobileCaptcha, password: md5MobPassword, userType: $scope.usermessage.type }, function(response) {
         if(response.ret === 1) {
           $scope.areaFlag = 4;
           $scope.counter = 3;
