@@ -2,7 +2,7 @@
 angular.module('hongcaiApp')
   .controller('WithdrawSuccessCtrl', ['$scope', '$timeout', '$state', function($scope, $timeout, $state) {
     $scope.page = 3;
-    $scope.counter = 5;
+    $scope.counter = 3;
     $scope.onTimeout = function() {
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);

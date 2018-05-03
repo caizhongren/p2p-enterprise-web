@@ -52,6 +52,8 @@ angular.module('hongcaiApp')
                 show: true
               });
             }
+          } else {
+            toaster.pop('error', '请联系客服解绑银行卡');
           }
         });
       }else{

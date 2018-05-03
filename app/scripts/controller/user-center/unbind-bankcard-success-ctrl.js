@@ -3,7 +3,7 @@ angular.module('hongcaiApp')
   .controller('UnBindBankcardSuccessCtrl', ['$scope', '$timeout', '$state', function($scope, $timeout, $state) {
     $scope.page = 7;
 
-    $scope.counter = 5;
+    $scope.counter = 3;
     $scope.onTimeout = function() {
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);

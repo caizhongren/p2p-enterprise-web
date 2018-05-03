@@ -1,20 +1,32 @@
 'use strict';
 angular.module('hongcaiApp')
   .controller('RightsTransferCtrl', function ($rootScope, $scope, toaster, $stateParams, UserCenterService, config, $alert, PayUtils) {
-
     if ($stateParams.type === '0') {
+      $stateParams.realName != '0' ?
       UserCenterService.yeepayRegister.post({
         realName: $stateParams.realName,
-        idCardNo: $stateParams.idCardNo
+        idCardNo: $stateParams.idCardNo,
+        userId: 0
       }, function(response) {
         if (response && response.ret !== -1) {
-          $rootScope.securityStatus.realNameAuthStatus = 1;
+          // $rootScope.securityStatus.realNameAuthStatus = 1;
           PayUtils.redToTrusteeship('toRegister', response);
         } else {
           toaster.pop('warning', response.msg);
           console.log('ask security-settings, why yeepayRegister did not load data...');
         }
-      });
+      }) : 
+      UserCenterService.yeepayEnterpriseRegister.post({
+        from: 0
+      }, function(response) {
+        if (response && response.ret !== -1) {
+          // $rootScope.securityStatus.realNameAuthStatus = 1;
+          PayUtils.redToTrusteeship('toRegister', response.data.payIn);
+        } else {
+          toaster.pop('warning', response.msg);
+          console.log('ask security-settings, why yeepayRegister did not load data...');
+        }
+      })
 
     } else if ($stateParams.type === '1') {
       if($rootScope.securityStatus.realNameAuthStatus === 0 || !$rootScope.securityStatus.realNameAuthStatus) {

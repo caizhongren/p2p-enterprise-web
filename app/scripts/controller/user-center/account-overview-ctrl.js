@@ -6,7 +6,16 @@ angular.module('hongcaiApp')
     $scope.year = $scope.timestamp.getFullYear();
     $scope.month = $scope.timestamp.getMonth();
     $scope.day = $scope.timestamp.getDate();
-
+    UserCenterService.getServerTime.get({}, function(response) {
+      if (!response || response.ret === -1) {
+        return
+      }
+      $scope.serverTime = response.time
+      $scope.ms = 28 * 24 * 60 * 60 * 1000
+    })
+    $scope.toDetail = function (number) {
+      $state.go('root.userCenter.project-bills', {number: number})
+    }
     $scope.getEnterpriseAccount = function(){
       UserCenterService.getEnterpriseUserInfo.get(function(response) {
         if (response.ret === 1) {
@@ -22,37 +31,37 @@ angular.module('hongcaiApp')
           $scope.balance = account.balance;
           $scope.fundsBorrowerWaitingAmount = enterpriseUserCapital.fundsBorrowerWaitingAmount;
 
-          if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
-            $scope.doughnutAccountData = [{
-              value: 30,
-              label: '累计募资',
-              //highlight: '#FF5A5E',
-              color: '#e94828'
-            }, {
-              value: 30,
-              label: '累计利息',
-              color: '#f9b81e'
-            }, {
-              value: 30,
-              label: '账户余额',
-              color: '#62cbc6'
-            }];
-          } else {
-            $scope.doughnutAccountData = [{
-              value: $scope.totalFundRaising,
-              label: '累计募资',
-              //highlight: '#FF5A5E',
-              color: '#e94828'
-            }, {
-              value: $scope.accruedInterest,
-              label: '累计利息',
-              color: '#f9b81e'
-            }, {
-              value: $scope.balance,
-              label: '账户余额',
-              color: '#62cbc6'
-            }];
-          }
+          // if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
+          //   $scope.doughnutAccountData = [{
+          //     value: 30,
+          //     label: '累计募资',
+          //     //highlight: '#FF5A5E',
+          //     color: '#e94828'
+          //   }, {
+          //     value: 30,
+          //     label: '累计利息',
+          //     color: '#f9b81e'
+          //   }, {
+          //     value: 30,
+          //     label: '账户余额',
+          //     color: '#62cbc6'
+          //   }];
+          // } else {
+          //   $scope.doughnutAccountData = [{
+          //     value: $scope.totalFundRaising,
+          //     label: '累计募资',
+          //     //highlight: '#FF5A5E',
+          //     color: '#e94828'
+          //   }, {
+          //     value: $scope.accruedInterest,
+          //     label: '累计利息',
+          //     color: '#f9b81e'
+          //   }, {
+          //     value: $scope.balance,
+          //     label: '账户余额',
+          //     color: '#62cbc6'
+          //   }];
+          // }
         }
       });
 
@@ -96,7 +105,7 @@ angular.module('hongcaiApp')
         $scope.statusx =1;
         
       } else if (status === 2) {
-        searchStatus = '7';
+        searchStatus = '7,8';
         $scope.statusx = $rootScope.userType ===6 ? 5:2;
       } else {
         searchStatus = '10';
@@ -165,37 +174,37 @@ angular.module('hongcaiApp')
           $scope.balance = account.balance;
           $scope.fundsBorrowerWaitingAmount = enterpriseUserCapital.fundsBorrowerWaitingAmount;
 
-          if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
-            $scope.doughnutAccountData = [{
-              value: 30,
-              label: '累计募资',
-              //highlight: '#FF5A5E',
-              color: '#e94828'
-            }, {
-              value: 30,
-              label: '累计利息',
-              color: '#f9b81e'
-            }, {
-              value: 30,
-              label: '账户余额',
-              color: '#62cbc6'
-            }];
-          } else {
-            $scope.doughnutAccountData = [{
-              value: $scope.totalFundRaising,
-              label: '累计募资',
-              //highlight: '#FF5A5E',
-              color: '#e94828'
-            }, {
-              value: $scope.accruedInterest,
-              label: '累计利息',
-              color: '#f9b81e'
-            }, {
-              value: $scope.balance,
-              label: '账户余额',
-              color: '#62cbc6'
-            }];
-          }
+          // if ($scope.totalFundRaising === 0 && $scope.accruedInterest === 0 && $scope.balance === 0) {
+          //   $scope.doughnutAccountData = [{
+          //     value: 30,
+          //     label: '累计募资',
+          //     //highlight: '#FF5A5E',
+          //     color: '#e94828'
+          //   }, {
+          //     value: 30,
+          //     label: '累计利息',
+          //     color: '#f9b81e'
+          //   }, {
+          //     value: 30,
+          //     label: '账户余额',
+          //     color: '#62cbc6'
+          //   }];
+          // } else {
+          //   $scope.doughnutAccountData = [{
+          //     value: $scope.totalFundRaising,
+          //     label: '累计募资',
+          //     //highlight: '#FF5A5E',
+          //     color: '#e94828'
+          //   }, {
+          //     value: $scope.accruedInterest,
+          //     label: '累计利息',
+          //     color: '#f9b81e'
+          //   }, {
+          //     value: $scope.balance,
+          //     label: '账户余额',
+          //     color: '#62cbc6'
+          //   }];
+          // }
         }
       });
 
@@ -248,32 +257,32 @@ angular.module('hongcaiApp')
       }
     }
 
-    if ($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
-      $scope.doughnutOptions = {
-        segmentShowStroke: false,
-        segmentStrokeColor: '#fff',
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 65,
-        animation: true,
-        animationSteps: 100,
-        animationEasing: 'easeOutQuart',
-        animateRotate: true,
-        animateScale: false
-      };
-    } else {
-      $scope.doughnutOptions = {
-        segmentShowStroke: false,
-        segmentStrokeColor: '#fff',
-        segmentStrokeWidth: 2,
-        percentageInnerCutout: 65,
-        animation: true,
-        animationSteps: 100,
-        animationEasing: 'easeOutQuart',
-        animateRotate: true,
-        animateScale: false,
-        showTooltips: false
-      };
-    }
+    // if ($scope.totalFundRaising > 0 && $scope.accruedInterest > 0 && $scope.balance > 0) {
+    //   $scope.doughnutOptions = {
+    //     segmentShowStroke: false,
+    //     segmentStrokeColor: '#fff',
+    //     segmentStrokeWidth: 2,
+    //     percentageInnerCutout: 65,
+    //     animation: true,
+    //     animationSteps: 100,
+    //     animationEasing: 'easeOutQuart',
+    //     animateRotate: true,
+    //     animateScale: false
+    //   };
+    // } else {
+    //   $scope.doughnutOptions = {
+    //     segmentShowStroke: false,
+    //     segmentStrokeColor: '#fff',
+    //     segmentStrokeWidth: 2,
+    //     percentageInnerCutout: 65,
+    //     animation: true,
+    //     animationSteps: 100,
+    //     animationEasing: 'easeOutQuart',
+    //     animateRotate: true,
+    //     animateScale: false,
+    //     showTooltips: false
+    //   };
+    // }
 
     
     /**

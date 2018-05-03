@@ -31,40 +31,40 @@ input:focus {
   background: url(/images/sprite.png) no-repeat;
 }
 .login-right-area {
-  background-position: -1481px -1121px;
+  background-position: -1388px -1121px;
 }
 .right-title {
   background-position: -858px -130px;
 }
 .check-ok {
-  background-position: -96px -305px;
+  background-position: -83px -305px;
 }
 .right-user-head {
   background-position: -512px -533px;
 }
 .grey-safe-pwd {
-  background-position: -12px -1277px;
+  background-position: 44px -1277px;
 }
 .grey-safe-phone {
-  background-position: -140px -1277px;
+  background-position: -179px -1277px;
 }
 .grey-safe-mail {
   background-position: -269px -1277px;
 }
 .grey-safe-realname {
-  background-position: -400px -1277px;
+  background-position: -364px -1277px;
 }
 .blue-safe-pwd {
-  background-position: -12px -1485px;
+  background-position: 44px -1485px;
 }
 .blue-safe-phone {
-  background-position: -140px -1485px;
+  background-position: -179px -1485px;
 }
 .blue-safe-mail {
   background-position: -269px -1485px;
 }
 .blue-safe-realname {
-  background-position: -400px -1485px;
+  background-position: -364px -1485px;
 }
 .card-no {
   background-position: -77px -424px;
@@ -85,13 +85,13 @@ input:focus {
   background-position: -77px -481px;
 }
 .high-level {
-  background-position: -35px -1165px;
+  background-position: -23px -1165px;
 }
 .mid-level {
-  background-position: -35px -1228px;
+  background-position: -23px -1228px;
 }
 .low-level {
-  background-position: -35px -1197px;
+  background-position: -23px -1197px;
 }
 .grey-account {
   background-position: -394px -463px;
@@ -641,6 +641,9 @@ input:focus {
 .account-message {
   height: 325px;
 }
+.account-message .loan {
+  margin: 50px -15px;
+}
 .account-message1 {
   height: 200px;
 }
@@ -849,7 +852,7 @@ input:focus {
   margin-top: 4px;
 }
 .right-area {
-  margin-left: 40px;
+  /* margin-left: 40px; */
   margin-bottom: 30px;
   min-height: 600px !important;
 }
@@ -959,7 +962,9 @@ input:focus {
   padding-left: 21px;
   padding-top: 7px;
 }
-
+.margin-t-5 {
+  margin-top: 5px;
+}
 .margin-t-50 {
   margin-top: 50px;
 }
@@ -968,6 +973,12 @@ input:focus {
 }
 .margin-b-0 {
   margin-bottom: 0 !important;
+}
+.margin-l-5 {
+  margin-left: 5px;
+}
+.margin-l-15 {
+  margin-left: 15px !important;
 }
 .margin-l-20 {
   margin-left: 20px;
@@ -1000,4 +1011,131 @@ input:focus {
 .cursor-pointer {
   cursor: pointer;
 }
-
+.recharge .payment label {
+  padding: 0 !important;
+}
+.recharge .payment #pay1, .recharge .payment #pay2 {
+  width: 10px;
+  height: 12px;
+  margin: 0 5px;
+}
+.security-blue-button {
+  width: 70px !important;
+  line-height: 33px;
+}
+.security-mgn-l {
+  margin-left: 10.4%;
+}
+.project-button {
+  color: #5bc0de;
+  background-color: #fff;
+  border-color: #46b8da;
+}
+.project-button:hover {
+  color: #ffffff;
+  background-color: #31b0d5;
+  border-color: #269abc;
+}
+/* 借款详情 */
+.project-bills .repayment-plan {
+  width: 85%;
+  margin: 0 auto;
+}
+.project-bills .hidden {
+  opacity: 0;
+}
+.project-bills .each-line {
+  clear: both;
+}
+.project-bills .each-line .column1 {
+  width: 15%;
+}
+.project-bills .each-line .column1 .ed.circle {
+  background-color: #ddd;
+  box-shadow: 0 2px 16px #ddd, 0 0 2px #ddd, 0 0 2px #ddd;
+}
+.project-bills .each-line .column1 .circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d9edf7;
+  box-shadow: 0 2px 16px #d9edf7, 0 0 2px #d9edf7, 0 0 2px #d9edf7;
+  display: block;
+  margin: 0 auto;
+}
+.project-bills .each-line .column1 .first.vertical-line {
+  height: 30px;
+}
+.project-bills .each-line .column1 .ed.vertical-line {
+  background-color: #ddd;
+}    
+.project-bills .each-line .column1 .vertical-line {
+  height: 70px;
+  width: 3px;
+  background-color: #d9edf7;
+  display: block;
+  margin: 2px auto;
+}
+.project-bills .each-line .column2 {
+  padding: 0 10px;
+  background: #d9edf7;
+  color: #3399cc;
+  font-size: 15px;
+  width: 70%;
+  margin-top: -17px;
+  position: relative;
+}
+.project-bills .each-line .column2 hr {
+  width: 33px;
+  border-top: 3px solid #d9edf7;
+  position: absolute;
+  left: -54px;
+}
+.project-bills .each-line .column2.ed {
+  background: #ddd;
+  color: #999;
+}
+.project-bills .each-line .column2.ed hr {
+  width: 33px;
+  border-top: 3px solid #ddd;
+  position: absolute;
+  left: -54px;
+}
+.project-bills .each-line .column2::before {
+  border: 21px solid transparent;
+  border-right: 20px solid #d9edf7;
+  width: 0;
+  height: 0;
+  position: absolute;
+  content: ' ';
+  left: -41px;
+}
+.project-bills .each-line .column2.ed::before {
+  border: 21px solid transparent;
+  border-right: 20px solid #ddd;
+  width: 0;
+  height: 0;
+  position: absolute;
+  content: ' ';
+  left: -41px;
+}
+.right-area {
+  float: right !important;
+}
+.fl{float:left;}
+.fr{float:right;}
+@media (min-width: 768px) {
+  .container {
+    width: 768px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 992px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+}

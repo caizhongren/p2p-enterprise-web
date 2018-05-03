@@ -5395,7 +5395,7 @@ button.close {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000000;
+  background-color: transparent !important;
 }
 .modal-backdrop.fade {
   opacity: 0;
@@ -7060,7 +7060,7 @@ a:link {
 #footer .footer-down {
   padding: 30px 0 75px 0;
 }
-//recharge
+/* recharge */
 .pay-active {
   color: #54bbfb;
 }
