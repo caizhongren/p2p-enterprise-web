@@ -36,7 +36,7 @@ angular.module('hongcaiApp')
       $scope.currentPage = page;
       var getDealByUser = UserCenterService.getDealListByUser.get({ 
         dateInterval: $stateParams.dateInterval,
-        type: $stateParams.type,
+        dealType: $stateParams.type,
         page: page,
         pageSize: $scope.pageSize
       },function(response) {

@@ -4,6 +4,15 @@ angular.module('hongcaiApp')
     $rootScope.selectSide = 'recharge';
     $scope.balance = 0;
     $scope.isSecurityAuth = $rootScope.securityStatus.realNameAuthStatus === 1 ? true : false;
+    UserCenterService.waitRepaymentAmount.get({ // 获取当期待还金额
+      repaymentDays: 28,
+    }, function (response) {
+      if (response.ret !== -1) {
+        $scope.unpaidAmount = response.waitRepaymentAmount;
+      } else {
+        console.log(response.msg);
+      }
+    })
     UserCenterService.getUserBalance.get({}, function(response) {
       if (response.ret === 1) {
         $scope.balance = response.data.balance;
@@ -54,6 +63,6 @@ angular.module('hongcaiApp')
         $scope.expectPayCompany = 'YEEPAY';
       }
     }
-    $scope.selectPay(1);
+    $scope.selectPay(2);
 
   }]);

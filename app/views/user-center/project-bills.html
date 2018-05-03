@@ -1,0 +1,46 @@
+<!-- 借款详情 -->
+<div class="right-area project-bills col-md-9 col-lg-10">
+  <div class="row">
+    <div class="right-title">借款详情</div>
+  </div>
+  <div class="row repayment-plan">
+    <div class="each-line">
+      <div class="column1 fl">
+        <span class="vertical-line ed first"></span>
+      </div>
+    </div>
+    <div class="each-line">
+      <div class="column1 fl">
+        <span class="circle ed"></span>
+        <span class="vertical-line ed"></span>
+      </div>
+      <div class="column2 fl ed">
+        <hr>
+        <p>项目上线，开始募集</p>
+        <p>{{projectDetail.releaseStartTime | date: 'yyyy.MM.dd'}}</p>
+      </div>
+    </div>
+    <div class="each-line">
+      <div class="column1 fl">
+        <span class="circle ed"></span>
+        <span class="vertical-line" ng-class="{'ed': projectBill[0].status === 1}"></span>
+      </div>
+      <div class="column2 fl ed">
+        <hr>
+        <p> 项目放款，开始计息</p>
+        <p>{{projectDetail.loanTime | date: 'yyyy.MM.dd'}}</p>
+      </div>
+    </div>
+    <div class="each-line" ng-repeat="item in projectBill">
+      <div class="column1 fl">
+        <span class="circle" ng-class="{'ed': item.status === 1}"></span>
+        <span class="vertical-line" ng-class="{'hidden': $index === projectBill.length - 1, 'ed': projectBill[$index + 1].status === 1}"></span>
+      </div>
+      <div class="column2 fl" ng-class="{'ed': item.status === 1}">
+        <hr>
+        <p>{{item.status === 1 ? '已还金' : '待还金'}}{{item.repaymentAmount || 0 | number: 2}}元（第{{$index + 1}}/{{projectBill.length}}期 ）</p>
+        <p>{{item.status === 1 ? item.realRepaymentTime : item.repaymentTime | date: 'yyyy.MM.dd'}}</p>
+      </div>
+    </div>
+  </div>
+</div>

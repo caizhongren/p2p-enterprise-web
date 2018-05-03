@@ -42,11 +42,8 @@ a:link {
     margin: 0 !important;
 }
 
-.padding-t-3 {
+.margin-t-3 {
     margin-top: 3px;
-}
-.padding-t-10 {
-    margin-top: 10px;
 }
 .padding-l-0 {
     padding-left: 0 !important;
@@ -65,9 +62,6 @@ a:link {
 }
 .pay-active {
   color: #54bbfb;
-}
-.col-2 {
-  width: 20%;
 }
 .clearfix::after, .clearfix::before {
     content: ".";
@@ -728,8 +722,11 @@ a:link {
 }
 
 //modal
-.modal-backdrop.am-fade, .aside-backdrop.am-fade {
+.aside-backdrop.am-fade {
     background: rgba(0,0,0,.5);
+}
+.modal-backdrop.am-fade {
+    background: transparent !important;
 }
 #enLarge {
     .modal-dialog {
@@ -1125,3 +1122,121 @@ a:link {
 
 }
 
+.recharge {
+  
+  .payment {
+    label {
+      padding: 0 !important;
+    }
+    #pay1, #pay2 {
+      width: 10px;
+      height: 12px;
+      margin: 0 5px;
+    }
+  }
+}
+.security-blue-button {
+  width: 70px;
+  line-height: 33px;
+}
+.security-mgn-l {
+  margin-left: 10.4%;
+}
+.project-button {
+  color: #5bc0de;
+  background-color: #fff;
+  border-color: #46b8da;
+}
+.project-button:hover {
+  color: #ffffff;
+  background-color: #31b0d5;
+  border-color: #269abc;
+}
+// 借款详情
+.project-bills {
+  .repayment-plan {
+    width: 85%;
+    margin: 0 auto;
+    .hidden {
+      opacity: 0;
+    }
+    .each-line {
+      clear: both;
+      .column1 {
+        width: 15%;
+        .ed.circle {
+          background-color: #ddd;
+          box-shadow: 0 2px 16px #ddd, 0 0 2px #ddd, 0 0 2px #ddd;
+        }
+        .circle {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #d9edf7;
+          box-shadow: 0 2px 16px #d9edf7, 0 0 2px #d9edf7, 0 0 2px #d9edf7;
+          display: block;
+          margin: 0 auto;
+        }
+        .first.vertical-line {
+          height: 30px;
+        }
+        .ed.vertical-line {
+          background-color: #ddd;
+        }    
+        .vertical-line {
+          height: 70px;
+          width: 3px;
+          background-color: #d9edf7;
+          display: block;
+          margin: 2px auto;
+        }
+      }
+      .column2 {
+        padding: 0 10px;
+        background: #d9edf7;
+        color: #3399cc;
+        font-size: 15px;
+        width: 70%;
+        margin-top: -17px;
+        position: relative;
+        hr {
+          width: 33px;
+          border-top: 3px solid #d9edf7;
+          position: absolute;
+          left: -54px;
+        }
+      }
+      .column2.ed {
+        background: #ddd;
+        color: #999;
+        hr {
+          width: 33px;
+          border-top: 3px solid #ddd;
+          position: absolute;
+          left: -54px;
+        }
+      }
+      .column2::before {
+        border: 21px solid transparent;
+        border-right: 20px solid #d9edf7;
+        width: 0;
+        height: 0;
+        position: absolute;
+        content: ' ';
+        left: -41px;
+      }
+      .column2.ed::before {
+        border: 21px solid transparent;
+        border-right: 20px solid #ddd;
+        width: 0;
+        height: 0;
+        position: absolute;
+        content: ' ';
+        left: -41px;
+      }
+    }
+  }
+}
+.right-area {
+  float: right !important;
+}

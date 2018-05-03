@@ -4,14 +4,14 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="panel-body panel-get-pwd-back" >
-        <ul class="row">
-          <li class="col-xs-2 margin-l">
+        <ul class="row margin-l">
+          <!-- <li class="col-xs-2 margin-l">
             <span class="get-pwd-back-step-line"></span>
             <span class="get-pwd-back-step"><i class="fa fa-user"></i></span>
             <p class="get-pwd-back-step-text">输入帐号</p>
-          </li>
+          </li> -->
 
-          <li class="col-xs-2">
+          <li class="col-xs-3">
             <span class="get-pwd-back-step-line"></span>
             <span class="get-pwd-back-step">
               <i class="fa fa-credit-card"></i>
@@ -19,7 +19,7 @@
             <p class="get-pwd-back-step-text">验证身份</p>
           </li>
 
-          <li class="col-xs-2">
+          <li class="col-xs-3">
             <span class="get-pwd-back-step-line"></span>
             <span class="get-pwd-back-step">
               <i class="fa fa-key"></i>
@@ -27,26 +27,26 @@
             <p class="get-pwd-back-step-text">修改密码</p>
           </li>
 
-          <li class="col-xs-2">
+          <li class="col-xs-3">
               <span class="get-pwd-back-step">
                 <i class="fa fa-check"></i>
               </span>
               <p class="get-pwd-back-step-text">完成</p>
           </li>
         </ul>
-        <ul class="row triangle-up" style="margin-top:0px;">
-          <li class="col-xs-2 margin-l" ng-class="{'active': areaFlag == 1}">
+        <ul class="row triangle-up margin-l" style="margin-top:0px;">
+          <!-- <li class="col-xs-2 margin-l" ng-class="{'active': areaFlag == 1}">
             <span class="get-pwd-back-step trans">
               <i class="fa fa-sort-asc"></i>
             </span>
-          </li>
-          <li class="col-xs-2" ng-class="{'active': areaFlag == 21 || areaFlag == 22 || areaFlag == 23 }">
+          </li> -->
+          <li class="col-xs-3" ng-class="{'active': areaFlag == 1 }">
             <span class="get-pwd-back-step trans"><i class="fa fa-sort-asc"></i></span>
           </li>
-          <li class="col-xs-2" ng-class="{'active': areaFlag == 3}">
+          <li class="col-xs-3" ng-class="{'active': areaFlag == 3}">
             <span class="get-pwd-back-step trans"><i class="fa fa-sort-asc"></i></span>
           </li>
-          <li class="col-xs-2" ng-class="{'active': areaFlag == 4}">
+          <li class="col-xs-3" ng-class="{'active': areaFlag == 4}">
             <span class="get-pwd-back-step trans"><i class="fa fa-sort-asc"></i></span>
           </li>
         </ul>
@@ -55,7 +55,7 @@
   <!-- STEP1 第一步输入帐号 -->
       <div ng-show="areaFlag == 1" class="margin-b">
         <form class="form-horizontal" role="form" name="getPwdUserForm">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="account" class="col-xs-3  col-xs-offset-1 control-label">账户类型:</label>
             <div class="col-xs-7">
               <select class="form-group" ng-model="userType" required>
@@ -64,11 +64,11 @@
                 <option value="2">对公账户</option>
               </select>
             </div>
-          </div>
+          </div> -->
           <div class="form-group">
             <label for="account" class="col-xs-3  col-xs-offset-1 control-label">用户名:</label>
             <div class="col-xs-5">
-              <input type="text" class="form-pwd" name="account" ng-model="getPwd.account" find-account="account" required ng-focnus id="account" placeholder="手机号码">
+              <input type="text" class="form-pwd" name="account" ng-model="user.mobile" find-account="account" required ng-focnus id="account" placeholder="手机号码">
               <div ng-show="getPwdUserForm.account.$dirty && getPwdUserForm.account.$invalid && !getPwdUserForm.account.$focused && getPwdUserForm.account.$error.unique" class="user-tips-area get-pwd-tips-area">
 
                 <p class="input-tips user-input-tips"><i class="fa fa-times-circle-o login-check-img" style="top:0px;"></i>该账号不存在</p>
@@ -78,7 +78,7 @@
           <div class="form-group">
             <label for="captcha" class="col-xs-3 col-xs-offset-1 control-label">验证码:</label>
             <div class="col-xs-2 ">
-              <input type="text" class="form-pwd" name="captcha" ng-model="user.captcha" ensure-captcha="captcha" id="captcha" placeholder="请输入验证码" required ng-focus />
+              <input type="text" class="form-pwd" name="captcha" ng-model="user.picCaptcha" ensure-captcha="captcha" id="captcha" placeholder="请输入验证码" required ng-focus />
               <div ng-show="getPwdUserForm.captcha.$dirty && getPwdUserForm.captcha.$invalid && !getPwdUserForm.captcha.$focused && getPwdUserForm.captcha.$error.check">
 
                 <p class="input-tips user-input-tips"><i class="fa fa-times-circle-o login-check-img" style="top:0px;"></i>验证码错误</p>
@@ -88,15 +88,27 @@
             <a href="" ng-click="refreshCode()">看不清?换图片</a>
           </div>
           <div class="form-group">
+            <label for="step2-mobile" class="col-xs-3 col-xs-offset-1 control-label">短信验证码:</label>
+            <div class="col-xs-3">
+              <input type="text" class="form-pwd" name="step2-mobile" ng-model="user.mobileCaptcha"  ng-focnus id="step2-mobile" placeholder="请输入短信验证码">
+            </div>
+            <button class="{{getPwdUserForm.account.$invalid || getPwdUserForm.picCaptcha.$error.required || !piccha || getPwdUserForm.picCaptcha.$error.pattern ? 'blue-button verify-index grey ' : 'blue-button verify-index'}}" ng-disabled="getPwdUserForm.account.$invalid || getPwdUserForm.captcha.$error.required" capcha-countdown="">获取验证码</button>
+            <div ng-if="getPwdUserForm.mobileCaptcha.$dirty && getPwdUserForm.mobileCaptcha.$invalid && getPwdUserForm.mobileCaptcha.$error.check && !getPwdUserForm.mobileCaptcha.$focused" class="col-xs-offset-3 col-xs-8 form-div">
+              <div ng-if="getPwdUserForm.mobileCaptcha.$error.required" class="row">
+                <p class="input-tips login-input-tips">短信验证码错误</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
             <div class="col-xs-offset-3">
-              <button type="submit" class="col-xs-6 col-xs-offset-1 btn-blue btn-lg" ng-disabled="getPwdUserForm.$invalid" ng-click="verifyAccount(getPwd.account, user.captcha)">下一步</button>
+              <button type="submit" class="col-xs-6 col-xs-offset-1 btn-blue btn-lg" ng-disabled="getPwdUserForm.$invalid" ng-click="checkMobileCaptcha(user)">下一步</button>
             </div>
           </div>
         </form>
       </div>
 
       <!-- STEP2-1 通过手机号进行手机验证 -->
-      <div ng-show="areaFlag == 21" class="margin-b">
+      <!-- <div ng-show="areaFlag == 21" class="margin-b">
         <div class="col-xs-offset-3">
           <h4>已发送验证码到{{phoneNum||"133*****569"}}，请在下面输入您收到的验证码!</h4>
         </div>
@@ -104,7 +116,7 @@
           <div class="form-group">
             <label for="step2-mobile" class="col-xs-3 col-xs-offset-1 control-label">输入验证码:</label>
             <div class="col-xs-5">
-              <input type="text" class="form-pwd" name="step2-mobile" ng-model="getPwd.mobileCaptcha"  ng-focnus id="step2-mobile" placeholder="">
+              <input type="text" class="form-pwd" name="step2-mobile" ng-model="user.mobileCaptcha"  ng-focnus id="step2-mobile" placeholder="">
             </div>
           </div>
           <div class="form-group">
@@ -113,16 +125,16 @@
             </div>
           </div>
         </form>
-      </div>
+      </div> -->
       <!-- STEP2-2 通过邮件找回 -->
-      <div ng-show="areaFlag == 22" class="margin-b">
+      <!-- <div ng-show="areaFlag == 22" class="margin-b">
         <div class="col-xs-offset-3">
          <h4>邮件已经发送到{{emailAddr||"739*****@qq.com"}}，请到邮箱查看邮件！</h4>
         </div>
-      </div>
+      </div> -->
 
       <!--STEP2 通过用户名判断手机和邮箱 验证身份-->
-      <div ng-show="areaFlag == 2" class="margin-b">
+      <!-- <div ng-show="areaFlag == 2" class="margin-b">
         <div class="col-xs-12">
           <label class="col-xs-3 col-xs-offset-1" for="categoryVal">请选择找回方式：</label>
           <div class="col-xs-5">
@@ -152,16 +164,16 @@
             <div class="form-group">
               <label for="phone" class="col-xs-3 col-xs-offset-1 control-label">重新输入该手机号码：</label>
               <div class="col-xs-5 padding-lr">
-                <input type="text" class="form-pwd" name="phone" ng-model="getPwd.phone" required ng-focnus id="phone" placeholder="">
+                <input type="text" class="form-pwd" name="phone" ng-model="user.phone" required ng-focnus id="phone" placeholder="">
               </div>
             </div>
             <div class="form-group">
               <label for="phoneCaptcha" class="col-xs-3 col-xs-offset-1 control-label">输入验证码：</label>
               <div class="col-xs-5 padding-lr">
-                <input type="text" class="form-pwd" name="phoneCaptcha" id="phoneCaptcha" ng-model="getPwd.mobileCaptcha" />
+                <input type="text" class="form-pwd" name="phoneCaptcha" id="phoneCaptcha" ng-model="user.mobileCaptcha" />
               </div>
               <div class="col-xs-3">
-                <input type="button", class="btn btn-info" value="获取验证码" ng-click="sendMobileCaptcha(getPwd.account, getPwd.phone, user.captcha);" onclick="countDown(this,60);" ng-disabled="Step2GetPhone.phone.$invalid">
+                <input type="button", class="btn btn-info" value="获取验证码" ng-click="sendMobileCaptcha(user.account, user.phone, user.captcha);" onclick="countDown(this,60);" ng-disabled="Step2GetPhone.phone.$invalid">
               </div>
             </div>
 
@@ -178,17 +190,17 @@
             <div class="form-group">
               <label for="email" class="col-xs-4 control-label">重新输入该邮箱：</label>
               <div class="col-xs-4 padding-l">
-                <input type="text" class="form-pwd" id="email" name="email" id="email" ng-model="getPwd.email" required placeholder="" />
+                <input type="text" class="form-pwd" id="email" name="email" id="email" ng-model="user.email" required placeholder="" />
               </div>
             </div>
             <div class="form-group">
               <div class="col-xs-offset-4">
-                <button type="submit" class="col-xs-4 btn-blue btn-lg" ng-disabled="Step2GetEmail.$invalid" ng-click="infoVerifyEmail(getPwd.account, getPwd.email)">下一步</button>
+                <button type="submit" class="col-xs-4 btn-blue btn-lg" ng-disabled="Step2GetEmail.$invalid" ng-click="infoVerifyEmail(user.account, user.email)">下一步</button>
               </div>
             </div>
           </form>
         </div>
-      </div>
+      </div> -->
       <!-- STEP3 -->
       <div ng-show="areaFlag == 3" class="margin-b">
         <form class="form-horizontal" role="form" name="Step3SetPhonePwd">
@@ -210,7 +222,7 @@
           </div>
           <div class="form-group">
             <div class="col-xs-offset-3">
-              <button type="submit" class="col-xs-6 col-xs-offset-1 btn-blue btn-lg" ng-disabled="Step3SetPhonePwd.$invalid" ng-click="setPhoneNewPwd(getPwd, user)">下一步</button>
+              <button type="submit" class="col-xs-6 col-xs-offset-1 btn-blue btn-lg" ng-disabled="Step3SetPhonePwd.$invalid" ng-click="setPhoneNewPwd(user)">下一步</button>
             </div>
           </div>
         </form>

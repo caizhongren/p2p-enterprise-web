@@ -92,7 +92,8 @@ angular.module('hongcaiApp')
       resetMobilePassword: $resource(DEFAULT_DOMAIN + '/siteUser/resetMobilePassword', {
         mobile: '@mobile',
         captcha: '@captcha',
-        password: '@password'
+        password: '@password',
+        userType: '@userType'
       }, {
         'post': {method:'POST'}
       }),
@@ -106,7 +107,7 @@ angular.module('hongcaiApp')
       }),
       getDealListByUser: $resource(DEFAULT_DOMAIN + '/siteUser/getDealListByUser', {
         dateInterval: '@dateInterval',
-        type: '@type'
+        dealType: '@dealType'
       }),
       getEnterpriseUserInfo: $resource(DEFAULT_DOMAIN + '/enterpriseUser/getEnterpriseUserInfo', {}),
       repaymentFundsProject: $resource(DEFAULT_DOMAIN + '/enterpriseFunds/repaymentFundsProject', {
@@ -213,5 +214,21 @@ angular.module('hongcaiApp')
       }, {
         'post':   {method:'POST'}
       }),
+      waitRepaymentAmount: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/0/waitRepaymentAmount',{
+        repaymentDays: '@repaymentDays'
+      }),
+      getProjectBill: $resource(RESTFUL_DOMAIN + '/projects/:number/projectBills', {
+        number: '@number'
+      }, {
+        'get': {
+          method:'GET',
+          isArray: true  
+        }
+      }),
+      getProjectDetail: $resource(RESTFUL_DOMAIN + '/projects/:id/detail', {
+        id: '@id'
+      }),
+      getServerTime: $resource(RESTFUL_DOMAIN + '/systems/serverTime', {}),
+      getEnterpriseInfo: $resource(RESTFUL_DOMAIN + '/enterpriseUsers/enterpriseInfo', {})
     };
   });

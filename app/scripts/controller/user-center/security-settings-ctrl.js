@@ -110,6 +110,7 @@ angular.module('hongcaiApp')
         if (response.ret === 1) {
           $scope.changPwd = false;
           $scope.password = null;
+          $state.reload()
         } else if (response.ret === -1) {
           if (response.code === -1021) {
             $scope.isOldPasswordTrue = false;

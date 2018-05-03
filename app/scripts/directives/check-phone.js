@@ -8,7 +8,7 @@ angular.module('hongcaiApp').directive('checkPhone', ['$http', 'DEFAULT_DOMAIN',
         if (phone !== '') {
           $http({
             method: 'POST',
-            url: DEFAULT_DOMAIN + '/siteUser/findAccount?account=' + phone
+            url: DEFAULT_DOMAIN + '/enterpriseUser/findAccount?account=' + phone
           }).success(function(data) {
             if (data.data.user) {
               scope.usermessage = data.data.user;

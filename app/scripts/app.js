@@ -11,7 +11,7 @@ var hongcaiApp = angular.module('hongcaiApp', [
   'ngSanitize',
   'mgcrea.ngStrap',
   'ui.router',
-  'chartjs',
+  // 'chartjs',
   'ngResource',
   'toaster',
   'ipCookie',
@@ -84,6 +84,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
           templateUrl: 'views/user-center/sidebar.html',
           controller: 'UserCenterCtrl',
           controllerUrl: 'scripts/controller/user-center-ctrl'
+        }
+      }
+    })
+    .state('root.userCenter.project-bills', {
+      url: '/project-bills/:number',
+      views: {
+        'user-center': {
+          templateUrl: 'views/user-center/project-bills.html',
+          controller: 'ProjectBillsCtrl',
+          controllerUrl: 'scripts/controller/user-center/project-bills-ctrl'
         }
       }
     })
@@ -585,13 +595,23 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
   var routespermission = ['/account-overview',
     '/user-center'
   ];
-
+  $rootScope.alertRealName = function () {
+    $alert({
+      scope: $rootScope,
+      template: 'views/modal/modal-realNameAuth.html',
+      controller: 'RealNameCtrl',
+      show: true
+    });
+  }
+  
   /*
    * 开通存管通
   */
   $rootScope.realNameAuth = function(user) {
-    if (user && (!user.realName || !user.idCardNo || user.idCardNo.length < 18)) {
-      return;
+    if ($rootScope.userType == 1 || $rootScope.userType == 7) {
+      if (user && (!user.realName || !user.idCardNo || user.idCardNo.length < 18)) {
+        return;
+      }
     }
     $rootScope.msg = '1';
     $alert({
@@ -600,7 +620,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
       show: true
     });
 
-    window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0');
+    $rootScope.userType == 1 || $rootScope.userType == 7 ? window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0') : window.open('/#!/righs-transfer/0/0/0');
   };
 
   /**
@@ -652,6 +672,9 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
 
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
+    if ($location.path().split('/')[1] !== 'user-center') {
+      return
+    } else {  
       $checkSessionServer.error(function(response) {
         return;
       }).success(function(response) {
@@ -659,6 +682,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
           $rootScope.loginName = response.data.name;
           $rootScope.userType = response.data.userType;
           $rootScope.securityStatus = response.data.securityStatus;
+          $rootScope.realNameAuthStatus = response.data.securityStatus.realNameAuthStatus;
           $rootScope.userDetail = response.data.userDetail;
         } else {
           $rootScope.isLogged = false;
@@ -666,6 +690,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
           $location.path('/login/');
         }
       });
+    }
   });
   $rootScope.$on('$stateChangeSuccess', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
@@ -680,6 +705,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
           $rootScope.loginName = response.data.name;
           $rootScope.userType = response.data.userType;
           $rootScope.securityStatus = response.data.securityStatus;
+          $rootScope.realNameAuthStatus = response.data.securityStatus.realNameAuthStatus;
           $rootScope.userDetail = response.data.userDetail;
         } else {
           $rootScope.isLogged = false;
