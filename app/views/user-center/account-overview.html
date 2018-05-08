@@ -24,33 +24,18 @@
         </div>
       </div>
       <!-- 非代偿用户 -->
-      <ul class="row col-md-offset-1 col-xs-offset-1 padding-0" ng-show="userType !== 9">
+      <ul class="row col-md-offset-1 col-xs-offset-1 padding-0">
         <li class="col-md-4 col-xs-4 padding-0">
           <p>{{(totalFundRaising + accruedInterest) || 0 | number:2}} 元</p>
-          <p>应还金额</p>
+          <p>{{userType === 9 ? '累计担保金额' : '应还金额'}}</p>
         </li>
         <li class="col-md-4 col-xs-4 padding-0">
           <p>{{(totalFundRaising - unPrincipal + accruedInterest - unInterest) || 0 | number:2}} 元</p>
-          <p>已还金额</p>
+          <p>{{userType === 9 ? '解保金额' : '已还金额'}}</p>
         </li>
         <li class="col-md-4 col-xs-4 padding-0">
           <p>{{(unInterest + unPrincipal || 0) | number:2}} 元</p>
-          <p>待还金额</p>
-        </li>
-      </ul>
-      <!-- 代偿用户 userType:9 -->
-      <ul class="row col-md-offset-1 col-xs-offset-1 padding-0" ng-show="userType === 9">
-        <li class="col-md-4 col-xs-4 padding-0">
-          <p>{{totalFundRaising || 0 | number:2}} 元</p>
-          <p>累计担保金额</p>
-        </li>
-        <li class="col-md-4 col-xs-4 padding-0">
-          <p>{{(totalFundRaising - unPrincipal) || 0 | number:2}} 元</p>
-          <p>解保金额</p>
-        </li>
-        <li class="col-md-4 col-xs-4 padding-0">
-          <p>{{unPrincipal || 0 | number:2}} 元</p>
-          <p>在保金额</p>
+          <p>{{userType === 9 ? '在保金额' : '待还金额'}}</p>
         </li>
       </ul>
       <!-- <div class="account-pic account-pic-bg col-md-6 col-lg-6 col-lg-offset-1">
