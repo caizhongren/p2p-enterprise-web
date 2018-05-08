@@ -43,28 +43,28 @@ input:focus {
   background-position: -512px -533px;
 }
 .grey-safe-pwd {
-  background-position: 44px -1277px;
+  background-position: 69px -1277px;
 }
 .grey-safe-phone {
-  background-position: -179px -1277px;
+  background-position: -152px -1277px;
 }
 .grey-safe-mail {
   background-position: -269px -1277px;
 }
 .grey-safe-realname {
-  background-position: -364px -1277px;
+  background-position: -340px -1277px;
 }
 .blue-safe-pwd {
-  background-position: 44px -1485px;
+  background-position: 69px -1485px;
 }
 .blue-safe-phone {
-  background-position: -179px -1485px;
+  background-position: -152px -1485px;
 }
 .blue-safe-mail {
   background-position: -269px -1485px;
 }
 .blue-safe-realname {
-  background-position: -364px -1485px;
+  background-position: -340px -1485px;
 }
 .card-no {
   background-position: -77px -424px;
@@ -795,7 +795,6 @@ input:focus {
 .safe-process {
   margin-bottom: 25px;
   border-bottom: 1px solid #cecdcd;
-  margin-left: 25px;
 }
 .lend-process {
   margin-bottom: 25px;
@@ -1024,7 +1023,7 @@ input:focus {
   line-height: 33px;
 }
 .security-mgn-l {
-  margin-left: 10.4%;
+  margin-left: 13%;
 }
 .project-button {
   color: #5bc0de;
