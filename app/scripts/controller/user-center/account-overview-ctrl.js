@@ -23,6 +23,8 @@ angular.module('hongcaiApp')
           var enterpriseUserCapital = response.data.enterpriseCapitalVo;
 
           $scope.totalAssets = response.data.totalAssets;
+          $scope.accruedCompensatoryPrincipal = response.data.accruedCompensatoryPrincipal;
+          $scope.accruedCompensatoryInterest = response.data.accruedCompensatoryInterest;
           $scope.totalFundRaising = enterpriseUserCapital.totalFundRaising;
           $scope.unPrincipal = enterpriseUserCapital.unPrincipal;
           $scope.accruedInterest = enterpriseUserCapital.accruedInterest;
