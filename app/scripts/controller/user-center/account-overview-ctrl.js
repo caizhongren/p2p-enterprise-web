@@ -23,8 +23,8 @@ angular.module('hongcaiApp')
           var enterpriseUserCapital = response.data.enterpriseCapitalVo;
 
           $scope.totalAssets = response.data.totalAssets;
-          $scope.accruedCompensatoryPrincipal = response.data.accruedCompensatoryPrincipal;
-          $scope.accruedCompensatoryInterest = response.data.accruedCompensatoryInterest;
+          $scope.accruedCompensatoryPrincipal = enterpriseUserCapital.accruedCompensatoryPrincipal;
+          $scope.accruedCompensatoryInterest = enterpriseUserCapital.accruedCompensatoryInterest;
           $scope.totalFundRaising = enterpriseUserCapital.totalFundRaising;
           $scope.unPrincipal = enterpriseUserCapital.unPrincipal;
           $scope.accruedInterest = enterpriseUserCapital.accruedInterest;
@@ -461,6 +461,11 @@ angular.module('hongcaiApp')
         return;
       }
       var repaymentSource = $rootScope.userType === 7 || $rootScope.userType === 8 ? 2 : 0;
+      
+      if($rootScope.userType === 9){
+        repaymentSource = 3;
+      }
+
       $scope.canRepayment = false;
       UserCenterService.repayment.get({
         projectId: project.id,
