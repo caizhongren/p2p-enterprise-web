@@ -33,11 +33,12 @@ angular.module('hongcaiApp')
 
     $scope.page = page;
 
-    $scope.counter = 3;
+    if (business === 'REPAYMENT'){
+      $scope.counter = 10;
+    } else {
+      $scope.counter = 3;
+    }
     $scope.onTimeout = function() {
-      if (business === 'REPAYMENT'){
-        $scope.counter = 10;
-      }
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);
       if ($scope.counter === 0) {
