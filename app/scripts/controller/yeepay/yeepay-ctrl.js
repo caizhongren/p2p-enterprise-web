@@ -35,6 +35,9 @@ angular.module('hongcaiApp')
 
     $scope.counter = 3;
     $scope.onTimeout = function() {
+      if (business === 'REPAYMENT'){
+        $scope.counter = 10;
+      }
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);
       if ($scope.counter === 0) {

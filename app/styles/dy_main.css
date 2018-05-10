@@ -137,34 +137,34 @@ input:focus {
   background: url(/images/lend-money-blue.png) no-repeat;
 }
 .grey-safe-cgt {
-  background-position: 39px 2px;
+  background-position: 56px 2px;
 } 
 .grey-safe-repayment {
-  background-position: -89px 2px;
+  background-position: -73px 2px;
 } 
 .grey-safe-info {
-  background-position: -217px 2px;
+  background-position: -202px 2px;
 }
 .grey-safe-loan {
-  background-position: -347px 2px;
+  background-position: -330px 2px;
 } 
 .grey-safe-audit {
-  background-position: -475px 2px;
+  background-position: -459px 2px;
 }
 .blue-safe-cgt {
-  background-position: 39px 0px;
+  background-position: 56px 0px;
 } 
 .blue-safe-repayment {
-  background-position: -89px 0px;
+  background-position: -73px 0px;
 } 
 .blue-safe-info {
-  background-position: -217px 0px;
+  background-position: -202px 0px;
 }
 .blue-safe-loan {
-  background-position: -347px 0px;
+  background-position: -330px 0px;
 } 
 .blue-safe-audit {
-  background-position: -475px 0px;
+  background-position: -459px 0px;
 }
 /*unbankcard*/
 .bankCard {
