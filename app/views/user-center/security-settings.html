@@ -178,8 +178,8 @@
         <p class="tips col-xs-4 col-lg-4" ng-show="!haveTrusteeshipAccount">未开通</p>
         <p class="tips col-xs-4 col-lg-4" ng-show="haveTrusteeshipAccount">已开通</p>
         <div class="col-xs-2 security-mgn-l padding-0">
-          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && userType != 2 && userType != 8" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
-          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount &&  (userType == 2 || userType == 8)" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && userType != 2 && userType != 8 && userType != 9" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount &&  (userType == 2 || userType == 8 || userType == 9)" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
           <p class="hadset" ng-show="haveTrusteeshipAccount">已开通</p>
           <div class="check-ok" ng-show="haveTrusteeshipAccount"></div>
         </div>
@@ -187,7 +187,7 @@
     </div>
   </div>
   
-  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && userType != 2 && userType != 8">
+  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && userType != 2 && userType != 8 && userType != 9">
     <form class="real-name row" name="openTrusteeshipAccountForm">
       <div class="col-xs-8 col-lg-6 col-xs-offset-2 col-lg-offset-3">
         <div class="safe-form-group row">
