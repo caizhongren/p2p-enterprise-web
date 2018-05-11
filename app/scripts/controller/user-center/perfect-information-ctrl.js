@@ -4,7 +4,11 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.originalFiles = [];
     $scope.thumbnailFiles = [];
     $rootScope.selectSide = 'perfect-information';
-    $scope.tab = 0;
+    $scope.tab = 1;
+    $scope.user = {
+        paperType: 1,
+        nature: 1
+    }
     /*
      * 查询借款企业信息
     */
@@ -31,6 +35,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
         $('.form-control').removeAttr('readonly');
+        $('.form-group select').removeAttr('disabled')
     }
     /*
      * 查询上传的文件
