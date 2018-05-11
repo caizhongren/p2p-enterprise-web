@@ -54,7 +54,7 @@ angular.module('hongcaiApp')
           // $rootScope.realNameAuthStatus !== 1 ? $rootScope.alertRealName() : null
           UserCenterService.userSecurityInfo.get({}, function(response) {
             if (response.ret === 1) {
-              !response.data.userAuth.realnameAuth ? $rootScope.alertRealName() : null
+              response.data.userAuth.authStatus === 1 || response.data.userAuth.authStatus === 2 ? null : $rootScope.alertRealName()
             }
           })
         } else {
