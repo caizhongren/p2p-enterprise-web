@@ -5,12 +5,10 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.thumbnailFiles = [];
     $rootScope.selectSide = 'perfect-information';
     $scope.tab = 1;
-    $scope.user = {
-        paperType: 1,
-        nature: 1,
-        eduDegree: 1,
-        maritalStatus: 1
+    $scope.change = function () {
+        console.log($scope.enterprise.legalIdType)
     }
+
     /*
      * 查询借款企业信息
     */
@@ -28,6 +26,9 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
           $scope.enterpriseId = response.id;
           $scope.enterprise.registerCapital = response.registerCapital.toString();
           $scope.getFiles($scope.enterpriseId);
+          $scope.enterprise.legalIdType === null ? $scope.enterprise.legalIdType = 0 : null
+          $scope.enterprise.cultureLevel === null ? $scope.enterprise.cultureLevel = 0 : null
+          $scope.enterprise.maritalStatus === null ? $scope.enterprise.maritalStatus = 0 : null
         
         }else {
             $scope.readOnly = false;
@@ -122,37 +123,56 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         var regCapital = /[0-9]*[1-9][0-9]*$/;
         var regMobile = /^1[3|4|5|7|8][0-9]\d{8}$/;
         var regEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if(userType = 1){
+        if($rootScope.userType === 1){
             if(!regIdNo.test(enterprise.legalIdNo) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
                 return;
             }
-        } else if(userType = 2){
+            if($scope.enterprise.legalIdType == 0 || $scope.enterprise.cultureLevel == 0 || $scope.enterprise.maritalStatus == 0){
+                toaster.error('请填写正确信息！');
+                return;
+            }
+        } else if($rootScope.userType === 2){
             if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
+                return;
+            }
+            if($scope.enterprise.legalIdType === 0){
                 return;
             }
         }
         
         enterprise.registerDate = new Date(enterprise.registerDate).getTime();
+       
       //保存信息
-     	EnterpriseService.saveEnterprise.keep({
-        userId: $rootScope.securityStatus.userId,
-        name: enterprise.name,
-        legalName: enterprise.legalName,
-        legalIdNo: enterprise.legalIdNo,
-        legalRepresentative: enterprise.legalRepresentative,
-        bankLicense: enterprise.bankLicense,
-        registrationNo: enterprise.registrationNo,
-        orgNo: enterprise.orgNo,
-        taxNo: enterprise.taxNo,
-        registerCapital: enterprise.registerCapital,
-        background: enterprise.background,
-        businessScope: enterprise.businessScope,
-        businessState: enterprise.businessState,
-        address: enterprise.address,
-        contactName: enterprise.contactName,
-        contactMobile: enterprise.contactMobile,
-        contactEmail: enterprise.contactEmail,
-        registerDate: enterprise.registerDate
+     	EnterpriseService.saveEnterprise.update({
+            userId: $rootScope.securityStatus.userId,
+            name: enterprise.name,
+            legalName: enterprise.legalName,
+            legalIdNo: enterprise.legalIdNo,
+            legalRepresentative: enterprise.legalRepresentative,
+            bankLicense: enterprise.bankLicense,
+            registrationNo: enterprise.registrationNo,
+            orgNo: enterprise.orgNo,
+            taxNo: enterprise.taxNo,
+            registerCapital: enterprise.registerCapital,
+            background: enterprise.background,
+            businessScope: enterprise.businessScope,
+            businessState: enterprise.businessState,
+            address: enterprise.address,
+            contactName: enterprise.contactName,
+            contactMobile: enterprise.contactMobile,
+            contactEmail: enterprise.contactEmail,
+            registerDate: enterprise.registerDate,
+            legalIdType: enterprise.legalIdType,
+            cultureLevel: enterprise.cultureLevel,
+            maritalStatus: enterprise.maritalStatus,
+            idRegisterAddress: enterprise.idRegisterAddress,
+            industry: enterprise.industry,
+            workingDuration: enterprise.workingDuration,
+            mailingAddress: enterprise.mailingAddress,
+            phoneNumber: enterprise.phoneNumber,
+            unifiedCode: enterprise.unifiedCode,
+            enterpriseProperty: enterprise.enterpriseProperty,
+            keep: true
       }, function(response) {
             if(response && response.ret !== -1) {
                 toaster.success('信息保存成功！');

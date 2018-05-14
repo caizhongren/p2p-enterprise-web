@@ -25,7 +25,7 @@
                                       <div class="col-lg-8 margin-t-20">
                                           <div class="form-group">
                                               <label for="personalName">姓名</label>
-                                              <input name="personalName" id="personalName" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.name" required readOnly  oninvalid="setCustomValidity('请填写姓名')" oninput="setCustomValidity('')">
+                                              <input name="personalName" id="personalName" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.legalRepresentative" required readOnly  oninvalid="setCustomValidity('请填写姓名')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.personalName.$dirty && enterpriseAddForm.personalName.$invalid && !enterpriseAddForm.personalName.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.personalName.$error.required">
                                                       <p class="input-tips">请填写姓名</p>
@@ -34,7 +34,8 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="paperType">证件类型</label>
-                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="user.paperType" ie-select-fix="" required="" style="" >
+                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="enterprise.legalIdType" ie-select-fix="" required="" style="" id="legalIdType" ng-change="change()">
+                                              <option value="0">请选择</option>
                                               <option value="1">身份证</option>
                                               <option value="2">护照</option>
                                               <option value="3">港澳台通行证</option>
@@ -72,7 +73,8 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="paperType">文化程度</label>
-                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="user.eduDegree" ie-select-fix="" required="" style="" >
+                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="enterprise.cultureLevel" ie-select-fix="" required="" style="" id="cultureLevel">
+                                              <option value="0">请选择</option>
                                               <option value="1">初中及以下</option>
                                               <option value="2">高中/中专</option>
                                               <option value="3">本科/大专</option>
@@ -81,14 +83,15 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="paperType">婚姻状况</label>
-                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="user.maritalStatus" ie-select-fix="" required="" style="" >
+                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="enterprise.maritalStatus" ie-select-fix="" required="" style="" id="maritalStatus">
+                                              <option value="0">请选择</option>
                                               <option value="1">已婚</option>
                                               <option value="2">未婚</option>
                                             </select>
                                           </div>
                                           <div class="form-group">
                                             <label for="">户籍所在地</label>
-                                            <input name="houseRegister" id="houseRegister" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.houseRegister" required readonly oninvalid="setCustomValidity('请填写户籍所在地')" oninput="setCustomValidity('')">
+                                            <input name="houseRegister" id="houseRegister" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.idRegisterAddress" required readonly oninvalid="setCustomValidity('请填写户籍所在地')" oninput="setCustomValidity('')">
                                             <div ng-if="enterpriseAddForm.houseRegister.$dirty && enterpriseAddForm.houseRegister.$invalid && !enterpriseAddForm.houseRegister.$focused" style="padding-left: 15px;">
                                                 <div ng-if="enterpriseAddForm.houseRegister.$error.required">
                                                     <p class="input-tips">请填写户籍所在地</p>
@@ -96,7 +99,7 @@
                                             </div>
                                           </div>
                                           <div class="form-group">
-                                            <label for="">工作单位</label>
+                                            <label for="workUnit">工作单位</label>
                                             <input name="workUnit" id="workUnit" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.name" required readonly oninvalid="setCustomValidity('请填写工作单位')" oninput="setCustomValidity('')">
                                             <div ng-if="enterpriseAddForm.workUnit.$dirty && enterpriseAddForm.workUnit.$invalid && !enterpriseAddForm.workUnit.$focused" style="padding-left: 15px;">
                                                 <div ng-if="enterpriseAddForm.workUnit.$error.required">
@@ -106,7 +109,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">职务</label>
-                                            <input name="post" id="post" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.post" required readonly oninvalid="setCustomValidity('请填写职务')" oninput="setCustomValidity('')">
+                                            <input name="post" id="post" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.industry" required readonly oninvalid="setCustomValidity('请填写职务')" oninput="setCustomValidity('')">
                                             <div ng-if="enterpriseAddForm.post.$dirty && enterpriseAddForm.post.$invalid && !enterpriseAddForm.post.$focused" style="padding-left: 15px;">
                                                 <div ng-if="enterpriseAddForm.post.$error.required">
                                                     <p class="input-tips">请填写职务</p>
@@ -116,7 +119,7 @@
                                           <div class="form-group">
                                               <label for="workYears">工作年限</label>
                                               <div class="form-group input-group" style="clear:both; height: 0; line-height: 0; font-size: 0">
-                                                  <input name="workYears"  id="workYears" ng-pattern="/[0-9]*[1-9][0-9]*$/" ng-maxlength="11" class="form-control" ng-model="enterprise.workYears" required readonly oninvalid="setCustomValidity('请填写工作年限')" oninput="setCustomValidity('')">
+                                                  <input name="workYears"  id="workYears" ng-pattern="/[0-9]*[1-9][0-9]*$/" ng-maxlength="11" class="form-control" ng-model="enterprise.workingDuration" required readonly oninvalid="setCustomValidity('请填写工作年限')" oninput="setCustomValidity('')">
                                                   <span class="input-group-addon">年</span>
                                                   <div ng-if="enterpriseAddForm.workYears.$dirty && enterpriseAddForm.workYears.$invalid && !enterpriseAddForm.workYears.$focused" style="padding-left: 15px;">
                                                       <div ng-if="enterpriseAddForm.workYears.$error.pattern">
@@ -128,21 +131,6 @@
                                                   </div>
                                               </div>
                                           </div>
-                                          <!-- <div class="form-group">
-                                              <label for="registerCapital">注册资本</label>
-                                              <div class="form-group input-group" style="clear:both; height: 0; line-height: 0; font-size: 0">
-                                                  <input name="registerCapital"  id="registerCapital" ng-pattern="/[0-9]*[1-9][0-9]*$/" ng-maxlength="11" class="form-control" ng-model="enterprise.registerCapital" required readonly oninvalid="setCustomValidity('请填写注册资本')" oninput="setCustomValidity('')">
-                                                  <span class="input-group-addon">万元</span>
-                                                  <div ng-if="enterpriseAddForm.registerCapital.$dirty && enterpriseAddForm.registerCapital.$invalid && !enterpriseAddForm.registerCapital.$focused" style="padding-left: 15px;">
-                                                      <div ng-if="enterpriseAddForm.registerCapital.$error.pattern">
-                                                          <p class="input-tips">数字格式，且大于0</p>
-                                                      </div>
-                                                      <div ng-if="enterpriseAddForm.registerCapital.$error.required">
-                                                          <p class="input-tips">请填写注册资本</p>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>   -->
                                       </div>
                                   </div>
                               </div>
@@ -162,7 +150,7 @@
                                       <div class="col-lg-8 margin-t-20">
                                           <div class="form-group">
                                               <label for="residencePlace">现居住地</label>
-                                              <input class="form-control" name="residencePlace" id="officeAddress" ng-model="enterprise.residencePlace" required readonly oninvalid="setCustomValidity('请填写现居住地')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="residencePlace" id="residencePlace" ng-model="enterprise.address" required readonly oninvalid="setCustomValidity('请填写现居住地')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.residencePlace.$dirty && enterpriseAddForm.residencePlace.$invalid && !enterpriseAddForm.residencePlace.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.residencePlace.$error.required">
                                                       <p class="input-tips">请填写现居住地</p>
@@ -171,7 +159,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="mailAddress">通信地址</label>
-                                              <input class="form-control" name="mailAddress" id="mailAddress" ng-model="enterprise.mailAddress" required readonly oninvalid="setCustomValidity('请填写通信地址')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="mailAddress" id="mailAddress" ng-model="enterprise.mailingAddress" required readonly oninvalid="setCustomValidity('请填写通信地址')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.mailAddress.$dirty && enterpriseAddForm.mailAddress.$invalid && !enterpriseAddForm.mailAddress.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.mailAddress.$error.required">
                                                       <p class="input-tips">请填写通信地址</p>
@@ -180,7 +168,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="homePhone">家庭电话</label>
-                                              <input class="form-control" name="homePhone" id="homePhone" ng-model="enterprise.homePhone" required readonly oninvalid="setCustomValidity('请填写家庭电话')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="homePhone" id="homePhone" ng-model="enterprise.phoneNumber" required readonly oninvalid="setCustomValidity('请填写家庭电话')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.homePhone.$dirty && enterpriseAddForm.homePhone.$invalid && !enterpriseAddForm.homePhone.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.homePhone.$error.required">
                                                       <p class="input-tips">请填写家庭电话</p>
@@ -279,7 +267,7 @@
                                       <div class="col-lg-8 margin-t-20">
                                           <div class="form-group">
                                               <label for="entname">公司名称</label>
-                                              <input name="entname" id="entname" ng-maxlength="50" maxlength="50" class="form-control" ng-model="" required readOnly  oninvalid="setCustomValidity('请填写公司名称')" oninput="setCustomValidity('')">
+                                              <input name="entname" id="entname" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.name" required readOnly  oninvalid="setCustomValidity('请填写公司名称')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.entname.$dirty && enterpriseAddForm.entname.$invalid && !enterpriseAddForm.entname.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.entname.$error.required">
                                                       <p class="input-tips">请填写公司名称</p>
@@ -288,7 +276,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="legalName">法定代表人</label>
-                                              <input name="legalName" id="legalName" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.legalName" required readonly oninvalid="setCustomValidity('请填写法人姓名')"  oninput="setCustomValidity('')">
+                                              <input name="legalName" id="legalName" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.legalRepresentative" required readonly oninvalid="setCustomValidity('请填写法人姓名')"  oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.legalName.$dirty && enterpriseAddForm.legalName.$invalid && !enterpriseAddForm.legalName.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.legalName.$error.required">
                                                       <p class="input-tips">请填写法定代表人姓名</p>
@@ -297,12 +285,18 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="paperType">法定代表人证件类型</label>
-                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="user.paperType" ie-select-fix="" required="" style="">
+                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="enterprise.legalIdType" ie-select-fix="" required="" style="" id="legalIdType">
+                                              <option value="0">请选择</option>
                                               <option value="1">身份证</option>
                                               <option value="2">护照</option>
                                               <option value="3">港澳台通行证</option>
                                               <option value="4">外国人永久居留证</option>
                                             </select>
+                                            <div ng-if="legalIdType" style="padding-left: 15px;">
+                                                  <div ng-if="enterpriseAddForm.registerDate.$error.required">
+                                                      <p class="input-tips">请填写注册时间</p>
+                                                  </div>
+                                              </div>
                                           </div>
                                           <div class="form-group">
                                               <label for="legalIdNo">法定代表人证件号码</label>
@@ -335,7 +329,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">统一社会信用代码</label>
-                                            <input name="creditCode" id="creditCode" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.creditCode" required readonly oninvalid="setCustomValidity('请填写统一社会信用代码')" oninput="setCustomValidity('')">
+                                            <input name="creditCode" id="creditCode" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.unifiedCode" required readonly oninvalid="setCustomValidity('请填写统一社会信用代码')" oninput="setCustomValidity('')">
                                             <div ng-if="enterpriseAddForm.creditCode.$dirty && enterpriseAddForm.creditCode.$invalid && !enterpriseAddForm.creditCode.$focused" style="padding-left: 15px;">
                                                 <div ng-if="enterpriseAddForm.registerDate.$error.required">
                                                     <p class="input-tips">请填写统一社会信用代码</p>
@@ -368,7 +362,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">注册地址</label>
-                                            <input name="registerAddress" id="registerAddress" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.registerAddress" required readonly oninvalid="setCustomValidity('请填写注册地址')" oninput="setCustomValidity('')">
+                                            <input name="registerAddress" id="registerAddress" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.idRegisterAddress" required readonly oninvalid="setCustomValidity('请填写注册地址')" oninput="setCustomValidity('')">
                                             <div ng-if="enterpriseAddForm.registerAddress.$dirty && enterpriseAddForm.registerAddress.$invalid && !enterpriseAddForm.registerAddress.$focused" style="padding-left: 15px;">
                                                 <div ng-if="enterpriseAddForm.registerAddress.$error.required">
                                                     <p class="input-tips">请填写注册地址</p>
@@ -377,7 +371,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="">企业性质</label>
-                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="user.nature" ie-select-fix="" required="" style="" >
+                                            <select class="form-control ng-valid ng-valid-required ng-dirty" disabled ng-model="enterprise.enterpriseProperty" ie-select-fix="" required="" style="" id="enterpriseProperty">
                                               <option value="1">民营</option>
                                               <option value="2">国企</option>
                                               <option value="3">外企</option>
@@ -431,7 +425,7 @@
                                       <div class="col-lg-8 margin-t-20">
                                           <div class="form-group">
                                               <label for="officeAddress">公司现办公地址</label>
-                                              <input class="form-control" name="officeAddress" id="officeAddress" ng-model="enterprise.officeAddress" required readonly oninvalid="setCustomValidity('请填写公司现办公地址')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="officeAddress" id="officeAddress" ng-model="enterprise.address" required readonly oninvalid="setCustomValidity('请填写公司现办公地址')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.officeAddress.$dirty && enterpriseAddForm.officeAddress.$invalid && !enterpriseAddForm.officeAddress.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.officeAddress.$error.required">
                                                       <p class="input-tips">请填写公司现办公地址</p>
@@ -440,7 +434,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="mailAddress">公司通信地址</label>
-                                              <input class="form-control" name="mailAddress" id="mailAddress" ng-model="enterprise.mailAddress" required readonly oninvalid="setCustomValidity('请填写公司通信地址')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="mailAddress" id="mailAddress" ng-model="enterprise.mailingAddress" required readonly oninvalid="setCustomValidity('请填写公司通信地址')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.mailAddress.$dirty && enterpriseAddForm.mailAddress.$invalid && !enterpriseAddForm.mailAddress.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.mailAddress.$error.required">
                                                       <p class="input-tips">请填写公司通信地址</p>
@@ -449,7 +443,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="companyPhone">公司电话</label>
-                                              <input class="form-control" name="companyPhone" id="companyPhone" ng-model="enterprise.companyPhone" required readonly oninvalid="setCustomValidity('请填写公司电话')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="companyPhone" id="companyPhone" ng-model="enterprise.phoneNumber" required readonly oninvalid="setCustomValidity('请填写公司电话')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.companyPhone.$dirty && enterpriseAddForm.companyPhone.$invalid && !enterpriseAddForm.companyPhone.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.companyPhone.$error.required">
                                                       <p class="input-tips">请填写公司电话</p>
