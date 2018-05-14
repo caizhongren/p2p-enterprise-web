@@ -7,7 +7,9 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.tab = 1;
     $scope.user = {
         paperType: 1,
-        nature: 1
+        nature: 1,
+        eduDegree: 1,
+        maritalStatus: 1
     }
     /*
      * 查询借款企业信息
@@ -17,6 +19,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
           if(response.infoStatus == 0) {
             $scope.readOnly = false;
             $('.form-control').removeAttr('readonly');
+            $('.form-group select').removeAttr('disabled')
           }else{
             $scope.readOnly = true;
           }
@@ -119,12 +122,19 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         var regCapital = /[0-9]*[1-9][0-9]*$/;
         var regMobile = /^1[3|4|5|7|8][0-9]\d{8}$/;
         var regEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
-            return;
+        if(userType = 1){
+            if(!regIdNo.test(enterprise.legalIdNo) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
+                return;
+            }
+        } else if(userType = 2){
+            if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
+                return;
+            }
         }
+        
         enterprise.registerDate = new Date(enterprise.registerDate).getTime();
       //保存信息
-     	EnterpriseService.saveEnterprise.update({
+     	EnterpriseService.saveEnterprise.keep({
         userId: $rootScope.securityStatus.userId,
         name: enterprise.name,
         legalName: enterprise.legalName,
@@ -146,6 +156,9 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
       }, function(response) {
             if(response && response.ret !== -1) {
                 toaster.success('信息保存成功！');
+                $scope.readOnly = !$scope.readOnly;
+                $('.form-control').attr('readonly', '');
+                $('.form-group select').attr('disabled', '');
                 if (ipCookie('lendMoney') === 1) {
                     $state.go('root.userCenter.lend-money');
                     ipCookie('lendMoney', null);
