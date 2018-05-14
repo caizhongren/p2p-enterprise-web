@@ -3,230 +3,248 @@
   <div class="row">
     <div class="right-title">我要借款</div>
   </div>
-  <div class="row">
-    <div class="lend-process col-md-12 col-lg-12">
-      <div class="row">
-        <p class="process-tips grey-safe-cgt lend-process-w {{ haveTrusteeshipAccount ? 'blue-safe-cgt' : ''}}">开通存管通</p>
-        <p class="process-tips grey-safe-repayment lend-process-w {{ autoRepayment ? 'blue-safe-repayment' : ''}}">开通自动还款</p>
-        <p class="process-tips grey-safe-info lend-process-w {{ infoStatus === 2 ? 'blue-safe-info' : ''}}">完善资料</p>
-        <p class="process-tips grey-safe-loan lend-process-w {{ loanInformation ? 'blue-safe-loan' : ''}}">填写借款信息</p>
-        <p class="process-tips grey-safe-audit lend-process-w {{ pendingAudit  ? 'blue-safe-audit' : ''}}">等待审核</p>
+  <div ng-if="!loanDetail">
+    <div class="row">
+      <div class="lend-process col-md-12 col-lg-12">
+        <div class="row">
+          <p class="process-tips grey-safe-cgt lend-process-w {{ haveTrusteeshipAccount ? 'blue-safe-cgt' : ''}}">开通存管通</p>
+          <p class="process-tips grey-safe-repayment lend-process-w {{ autoRepayment ? 'blue-safe-repayment' : ''}}">开通自动还款</p>
+          <p class="process-tips grey-safe-info lend-process-w {{ infoStatus === 2 ? 'blue-safe-info' : ''}}">完善资料</p>
+          <p class="process-tips grey-safe-loan lend-process-w {{ loanInformation ? 'blue-safe-loan' : ''}}">填写借款信息</p>
+          <p class="process-tips grey-safe-audit lend-process-w {{ pendingAudit  ? 'blue-safe-audit' : ''}}">等待审核</p>
+        </div>
       </div>
     </div>
-  </div>
- 
-  <!-- 开通第三方托管账户 -->
-  <div class="openTrusteeship" ng-show="!haveTrusteeshipAccount">
-    <p class="text-center lend-openRealName ">为保证您资金安全，请先开通海口联合农商银行资金存管账户。</p>
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-      <div class="safe-form-group row">
-        <label class="col-md-4 col-lg-4"></label>
-        <input type="submit" value="立即开通" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="alertRealName()"/>
-      </div>
-    </div>
-  </div>
-
-  <!-- 自动还款 -->
-  <div class="row" ng-show="haveTrusteeshipAccount && !autoRepayment">
-    <div class="lend-openRealName text-center">为便于您还款操作，请开通自动还款功能</div>
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-      <div class="safe-form-group row">
-        <label class="col-md-4 col-lg-4 col-xs-5"></label>
-        <input type="submit" value="立即开通" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="goToAutoRepayment()" />
-      </div>
-    </div>
-  </div>
-
-  <!-- 完善资料 -->
-  <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 0">
-    <div class="lend-openRealName text-center">为便于您的借款，请您完善资料后再借款</div>
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-      <div class="safe-form-group row">
-        <label class="col-md-4 col-lg-4 col-xs-5"></label>
-        <input type="submit" value="立即完善" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="gotoPerfectInformation()" />
-      </div>
-    </div>
-  </div>
   
-  <!-- 填写借款信息 -->
-  <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && !loanInformation">
-    <div class="ft-16 row text-center margin-0">
-      <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;">申请记录</span>
-    </div>
-    <!-- 借款申请 -->
-    <form ng-if="loanTab === 0 && preLoan == 0" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-30">
-      <div class="col-lg-2 ft-16"></div>
-      <div class="col-lg-8">
-        <!-- 申请借款金额 -->
-        <div class="form-group">
-          <label for="amount">申请借款金额</label>
-          <div class="form-group input-group">
-            <input name="amount" id="amount" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" ng-maxlength="11" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')">
-            <span class="input-group-addon">元</span>
-          </div>
-          <div ng-if="preProjectForm.amount.$dirty && preProjectForm.amount.$invalid && !preProjectForm.amount.$focused" style="padding-left: 15px;">
-            <div ng-if="preProjectForm.amount.$error.pattern">
-              <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
-            </div>
-            <div ng-if="preProjectForm.amount.$error.required">
-              <p class="input-tips">请填写借款金额</p>
-            </div>
-          </div>
-        </div>
-        <!-- 借款期限 -->
-        <div class="form-group">
-            <label for="loan.date">申请借款期限</label>
-          <div class="form-group input-group">
-            <input type="number" name="date" id="loan.date" class="form-control" ng-pattern="/^\+?[1-9][0-9]*$/" ng-model="enterprise.date" oninvalid="setCustomValidity('请填写借款期限')" oninput="setCustomValidity('')" required>
-            <span class="input-group-addon">天</span>
-          </div>
-          <div ng-if="preProjectForm.date.$dirty && preProjectForm.date.$invalid && !preProjectForm.date.$focused" style="padding-left: 15px;">
-            <div ng-if="preProjectForm.date.$error.pattern">
-              <p class="input-tips">期限格式有误，请输入大于0的正整数</p>
-            </div>
-            <div ng-if="preProjectForm.date.$error.required">
-              <p class="input-tips">请填写借款期限</p>
-            </div>
-          </div>
-        </div>
-        <!-- 借款用途 -->
-        <div class="form-group">
-          <label for="usage">借款用途</label>
-          <div class="form-group">
-            <textarea class="form-control" name="usage" id="usage" rows="3" ng-model="enterprise.usage" ng-maxlength="20" required  oninvalid="setCustomValidity('请填写借款用途')" oninput="setCustomValidity('')"></textarea>
-            <div ng-if="preProjectForm.usage.$dirty && preProjectForm.usage.$invalid && !preProjectForm.usage.$focused" style="padding-left: 15px;">
-              <div ng-if="preProjectForm.usage.$error.required">
-                <p class="input-tips">请填写借款用途</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 还款来源 -->
-        <div class="form-group">
-          <label for="payment">还款来源</label>
-          <div class="form-group">
-            <textarea class="form-control" name="payment" id="payment" rows="5" ng-model="enterprise.payment" required  oninvalid="setCustomValidity('请填写还款来源')" oninput="setCustomValidity('')"></textarea>
-            <div ng-if="preProjectForm.payment.$dirty && preProjectForm.payment.$invalid && !preProjectForm.payment.$focused" style="padding-left: 15px;">
-              <div ng-if="preProjectForm.payment.$error.required">
-                <p class="input-tips">请填写还款来源</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- 企业月净利润/家庭月收入 -->
-        <div class="form-group">
-          <label for="enterpriseProfit">{{userType === 2 ? '企业月净利润' : '家庭月收入'}}</label>
-          <div class="form-group input-group">
-            <input name="enterpriseProfit" id="enterpriseProfit" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.enterpriseProfit" required oninvalid="setCustomValidity('请填写企业月净利润')" oninput="setCustomValidity('')">
-            <span class="input-group-addon">元</span>
-          </div>
-          <div ng-if="preProjectForm.enterpriseProfit.$dirty && preProjectForm.enterpriseProfit.$invalid && !preProjectForm.enterpriseProfit.$focused" style="padding-left: 15px;">
-            <div ng-if="preProjectForm.enterpriseProfit.$error.pattern">
-              <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
-            </div>
-            <div ng-if="preProjectForm.enterpriseProfit.$error.required">
-              <p class="input-tips">请填写企业月净利润</p>
-            </div>
-          </div>
-        </div>
-        <!-- 企业/家庭月总支出 -->
-        <div class="form-group">
-          <label for="totalExpenditure">{{userType === 2 ? '企业' : '家庭'}}月总支出</label>
-          <div class="form-group input-group">
-            <input name="totalExpenditure" id="totalExpenditure" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.totalExpenditure" required oninvalid="setCustomValidity('请填写企业月总支出')" oninput="setCustomValidity('')">
-            <span class="input-group-addon">元</span>
-          </div>
-          <div ng-if="preProjectForm.totalExpenditure.$dirty && preProjectForm.totalExpenditure.$invalid && !preProjectForm.totalExpenditure.$focused" style="padding-left: 15px;">
-            <div ng-if="preProjectForm.totalExpenditure.$error.pattern">
-              <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
-            </div>
-            <div ng-if="preProjectForm.totalExpenditure.$error.required">
-              <p class="input-tips">请填写企业月总支出</p>
-            </div>
-          </div>
-        </div>
-        <!-- 企业/家庭月债务支出 -->
-        <div class="form-group">
-          <label for="debtExpenditure">{{userType === 2 ? '企业' : '家庭'}}月债务支出</label>
-          <div class="form-group input-group">
-            <input name="debtExpenditure" id="debtExpenditure" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.debtExpenditure" required oninvalid="setCustomValidity('请填写企业月债务支出')" oninput="setCustomValidity('')">
-            <span class="input-group-addon">元</span>
-          </div>
-          <div ng-if="preProjectForm.debtExpenditure.$dirty && preProjectForm.debtExpenditure.$invalid && !preProjectForm.debtExpenditure.$focused" style="padding-left: 15px;">
-            <div ng-if="preProjectForm.debtExpenditure.$error.pattern">
-              <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
-            </div>
-            <div ng-if="preProjectForm.debtExpenditure.$error.required">
-              <p class="input-tips">请填写企业月债务支出</p>
-            </div>
-          </div>
-        </div>
-        <!-- 企业/家庭当前对外担保总额 -->
-        <div class="form-group">
-          <label for="totalGuarantee">{{userType === 2 ? '企业' : '家庭'}}当前对外担保总额</label>
-          <div class="form-group input-group">
-            <input name="totalGuarantee" id="totalGuarantee" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.totalGuarantee" required oninvalid="setCustomValidity('请填写企业当前对外担保总额')" oninput="setCustomValidity('')">
-            <span class="input-group-addon">元</span>
-          </div>
-          <div ng-if="preProjectForm.totalGuarantee.$dirty && preProjectForm.totalGuarantee.$invalid && !preProjectForm.totalGuarantee.$focused" style="padding-left: 15px;">
-            <div ng-if="preProjectForm.totalGuarantee.$error.pattern">
-              <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
-            </div>
-            <div ng-if="preProjectForm.totalGuarantee.$error.required">
-              <p class="input-tips">请填写企业当前对外担保总额</p>
-            </div>
-          </div>
-        </div>
-        <!-- 下一步 -->
-        <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-          <div class="safe-form-group row">
-            <label class="col-md-4 col-lg-4"></label>
-            <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.loanAmount.$error.pattern"/>
-          </div>
+    <!-- 开通第三方托管账户 -->
+    <div class="openTrusteeship" ng-show="!haveTrusteeshipAccount">
+      <p class="text-center lend-openRealName ">为保证您资金安全，请先开通海口联合农商银行资金存管账户。</p>
+      <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="safe-form-group row">
+          <label class="col-md-4 col-lg-4"></label>
+          <input type="submit" value="立即开通" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="alertRealName()"/>
         </div>
       </div>
-    </form>
-    <ul ng-if="loanTab === 0 && preLoan === 1" class="preLoanlist">
-      <li ng-repeat="item in preLoanList">
+    </div>
+
+    <!-- 自动还款 -->
+    <div class="row" ng-show="haveTrusteeshipAccount && !autoRepayment">
+      <div class="lend-openRealName text-center">为便于您还款操作，请开通自动还款功能</div>
+      <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="safe-form-group row">
+          <label class="col-md-4 col-lg-4 col-xs-5"></label>
+          <input type="submit" value="立即开通" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="goToAutoRepayment()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 完善资料 -->
+    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 0">
+      <div class="lend-openRealName text-center">为便于您的借款，请您完善资料后再借款</div>
+      <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="safe-form-group row">
+          <label class="col-md-4 col-lg-4 col-xs-5"></label>
+          <input type="submit" value="立即完善" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-click="gotoPerfectInformation()" />
+        </div>
+      </div>
+    </div>
+    
+    <!-- 填写借款信息 -->
+    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && !loanInformation">
+      <div class="ft-16 row text-center margin-0">
+        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;">申请记录</span>
+      </div>
+      <!-- 借款申请 -->
+      <form ng-if="loanTab === 0 && preLoan == 0" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
+        <div class="col-lg-2 ft-16"></div>
+        <div class="col-lg-8 margin-t-20">
+          <!-- 申请借款金额 -->
+          <div class="form-group">
+            <label for="amount">申请借款金额</label>
+            <div class="form-group input-group">
+              <input name="amount" id="amount" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')">
+              <span class="input-group-addon">元</span>
+            </div>
+            <div ng-if="preProjectForm.amount.$dirty && preProjectForm.amount.$invalid && !preProjectForm.amount.$focused">
+              <div ng-if="preProjectForm.amount.$error.pattern">
+                <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
+              </div>
+              <div ng-if="preProjectForm.amount.$error.required">
+                <p class="input-tips">请填写借款金额</p>
+              </div>
+            </div>
+          </div>
+          <!-- 借款期限 -->
+          <div class="form-group">
+              <label for="date">申请借款期限</label>
+            <div class="form-group input-group">
+              <input type="number" name="date" id="date" class="form-control" ng-pattern="/^\+?[1-9][0-9]*$/" ng-model="enterprise.projectDays" oninvalid="setCustomValidity('请填写借款期限')" oninput="setCustomValidity('')" required>
+              <span class="input-group-addon">天</span>
+            </div>
+            <div ng-if="preProjectForm.date.$dirty && preProjectForm.date.$invalid && !preProjectForm.date.$focused">
+              <div ng-if="preProjectForm.date.$error.pattern">
+                <p class="input-tips">期限格式有误，请输入大于0的正整数</p>
+              </div>
+              <div ng-if="preProjectForm.date.$error.required">
+                <p class="input-tips">请填写借款期限</p>
+              </div>
+            </div>
+          </div>
+          <!-- 借款用途 -->
+          <div class="form-group">
+            <label for="usage">借款用途</label>
+            <div class="form-group">
+              <textarea class="form-control" name="usage" id="usage" rows="3" resize="none" ng-model="enterprise.financingPurpose" required  oninvalid="setCustomValidity('请填写借款用途')" oninput="setCustomValidity('')"></textarea>
+              <div ng-if="preProjectForm.usage.$dirty && preProjectForm.usage.$invalid && !preProjectForm.usage.$focused">
+                <div ng-if="preProjectForm.usage.$error.required">
+                  <p class="input-tips">请填写借款用途</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 还款来源 -->
+          <div class="form-group">
+            <label for="payment">还款来源</label>
+            <div class="form-group">
+              <textarea class="form-control" name="payment" id="payment" rows="5" ng-model="enterprise.repaymentSource" required  oninvalid="setCustomValidity('请填写还款来源')" oninput="setCustomValidity('')"></textarea>
+              <div ng-if="preProjectForm.payment.$dirty && preProjectForm.payment.$invalid && !preProjectForm.payment.$focused">
+                <div ng-if="preProjectForm.payment.$error.required">
+                  <p class="input-tips">请填写还款来源</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 企业月净利润/家庭月收入 -->
+          <div class="form-group">
+            <label for="enterpriseProfit">{{enterpriseTxt.profitTxt}}</label>
+            <div class="form-group input-group">
+              <input name="enterpriseProfit" id="enterpriseProfit" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthNetProfit" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月净利润' : '请填写家庭月收入'}}">
+              <span class="input-group-addon">元</span>
+            </div>
+            <div ng-if="preProjectForm.enterpriseProfit.$dirty && preProjectForm.enterpriseProfit.$invalid && !preProjectForm.enterpriseProfit.$focused">
+              <div ng-if="preProjectForm.enterpriseProfit.$error.pattern">
+                <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
+              </div>
+              <div ng-if="preProjectForm.enterpriseProfit.$error.required">
+                <p class="input-tips">请填写{{enterpriseTxt.profitTxt}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- 企业/家庭月总支出 -->
+          <div class="form-group">
+            <label for="totalExpenditure">{{enterpriseTxt.expenditureTxt}}</label>
+            <div class="form-group input-group">
+              <input name="totalExpenditure" id="totalExpenditure" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthTotalExpend" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月总支出' : '请填写家庭月总支出'}}">
+              <span class="input-group-addon">元</span>
+            </div>
+            <div ng-if="preProjectForm.totalExpenditure.$dirty && preProjectForm.totalExpenditure.$invalid && !preProjectForm.totalExpenditure.$focused">
+              <div ng-if="preProjectForm.totalExpenditure.$error.pattern">
+                <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
+              </div>
+              <div ng-if="preProjectForm.totalExpenditure.$error.required">
+                <p class="input-tips">请填写{{enterpriseTxt.expenditureTxt}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- 企业/家庭月债务支出 -->
+          <div class="form-group">
+            <label for="debtExpenditure">{{enterpriseTxt.debtTxt}}</label>
+            <div class="form-group input-group">
+              <input name="debtExpenditure" id="debtExpenditure" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthDebtExpend" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月债务支出' : '请填写家庭月债务支出'}}">
+              <span class="input-group-addon">元</span>
+            </div>
+            <div ng-if="preProjectForm.debtExpenditure.$dirty && preProjectForm.debtExpenditure.$invalid && !preProjectForm.debtExpenditure.$focused">
+              <div ng-if="preProjectForm.debtExpenditure.$error.pattern">
+                <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
+              </div>
+              <div ng-if="preProjectForm.debtExpenditure.$error.required">
+                <p class="input-tips">请填写{{enterpriseTxt.debtTxt}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- 企业/家庭当前对外担保总额 -->
+          <div class="form-group">
+            <label for="totalGuarantee">{{enterpriseTxt.guaranteeTxt}}</label>
+            <div class="form-group input-group">
+              <input name="totalGuarantee" id="totalGuarantee" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.externalGuaranteedAmount" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业当前对外担保总额' : '请填写家庭当前对外担保总额'}}">
+              <span class="input-group-addon">元</span>
+            </div>
+            <div ng-if="preProjectForm.totalGuarantee.$dirty && preProjectForm.totalGuarantee.$invalid && !preProjectForm.totalGuarantee.$focused">
+              <div ng-if="preProjectForm.totalGuarantee.$error.pattern">
+                <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
+              </div>
+              <div ng-if="preProjectForm.totalGuarantee.$error.required">
+                <p class="input-tips">请填写{{enterpriseTxt.guaranteeTxt}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- 下一步 -->
+          <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+            <div class="safe-form-group row">
+              <label class="col-md-4 col-lg-4"></label>
+              <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.loanAmount.$error.pattern"/>
+            </div>
+          </div>
+        </div>
+      </form>
+      <ul ng-if="loanTab === 0 && preLoan === 1" class="preLoanlist">
+        <li ng-repeat="item in preLoanList">
+          <p>{{item.title}}：</p>
+          <p>{{item.content}}</p>
+        </li>
+        <div class="col-xs-12 preLoanBtn">
+          <div class="safe-form-group row">
+            <p class="white-button col-md-3 col-xs-offset-1" ng-click="preLoanBtn(enterprise)">重新编辑</p>
+            <p class="blue-button col-md-3 col-xs-offset-2" ng-click="checkLoanAmount(enterprise)">确认提交</p>
+          </div>
+        </div>
+      </ul>
+      <!-- 申请记录 -->
+      <table ng-if="loanTab === 1" class="loanList">
+        <thead ng-show="loanList.length > 0">
+          <tr>
+            <th>申请时间</th>
+            <th>申请借款金额</th>
+            <th>申请借款期限</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in loanList" ng-show="loanList.length > 0">
+            <td>{{item.createTime | date: 'yyyy-MM-dd'}}</td>
+            <td>{{item.amount}}元</td>
+            <td>{{item.projectDays}}天</td>
+            <td>{{item.status === 0 ? '审核中' : item.status === 1 ? '已拒绝' : '已批准'}}</td>
+            <td class="cursor-pointer ft-blue" ng-click="toDetail($index);">查看详情</td>
+          </tr>
+          <tr ng-show="loanList.length <= 0">
+            <td colspan="5">暂无数据</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 等待审核 -->
+    <div class="row text-center ft-24" ng-show="showPendingAudit" style="margin-top: 60px;">
+      资料审核中，请您耐心等待（{{counter}}s）
+    </div>
+  </div>
+  <!-- 申请列表-查看详情 -->
+  <div class="LoanDetail" ng-if="loanDetail">
+    <ul class="preLoanlist">
+      <li ng-repeat="item in detailList">
         <p>{{item.title}}：</p>
         <p>{{item.content}}</p>
       </li>
-      <div class="col-xs-12 preLoanBtn">
-        <div class="safe-form-group row">
-          <p class="white-button col-md-3 col-xs-offset-1" ng-click="preLoanBtn()">重新编辑</p>
-          <p class="blue-button col-md-3 col-xs-offset-2" ng-click="checkLoanAmount(enterprise)">确认提交</p>
-        </div>
-      </div>
     </ul>
-    <!-- 申请记录 -->
-    <table ng-if="loanTab === 1" class="loanList">
-      <thead ng-show="loanList.length > 0">
-        <tr>
-          <th>申请时间</th>
-          <th>申请借款金额</th>
-          <th>申请借款期限</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in loanList" ng-show="loanList.length > 0">
-          <td>{{item.creatTime | date: 'yyyy-MM-dd'}}</td>
-          <td>{{item.loanAmount}}元</td>
-          <td>{{item.loanDate}}天</td>
-          <td>{{item.status === 0 ? '审核中' : item.status === 1 ? '已批准' : '已拒绝'}}</td>
-          <td class="cursor-pointer ft-blue">查看详情</td>
-        </tr>
-        <tr ng-show="loanList.length <= 0">
-          <td colspan="5">暂无数据</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- 等待审核 -->
-  <div class="row text-center ft-24" ng-show="showPendingAudit" style="margin-top: 60px;">
-    资料审核中，请您耐心等待（{{counter}}s）
+    <!-- 返回 -->
+    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+      <div class="safe-form-group row preLoanBtn">
+        <label class="col-md-4 col-lg-4"></label>
+        <p class="blue-button col-md-4 col-lg-4" ng-click="gobackDetail()">返回</p>
+      </div>
+    </div>
   </div>
 </div>
 
