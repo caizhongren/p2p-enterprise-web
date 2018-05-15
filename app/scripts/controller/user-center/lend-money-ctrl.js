@@ -130,7 +130,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '证件类型',
-						content: loanListM.legalIdType === 1 ? '身份证' : loanListM.legalIdType === 2 ? '护照' : loanListM.legalIdType === 3 ? '港澳台通行证' : '外国人永久居住证'
+						content: loanListM.legalIdType === 1 ? '身份证' : loanListM.legalIdType === 2 ? '护照' : loanListM.legalIdType === 3 ? '港澳台通行证' : '外国人永久居留证'
 					},
 					{
 						title: '证件号码',
@@ -138,7 +138,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '文化程度',
-						content: loanListM.cultureLevel === 1 ? '初中及一下' : loanListM.cultureLevel === 2 ? '高中/中专' : loanListM.cultureLevel === 3 ? '本科/大专' : '研究生级以上'
+						content: loanListM.cultureLevel === 1 ? '初中及以下' : loanListM.cultureLevel === 2 ? '高中/中专' : loanListM.cultureLevel === 3 ? '本科/大专' : '研究生及以上'
 					},
 					{
 						title: '婚姻状况',

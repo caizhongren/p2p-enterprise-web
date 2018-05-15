@@ -62,7 +62,7 @@
           <div class="form-group">
             <label for="amount">申请借款金额</label>
             <div class="form-group input-group">
-              <input name="amount" id="amount" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')">
+              <input name="amount" id="amount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')">
               <span class="input-group-addon">元</span>
             </div>
             <div ng-if="preProjectForm.amount.$dirty && preProjectForm.amount.$invalid && !preProjectForm.amount.$focused || enterprise.amount <=0">
@@ -118,7 +118,7 @@
           <div class="form-group">
             <label for="enterpriseProfit">{{enterpriseTxt.profitTxt}}</label>
             <div class="form-group input-group">
-              <input name="enterpriseProfit" id="enterpriseProfit" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthNetProfit" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月净利润' : '请填写家庭月收入'}}">
+              <input name="enterpriseProfit" id="enterpriseProfit" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthNetProfit" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月净利润' : '请填写家庭月收入'}}">
               <span class="input-group-addon">元</span>
             </div>
             <div ng-if="preProjectForm.enterpriseProfit.$dirty && preProjectForm.enterpriseProfit.$invalid && !preProjectForm.enterpriseProfit.$focused">
@@ -134,7 +134,7 @@
           <div class="form-group">
             <label for="totalExpenditure">{{enterpriseTxt.expenditureTxt}}</label>
             <div class="form-group input-group">
-              <input name="totalExpenditure" id="totalExpenditure" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthTotalExpend" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月总支出' : '请填写家庭月总支出'}}">
+              <input name="totalExpenditure" id="totalExpenditure" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthTotalExpend" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月总支出' : '请填写家庭月总支出'}}">
               <span class="input-group-addon">元</span>
             </div>
             <div ng-if="preProjectForm.totalExpenditure.$dirty && preProjectForm.totalExpenditure.$invalid && !preProjectForm.totalExpenditure.$focused">
@@ -150,7 +150,7 @@
           <div class="form-group">
             <label for="debtExpenditure">{{enterpriseTxt.debtTxt}}</label>
             <div class="form-group input-group">
-              <input name="debtExpenditure" id="debtExpenditure" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthDebtExpend" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月债务支出' : '请填写家庭月债务支出'}}">
+              <input name="debtExpenditure" id="debtExpenditure" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.monthDebtExpend" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业月债务支出' : '请填写家庭月债务支出'}}">
               <span class="input-group-addon">元</span>
             </div>
             <div ng-if="preProjectForm.debtExpenditure.$dirty && preProjectForm.debtExpenditure.$invalid && !preProjectForm.debtExpenditure.$focused">
@@ -166,7 +166,7 @@
           <div class="form-group">
             <label for="totalGuarantee">{{enterpriseTxt.guaranteeTxt}}</label>
             <div class="form-group input-group">
-              <input name="totalGuarantee" id="totalGuarantee" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.externalGuaranteedAmount" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业当前对外担保总额' : '请填写家庭当前对外担保总额'}}">
+              <input name="totalGuarantee" id="totalGuarantee" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.externalGuaranteedAmount" required oninvalid="setCustomValidity(this.placeholder)" oninput="setCustomValidity('')" placeholder="{{userType === 2 ? '请填写企业当前对外担保总额' : '请填写家庭当前对外担保总额'}}">
               <span class="input-group-addon">元</span>
             </div>
             <div ng-if="preProjectForm.totalGuarantee.$dirty && preProjectForm.totalGuarantee.$invalid && !preProjectForm.totalGuarantee.$focused">
