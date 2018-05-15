@@ -5,9 +5,6 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
     $scope.thumbnailFiles = [];
     $rootScope.selectSide = 'perfect-information';
     $scope.tab = 1;
-    $scope.change = function () {
-        console.log($scope.enterprise.legalIdType)
-    }
 
     /*
      * 查询借款企业信息
@@ -16,8 +13,10 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         if(response && response.ret !== -1) {
           if(response.infoStatus == 0) {
             $scope.readOnly = false;
+            response.contactMobile = response.name;
+            response.name = null;
             $('.form-control').removeAttr('readonly');
-            $('.form-group select').removeAttr('disabled')
+            $('.form-group select').removeAttr('disabled');
           }else{
             $scope.readOnly = true;
           }
@@ -29,17 +28,19 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
           $scope.enterprise.legalIdType === null ? $scope.enterprise.legalIdType = 0 : null
           $scope.enterprise.cultureLevel === null ? $scope.enterprise.cultureLevel = 0 : null
           $scope.enterprise.maritalStatus === null ? $scope.enterprise.maritalStatus = 0 : null
+          $scope.enterprise.enterpriseProperty === null ? $scope.enterprise.enterpriseProperty = 0 : null
         
         }else {
             $scope.readOnly = false;
             $('.form-control').removeAttr('readonly');
+            $('.form-group select').removeAttr('disabled');
         }
       });
     // 隐藏编辑按钮
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
         $('.form-control').removeAttr('readonly');
-        $('.form-group select').removeAttr('disabled')
+        $('.form-group select').removeAttr('disabled');
     }
     /*
      * 查询上传的文件
