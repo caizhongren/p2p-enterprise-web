@@ -52,7 +52,7 @@
     <!-- 填写借款信息 -->
     <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && !loanInformation">
       <div class="ft-16 row text-center margin-0">
-        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;">申请记录</span>
+        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;getLoanList(1);">申请记录</span>
       </div>
       <!-- 借款申请 -->
       <form ng-if="loanTab === 0 && preLoan == 0" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
@@ -65,8 +65,8 @@
               <input name="amount" id="amount" type="number" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')">
               <span class="input-group-addon">元</span>
             </div>
-            <div ng-if="preProjectForm.amount.$dirty && preProjectForm.amount.$invalid && !preProjectForm.amount.$focused">
-              <div ng-if="preProjectForm.amount.$error.pattern">
+            <div ng-if="preProjectForm.amount.$dirty && preProjectForm.amount.$invalid && !preProjectForm.amount.$focused || enterprise.amount <=0">
+              <div ng-if="preProjectForm.amount.$error.pattern || enterprise.amount <=0">
                 <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
               </div>
               <div ng-if="preProjectForm.amount.$error.required">

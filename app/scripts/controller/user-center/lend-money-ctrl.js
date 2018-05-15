@@ -12,130 +12,51 @@ angular.module('hongcaiApp')
 			guaranteeTxt: ($rootScope.userType === 2 ? '企业' : '家庭') + '当前对外担保总额',
 		}
 
-    /*
-     * 查询借款企业信息
-    */
-	 var loanListM = {}
-    $scope.getEnterpriseInfo = function(){
-			if ($rootScope.securityStatus) {
-				EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
-							if (response && response.ret !== -1) {
-								$scope.infoStatus = response.infoStatus;
-								loanListM = response;
-							}else {
-								$scope.infoStatus = 0;
-							}
-					})
-			}
-    }
-    $scope.getEnterpriseInfo();
 
-    if ($rootScope.securityStatus && $rootScope.securityStatus.userAuth) {
-    	//判断是否开通存管通
-	    if ($rootScope.securityStatus.userAuth.authStatus === 2) {
-	    	$scope.haveTrusteeshipAccount = true;
-	    }else {
-	    	$scope.haveTrusteeshipAccount = false;
-	    }
-
-	    //判断是否开通自动还款
-	    if ($rootScope.securityStatus.userAuth.autoRepayment) {
-	    	$scope.autoRepayment = true;
-	    }else {
-	    	$scope.autoRepayment = false;
-	    }
-    }
-
-    //开通自动还款
-    $scope.goToAutoRepayment = function() {
-      $scope.msg = '9';
-      $alert({
-        scope: $scope,
-        template: 'views/modal/alertYEEPAY.html',
-        show: true
-      });
-
-      var user = {
-        'realName' : 'default',
-        'idCardNo' : 'default'
-      };
-      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/2');
-    }
-
-    //跳转到完善资料页
-    $scope.gotoPerfectInformation = function() {
-    	ipCookie('lendMoney', 1)
-    	$state.go('root.userCenter.perfect-information');
-    }
-		$scope.loanTab = 0;
-		$scope.preLoan = 0;
-		// 借款申请列表查询
-		$scope.getLoanList = function (page) {
-			UserCenterService.getPreProjects.get({
-        userId: $rootScope.securityStatus.userId,
-        page: page,
-        pageSize: 10000,
-        status: '0,1,2'
-        },function(response){
-          if(response && response.ret !== -1){
-            $scope.loanList = response.data;
-						$scope.toDetail(-1)
-          }
-      })
+		// 下一步 暂存的借款信息／借款申请-查看详情的借款信息
+		function Loanform (loanForm) {
+			var form = [
+				{
+					title: $scope.enterpriseTxt.profitTxt,
+					content: loanForm.monthNetProfit
+				},
+				{
+					title: $scope.enterpriseTxt.expenditureTxt,
+					content: loanForm.monthTotalExpend
+				},
+				{
+					title: $scope.enterpriseTxt.debtTxt,
+					content: loanForm.monthDebtExpend
+				},
+				{
+					title: $scope.enterpriseTxt.guaranteeTxt,
+					content: loanForm.externalGuaranteedAmount
+				},
+				{
+					title: '申请借款金额',
+					content: loanForm.amount
+				},
+				{
+					title: '申请借款期限',
+					content: loanForm.projectDays
+				},
+				{
+					title: '借款用途',
+					content: loanForm.financingPurpose
+				},
+				{
+					title: '还款来源',
+					content: loanForm.repaymentSource
+				}
+			]
+			return form;
 		}
-		$scope.getLoanList(1);
-		var preLoanListP = []
-		var preLoanListC = []
-		$scope.toDetail = function (index) {
-			index === -1 ? index = 0 : $scope.loanDetail = true;
-			var loanDetail = $scope.loanList[index];
-			$scope.loanList.length <= 0 ? loanDetail = {
-				amount: null,
-				projectDays: null,
-				financingPurpose: null,
-				repaymentSource: null,
-				monthNetProfit: null,
-				monthTotalExpend: null,
-				monthDebtExpend: null,
-				externalGuaranteedAmount: null
-			} : null
-			var detailList = [];
+
+		// 根据用户类型，企业／个人 返回不同的借款人／借款企业信息
+		var enterpriseFormList = [];
+		function enterpriseForm (loanListM) {
 			if ($rootScope.userType === 2) { // 企业
-				var preLoanList = [
-					{
-						title: '企业月净利润',
-						content: loanDetail.monthNetProfit
-					},
-					{
-						title: '企业月总支出',
-						content: loanDetail.monthTotalExpend
-					},
-					{
-						title: '企业月债务支出',
-						content: loanDetail.monthDebtExpend
-					},
-					{
-						title: '企业当前对外担保总额',
-						content: loanDetail.externalGuaranteedAmount
-					},
-					{
-						title: '申请借款金额',
-						content: loanDetail.amount
-					},
-					{
-						title: '申请借款期限',
-						content: loanDetail.projectDays
-					},
-					{
-						title: '借款用途',
-						content: loanDetail.financingPurpose
-					},
-					{
-						title: '还款来源',
-						content: loanDetail.repaymentSource
-					}
-				]
-				preLoanListC = [
+				enterpriseFormList = [
 					{
 						title: '公司名称',
 						content: loanListM.name
@@ -201,44 +122,8 @@ angular.module('hongcaiApp')
 						content: loanListM.contactEmail
 					}
 				]
-				console.log(loanListM.name)
-				$scope.detailList = preLoanListC.concat(preLoanList)
 			} else { // 个人
-				var preLoanList = [
-					{
-						title: '企业月净利润',
-						content: loanDetail.monthNetProfit
-					},
-					{
-						title: '企业月总支出',
-						content: loanDetail.monthTotalExpend
-					},
-					{
-						title: '企业月债务支出',
-						content: loanDetail.monthDebtExpend
-					},
-					{
-						title: '企业当前对外担保总额',
-						content: loanDetail.externalGuaranteedAmount
-					},
-					{
-						title: '申请借款金额',
-						content: loanDetail.amount
-					},
-					{
-						title: '申请借款期限',
-						content: loanDetail.projectDays
-					},
-					{
-						title: '借款用途',
-						content: loanDetail.financingPurpose
-					},
-					{
-						title: '还款来源',
-						content: loanDetail.repaymentSource
-					}
-				]
-				preLoanListP = [
+				enterpriseFormList = [
 					{
 						title: '姓名',
 						content: loanListM.legalRepresentative
@@ -296,31 +181,117 @@ angular.module('hongcaiApp')
 						content: loanListM.contactEmail
 					}
 				]
-				$scope.detailList = preLoanListP.concat(preLoanList)
 			}
+			// return enterpriseFormList;
+		}
+
+		// 返回暂存借款信息对象
+		var preEnterprise = {};
+		function preLoanForm (preLoan) {
+			preEnterprise = {
+				amount: preLoan.amount,
+				projectDays: preLoan.projectDays,
+				financingPurpose: preLoan.financingPurpose,
+				repaymentSource: preLoan.repaymentSource,
+				monthNetProfit: preLoan.monthNetProfit,
+				monthTotalExpend: preLoan.monthTotalExpend,
+				monthDebtExpend: preLoan.monthDebtExpend,
+				externalGuaranteedAmount: preLoan.externalGuaranteedAmount
+			}
+			return preEnterprise;
+		}
+		
+    /*
+     * 查询借款企业信息
+    */
+    $scope.getEnterpriseInfo = function(){
+			if ($rootScope.securityStatus) {
+				EnterpriseService.getEnterprise.get({userId: $rootScope.securityStatus.userId},function(response) {
+					if (response && response.ret !== -1) {
+						$scope.infoStatus = response.infoStatus;
+						$scope.infoStatus === 2 ? (enterpriseForm(response), $scope.getPreProject()) : null;
+					}else {
+						$scope.infoStatus = 0;
+					}
+				})
+			}
+    }
+    $scope.getEnterpriseInfo();
+
+    if ($rootScope.securityStatus && $rootScope.securityStatus.userAuth) {
+    	//判断是否开通存管通
+	    if ($rootScope.securityStatus.userAuth.authStatus === 2) {
+	    	$scope.haveTrusteeshipAccount = true;
+	    }else {
+	    	$scope.haveTrusteeshipAccount = false;
+	    }
+
+	    //判断是否开通自动还款
+	    if ($rootScope.securityStatus.userAuth.autoRepayment) {
+	    	$scope.autoRepayment = true;
+	    }else {
+	    	$scope.autoRepayment = false;
+	    }
+    }
+
+    //开通自动还款
+    $scope.goToAutoRepayment = function() {
+      $scope.msg = '9';
+      $alert({
+        scope: $scope,
+        template: 'views/modal/alertYEEPAY.html',
+        show: true
+      });
+
+      var user = {
+        'realName' : 'default',
+        'idCardNo' : 'default'
+      };
+      window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/2');
+    }
+
+    //跳转到完善资料页
+    $scope.gotoPerfectInformation = function() {
+    	ipCookie('lendMoney', 1)
+    	$state.go('root.userCenter.perfect-information');
+		}
+		
+
+		$scope.loanTab = 0;
+		$scope.preLoan = ipCookie('lendMoney_preLoan') || 0;
+		// 借款申请列表查询
+		$scope.getLoanList = function (page) {
+			UserCenterService.getPreProjects.get({
+        userId: $rootScope.securityStatus.userId,
+        page: page,
+        pageSize: 10000,
+        status: '0,1,2'
+        },function(response){
+          if(response && response.ret !== -1){
+            $scope.loanList = response.data;
+          }
+      })
+		}
+
+		$scope.toDetail = function (index) {
+			$scope.loanDetail = true;
+			var loanDetail = $scope.loanList[index];
+			var loanList = Loanform(loanDetail);
+			$scope.detailList = enterpriseFormList.concat(loanList)
 		}
 		$scope.gobackDetail = function () {
 			$scope.loanDetail = false;
 			$scope.loanTab = 1;
 		}
 		// 获取暂存的借款信息
-		var preEnterprise = {}; // 暂存借款信息
 		$scope.getPreProject = function () {
 			UserCenterService.getPreProject.get({
 				userId: $rootScope.securityStatus.userId
 			}, function (response) {
 				if (response && response.amount !== undefined) {
 					$scope.enterprise = response;
-					preEnterprise = {
-							amount: response.amount,
-							projectDays: response.projectDays,
-							financingPurpose: response.financingPurpose,
-							repaymentSource: response.repaymentSource,
-							monthNetProfit: response.monthNetProfit,
-							monthTotalExpend: response.monthTotalExpend,
-							monthDebtExpend: response.monthDebtExpend,
-							externalGuaranteedAmount: response.externalGuaranteedAmount
-						}
+					preLoanForm(response);
+					$scope.preLoan === 1 ? $scope.preLoanList = enterpriseFormList.concat(Loanform(preEnterprise)) : null;
 				} else {
 					preEnterprise = {
 						amount: null,
@@ -335,7 +306,6 @@ angular.module('hongcaiApp')
 				}
 			})
 		}
-		$scope.getPreProject();
 
 		$scope.savePreProject = function (keep, enterprise) { // keep 是否保存数据，true 保存，false 暂存
 			UserCenterService.preProject.post({
@@ -354,6 +324,7 @@ angular.module('hongcaiApp')
 					if (keep) {
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
+						ipCookie('lendMoney_preLoan', null)
 						$scope.counter = 3;
 						$scope.onTimeout = function(){
 							$scope.counter--;
@@ -376,56 +347,15 @@ angular.module('hongcaiApp')
 
 		// 返回 重新编辑
 		$scope.preLoanBtn = function (enterprise) {
-			$scope.preLoan = 0
-			preEnterprise = {
-				amount: enterprise.amount,
-				projectDays: enterprise.projectDays,
-				financingPurpose: enterprise.financingPurpose,
-				repaymentSource: enterprise.repaymentSource,
-				monthNetProfit: enterprise.monthNetProfit,
-				monthTotalExpend: enterprise.monthTotalExpend,
-				monthDebtExpend: enterprise.monthDebtExpend,
-				externalGuaranteedAmount: enterprise.externalGuaranteedAmount
-			}
+			$scope.preLoan = 0;
+			ipCookie('lendMoney_preLoan', $scope.preLoan);
+			preLoanForm(enterprise);
 		}
 
 		// 下一步，暂存借款信息
 		$scope.nextPreForm = function (enterprise) {
 			$scope.enterprise = enterprise
-			var preLoanList2 = [
-				{
-					title: $scope.enterpriseTxt.profitTxt,
-					content: enterprise.monthNetProfit
-				},
-				{
-					title: $scope.enterpriseTxt.expenditureTxt,
-					content: enterprise.monthTotalExpend
-				},
-				{
-					title: $scope.enterpriseTxt.debtTxt,
-					content: enterprise.monthDebtExpend
-				},
-				{
-					title: $scope.enterpriseTxt.guaranteeTxt,
-					content: enterprise.externalGuaranteedAmount
-				},
-				{
-					title: '申请借款金额',
-					content: enterprise.amount
-				},
-				{
-					title: '申请借款期限',
-					content: enterprise.projectDays
-				},
-				{
-					title: '借款用途',
-					content: enterprise.financingPurpose
-				},
-				{
-					title: '还款来源',
-					content: enterprise.repaymentSource
-				}
-			]
+			var preLoanList2 = Loanform(enterprise);
 			if (enterprise.amount !== preEnterprise.amount || 
 					enterprise.projectDays !== preEnterprise.projectDays || 
 					enterprise.financingPurpose !== preEnterprise.financingPurpose || 
@@ -438,8 +368,9 @@ angular.module('hongcaiApp')
 				$scope.savePreProject(false, enterprise)
 			} else {
 			}
-			$scope.preLoanList = $rootScope.userType === 2 ? preLoanListC.concat(preLoanList2) : preLoanListP.concat(preLoanList2)
+			$scope.preLoanList = enterpriseFormList.concat(preLoanList2)
 			$scope.preLoan = 1;
+			ipCookie('lendMoney_preLoan', $scope.preLoan)
 		}
     //检查借款金额
     $scope.checkLoanAmount = function(enterprise) {
