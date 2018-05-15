@@ -235,7 +235,8 @@
     <ul class="preLoanlist">
       <li ng-repeat="item in detailList">
         <p>{{item.title}}：</p>
-        <p>{{item.content}}</p>
+        <p ng-if="item.title === '注册时间'">{{item.content | date: 'yyyy年MM月dd日'}}</p>
+        <p ng-if="item.title !== '注册时间'">{{item.content}}</p>
       </li>
     </ul>
     <!-- 返回 -->

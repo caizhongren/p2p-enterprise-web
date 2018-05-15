@@ -18,27 +18,27 @@ angular.module('hongcaiApp')
 			var form = [
 				{
 					title: $scope.enterpriseTxt.profitTxt,
-					content: loanForm.monthNetProfit
+					content: loanForm.monthNetProfit + '元'
 				},
 				{
 					title: $scope.enterpriseTxt.expenditureTxt,
-					content: loanForm.monthTotalExpend
+					content: loanForm.monthTotalExpend + '元'
 				},
 				{
 					title: $scope.enterpriseTxt.debtTxt,
-					content: loanForm.monthDebtExpend
+					content: loanForm.monthDebtExpend + '元'
 				},
 				{
 					title: $scope.enterpriseTxt.guaranteeTxt,
-					content: loanForm.externalGuaranteedAmount
+					content: loanForm.externalGuaranteedAmount + '元'
 				},
 				{
 					title: '申请借款金额',
-					content: loanForm.amount
+					content: loanForm.amount + '元'
 				},
 				{
 					title: '申请借款期限',
-					content: loanForm.projectDays
+					content: loanForm.projectDays + '天'
 				},
 				{
 					title: '借款用途',
@@ -79,7 +79,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '注册资本',
-						content: loanListM.registerCapital
+						content: loanListM.registerCapital + '万元'
 					},
 					{
 						title: '注册地址',
@@ -87,7 +87,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '企业性质',
-						content: loanListM.enterpriseProperty
+						content: loanListM.enterpriseProperty === 1 ? '民营' : loanListM.enterpriseProperty === 2 ? '国企' : loanListM.enterpriseProperty === 3 ? '外企' : '合资'
 					},
 					{
 						title: '所属行业',
@@ -138,7 +138,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '文化程度',
-						content: loanListM.cultureLevel === 1 ? '初中及一下' : loanListM.legalIdType === 2 ? '高中/中专' : loanListM.legalIdType === 3 ? '本科/大专' : '研究生级以上'
+						content: loanListM.cultureLevel === 1 ? '初中及一下' : loanListM.cultureLevel === 2 ? '高中/中专' : loanListM.cultureLevel === 3 ? '本科/大专' : '研究生级以上'
 					},
 					{
 						title: '婚姻状况',
@@ -150,7 +150,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '工作单位',
-						content: loanListM.idRegisterAddress
+						content: loanListM.name
 					},
 					{
 						title: '职务',
@@ -158,7 +158,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '工作年限',
-						content: loanListM.workingDuration
+						content: loanListM.workingDuration + '年'
 					},
 					{
 						title: '现居住地',
@@ -258,7 +258,7 @@ angular.module('hongcaiApp')
 		
 
 		$scope.loanTab = 0;
-		$scope.preLoan = ipCookie('lendMoney_preLoan') || 0;
+		$scope.preLoan = 0;
 		// 借款申请列表查询
 		$scope.getLoanList = function (page) {
 			UserCenterService.getPreProjects.get({
@@ -291,6 +291,7 @@ angular.module('hongcaiApp')
 				if (response && response.amount !== undefined) {
 					$scope.enterprise = response;
 					preLoanForm(response);
+					$scope.preLoan = ipCookie('lendMoney_preLoan');
 					$scope.preLoan === 1 ? $scope.preLoanList = enterpriseFormList.concat(Loanform(preEnterprise)) : null;
 				} else {
 					preEnterprise = {
