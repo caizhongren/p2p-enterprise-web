@@ -150,7 +150,7 @@
                                       <div class="col-lg-8 margin-t-20">
                                           <div class="form-group">
                                               <label for="residencePlace">现居住地</label>
-                                              <input class="form-control" name="residencePlace" id="residencePlace" ng-model="enterprise.address" required readonly oninvalid="setCustomValidity('请填写现居住地')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="residencePlace" ng-maxlength="250" maxlength="250" id="residencePlace" ng-model="enterprise.address" required readonly oninvalid="setCustomValidity('请填写现居住地')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.residencePlace.$dirty && enterpriseAddForm.residencePlace.$invalid && !enterpriseAddForm.residencePlace.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.residencePlace.$error.required">
                                                       <p class="input-tips">请填写现居住地</p>
@@ -159,7 +159,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="mailAddress">通信地址</label>
-                                              <input class="form-control" name="mailAddress" id="mailAddress" ng-model="enterprise.mailingAddress" required readonly oninvalid="setCustomValidity('请填写通信地址')" oninput="setCustomValidity('')">
+                                              <input class="form-control" name="mailAddress" ng-maxlength="250" maxlength="250" id="mailAddress" ng-model="enterprise.mailingAddress" required readonly oninvalid="setCustomValidity('请填写通信地址')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.mailAddress.$dirty && enterpriseAddForm.mailAddress.$invalid && !enterpriseAddForm.mailAddress.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.mailAddress.$error.required">
                                                       <p class="input-tips">请填写通信地址</p>
@@ -189,7 +189,7 @@
                                           </div>
                                           <div class="form-group">
                                               <label for="contactEmail">邮箱</label>
-                                              <input name="contactEmail" id="contactEmail" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" class="form-control" ng-model="enterprise.contactEmail" required readonly oninvalid="setCustomValidity('请填写邮箱')" oninput="setCustomValidity('')">
+                                              <input name="contactEmail" id="contactEmail" ng-maxlength="250" maxlength="250" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" class="form-control" ng-model="enterprise.contactEmail" required readonly oninvalid="setCustomValidity('请填写邮箱')" oninput="setCustomValidity('')">
                                               <div ng-if="enterpriseAddForm.contactEmail.$dirty && enterpriseAddForm.contactEmail.$invalid && !enterpriseAddForm.contactEmail.$focused" style="padding-left: 15px;">
                                                   <div ng-if="enterpriseAddForm.contactEmail.$error.pattern">
                                                       <p class="input-tips">邮箱格式错误</p>

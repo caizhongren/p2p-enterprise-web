@@ -155,10 +155,10 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             taxNo: enterprise.taxNo,
             registerCapital: enterprise.registerCapital,
             background: enterprise.background,
-            businessScope: enterprise.businessScope,
             businessState: enterprise.businessState,
+            businessScope: enterprise.businessScope || '',
             address: enterprise.address,
-            contactName: enterprise.contactName,
+            contactName: enterprise.contactName || '',
             contactMobile: enterprise.contactMobile,
             contactEmail: enterprise.contactEmail,
             registerDate: enterprise.registerDate,
@@ -170,7 +170,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             workingDuration: enterprise.workingDuration,
             mailingAddress: enterprise.mailingAddress,
             phoneNumber: enterprise.phoneNumber,
-            unifiedCode: enterprise.unifiedCode,
+            unifiedCode: enterprise.unifiedCode || '',
             enterpriseProperty: enterprise.enterpriseProperty,
             keep: true
       }, function(response) {

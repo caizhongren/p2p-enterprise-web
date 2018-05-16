@@ -6,11 +6,11 @@ angular.module('hongcaiApp')
       getEnterpriseFiles: $resource(RESTFUL_DOMAIN + '/enterprises/0/enterpriseFiles', {enterpriseId:'@enterpriseId'}),
 
       //保存信息
-      saveEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/',{}, {
-        update: {
+      saveEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/',null, {
+        'update': {
             method: "PUT",
             // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            params: {
+            data: {
               userId: '@userId',
               name: '@name',
               legalName: '@legalName',
