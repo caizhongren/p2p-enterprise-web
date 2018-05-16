@@ -63,7 +63,7 @@ angular.module('hongcaiApp')
 					},
 					{
 						title: '法定代表人',
-						content: loanListM.legalRepresentative
+						content: loanListM.legalName
 					},
 					{
 						title: '法定代表人身份证号',
@@ -126,7 +126,7 @@ angular.module('hongcaiApp')
 				enterpriseFormList = [
 					{
 						title: '姓名',
-						content: loanListM.legalRepresentative
+						content: loanListM.legalName
 					},
 					{
 						title: '证件类型',

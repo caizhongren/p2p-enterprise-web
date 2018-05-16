@@ -149,7 +149,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             name: enterprise.name,
             legalName: enterprise.legalName,
             legalIdNo: enterprise.legalIdNo,
-            legalRepresentative: enterprise.legalRepresentative,
+            legalName: enterprise.legalName,
             bankLicense: enterprise.bankLicense,
             registrationNo: enterprise.registrationNo,
             orgNo: enterprise.orgNo,
