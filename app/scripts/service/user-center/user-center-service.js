@@ -168,15 +168,29 @@ angular.module('hongcaiApp')
        */
       authorizeAutoTransfer: $resource(RESTFUL_DOMAIN + '/users/0/authorizeAutoTransfer', {}, {'post':   {method:'POST'}}),
       /**
-       * 保存借款信息
+       * 保存借款信息 keep 是否保存数据，true 保存，false 暂存
        */
       preProject: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProject', {
         userId: '@userId',
+        keep: '@keep',
         amount: '@amount',
         projectDays: '@projectDays',
         financingPurpose: '@financingPurpose',
+        repaymentSource: '@repaymentSource',
+        monthNetProfit: '@monthNetProfit',
+        monthTotalExpend: '@monthTotalExpend',
+        monthDebtExpend: '@monthDebtExpend',
+        externalGuaranteedAmount: '@externalGuaranteedAmount',
       }, {
         'post': {method: 'POST'}
+      }),
+      /**
+       * 查询借款信息
+       */
+      getPreProject: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProject', {
+        userId: '@userId'
+      }, {
+        'get': {method: 'GET'}
       }),
       /**
        * 借款企业借款申请统计

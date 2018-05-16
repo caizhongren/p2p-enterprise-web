@@ -15,7 +15,7 @@ angular.module('hongcaiApp')
               name: '@name',
               legalName: '@legalName',
               legalIdNo: '@legalIdNo',
-              legalRepresentative: '@legalRepresentative',
+              legalName: '@legalName',
               bankLicense: '@bankLicense',
               registrationNo: '@registrationNo',
               orgNo: '@orgNo',
@@ -28,7 +28,18 @@ angular.module('hongcaiApp')
               contactName: '@contactName',
               contactMobile: '@contactMobile',
               contactEmail: '@contactEmail',
-              registerDate: '@registerDate'
+              registerDate: '@registerDate',
+              legalIdType: '@legalIdType',
+              cultureLevel: '@cultureLevel',
+              maritalStatus: '@maritalStatus',
+              idRegisterAddress: '@idRegisterAddress',
+              industry: '@industry',
+              workingDuration: '@workingDuration',
+              mailingAddress: '@mailingAddress',
+              phoneNumber: '@phoneNumber',
+              unifiedCode: '@unifiedCode',
+              enterpriseProperty: '@enterpriseProperty',
+              keep: '@keep'
             }
           }
       }),
