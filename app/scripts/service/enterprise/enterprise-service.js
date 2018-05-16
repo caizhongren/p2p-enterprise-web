@@ -15,7 +15,6 @@ angular.module('hongcaiApp')
               name: '@name',
               legalName: '@legalName',
               legalIdNo: '@legalIdNo',
-              legalName: '@legalName',
               bankLicense: '@bankLicense',
               registrationNo: '@registrationNo',
               orgNo: '@orgNo',
