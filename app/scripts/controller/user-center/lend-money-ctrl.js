@@ -292,7 +292,7 @@ angular.module('hongcaiApp')
 				if (response && response.amount !== undefined) {
 					$scope.enterprise = response;
 					preLoanForm(response);
-					$scope.preLoan = ipCookie('lendMoney_preLoan');
+					$scope.preLoan = ipCookie('lendMoney_preLoan') || 0;
 					$scope.preLoan === 1 ? $scope.preLoanList = enterpriseFormList.concat(Loanform(preEnterprise)) : null;
 				} else {
 					preEnterprise = {
