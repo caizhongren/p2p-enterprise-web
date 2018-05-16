@@ -384,15 +384,15 @@ angular.module('hongcaiApp')
     			$scope.isContinue = false;
     			$scope.isKnow = false;
 
-    			if ($scope.loanCounter == 0 && enterprise.amount > $scope.maxLoanAmount) {
+    			if ($scope.loanCounter == 0 && Number(enterprise.amount) > $scope.maxLoanAmount) {
     				$scope.msg = '借款上限为' + $scope.maxLoanAmount / 10000 + '万，请您修改借款金额。';
-    			}else if ($scope.loanCounter >0 && enterprise.amount + $scope.loanTotalAmount > $scope.maxLoanAmount) {
-    				$scope.msg = '您当前已申请'+ $scope.loanCounter + '笔借款，总金额为' + $scope.loanTotalAmount/10000 +'万元。';
+    			}else if ($scope.loanCounter >0 && Number(enterprise.amount) + $scope.loanTotalAmount > $scope.maxLoanAmount) {
+    				$scope.msg = '您当前已申请'+ $scope.loanCounter + '笔借款，总金额为' + ($scope.loanTotalAmount/10000).toFixed(6) +'万元。';
     				$scope.isKnow = true;
-    			}else if ($scope.loanCounter >0 && enterprise.amount + $scope.loanTotalAmount <= $scope.maxLoanAmount) {
-    				$scope.msg = '您当前已申请'+ $scope.loanCounter + '笔借款，总金额为' + $scope.loanTotalAmount/10000 +'万元。是否确定继续借款？';
+    			}else if ($scope.loanCounter >0 && Number(enterprise.amount) + $scope.loanTotalAmount <= $scope.maxLoanAmount) {
+    				$scope.msg = '您当前已申请'+ $scope.loanCounter + '笔借款，总金额为' + ($scope.loanTotalAmount/10000).toFixed(6) +'万元。是否确定继续借款？';
     				$scope.isContinue = true;
-    			}else if ($scope.loanCounter == 0 && enterprise.amount <= $scope.maxLoanAmount) {
+    			}else if ($scope.loanCounter == 0 && Number(enterprise.amount) <= $scope.maxLoanAmount) {
 						$scope.msg = '';
 						$scope.gotoLoan(enterprise);
 					}
