@@ -6,16 +6,15 @@ angular.module('hongcaiApp')
       getEnterpriseFiles: $resource(RESTFUL_DOMAIN + '/enterprises/0/enterpriseFiles', {enterpriseId:'@enterpriseId'}),
 
       //保存信息
-      saveEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/',{}, {
-        update: {
+      saveEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/',null, {
+        'update': {
             method: "PUT",
             // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            params: {
+            data: {
               userId: '@userId',
               name: '@name',
               legalName: '@legalName',
               legalIdNo: '@legalIdNo',
-              legalRepresentative: '@legalRepresentative',
               bankLicense: '@bankLicense',
               registrationNo: '@registrationNo',
               orgNo: '@orgNo',
@@ -28,7 +27,18 @@ angular.module('hongcaiApp')
               contactName: '@contactName',
               contactMobile: '@contactMobile',
               contactEmail: '@contactEmail',
-              registerDate: '@registerDate'
+              registerDate: '@registerDate',
+              legalIdType: '@legalIdType',
+              cultureLevel: '@cultureLevel',
+              maritalStatus: '@maritalStatus',
+              idRegisterAddress: '@idRegisterAddress',
+              industry: '@industry',
+              workingDuration: '@workingDuration',
+              mailingAddress: '@mailingAddress',
+              phoneNumber: '@phoneNumber',
+              unifiedCode: '@unifiedCode',
+              enterpriseProperty: '@enterpriseProperty',
+              keep: '@keep'
             }
           }
       }),

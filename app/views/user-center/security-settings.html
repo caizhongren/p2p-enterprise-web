@@ -4,7 +4,7 @@
     <div class="right-title">账户设置</div>
   </div>
   <div class="row">
-    <div class="safe-process col-xs-10 col-lg-10 col-xs-offset-1 col-lg-offset-1">
+    <div class="safe-process col-xs-12">
       <div class="row">
         <p class="process-tips blue-safe-pwd col-xs-4 col-lg-4">登录密码</p>
         <p class="process-tips grey-safe-phone col-xs-4 col-lg-4 {{ mobile != null ? 'blue-safe-phone' : ''}}">手机号认证</p>
@@ -19,8 +19,8 @@
       <div class="row">
         <p class="tips col-xs-4 col-lg-4">用户名</p>
         <p class="message col-xs-4 col-lg-4">{{ loginName || "游客"}}</p>
-        <div class="col-xs-3 col-lg-3 col-xs-offset-1 col-lg-offset-1">
-          <p class="activity hadset">{{"已确定"}}</p>
+        <div class="col-xs-2 security-mgn-l padding-0">
+          <p class="hadset">{{"已确定"}}</p>
           <div class="check-ok"></div>
         </div>
       </div>
@@ -31,7 +31,7 @@
       <div class="row">
         <p class="tips col-xs-4 col-lg-4">登录密码</p>
         <p class="message col-xs-4 col-lg-4">已设置</p>
-        <p class="activity col-xs-3 col-lg-3 security-mgn-l security-blue-button blue-button" ng-click="changPwd = !changPwd;changeEmail=false;changeMobile=false">修改</p>
+        <p class="col-xs-3 col-lg-3 security-mgn-l security-blue-button blue-button" ng-click="changPwd = !changPwd;changeEmail=false;changeMobile=false">修改</p>
       </div>
     </div>
   </div>
@@ -78,8 +78,8 @@
       <div class="row">
         <p class="tips col-xs-4 col-lg-4">手机号码</p>
         <p class="message col-xs-4 col-lg-4">{{ mobile || "未设置"}}</p>
-        <p class="activity col-xs-3 col-lg-3 security-mgn-l security-blue-button blue-button" ng-show="!mobile" ng-click="changeMobile=!changeMobile;changeEmail=false;changPwd =false">设置</p>
-        <p class="activity col-xs-3 col-lg-3 security-mgn-l security-blue-button blue-button" ng-show="mobile" ng-click="changeMobile=!changeMobile;changeEmail=false;changPwd =false">修改</p>
+        <p class="col-xs-3 col-lg-3 security-mgn-l security-blue-button blue-button" ng-show="!mobile" ng-click="changeMobile=!changeMobile;changeEmail=false;changPwd =false">设置</p>
+        <p class="col-xs-3 col-lg-3 security-mgn-l security-blue-button blue-button" ng-show="mobile" ng-click="changeMobile=!changeMobile;changeEmail=false;changPwd =false">修改</p>
       </div>
     </div>
   </div>
@@ -174,20 +174,20 @@
   <div class="row">
     <div class="safe-part col-xs-12 col-lg-12">
       <div class="row">
-        <p class="tips message col-xs-4 col-lg-4">银行资金存管账户</p>
-        <p class="message message col-xs-4 col-lg-4" ng-show="!haveTrusteeshipAccount">未开通</p>
-        <p class="message message col-xs-4 col-lg-4" ng-show="haveTrusteeshipAccount">已开通</p>
-        <div class="col-xs-3 col-lg-3 col-xs-offset-1 col-lg-offset-1">
-          <p class="activity security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && userType != 2 && userType != 8" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
-          <p class="activity security-blue-button blue-button" ng-show="!haveTrusteeshipAccount &&  (userType == 2 || userType == 8)" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
-          <p class="activity hadset" ng-show="haveTrusteeshipAccount">已开通</p>
+        <p class="tips col-xs-4 col-lg-4">银行资金存管账户</p>
+        <p class="tips col-xs-4 col-lg-4" ng-show="!haveTrusteeshipAccount">未开通</p>
+        <p class="tips col-xs-4 col-lg-4" ng-show="haveTrusteeshipAccount">已开通</p>
+        <div class="col-xs-2 security-mgn-l padding-0">
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && !isPublicUser" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && isPublicUser)" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
+          <p class="hadset" ng-show="haveTrusteeshipAccount">已开通</p>
           <div class="check-ok" ng-show="haveTrusteeshipAccount"></div>
         </div>
       </div>
     </div>
   </div>
   
-  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && userType != 2 && userType != 8">
+  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && !isPublicUser">
     <form class="real-name row" name="openTrusteeshipAccountForm">
       <div class="col-xs-8 col-lg-6 col-xs-offset-2 col-lg-offset-3">
         <div class="safe-form-group row">
@@ -216,15 +216,14 @@
   </div>
 
   <!-- 自动还款 -->
-  <div class="row" ng-show="user.type ==  1 || user.type ==  2">
+  <div class="row" ng-show="user.type ===  1 || user.type === 2">
     <div class="safe-part col-xs-12 col-lg-12">
       <div class="row">
         <p class="tips message col-xs-4 col-lg-4">自动还款</p>
         <p class="message message col-xs-4 col-lg-4" ng-show="!openAutoRepayment">未开通</p>
         <p class="message message col-xs-4 col-lg-4" ng-show="openAutoRepayment">已开通</p>
-        <div class="col-xs-3 col-lg-3 col-xs-offset-1 col-lg-offset-1">
-          <p class="activity security-blue-button blue-button" ng-show="!openAutoRepayment && userType != 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">去开通</p>
-          <p class="activity security-blue-button blue-button" ng-show="!openAutoRepayment &&  userType == 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">去开通</p>
+        <div class="col-xs-2 security-mgn-l padding-0">
+          <p class="activity security-blue-button blue-button" ng-show="!openAutoRepayment" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">去开通</p>
           <div ng-show="openAutoRepayment" class="activity security-blue-button blue-button" ng-click="cancelUserAuthorization()">取消授权</div>
         </div>
       </div>
@@ -232,16 +231,16 @@
   </div>
 
   <!-- 自动自动投标、自动债权转让 -->
-  <div class="row" ng-show="user.type ==  6">
+  <div class="row" ng-show="user.type === 6">
     <div class="safe-part col-xs-12 col-lg-12">
       <div class="row">
-        <p class="tips message col-xs-4 col-lg-4">自动投标</p>
-        <p class="message message col-xs-4 col-lg-4" ng-show="!openTrustReservation">未开通</p>
-        <p class="message message col-xs-4 col-lg-4" ng-show="openTrustReservation">已开通</p>
-        <div class="col-xs-3 col-lg-3 col-xs-offset-1 col-lg-offset-1">
-          <p class="activity" ng-show="!openTrustReservation && userType != 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToTrustReservation()">开通</p>
-          <p class="activity" ng-show="!openTrustReservation && userType == 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToTrustReservation()">开通</p>
-          <p class="activity hadset" ng-show="openTrustReservation">已开通</p>
+        <p class="tips col-xs-4 col-lg-4">自动投标</p>
+        <p class="tips col-xs-4 col-lg-4" ng-show="!openTrustReservation">未开通</p>
+        <p class="tips col-xs-4 col-lg-4" ng-show="openTrustReservation">已开通</p>
+        <div class="col-xs-2 security-mgn-l padding-0">
+          <p class="security-blue-button blue-button" ng-show="!openTrustReservation && userType != 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToTrustReservation()">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!openTrustReservation && userType == 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToTrustReservation()">去开通</p>
+          <p class="hadset" ng-show="openTrustReservation">已开通</p>
           <div class="check-ok" ng-show="openTrustReservation"></div>
         </div>
       </div>
