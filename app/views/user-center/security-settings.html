@@ -178,8 +178,8 @@
         <p class="tips col-xs-4 col-lg-4" ng-show="!haveTrusteeshipAccount">未开通</p>
         <p class="tips col-xs-4 col-lg-4" ng-show="haveTrusteeshipAccount">已开通</p>
         <div class="col-xs-2 security-mgn-l padding-0">
-          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && userType != 2 && userType != 8 && userType != 9" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
-          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount &&  (userType == 2 || userType == 8 || userType == 9)" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && !isPublicUser" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && isPublicUser)" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
           <p class="hadset" ng-show="haveTrusteeshipAccount">已开通</p>
           <div class="check-ok" ng-show="haveTrusteeshipAccount"></div>
         </div>
@@ -187,7 +187,7 @@
     </div>
   </div>
   
-  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && userType != 2 && userType != 8 && userType != 9">
+  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && !isPublicUser">
     <form class="real-name row" name="openTrusteeshipAccountForm">
       <div class="col-xs-8 col-lg-6 col-xs-offset-2 col-lg-offset-3">
         <div class="safe-form-group row">
@@ -216,15 +216,14 @@
   </div>
 
   <!-- 自动还款 -->
-  <div class="row" ng-show="user.type ==  1 || user.type ==  2">
+  <div class="row" ng-show="user.type ===  1 || user.type === 2">
     <div class="safe-part col-xs-12 col-lg-12">
       <div class="row">
         <p class="tips message col-xs-4 col-lg-4">自动还款</p>
         <p class="message message col-xs-4 col-lg-4" ng-show="!openAutoRepayment">未开通</p>
         <p class="message message col-xs-4 col-lg-4" ng-show="openAutoRepayment">已开通</p>
         <div class="col-xs-2 security-mgn-l padding-0">
-          <p class="activity security-blue-button blue-button" ng-show="!openAutoRepayment && userType != 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">去开通</p>
-          <p class="activity security-blue-button blue-button" ng-show="!openAutoRepayment &&  userType == 2" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">去开通</p>
+          <p class="activity security-blue-button blue-button" ng-show="!openAutoRepayment" ng-click="changeMobile=false;changeEmail=false;changPwd =false;goToAutoRepayment()">去开通</p>
           <div ng-show="openAutoRepayment" class="activity security-blue-button blue-button" ng-click="cancelUserAuthorization()">取消授权</div>
         </div>
       </div>
@@ -232,7 +231,7 @@
   </div>
 
   <!-- 自动自动投标、自动债权转让 -->
-  <div class="row" ng-show="user.type ==  6">
+  <div class="row" ng-show="user.type === 6">
     <div class="safe-part col-xs-12 col-lg-12">
       <div class="row">
         <p class="tips col-xs-4 col-lg-4">自动投标</p>
