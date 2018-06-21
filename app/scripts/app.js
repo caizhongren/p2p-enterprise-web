@@ -669,7 +669,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
       return;
     }
   }
-
+  // userType：0-投资用户，1-企业对私账号，2-企业对公账户，3-借款个人，4-宏金盈资金账户，5-宏金盈资产账户，6-居间人资产账户，7-受托支付方（资产方）对私，8-受托支付方（资产方）对公，9-担保方对公，10-供应商（企业／个人）
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if ($location.path().split('/')[1] !== 'user-center') {
