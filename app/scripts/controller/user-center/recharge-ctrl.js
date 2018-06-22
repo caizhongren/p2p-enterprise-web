@@ -31,6 +31,10 @@ angular.module('hongcaiApp')
     };
 
     $scope.recharge = function(amount) {
+      if ($rootScope.userType === 7 || $rootScope.userType === 8) { // 取消资产方充值功能 
+        alert('操作受限');
+        return;
+      }
       $scope.msg = '2';
       $scope.rechargeAmount = amount;
       $alert({
