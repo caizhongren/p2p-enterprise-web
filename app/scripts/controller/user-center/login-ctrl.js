@@ -42,7 +42,7 @@ angular.module('hongcaiApp')
       LoginService.userLogin.get({
         account: user.account,
         password: md5Password,
-        userType: 0,
+        userType: $rootScope.userType,
         type: user.type
       }, function(response) {
         if (response.ret === 1) {
