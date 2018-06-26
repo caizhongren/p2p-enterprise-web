@@ -706,8 +706,8 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
           $rootScope.isLogged = true;
           $rootScope.loginName = response.data.name;
           $rootScope.userType = response.data.userType;
-          $rootScope.privateUserType = $rootScope.userType == 1 || $rootScope.userType == 7 || $rootScope.userType == 11 ? true : null;
-          $rootScope.publicUserType = $rootScope.userType == 2 || $rootScope.userType == 8 || $rootScope.userType == 9 || $rootScope.userType == 10 ? true : null;
+          $rootScope.isPrivateUser = $rootScope.userType == 1 || $rootScope.userType == 7 || $rootScope.userType == 11 ? true : null;
+          $rootScope.isPublicUser = $rootScope.userType == 2 || $rootScope.userType == 8 || $rootScope.userType == 9 || $rootScope.userType == 10 ? true : null;
           $rootScope.securityStatus = response.data.securityStatus;
           $rootScope.realNameAuthStatus = response.data.securityStatus.realNameAuthStatus;
           $rootScope.userDetail = response.data.userDetail;
