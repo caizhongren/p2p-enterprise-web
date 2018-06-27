@@ -104,7 +104,6 @@ angular.module('hongcaiApp')
       SessionService.destory('user');
       $rootScope.loginName = '';
       $rootScope.isLogged = false;
-      $scope.goMain();
     };
     $scope.islogged = function() {
       if (SessionService.get('user'))

@@ -679,6 +679,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
         return;
       }).success(function(response) {
         if (response.ret !== -1 && response.data && response.data.userDetail !== '' && response.data.userDetail.user !== undefined && response.data.userDetail.user !== null) {
+          $rootScope.isLogged = true;
           $rootScope.loginName = response.data.name;
           $rootScope.userType = response.data.userType;
           $rootScope.isPrivateUser = $rootScope.userType == 1 || $rootScope.userType == 7 || $rootScope.userType == 11 ? true : null;
@@ -695,33 +696,10 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     }
   });
   $rootScope.$on('$stateChangeSuccess', function() {
-    if ($location.path().split('/')[2].split('-')[1] == 'bills') {
+    if ($location.path().indexOf('bills') !== -1) {
       $rootScope.selectPage_two = $location.path().split('/')[2].split('-')[1];
     } else {
       $rootScope.selectPage_two = null;
-    }
-    var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
-    if ($location.path().split('/')[1] !== 'user-center') {
-      return
-    } else {
-      $checkSessionServer.error(function(response) {
-        return;
-      }).success(function(response) {
-        if (response.ret !== -1 && response.data && response.data.userDetail !== '' && response.data.userDetail.user !== undefined && response.data.userDetail.user !== null) {
-          $rootScope.isLogged = true;
-          $rootScope.loginName = response.data.name;
-          $rootScope.userType = response.data.userType;
-          $rootScope.isPrivateUser = $rootScope.userType == 1 || $rootScope.userType == 7 || $rootScope.userType == 11 ? true : null;
-          $rootScope.isPublicUser = $rootScope.userType == 2 || $rootScope.userType == 8 || $rootScope.userType == 9 || $rootScope.userType == 10 ? true : null;
-          $rootScope.securityStatus = response.data.securityStatus;
-          $rootScope.realNameAuthStatus = response.data.securityStatus.realNameAuthStatus;
-          $rootScope.userDetail = response.data.userDetail;
-        } else {
-          $rootScope.isLogged = false;
-          $rootScope.loginName = '';
-          $location.path('/login/');
-        }
-      });
     }
   })
 });

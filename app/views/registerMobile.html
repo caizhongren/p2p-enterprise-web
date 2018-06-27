@@ -51,7 +51,7 @@
             <label for="mobileCaptcha" class="col-md-3 col-lg-3 control-label">短信验证码：</label>
             <div class="col-md-7 col-lg-7">
               <input type="text" class="form-control register-capcha" id="mobileCaptcha" name="mobileCaptcha" ng-model="user.mobileCaptcha" ng-class="{'error-border':registerForm.mobileCaptcha.$dirty && registerForm.mobileCaptcha.$invalid}" required placeholder="短信验证码" ng-focus>
-              <button class="{{registerForm.mobile.$invalid || registerForm.picCaptcha.$error.required || !piccha || registerForm.picCaptcha.$error.pattern ? 'blue-button verify-index grey ' : 'blue-button verify-index'}}" ng-disabled="registerForm.mobile.$invalid || registerForm.captcha.$error.required" capcha-countdown="" disabled="disabled">获取验证码</button>
+              <button class=" capcha-left-7 {{registerForm.mobile.$invalid || registerForm.picCaptcha.$error.required || !piccha || registerForm.picCaptcha.$error.pattern ? 'blue-button verify-index grey ' : 'blue-button verify-index'}}" ng-disabled="registerForm.mobile.$invalid || registerForm.captcha.$error.required" capcha-countdown="" disabled="disabled">获取验证码</button>
             </div>
             <div ng-if="registerForm.mobileCaptcha.$dirty && registerForm.mobileCaptcha.$invalid && registerForm.mobileCaptcha.$error.check && !registerForm.mobileCaptcha.$focused" class="col-xs-offset-3 col-xs-8 form-div">
               <div ng-if="registerForm.mobileCaptcha.$error.required" class="row">

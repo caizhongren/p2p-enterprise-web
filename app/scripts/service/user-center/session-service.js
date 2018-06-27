@@ -9,8 +9,12 @@ angular.module('hongcaiApp')
         return sessionStorage.getItem(key);
       },
       destory: function(key) {
-        $http.post(DEFAULT_DOMAIN + '/siteUser/destorySession');
-        return sessionStorage.removeItem(key);
+        $http.post(DEFAULT_DOMAIN + '/siteUser/destorySession').then(function(response) {
+          if (response.data.ret !== -1 && response.data.msg === 'success') {
+            $state.go('root.login');
+            return sessionStorage.removeItem(key);
+          }
+        });
       }
     };
   });
