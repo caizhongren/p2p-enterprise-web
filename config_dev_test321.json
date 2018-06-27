@@ -1,6 +1,6 @@
 {
   "YEEPAY_ADDRESS": "http://101.200.54.92/bha-neo-app/lanmaotech/gateway",
-  "CGT_ADDRESS":"https://hk.lanmaoly.com/bha-neo-app/lanmaotech/gateway",
+  "CGT_ADDRESS":"http://101.200.54.92/bha-neo-app/lanmaotech/gateway",
   "viewFlAG": {
     "tuhaoIsShowedFlAG": true
   },
