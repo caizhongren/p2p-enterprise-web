@@ -695,6 +695,11 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     }
   });
   $rootScope.$on('$stateChangeSuccess', function() {
+    if ($location.path().split('/')[2].split('-')[1] == 'bills') {
+      $rootScope.selectPage_two = $location.path().split('/')[2].split('-')[1];
+    } else {
+      $rootScope.selectPage_two = null;
+    }
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if ($location.path().split('/')[1] !== 'user-center') {
       return
