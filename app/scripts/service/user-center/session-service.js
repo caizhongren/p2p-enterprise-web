@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .factory('SessionService', function($http, $resource, $location, DEFAULT_DOMAIN) {
+  .factory('SessionService', function($http, $resource, $location, DEFAULT_DOMAIN, $state) {
     return {
       set: function(key, value) {
         return sessionStorage.setItem(key, value);
