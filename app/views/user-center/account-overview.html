@@ -205,8 +205,8 @@
                   
                 </table>
                 <input type="button" class="col-xs-3 project-button btn-lg" ng-class="{'col-xs-offset-4': projectBill.repaymentTime - serverTime >= ms, 'col-xs-offset-2': projectBill.repaymentTime - serverTime < ms}" ng-value="'查看详情'" ng-click="toDetail(projectBillDetail.project.number)"  />
-                <!-- <input ng-if="projectBill.repaymentTime - serverTime < ms" type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="userType === 9 ? '代偿还款' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  /> -->
-                <input type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="userType === 9 ? '代偿还款' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
+                <input ng-if="projectBill.repaymentTime - serverTime < ms" type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="userType === 9 ? '代偿还款' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
+                <!-- <input type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="userType === 9 ? '代偿还款' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  /> -->
               </div>
             </div>
           </div>
