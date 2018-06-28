@@ -42,7 +42,7 @@ angular.module('hongcaiApp')
       LoginService.userLogin.get({
         account: user.account,
         password: md5Password,
-        userType: 0,
+        userType: $rootScope.userType,
         type: user.type
       }, function(response) {
         if (response.ret === 1) {
@@ -104,7 +104,6 @@ angular.module('hongcaiApp')
       SessionService.destory('user');
       $rootScope.loginName = '';
       $rootScope.isLogged = false;
-      $scope.goMain();
     };
     $scope.islogged = function() {
       if (SessionService.get('user'))

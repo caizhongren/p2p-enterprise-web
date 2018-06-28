@@ -2,7 +2,6 @@
 angular.module('hongcaiApp')
   .controller('SecuritySettingsCtrl', function(toaster, $scope, $state, $rootScope, $stateParams, UserCenterService, config, md5, $alert, DEFAULT_DOMAIN) {
     $scope.business = 2;
-    $scope.isPublicUser = false;
     var userAuth = {};
     $rootScope.selectSide = 'security-settings';
     $scope.cancelUserAuthorization = function () {
@@ -28,11 +27,6 @@ angular.module('hongcaiApp')
         // $scope.idNo = userAuth.idNo;
         $scope.openTrustReservation = userAuth.autoTransfer;  //自动投标
         $scope.openAutoRepayment = userAuth.autoRepayment;  //自动还款
-
-        //2:企业对公账户,8:受托支付方对公,9:担保方对公
-        if($scope.user.type === 2 || $scope.user.type === 8 || $scope.user.type === 9){
-          $scope.isPublicUser = true;
-        }  
 
         if (userAuth && userAuth.authStatus === 2) {
           $scope.haveTrusteeshipAccount = true;
@@ -65,7 +59,7 @@ angular.module('hongcaiApp')
           $scope.mobileCaptcha = null;
           $rootScope.securityStatus.mobileStatus = 1;
         } else {
-          console.log('ask security-settings, why bindMobile did not load data...');
+          toaster.pop('warning', response.msg);
         }
       });
     };
@@ -86,7 +80,7 @@ angular.module('hongcaiApp')
           $scope.newEmail = null;
           $rootScope.securityStatus.emailStatus = 1;
         } else {
-          console.log('ask security-settings, why bindEmail did not load data...');
+          toaster.pop('warning', response.msg);
         }
       });
     };
@@ -117,12 +111,12 @@ angular.module('hongcaiApp')
           $scope.changPwd = false;
           $scope.password = null;
           $state.reload()
-        } else if (response.ret === -1) {
-          if (response.code === -1021) {
-            $scope.isOldPasswordTrue = false;
-          }
+        // } else if (response.ret === -1) {
+        //   if (response.code === -1021) {
+        //     $scope.isOldPasswordTrue = false;
+        //   }
         } else {
-          console.log('ask security-settings, why changePassword did not load data...');
+          toaster.pop('warning', response.msg);
         }
       });
     };

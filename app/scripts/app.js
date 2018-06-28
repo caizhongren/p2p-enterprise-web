@@ -608,7 +608,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
    * 开通存管通
   */
   $rootScope.realNameAuth = function(user) {
-    if ($rootScope.userType == 1 || $rootScope.userType == 7) {
+    if ($rootScope.isPrivateUser) {
       if (user && (!user.realName || !user.idCardNo || user.idCardNo.length < 18)) {
         return;
       }
@@ -620,7 +620,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
       show: true
     });
 
-    $rootScope.userType == 1 || $rootScope.userType == 7 ? window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0') : window.open('/#!/righs-transfer/0/0/0');
+    $rootScope.isPrivateUser ? window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0') : window.open('/#!/righs-transfer/0/0/0');
   };
 
   /**
@@ -669,7 +669,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
       return;
     }
   }
-
+  // userType：0-投资用户，1-企业对私账号，2-企业对公账户，3-借款个人，4-宏金盈资金账户，5-宏金盈资产账户，6-居间人资产账户，7-受托支付方（资产方）对私，8-受托支付方（资产方）对公，9-担保方对公，10-供应商（企业／对公），11-供应商（个人／对私）
   $rootScope.$on('$stateChangeStart', function() {
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if ($location.path().split('/')[1] !== 'user-center') {
@@ -679,8 +679,11 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
         return;
       }).success(function(response) {
         if (response.ret !== -1 && response.data && response.data.userDetail !== '' && response.data.userDetail.user !== undefined && response.data.userDetail.user !== null) {
+          $rootScope.isLogged = true;
           $rootScope.loginName = response.data.name;
           $rootScope.userType = response.data.userType;
+          $rootScope.isPrivateUser = $rootScope.userType == 1 || $rootScope.userType == 7 || $rootScope.userType == 11 ? true : null;
+          $rootScope.isPublicUser = $rootScope.userType == 2 || $rootScope.userType == 8 || $rootScope.userType == 9 || $rootScope.userType == 10 ? true : null;
           $rootScope.securityStatus = response.data.securityStatus;
           $rootScope.realNameAuthStatus = response.data.securityStatus.realNameAuthStatus;
           $rootScope.userDetail = response.data.userDetail;
@@ -693,10 +696,15 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     }
   });
   $rootScope.$on('$stateChangeSuccess', function() {
+    if ($location.path().indexOf('bills') !== -1) {
+      $rootScope.selectPage_two = $location.path().split('/')[2].split('-')[1];
+    } else {
+      $rootScope.selectPage_two = null;
+    }
     var $checkSessionServer = $http.post(DEFAULT_DOMAIN + '/siteUser/checkSession');
     if ($location.path().split('/')[1] !== 'user-center') {
       return
-    } else {
+    } else {  
       $checkSessionServer.error(function(response) {
         return;
       }).success(function(response) {
@@ -704,6 +712,8 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
           $rootScope.isLogged = true;
           $rootScope.loginName = response.data.name;
           $rootScope.userType = response.data.userType;
+          $rootScope.isPrivateUser = $rootScope.userType == 1 || $rootScope.userType == 7 || $rootScope.userType == 11 ? true : null;
+          $rootScope.isPublicUser = $rootScope.userType == 2 || $rootScope.userType == 8 || $rootScope.userType == 9 || $rootScope.userType == 10 ? true : null;
           $rootScope.securityStatus = response.data.securityStatus;
           $rootScope.realNameAuthStatus = response.data.securityStatus.realNameAuthStatus;
           $rootScope.userDetail = response.data.userDetail;
