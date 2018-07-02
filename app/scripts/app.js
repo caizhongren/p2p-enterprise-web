@@ -606,11 +606,6 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
    * 开通存管通
   */
   $rootScope.realNameAuth = function(user) {
-    if ($rootScope.isPrivateUser) {
-      // if (user && (!user.realName || !user.idCardNo || user.idCardNo.length < 18)) {
-      //   return;
-      // }
-    }
     $rootScope.msg = '1';
     $alert({
       scope: $rootScope,
