@@ -1008,6 +1008,14 @@ input:focus {
   color: #9A9594 !important;
   border: none !important;
 }
+.grey-btn:hover,
+.grey-btn:focus,
+.grey-btn:active,
+.grey-btn.active {
+  border-color: #ebebeb !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 .ft-blue {
   color:#3399cc;
 }
@@ -1142,4 +1150,16 @@ input:focus {
   .container {
     width: 1200px;
   }
+}
+
+.cursor-no {
+  cursor: no-drop !important;
+}
+.security-grey-btn {
+  width: 70px !important;
+  line-height: 33px;
+  margin-top: 8px;
+  border-radius: 3px;
+  text-align: center;
+  cursor: no-drop;
 }

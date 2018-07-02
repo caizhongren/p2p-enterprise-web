@@ -1,19 +1,26 @@
 'use strict';
 angular.module('hongcaiApp')
   .controller('RealNameCtrl', ['$scope', 'UserCenterService', '$rootScope', function($scope, UserCenterService, $rootScope) {
-    
-    $scope.getEnterpriseInfo = function(uesr) {
+    $scope.user = {
+      name: '',
+      legalIdNo: '',
+      mobile: '',
+      cardNo: ''
+    }
+    $scope.getEnterpriseInfo = function() {
       UserCenterService.getEnterpriseInfo.get({}, function(response) {
         if (response.ret !== 1) {
-          $scope.companyName = response.name;
-          $scope.userMobile = response.contactMobile;
+          $scope.user.name = response.name;
+          $scope.user.mobile = response.contactMobile;
+          $scope.user.legalIdNo = response.legalIdNo;
+          
         }
       })
       UserCenterService.getUserBankCard.get({}, function(response) {
         if (response.ret === 1) {
           var card = response.data.card;
           if (card) {
-            $scope.accountNumber = card.cardNo;
+            $scope.user.cardNo = card.cardNo;
           }
         }
       })

@@ -175,11 +175,12 @@
     <div class="safe-part col-xs-12 col-lg-12">
       <div class="row">
         <p class="tips col-xs-4 col-lg-4">银行资金存管账户</p>
-        <p class="tips col-xs-4 col-lg-4" ng-show="!haveTrusteeshipAccount">未开通</p>
+        <p class="tips col-xs-4 col-lg-4" ng-show="!haveTrusteeshipAccount && !haveinhandTrusteeshipAccount">未开通</p>
         <p class="tips col-xs-4 col-lg-4" ng-show="haveTrusteeshipAccount">已开通</p>
+        <p class="tips col-xs-4 col-lg-4" ng-show="haveinhandTrusteeshipAccount">审核中</p>
         <div class="col-xs-2 security-mgn-l padding-0">
-          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && isPrivateUser" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false">去开通</p>
-          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && isPublicUser" ng-click="openTrusteeshipAccount = !openTrusteeshipAccount;changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
+          <p class="security-blue-button blue-button" ng-show="!haveTrusteeshipAccount && !haveinhandTrusteeshipAccount" ng-click="changeMobile=false;changeEmail=false;changPwd =false;alertRealName()">去开通</p>
+          <p class="grey security-grey-btn cursor-no" ng-show="haveinhandTrusteeshipAccount">审核中</p>
           <p class="hadset" ng-show="haveTrusteeshipAccount">已开通</p>
           <div class="check-ok" ng-show="haveTrusteeshipAccount"></div>
         </div>
@@ -187,7 +188,7 @@
     </div>
   </div>
   
-  <div class="change-area change-phone-height" ng-show="openTrusteeshipAccount && isPrivateUser">
+  <div class="change-area change-phone-height" ng-show="false">
     <form class="real-name row" name="openTrusteeshipAccountForm">
       <div class="col-xs-8 col-lg-6 col-xs-offset-2 col-lg-offset-3">
         <div class="safe-form-group row">
