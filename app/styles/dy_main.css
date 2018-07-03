@@ -750,8 +750,9 @@ input:focus {
 .add-card {
   font-size: 20px;
   text-align: center;
-  padding-top: 60px;
+  padding-top: 35px;
   padding-left: 65px;
+  height: 60px;
 }
 .add-cardNo {
   font-size: 35px;
