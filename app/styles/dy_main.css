@@ -738,19 +738,19 @@ input:focus {
 .bank-card-show {
   height: 230px;
   width: 346px;
-  background-position: -730px -946px;
+  background-position: -716px -946px;
   padding-top: 60px;
 }
 .bank-card-show-verify {
   height: 213px;
-  width: 336px;
+  width: 317px;
   background-position: -730px -1182px;
   padding-top: 60px;
 }
 .add-card {
   font-size: 20px;
   text-align: center;
-  padding-top: 35px;
+  padding-top: 60px;
   padding-left: 65px;
 }
 .add-cardNo {
