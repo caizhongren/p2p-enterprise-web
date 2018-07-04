@@ -593,8 +593,8 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
     };
   }
   
-  $rootScope.alertRealName = function () {
-    if ($rootScope.securityStatus.userAuth.authStatus === 1) {
+  $rootScope.alertRealName = function (authStatus) {
+    if (authStatus && authStatus === 1) {
       alert('认证中');
       return;
     }

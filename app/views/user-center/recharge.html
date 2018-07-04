@@ -8,7 +8,7 @@
   </div>
   <!--start 安全认证提示 -->
   <div class="introduction-area border-none row">
-    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth" >您未完成安全认证，请先<a ng-click="alertRealName()">开通</a>海口联合农商银行资金存管账户</p>
+    <p class="verify-tip safe-card-tips" ng-show="!isSecurityAuth" >您未完成安全认证，请先<a ng-click="alertRealName(securityStatus.userAuth.authStatus)">开通</a>海口联合农商银行资金存管账户</p>
   </div>
   <!--end 安全认证提示 -->
 
