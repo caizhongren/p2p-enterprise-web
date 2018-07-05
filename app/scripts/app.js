@@ -594,7 +594,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
   }
   
   $rootScope.alertRealName = function (authStatus) {
-    if (authStatus && authStatus === 1) {
+    if (authStatus && authStatus === 1 && $rootScope.isPublicUser) {
       alert('认证中');
       return;
     }
