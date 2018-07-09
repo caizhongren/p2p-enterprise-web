@@ -28,8 +28,10 @@ angular.module('hongcaiApp')
         $scope.openTrustReservation = userAuth.autoTransfer;  //自动投标
         $scope.openAutoRepayment = userAuth.autoRepayment;  //自动还款
 
-        if (userAuth && userAuth.authStatus === 2) {
+        if (userAuth && userAuth.authStatus === 2) { // authStatus: 0 未认证， 1 认证中，2 已认证
           $scope.haveTrusteeshipAccount = true;
+        } else if (userAuth && userAuth.authStatus === 1) {
+          $scope.haveinhandTrusteeshipAccount = true;
         } else {
           $scope.haveTrusteeshipAccount = false;
         }

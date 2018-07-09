@@ -592,10 +592,12 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
       return -1;
     };
   }
-  var routespermission = ['/account-overview',
-    '/user-center'
-  ];
-  $rootScope.alertRealName = function () {
+  
+  $rootScope.alertRealName = function (authStatus) {
+    if (authStatus && authStatus === 1 && $rootScope.isPublicUser) {
+      alert('认证中');
+      return;
+    }
     $alert({
       scope: $rootScope,
       template: 'views/modal/modal-realNameAuth.html',
@@ -608,11 +610,6 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
    * 开通存管通
   */
   $rootScope.realNameAuth = function(user) {
-    if ($rootScope.isPrivateUser) {
-      if (user && (!user.realName || !user.idCardNo || user.idCardNo.length < 18)) {
-        return;
-      }
-    }
     $rootScope.msg = '1';
     $alert({
       scope: $rootScope,
@@ -620,7 +617,7 @@ hongcaiApp.run(function($rootScope, $location, $http, DEFAULT_DOMAIN, config, $a
       show: true
     });
 
-    $rootScope.isPrivateUser ? window.open('/#!/righs-transfer/' + user.realName + '/' + user.idCardNo + '/0') : window.open('/#!/righs-transfer/0/0/0');
+    $rootScope.isPrivateUser ? window.open('/#!/righs-transfer/' + user.name + '/' + user.legalIdNo + '/0') : window.open('/#!/righs-transfer/0/0/0');
   };
 
   /**

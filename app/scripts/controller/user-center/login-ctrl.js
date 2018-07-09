@@ -54,7 +54,8 @@ angular.module('hongcaiApp')
           // $rootScope.realNameAuthStatus !== 1 ? $rootScope.alertRealName() : null
           UserCenterService.userSecurityInfo.get({}, function(response) {
             if (response.ret === 1) {
-              response.data.userAuth.authStatus === 1 || response.data.userAuth.authStatus === 2 ? null : $rootScope.alertRealName()
+              $rootScope.isPublicUser = (response.data.user.type == 2 || response.data.user.type == 8 || response.data.user.type == 9 || response.data.user.type == 10) ? true : null;
+              response.data.userAuth.authStatus === 2 || (response.data.userAuth.authStatus === 1 && $rootScope.isPublicUser) ? null : $rootScope.alertRealName()
             }
           })
         } else {

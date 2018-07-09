@@ -10,7 +10,7 @@ angular.module('hongcaiApp')
         if (card) {
           $scope.haveCard = (card.status === 'VERIFIED');
           $scope.bankName = card.openBank;
-          $scope.cardNo = card.cardNo;
+          $scope.cardNo = '***********' + card.cardNo.slice(-4);
           $scope.isVerifying = (card.status === 'VERIFYING');
         } else {
           $scope.haveCard = false;

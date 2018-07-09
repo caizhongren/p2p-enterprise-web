@@ -178,7 +178,7 @@
         -->
         <!-- 还款中 -->
         <div ng-repeat="projectBillDetail in projectBillDetails" ng-if="statusx === 1" ng-show="userType !== 5 ">
-          <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in projectBillDetail.projectBills" ng-if="projectBill.status == 0">
+          <div class="col-md-10 col-md-offset-1 table-stl" ng-repeat="projectBill in projectBillDetail.projectBills" ng-if="projectBill.status == 0 || projectBill.status == 4">
             <div class="panel panel-info">
               <div class="panel-heading">
                 <h5>{{projectBillDetail.project.name}}</h5>
@@ -205,8 +205,9 @@
                   
                 </table>
                 <input type="button" class="col-xs-3 project-button btn-lg" ng-class="{'col-xs-offset-4': projectBill.repaymentTime - serverTime >= ms, 'col-xs-offset-2': projectBill.repaymentTime - serverTime < ms}" ng-value="'查看详情'" ng-click="toDetail(projectBillDetail.project.number)"  />
-                <input ng-if="projectBill.repaymentTime - serverTime < ms" type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="userType === 9 ? '代偿还款' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
-                <!-- <input type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-value="userType === 9 ? '代偿还款' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  /> -->
+                <input ng-if="projectBill.repaymentTime - serverTime < ms" type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-class="{'grey-btn cursor-no': projectBill.status === 4}" ng-value="userType === 9 ? '代偿还款' : projectBill.status === 4 ? '还款中' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo)"  />
+                <!-- <input type="button" class="col-xs-offset-2 col-xs-3 btn btn-info btn-lg" ng-class="{'grey-btn cursor-no': projectBill.status === 4}" ng-value="userType === 9 ? '代偿还款' : projectBill.status === 4 ? '还款中' : '立即还款'" ng-click="repayment(projectBillDetail.project, projectBill.repaymentNo, projectBill.status)"  /> -->
+                <!-- projectBill.status: 0 未还款，1 还款完成，4 还款中 -->
               </div>
             </div>
           </div>
