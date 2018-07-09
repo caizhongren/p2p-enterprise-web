@@ -451,7 +451,10 @@ angular.module('hongcaiApp')
     // 企业用户点击还款按钮，进行还款
     // @param  {[type]} projectId
     // @return {[type]}
-    $scope.repayment = function(project, repaymentNo) {
+    $scope.repayment = function(project, repaymentNo, projectBillStatus) {
+      if (projectBillStatus === 4) {
+        return;
+      }
       if (project.repaymentAmount > $scope.balance) {
         alert('账户余额不足，请先充值');
         return;

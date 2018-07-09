@@ -85,14 +85,14 @@
         <th>创建时间</th>
         <th style="white-space:nowrap">收支类型</th>
         <th>收支描述</th>
-        <th>收入</th>
-        <th>支出</th>
-        <th>账户现金</th>
+        <th>收入(元)</th>
+        <th>支出(元)</th>
+        <th>账户现金(元)</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="item in dealList">
-        <td>{{ item.createTime | date: 'yyyy-MM-dd'}}</td>
+        <td>{{ item.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
         <td>{{ dealTypes[item.type] }}</td>
         <td>{{item.description}}</td>
         <td>{{item.getAmount | number: 2}}</td>

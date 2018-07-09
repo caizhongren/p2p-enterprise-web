@@ -738,12 +738,12 @@ input:focus {
 .bank-card-show {
   height: 230px;
   width: 346px;
-  background-position: -730px -946px;
+  background-position: -716px -946px;
   padding-top: 60px;
 }
 .bank-card-show-verify {
   height: 213px;
-  width: 336px;
+  width: 317px;
   background-position: -730px -1182px;
   padding-top: 60px;
 }
@@ -752,6 +752,7 @@ input:focus {
   text-align: center;
   padding-top: 35px;
   padding-left: 65px;
+  height: 60px;
 }
 .add-cardNo {
   font-size: 35px;
@@ -1008,6 +1009,14 @@ input:focus {
   color: #9A9594 !important;
   border: none !important;
 }
+.grey-btn:hover,
+.grey-btn:focus,
+.grey-btn:active,
+.grey-btn.active {
+  border-color: #ebebeb !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 .ft-blue {
   color:#3399cc;
 }
@@ -1142,4 +1151,16 @@ input:focus {
   .container {
     width: 1200px;
   }
+}
+
+.cursor-no {
+  cursor: no-drop !important;
+}
+.security-grey-btn {
+  width: 70px !important;
+  line-height: 33px;
+  margin-top: 8px;
+  border-radius: 3px;
+  text-align: center;
+  cursor: no-drop;
 }
