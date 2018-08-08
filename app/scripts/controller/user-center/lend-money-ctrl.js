@@ -1,8 +1,22 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LendMoneyCtrl', function($scope, $state, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
+  .controller('LendMoneyCtrl', function($scope, $state, $location, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
     $rootScope.selectSide = 'lend-money';
-		$scope.loanDetail = false;
+		$scope.showLoanDetail = false;
+		if ($stateParams.loanStatus) {
+			$scope.loanSuccess = true;
+			$scope.counter = 2;
+			$scope.onTimeout = function(){
+				$scope.counter--;
+				mytimeout = $timeout($scope.onTimeout,1000);
+				if($scope.counter === 0) {
+					$scope.loanTab = 1;
+					$scope.getLoanList(1);
+					$scope.loanSuccess = false;
+				}
+			};
+			var mytimeout = $timeout($scope.onTimeout,1000);
+		}
 		$scope.maxLoanAmount = 1000000;
 		$rootScope.userType === 2 ? $scope.maxLoanAmount = 1000000 : $scope.maxLoanAmount = 200000;
 		$scope.enterpriseTxt = {
@@ -273,15 +287,22 @@ angular.module('hongcaiApp')
           }
       })
 		}
-
+		$scope.reapplyLoan = function (loanDetail) {
+			$scope.enterprise = loanDetail;
+			$scope.showLoanDetail = false;
+			$scope.loanTab = 0;
+			$scope.preLoan = 0;
+		}
 		$scope.toDetail = function (index) {
-			$scope.loanDetail = true;
-			var loanDetail = $scope.loanList[index];
-			var loanList = Loanform(loanDetail);
+			$scope.loanDetail = $scope.loanList[index];
+			$scope.loanStatus = $scope.loanDetail.status;
+			$scope.loanStatus === 1 ? $scope.auditDesc = $scope.loanDetail.auditDesc : null;
+			$scope.showLoanDetail = true;
+			var loanList = Loanform($scope.loanDetail);
 			$scope.detailList = enterpriseFormList.concat(loanList)
 		}
 		$scope.gobackDetail = function () {
-			$scope.loanDetail = false;
+			$scope.showLoanDetail = false;
 			$scope.loanTab = 1;
 		}
 		// 获取暂存的借款信息
@@ -327,7 +348,7 @@ angular.module('hongcaiApp')
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
 						ipCookie('lendMoney_preLoan', null)
-						$scope.counter = 3;
+						$scope.counter = 2;
 						$scope.onTimeout = function(){
 							$scope.counter--;
 							mytimeout = $timeout($scope.onTimeout,1000);

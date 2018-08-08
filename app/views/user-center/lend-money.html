@@ -3,7 +3,7 @@
   <div class="row">
     <div class="right-title">我要借款</div>
   </div>
-  <div ng-if="!loanDetail">
+  <div ng-if="!showLoanDetail">
     <div class="row">
       <div class="lend-process col-md-12 col-lg-12">
         <div class="row">
@@ -50,12 +50,12 @@
     </div>
     
     <!-- 填写借款信息 -->
-    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && industry && !loanInformation">
+    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && industry && !loanInformation && !loanSuccess">
       <div class="ft-16 row text-center margin-0">
         <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;getLoanList(1);">申请记录</span>
       </div>
       <!-- 借款申请 -->
-      <form ng-if="loanTab === 0 && preLoan == 0" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
+      <form ng-if="loanTab === 0 && preLoan == 0 && !loanSuccess" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
         <div class="col-lg-2 ft-16"></div>
         <div class="col-lg-8 margin-t-20">
           <!-- 申请借款金额 -->
@@ -195,7 +195,7 @@
         <div class="col-xs-12 preLoanBtn">
           <div class="safe-form-group row">
             <p class="white-button col-md-3 col-xs-offset-1" ng-click="preLoanBtn(enterprise)">重新编辑</p>
-            <p class="blue-button col-md-3 col-xs-offset-2" ng-click="checkLoanAmount(enterprise)">确认提交</p>
+            <p class="blue-button col-md-3 col-xs-offset-3" ng-click="checkLoanAmount(enterprise)">确认提交</p>
           </div>
         </div>
       </ul>
@@ -229,23 +229,32 @@
     <div class="row text-center ft-24" ng-show="showPendingAudit" style="margin-top: 60px;">
       资料审核中，请您耐心等待（{{counter}}s）
     </div>
+    <!-- 成功提交借款申请 -->
+    <div class="row text-center ft-24" ng-show="loanSuccess" style="margin-top: 60px;">
+      成功提交借款申请（{{counter}}s）
+    </div>  
+    
   </div>
   <!-- 申请列表-查看详情 -->
-  <div class="LoanDetail" ng-if="loanDetail">
+  <div class="LoanDetail" ng-if="showLoanDetail">
     <ul class="preLoanlist">
       <li ng-repeat="item in detailList">
         <p>{{item.title}}：</p>
         <p ng-if="item.title === '注册时间'">{{item.content | date: 'yyyy年MM月dd日'}}</p>
         <p ng-if="item.title !== '注册时间'">{{item.content}}</p>
       </li>
-    </ul>
-    <!-- 返回 -->
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-      <div class="safe-form-group row preLoanBtn">
-        <label class="col-md-4 col-lg-4"></label>
-        <p class="blue-button col-md-4 col-lg-4" ng-click="gobackDetail()">返回</p>
+      <li ng-if="loanStatus === 1" class="auditDesc">
+        <p>审核意见：</p>
+        <p>{{auditDesc}}</p>
+      </li>
+      <!-- 返回 -->
+      <div class="col-xs-12 preLoanBtn">
+        <div class="safe-form-group row">
+          <p class="white-button col-md-3 col-xs-offset-1" ng-click="reapplyLoan(loanDetail)" ng-if="loanStatus === 1">重新申请</p>
+          <p class="blue-button col-md-3 {{loanStatus !== 1 ? 'col-xs-offset-4' : 'col-xs-offset-3'}}"  ng-click="gobackDetail()">返回</p>
+        </div>
       </div>
-    </div>
+    </ul>
   </div>
 </div>
 
