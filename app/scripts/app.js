@@ -81,7 +81,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       }
     })
     // 网络借贷信息中介服务协议模版
-    .state('root.intermediaryService ', {
+    .state('root.intermediaryService', {
       url: '/agreements/intermediary-service',
       views: {
         '': {
@@ -89,7 +89,24 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
-    
+    // 借款申请函
+    .state('root.loanApplicationLetter', {
+      url: '/agreements/loan-application-letter',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/loan-application-letter.html'
+        }
+      }
+    })
+    // 个人信息查询及使用授权书
+    .state('root.infoAuthorization', {
+      url: '/agreements/info-authorization',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/info-authorization.html'
+        }
+      }
+    })
     /*------------------------------------------  user-center  -----------------------------------------------*/
     .state('root.userCenter', {
       'url':'/user-center',
