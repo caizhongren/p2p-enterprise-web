@@ -4,5 +4,6 @@
   "viewFlAG": {
     "tuhaoIsShowedFlAG": true
   },
+  "domain":"http://localhost:9004",
   "pay_company":"cgt"
 }

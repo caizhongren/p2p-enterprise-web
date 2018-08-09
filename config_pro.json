@@ -1,5 +1,6 @@
 {
   "YEEPAY_ADDRESS": "https://cg2.unitedbank.cn/bha-neo-app/lanmaotech/gateway",
   "CGT_ADDRESS":"https://cg2.unitedbank.cn/bha-neo-app/lanmaotech/gateway",
+  "domain":"https://www.hongcai.com",
   "pay_company":"cgt"
 }

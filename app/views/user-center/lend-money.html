@@ -225,14 +225,11 @@
       </table>
     </div>
 
-    <!-- 等待审核 -->
-    <div class="row text-center ft-24" ng-show="showPendingAudit" style="margin-top: 60px;">
-      资料审核中，请您耐心等待（{{counter}}s）
+    <!-- 跳转签章/成功提交借款申请 -->
+    <div class="row text-center ft-24" ng-show="showPendingAudit || loanSuccess" style="margin-top: 60px;">
+      <p ng-if="showPendingAudit">正在跳转至法大大电子签章平台，请继续完成签约（{{counter}}s）</p>
+      <p ng-if="loanSuccess">成功提交借款申请（{{counter}}s）</p>
     </div>
-    <!-- 成功提交借款申请 -->
-    <div class="row text-center ft-24" ng-show="loanSuccess" style="margin-top: 60px;">
-      成功提交借款申请（{{counter}}s）
-    </div>  
     
   </div>
   <!-- 申请列表-查看详情 -->
