@@ -172,6 +172,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             phoneNumber: enterprise.phoneNumber,
             unifiedCode: enterprise.unifiedCode || '',
             enterpriseProperty: enterprise.enterpriseProperty,
+            workUnit: enterprise.workUnit,
             keep: true
       }, function(response) {
             if(response && response.ret !== -1) {
