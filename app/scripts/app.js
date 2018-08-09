@@ -89,12 +89,21 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
-    // 借款申请函
+    // 借款申请函(个人)
     .state('root.loanApplicationLetter', {
       url: '/agreements/loan-application-letter',
       views: {
         '': {
           templateUrl: 'views/agreements/loan-application-letter.html'
+        }
+      }
+    })
+    // 借款申请函(企业)
+    .state('root.loanApplicationLetter_2', {
+      url: '/agreements/loan-application-letter_2',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/loan-application-letter_2.html'
         }
       }
     })

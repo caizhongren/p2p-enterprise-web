@@ -201,7 +201,8 @@
       </ul>
       <div class="contract_list" ng-show="loanTab === 0 && !loanSuccess">
         <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>、
-        <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>、
+        <a ui-sref="root.loanApplicationLetter" target="_blank" ng-show="isPrivateUser">《借款申请表》</a>
+        <a ui-sref="root.loanApplicationLetter_2" target="_blank" ng-show="isPublicUser">《借款申请表》</a>、
         <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>、
         <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
         <p class="tip" ng-show="preLoan === 1"><input type="checkbox" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></p>
