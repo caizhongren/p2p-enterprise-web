@@ -185,13 +185,6 @@
               <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.amount.$error.pattern || enterprise.amount <=0 || preProjectForm.date.$error.pattern"/>
             </div>
           </div>
-          <div class="contract_list">
-            <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>
-            <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>
-            <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>
-            <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
-            <p class="tip">本次借款，您将签署以上4份协议，请仔细阅读。</p>
-          </div>
         </div>
       </form>
       <ul ng-show="loanTab === 0 && preLoan === 1" class="preLoanlist">
@@ -205,13 +198,15 @@
             <p class="blue-button col-md-3 col-xs-offset-3" ng-click="checkLoanAmount(enterprise)">确认提交</p>
           </div>
         </div>
-        <div class="contract_list">
-          <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>
-          <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>
-          <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>
-          <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
-          <p class="tip"><input type="checkbox" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></p>
       </ul>
+      <div class="contract_list" ng-show="loanTab === 0 && !loanSuccess">
+        <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>、
+        <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>、
+        <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>、
+        <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
+        <p class="tip" ng-show="preLoan === 1"><input type="checkbox" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></p>
+        <p class="tip" ng-show="preLoan === 0">本次借款，您将签署以上4份协议，请仔细阅读。</p>
+      </div>
       <!-- 申请记录 -->
       <table ng-if="loanTab === 1" class="loanList">
         <thead ng-show="loanList.length > 0">
