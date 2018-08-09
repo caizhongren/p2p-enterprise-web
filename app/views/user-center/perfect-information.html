@@ -100,7 +100,7 @@
                                           </div>
                                           <div class="form-group">
                                             <label for="workUnit">工作单位</label>
-                                            <input name="workUnit" id="workUnit" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.name" required readonly oninvalid="setCustomValidity('请填写工作单位')" oninput="setCustomValidity('')">
+                                            <input name="workUnit" id="workUnit" ng-maxlength="50" maxlength="50" class="form-control" ng-model="enterprise.workUnit" required readonly oninvalid="setCustomValidity('请填写工作单位')" oninput="setCustomValidity('')">
                                             <div ng-if="enterpriseAddForm.workUnit.$dirty && enterpriseAddForm.workUnit.$invalid && !enterpriseAddForm.workUnit.$focused" style="padding-left: 15px;">
                                                 <div ng-if="enterpriseAddForm.workUnit.$error.required">
                                                     <p class="input-tips">请填写工作单位</p>

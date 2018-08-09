@@ -404,7 +404,15 @@ angular.module('hongcaiApp')
 			ipCookie('lendMoney_preLoan', $scope.preLoan)
 		}
     //检查借款金额
+    $scope.readAndAgree = false;
+    $scope.change = function (val) {
+    	$scope.readAndAgree = val
+    }
     $scope.checkLoanAmount = function(enterprise) {
+    	if(!$scope.readAndAgree){
+    		toaster.error('请阅读并同意签署相关协议');
+    		return
+    	}
     	UserCenterService.borrowPreprojectStat.get({userId: $rootScope.securityStatus.userId}, function(response) {
     		if (response && response.ret !== -1) {
     			$scope.loanTotalAmount = response.amount;
