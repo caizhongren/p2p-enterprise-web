@@ -182,15 +182,8 @@
           <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
             <div class="safe-form-group row">
               <label class="col-md-4 col-lg-4"></label>
-              <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.loanAmount.$error.pattern || enterprise.amount <=0 || preProjectForm.date.$error.pattern"/>
+              <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.amount.$error.pattern || enterprise.amount <=0 || preProjectForm.date.$error.pattern"/>
             </div>
-          </div>
-          <div class="contract_list">
-            <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>
-            <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>
-            <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>
-            <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
-            <p class="tip">本次借款，您将签署以上4份协议，请仔细阅读。</p>
           </div>
         </div>
       </form>
@@ -205,13 +198,15 @@
             <p class="blue-button col-md-3 col-xs-offset-3" ng-click="checkLoanAmount(enterprise)">确认提交</p>
           </div>
         </div>
-        <div class="contract_list">
-          <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>
-          <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>
-          <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>
-          <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
-          <p class="tip"><input type="checkbox" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></p>
       </ul>
+      <div class="contract_list" ng-show="loanTab === 0 && !loanSuccess">
+        <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>、
+        <a ui-sref="root.loanApplicationLetter" target="_blank">《借款申请函》</a>、
+        <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>、
+        <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
+        <p class="tip" ng-show="preLoan === 1"><input type="checkbox" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></p>
+        <p class="tip" ng-show="preLoan === 0">本次借款，您将签署以上4份协议，请仔细阅读。</p>
+      </div>
       <!-- 申请记录 -->
       <table ng-if="loanTab === 1" class="loanList">
         <thead ng-show="loanList.length > 0">
@@ -238,14 +233,11 @@
       </table>
     </div>
 
-    <!-- 等待审核 -->
-    <div class="row text-center ft-24" ng-show="showPendingAudit" style="margin-top: 60px;">
-      资料审核中，请您耐心等待（{{counter}}s）
+    <!-- 跳转签章/成功提交借款申请 -->
+    <div class="row text-center ft-24" ng-show="showPendingAudit || loanSuccess" style="margin-top: 60px;">
+      <p ng-if="showPendingAudit">正在跳转至法大大电子签章平台，请继续完成签约（{{counter}}s）</p>
+      <p ng-if="loanSuccess">成功提交借款申请（{{counter}}s）</p>
     </div>
-    <!-- 成功提交借款申请 -->
-    <div class="row text-center ft-24" ng-show="loanSuccess" style="margin-top: 60px;">
-      成功提交借款申请（{{counter}}s）
-    </div>  
     
   </div>
   <!-- 申请列表-查看详情 -->

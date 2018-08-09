@@ -61,6 +61,21 @@ angular.module('hongcaiApp')
         } else {
           alert(encrpyMsg.msg);
         }
+      },
+
+      /**
+       * 跳转到法大大
+       */
+      redToFdd: function(encrpyMsg){
+        var _f = this.newForm();
+        this.createElements(_f, 'serviceName', encrpyMsg.serviceName);
+        this.createElements(_f, 'platformNo', encrpyMsg.platformNo);
+        this.createElements(_f, 'userDevice', encrpyMsg.userDevice);
+        this.createElements(_f, 'reqData', encrpyMsg.reqData);
+        this.createElements(_f, 'keySerial', encrpyMsg.keySerial);
+        this.createElements(_f, 'sign', encrpyMsg.sign);
+        _f.action = config.FDD_ADDRESS;
+        _f.submit();
       }
 
     };

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LendMoneyCtrl', function($scope, $state, $location, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
+  .controller('LendMoneyCtrl', function($scope, $state, config, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster, PayUtils) {
     $rootScope.selectSide = 'lend-money';
 		$scope.showLoanDetail = false;
 		if ($stateParams.loanStatus) {
@@ -353,8 +353,16 @@ angular.module('hongcaiApp')
 							$scope.counter--;
 							mytimeout = $timeout($scope.onTimeout,1000);
 							if($scope.counter === 0) {
+								$timeout.cancel(mytimeout);
 								$scope.loanInformation = true;
-								$state.go('root.userCenter.account-overview');
+								// $state.go('root.userCenter.account-overview');
+								EnterpriseService.contract.post({preProjectId: response.id, notify_url: config.domain + '/user-center/lend-money?loanStatus'},function(response) {
+									if (response && response.ret !== -1) {
+										window.open(response.url, '_blank');
+									}
+								}, function(error){
+									PayUtils.redToFdd('www.hongcai.com');
+								})
 							}
 						};
 						var mytimeout = $timeout($scope.onTimeout,1000);
