@@ -16,7 +16,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             response.contactMobile = response.name;
             response.name = null;
             $('.form-control').removeAttr('readonly');
-            $('.form-group select').removeAttr('disabled');
+            $('.form-group select.select').removeAttr('disabled');
           }else{
             $scope.readOnly = true;
           }
@@ -33,14 +33,14 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         }else {
             $scope.readOnly = false;
             $('.form-control').removeAttr('readonly');
-            $('.form-group select').removeAttr('disabled');
+            $('.form-group select.select').removeAttr('disabled');
         }
       });
     // 隐藏编辑按钮
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
         $('.form-control').removeAttr('readonly');
-        $('.form-group select').removeAttr('disabled');
+        $('.form-group select.select').removeAttr('disabled');
     }
     /*
      * 查询上传的文件
