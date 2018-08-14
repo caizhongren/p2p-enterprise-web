@@ -72,9 +72,9 @@ angular.module('hongcaiApp')
       getEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/', {userId:'@userId'}),
 
       //法大大平台签约
-      contract: $resource(RESTFUL_DOMAIN + '/enterprise/rest/enterprises/contract/:preProjectId', {
+      contract: $resource(RESTFUL_DOMAIN + '/enterprises/contract/:preProjectId', {
         preProjectId: '@preProjectId',
-        notify_url: '@notify_url'
+        token: '@token'
       }, {
         'post': {
           method: 'POST'
@@ -82,7 +82,7 @@ angular.module('hongcaiApp')
       }),
 
       //法大大签章成功
-      contractSuccess: $resource(RESTFUL_DOMAIN + '/enterprise/rest/enterprises/contract/:preProjectId', {}, {
+      contractSuccess: $resource(RESTFUL_DOMAIN + '/enterprises/contract/:preProjectId', {}, {
         update: {
           method: 'PUT',
           params: {

@@ -1,6 +1,7 @@
 {
   "YEEPAY_ADDRESS": "https://cg2.unitedbank.cn/bha-neo-app/lanmaotech/gateway",
   "CGT_ADDRESS":"https://cg2.unitedbank.cn/bha-neo-app/lanmaotech/gateway",
+  "FDD_ADDRESS":"https://extapi.fadada.com/api2/",
   "domain":"https://www.hongcai.com",
   "pay_company":"cgt"
 }

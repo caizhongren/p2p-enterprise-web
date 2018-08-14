@@ -1,9 +1,10 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LendMoneyCtrl', function($scope, $state, config, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster, PayUtils) {
+  .controller('LendMoneyCtrl', function(SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
     $rootScope.selectSide = 'lend-money';
 		$scope.showLoanDetail = false;
 		if ($stateParams.loanStatus) {
+			EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(){});
 			$scope.loanSuccess = true;
 			$scope.counter = 2;
 			$scope.onTimeout = function(){
@@ -355,13 +356,34 @@ angular.module('hongcaiApp')
 							if($scope.counter === 0) {
 								$timeout.cancel(mytimeout);
 								$scope.loanInformation = true;
-								// $state.go('root.userCenter.account-overview');
-								EnterpriseService.contract.post({preProjectId: response.id, notify_url: config.domain + '/user-center/lend-money?loanStatus'},function(response) {
+								EnterpriseService.contract.post({preProjectId: response.id, token: SessionService.get('token')},function(response) {
 									if (response && response.ret !== -1) {
-										window.open(response.url, '_blank');
+										PayUtils.redToFdd(response.id,response);
 									}
 								}, function(error){
-									PayUtils.redToFdd('www.hongcai.com');
+									var response = {
+										"sign_data": [
+												{
+														"contractId": "1944",
+														"signKeyword": "enterpriseSignLocal",
+														"transactionId": "8ccc3f6262c74f84"
+												},
+												{
+														"contractId": "1943",
+														"signKeyword": "enterpriseSignLocal",
+														"transactionId": "d8ac6a7bbea641d8"
+												}
+										],
+										"batch_id": "993",
+										"v": "2.0",
+										"msg_digest": "NzYxOTZFMTQ1OEE5QURBNUQyRDI3NENCQkREMjEyOUFEMEY0MTRGMA==",
+										"customer_id": "FB8F333EB614A5516D969E6BF4087205",
+										"batch_title": "合同签署",
+										"notify_url": "http://biz.test321.hongcai.com/enterprise/rest/contracts/extSignNotify",
+										"app_id": "400408",
+										"timestamp": "20180814102532"
+									}
+									PayUtils.redToFdd(response);
 								})
 							}
 						};

@@ -1,6 +1,7 @@
 {
   "YEEPAY_ADDRESS": "http://101.200.54.92/bha-neo-app/lanmaotech/gateway",
   "CGT_ADDRESS":"https://hk.lanmaoly.com/bha-neo-app/lanmaotech/gateway",
+  "FDD_ADDRESS":"https://testapi.fadada.com:8443/api/gotoBatchSemiautoSignPage.api",
   "viewFlAG": {
     "tuhaoIsShowedFlAG": true
   },
