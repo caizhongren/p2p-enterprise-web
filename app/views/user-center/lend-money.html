@@ -205,7 +205,7 @@
         <a ui-sref="root.loanApplicationLetter_2" target="_blank" ng-show="isPublicUser">《借款申请表》</a>、
         <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>、
         <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
-        <p class="tip" ng-show="preLoan === 1"><input type="checkbox" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></p>
+        <p class="tip" ng-show="preLoan === 1"><label for="checkbox" class="cursor-pointer"><input type="checkbox" id="checkbox" class="cursor-pointer" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></label></p>
         <p class="tip" ng-show="preLoan === 0">本次借款，您将签署以上4份协议，请仔细阅读。</p>
       </div>
       <!-- 申请记录 -->

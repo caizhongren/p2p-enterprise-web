@@ -348,42 +348,23 @@ angular.module('hongcaiApp')
 					if (keep) {
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
+						var preProjectId = response.id;
 						ipCookie('lendMoney_preLoan', null)
-						$scope.counter = 2;
+						$scope.counter = 5;
 						$scope.onTimeout = function(){
 							$scope.counter--;
 							mytimeout = $timeout($scope.onTimeout,1000);
 							if($scope.counter === 0) {
 								$timeout.cancel(mytimeout);
-								$scope.loanInformation = true;
-								EnterpriseService.contract.post({preProjectId: response.id, token: SessionService.get('token')},function(response) {
+								$scope.loanInformation = false;
+								$scope.showPendingAudit = false;
+								$scope.loanTab = 0;
+								EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
 									if (response && response.ret !== -1) {
-										PayUtils.redToFdd(response.id,response);
+										PayUtils.redToFdd(preProjectId,response);
+									} else {
+										toaster.pop('warning', response.msg);
 									}
-								}, function(error){
-									var response = {
-										"sign_data": [
-												{
-														"contractId": "1944",
-														"signKeyword": "enterpriseSignLocal",
-														"transactionId": "8ccc3f6262c74f84"
-												},
-												{
-														"contractId": "1943",
-														"signKeyword": "enterpriseSignLocal",
-														"transactionId": "d8ac6a7bbea641d8"
-												}
-										],
-										"batch_id": "993",
-										"v": "2.0",
-										"msg_digest": "NzYxOTZFMTQ1OEE5QURBNUQyRDI3NENCQkREMjEyOUFEMEY0MTRGMA==",
-										"customer_id": "FB8F333EB614A5516D969E6BF4087205",
-										"batch_title": "合同签署",
-										"notify_url": "http://biz.test321.hongcai.com/enterprise/rest/contracts/extSignNotify",
-										"app_id": "400408",
-										"timestamp": "20180814102532"
-									}
-									PayUtils.redToFdd(response);
 								})
 							}
 						};
