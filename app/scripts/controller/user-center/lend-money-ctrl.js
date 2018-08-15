@@ -330,7 +330,20 @@ angular.module('hongcaiApp')
 				}
 			})
 		}
-
+		$scope.fddContract = function (preProjectId) {
+			EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
+				if (response && response.ret !== -1) {
+					$scope.counter = 0;
+					$timeout.cancel(mytimeout);
+					$scope.loanInformation = false;
+					$scope.showPendingAudit = false;
+					$scope.loanTab = 0;
+					PayUtils.redToFdd(preProjectId,response);
+				} else {
+					toaster.pop('warning', response.msg);
+				}
+			})
+		}
 		$scope.savePreProject = function (keep, enterprise) { // keep 是否保存数据，true 保存，false 暂存
 			UserCenterService.preProject.post({
 				userId: $rootScope.securityStatus.userId,
@@ -348,24 +361,14 @@ angular.module('hongcaiApp')
 					if (keep) {
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
-						var preProjectId = response.id;
 						ipCookie('lendMoney_preLoan', null)
-						$scope.counter = 5;
+						$scope.counter = 3;
+						$scope.fddContract(response.id)
 						$scope.onTimeout = function(){
 							$scope.counter--;
 							mytimeout = $timeout($scope.onTimeout,1000);
 							if($scope.counter === 0) {
 								$timeout.cancel(mytimeout);
-								EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
-									if (response && response.ret !== -1) {
-										$scope.loanInformation = false;
-										$scope.showPendingAudit = false;
-										$scope.loanTab = 0;
-										PayUtils.redToFdd(preProjectId,response);
-									} else {
-										toaster.pop('warning', response.msg);
-									}
-								})
 							}
 						};
 						var mytimeout = $timeout($scope.onTimeout,1000);
