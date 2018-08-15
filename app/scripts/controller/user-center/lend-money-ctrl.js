@@ -356,11 +356,11 @@ angular.module('hongcaiApp')
 							mytimeout = $timeout($scope.onTimeout,1000);
 							if($scope.counter === 0) {
 								$timeout.cancel(mytimeout);
-								$scope.loanInformation = false;
-								$scope.showPendingAudit = false;
-								$scope.loanTab = 0;
 								EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
 									if (response && response.ret !== -1) {
+										$scope.loanInformation = false;
+										$scope.showPendingAudit = false;
+										$scope.loanTab = 0;
 										PayUtils.redToFdd(preProjectId,response);
 									} else {
 										toaster.pop('warning', response.msg);
