@@ -220,7 +220,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="item in loanList | orderBy: '-createTime'" ng-show="loanList.length > 0">
+          <tr ng-repeat="item in loanList" ng-show="loanList.length > 0">
             <td>{{item.createTime | date: 'yyyy-MM-dd'}}</td>
             <td>{{item.amount}}元</td>
             <td>{{item.projectDays}}天</td>
