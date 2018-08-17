@@ -4,7 +4,11 @@ angular.module('hongcaiApp')
     $rootScope.selectSide = 'lend-money';
 		$scope.showLoanDetail = false;
 		if ($stateParams.loanStatus) {
-			EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(){});
+			EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
+				if (response && response.ret === -1) {
+					toaster.pop('warning', response.msg);
+				}
+			});
 			$scope.loanSuccess = true;
 			$scope.counter = 2;
 			$scope.onTimeout = function(){

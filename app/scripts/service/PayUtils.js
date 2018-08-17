@@ -84,7 +84,7 @@ angular.module('hongcaiApp')
         this.createElements(_f, 'batch_title', encrpyMsg.batch_title);
         this.createElements(_f, 'msg_digest', encrpyMsg.msg_digest);
         this.createElements(_f, 'notify_url', encrpyMsg.notify_url);
-        this.createElements(_f, 'return_url', config.domain + '/user-center/lend-money?loanStatus=' + preProjectId);
+        this.createElements(_f, 'return_url', config.domain + '/fdd-success/' + preProjectId);
         _f.action = encodeURI(config.FDD_ADDRESS);
         _f.submit();
       }

@@ -246,6 +246,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.fdd-success', {
+      url: '/fdd-success/:preProjectId',
+      views: {
+        '': {
+          templateUrl: 'views/user-center/success.html',
+          controller: 'FddSuccessCtrl',
+          controllerUrl: 'scripts/controller/user-center/fdd-success-ctrl'
+        }
+      }
+    })
     .state('root.userCenter.withdraw', {
       url: '/withdraw',
       views: {
