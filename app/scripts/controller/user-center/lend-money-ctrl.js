@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LendMoneyCtrl', function(RESTFUL_DOMAIN, $http, SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
+  .controller('LendMoneyCtrl', function(SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
     $rootScope.selectSide = 'lend-money';
 		$scope.showLoanDetail = false;
 		if ($stateParams.loanStatus) {
@@ -349,22 +349,18 @@ angular.module('hongcaiApp')
 			})
 		}
 		$scope.savePreProject = function (keep, enterprise) { // keep 是否保存数据，true 保存，false 暂存
-			$http({
-				method: 'POST',
-				url: RESTFUL_DOMAIN + '/enterpriseProjects/preProject',
-				data: {
-					userId: $rootScope.securityStatus.userId,
-					keep: keep,
-					amount: enterprise.amount,
-					projectDays: enterprise.projectDays,
-					financingPurpose: enterprise.financingPurpose,
-					repaymentSource: enterprise.repaymentSource,
-					monthNetProfit: enterprise.monthNetProfit,
-					monthTotalExpend: enterprise.monthTotalExpend,
-					monthDebtExpend: enterprise.monthDebtExpend,
-					externalGuaranteedAmount: enterprise.externalGuaranteedAmount,
-				}
-			}).success(function(response) {
+			UserCenterService.preProject.post({
+				userId: $rootScope.securityStatus.userId,
+        keep: keep,
+        amount: enterprise.amount,
+        projectDays: enterprise.projectDays,
+        financingPurpose: enterprise.financingPurpose,
+        repaymentSource: enterprise.repaymentSource,
+        monthNetProfit: enterprise.monthNetProfit,
+        monthTotalExpend: enterprise.monthTotalExpend,
+        monthDebtExpend: enterprise.monthDebtExpend,
+        externalGuaranteedAmount: enterprise.externalGuaranteedAmount,
+			}, function (response) {
 				if (response && response.ret !== -1) {
 					if (keep) {
 						$scope.loanInformation = true;
