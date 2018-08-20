@@ -174,7 +174,7 @@ angular.module('hongcaiApp')
       }, {
         'post': {
           method: 'POST',
-          params: {
+          data: {
             userId: '@userId',
             keep: '@keep',
             amount: '@amount',
