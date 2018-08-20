@@ -171,22 +171,18 @@ angular.module('hongcaiApp')
        * 保存借款信息 keep 是否保存数据，true 保存，false 暂存
        */
       preProject: $resource(RESTFUL_DOMAIN + '/enterpriseProjects/preProject', {
+        userId: '@userId',
+        keep: '@keep',
+        amount: '@amount',
+        projectDays: '@projectDays',
+        financingPurpose: '@financingPurpose',
+        repaymentSource: '@repaymentSource',
+        monthNetProfit: '@monthNetProfit',
+        monthTotalExpend: '@monthTotalExpend',
+        monthDebtExpend: '@monthDebtExpend',
+        externalGuaranteedAmount: '@externalGuaranteedAmount',
       }, {
-        'post': {
-          method: 'POST',
-          params: {
-            userId: '@userId',
-            keep: '@keep',
-            amount: '@amount',
-            projectDays: '@projectDays',
-            financingPurpose: '@financingPurpose',
-            repaymentSource: '@repaymentSource',
-            monthNetProfit: '@monthNetProfit',
-            monthTotalExpend: '@monthTotalExpend',
-            monthDebtExpend: '@monthDebtExpend',
-            externalGuaranteedAmount: '@externalGuaranteedAmount',
-          }
-        }
+        'post': {method: 'POST'}
       }),
       /**
        * 查询借款信息
