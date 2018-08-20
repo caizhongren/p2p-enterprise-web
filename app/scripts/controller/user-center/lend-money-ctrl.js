@@ -1,6 +1,6 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LendMoneyCtrl', function(SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
+  .controller('LendMoneyCtrl', function(RESTFUL_DOMAIN, SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
     $rootScope.selectSide = 'lend-money';
 		$scope.showLoanDetail = false;
 		if ($stateParams.loanStatus) {
@@ -335,16 +335,23 @@ angular.module('hongcaiApp')
 			})
 		}
 		$scope.fddContract = function (preProjectId) {
-			EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
-				if (response && response.ret !== -1) {
-					$scope.counter = 0;
-					$timeout.cancel(mytimeout);
-					$scope.loanInformation = false;
-					$scope.showPendingAudit = false;
-					$scope.loanTab = 0;
-					PayUtils.redToFdd(preProjectId,response);
-				} else {
-					toaster.pop('warning', response.msg);
+			// EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
+			$.ajax({
+				url: (RESTFUL_DOMAIN + '/enterprises/contract/' + preProjectId + '?token=' + SessionService.get('token')),
+				'type': 'POST',
+				async: false,
+				dataType: 'json',
+				success: function(response) {
+					if (response && response.ret !== -1) {
+						$scope.counter = 0;
+						$timeout.cancel(mytimeout);
+						$scope.loanInformation = false;
+						$scope.showPendingAudit = false;
+						$scope.loanTab = 0;
+						PayUtils.redToFdd(preProjectId,response);
+					} else {
+						toaster.pop('warning', response.msg);
+					}
 				}
 			})
 		}
