@@ -136,7 +136,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
                 return;
             }
-            if(enterprise.enterpriseProperty === 0){
+            if(enterprise.enterpriseProperty == 0){
                 toaster.error('请选择企业性质！');
                 return;
             }
