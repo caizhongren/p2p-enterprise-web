@@ -128,7 +128,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             if(!regIdNo.test(enterprise.legalIdNo) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
                 return;
             }
-            if($scope.enterprise.legalIdType == 0 || $scope.enterprise.cultureLevel == 0 || $scope.enterprise.maritalStatus == 0){
+            if(enterprise.legalIdType == 0 || enterprise.cultureLevel == 0 || enterprise.maritalStatus == 0){
                 toaster.error('请填写正确信息！');
                 return;
             }
@@ -136,7 +136,8 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
                 return;
             }
-            if($scope.enterprise.legalIdType === 0){
+            if(enterprise.enterpriseProperty === 0){
+                toaster.error('请选择企业性质！');
                 return;
             }
         }
