@@ -50,12 +50,12 @@
     </div>
     
     <!-- 填写借款信息 -->
-    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && industry && !loanInformation && !loanSuccess">
+    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && industry && !loanInformation && !showPendingAudit && !loanSuccess">
       <div class="ft-16 row text-center margin-0">
-        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;getLoanList(1);">申请记录</span>
+        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="toggleTab(0);">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="toggleTab(1);getLoanList(1);">申请记录</span>
       </div>
       <!-- 借款申请 -->
-      <form ng-if="loanTab === 0 && preLoan == 0 && !loanSuccess" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
+      <form ng-if="loanTab == 0 && preLoan == 0 && !loanSuccess" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
         <div class="col-lg-2 ft-16"></div>
         <div class="col-lg-8 margin-t-20">
           <!-- 申请借款金额 -->
@@ -187,7 +187,7 @@
           </div>
         </div>
       </form>
-      <ul ng-show="loanTab === 0 && preLoan === 1" class="preLoanlist">
+      <ul ng-show="loanTab == 0 && preLoan === 1" class="preLoanlist">
         <li ng-repeat="item in preLoanList">
           <p>{{item.title}}：</p>
           <p>{{item.content}}</p>
@@ -199,7 +199,7 @@
           </div>
         </div>
       </ul>
-      <div class="contract_list" ng-show="loanTab === 0 && !loanSuccess">
+      <div class="contract_list" ng-show="loanTab == 0 && !loanSuccess">
         <a ui-sref="root.infoAuthorization" target="_blank">《个人信息查询及使用授权书》</a>、
         <a ui-sref="root.loanApplicationLetter" target="_blank" ng-show="isPrivateUser">《借款申请表》</a>
         <a ui-sref="root.loanApplicationLetter_2" target="_blank" ng-show="isPublicUser">《借款申请表》</a>、
@@ -209,7 +209,7 @@
         <p class="tip" ng-show="preLoan === 0">本次借款，您将签署以上4份协议，请仔细阅读。</p>
       </div>
       <!-- 申请记录 -->
-      <table ng-if="loanTab === 1" class="loanList">
+      <table ng-if="loanTab == 1" class="loanList">
         <thead ng-show="loanList.length > 0">
           <tr>
             <th>申请时间</th>

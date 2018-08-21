@@ -7,7 +7,7 @@ angular.module('hongcaiApp')
       $scope.counter--;
       mytimeout = $timeout($scope.onTimeout, 1000);
       if ($scope.counter === 0) {
-        $window.location.href = config.domain + '/user-center/lend-money?loanStatus=' + $stateParams.preProjectId
+        $window.location.href = config.domain + '/user-center/lend-money?tab=1&loanStatus=' + $stateParams.preProjectId
         // $state.go('root.userCenter.lend-money', {loanStatus: $stateParams.preProjectId});
       }
     };

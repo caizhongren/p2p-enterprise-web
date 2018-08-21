@@ -3,6 +3,11 @@ angular.module('hongcaiApp')
   .controller('LendMoneyCtrl', function(RESTFUL_DOMAIN, SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
     $rootScope.selectSide = 'lend-money';
 		$scope.showLoanDetail = false;
+		$scope.industry = true;
+		$scope.toggleTab = function (tab) {
+			$scope.loanTab = tab;
+			$state.go('root.userCenter.lend-money',{tab:tab,loanStatus:null});
+		}
 		if ($stateParams.loanStatus) {
 			EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
 				if (response && response.ret === -1) {
@@ -277,7 +282,7 @@ angular.module('hongcaiApp')
 		}
 		
 
-		$scope.loanTab = 0;
+		$scope.loanTab = $stateParams.tab || 0;
 		$scope.preLoan = 0;
 		// 借款申请列表查询
 		$scope.getLoanList = function (page) {
@@ -292,6 +297,7 @@ angular.module('hongcaiApp')
           }
       })
 		}
+		$stateParams.tab == 1 ? $scope.getLoanList(1) : null;
 		$scope.reapplyLoan = function (loanDetail) {
 			$scope.enterprise = loanDetail;
 			$scope.showLoanDetail = false;
@@ -335,13 +341,13 @@ angular.module('hongcaiApp')
 			})
 		}
 		$scope.fddContract = function (preProjectId) {
-			// EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
-			$.ajax({
-				url: (RESTFUL_DOMAIN + '/enterprises/contract/' + preProjectId + '?token=' + SessionService.get('token')),
-				'type': 'POST',
-				async: false,
-				dataType: 'json',
-				success: function(response) {
+			EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
+			// $.ajax({
+			// 	url: (RESTFUL_DOMAIN + '/enterprises/contract/' + preProjectId + '?token=' + SessionService.get('token')),
+			// 	'type': 'POST',
+			// 	async: false,
+			// 	dataType: 'json',
+			// 	success: function(response) {
 					if (response && response.ret !== -1) {
 						$scope.counter = 0;
 						$timeout.cancel(mytimeout);
@@ -352,7 +358,7 @@ angular.module('hongcaiApp')
 					} else {
 						toaster.pop('warning', response.msg);
 					}
-				}
+				// }
 			})
 		}
 		$scope.savePreProject = function (keep, enterprise) { // keep 是否保存数据，true 保存，false 暂存
