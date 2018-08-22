@@ -73,8 +73,7 @@ angular.module('hongcaiApp')
 
       //法大大平台签约
       contract: $resource(RESTFUL_DOMAIN + '/enterprises/contract/:preProjectId', {
-        preProjectId: '@preProjectId',
-        token: '@token'
+        preProjectId: '@preProjectId'
       }, {
         'post': {
           method: 'POST'

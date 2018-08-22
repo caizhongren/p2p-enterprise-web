@@ -46,8 +46,8 @@ angular.module('hongcaiApp')
         type: user.type
       }, function(response) {
         if (response.ret === 1) {
+          // SessionService.destory('token');
           SessionService.set('user', response.data.user.name);
-          SessionService.set('token', response.data.token);
           $state.go('root.userCenter.account-overview');
           $rootScope.loginName = response.data.user.name;
           $rootScope.isLogged = true;
@@ -104,8 +104,7 @@ angular.module('hongcaiApp')
 
     $scope.logout = function() {
       SessionService.destory('user');
-      SessionService.destory('token');
-      $rootScope.loginName = '';
+        $rootScope.loginName = '';
       $rootScope.isLogged = false;
     };
     $scope.islogged = function() {

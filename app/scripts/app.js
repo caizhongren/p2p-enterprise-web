@@ -89,30 +89,25 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
-    // 借款申请函(个人)
+    // 借款申请函(个人/企业)
     .state('root.loanApplicationLetter', {
-      url: '/agreements/loan-application-letter',
+      url: '/agreements/loan-application-letter/:type',
       views: {
         '': {
-          templateUrl: 'views/agreements/loan-application-letter.html'
+          templateUrl: 'views/agreements/loan-application-letter.html',
+          controller: 'LoanApplicationLetterCtrl',
+          controllerUrl: 'scripts/controller/user-center/loan-application-letter-ctrl'
         }
       }
     })
-    // 借款申请函(企业)
-    .state('root.loanApplicationLetter_2', {
-      url: '/agreements/loan-application-letter_2',
-      views: {
-        '': {
-          templateUrl: 'views/agreements/loan-application-letter_2.html'
-        }
-      }
-    })
-    // 个人信息查询及使用授权书
+    // 个人信息查询及使用授权书(企业)
     .state('root.infoAuthorization', {
-      url: '/agreements/info-authorization',
+      url: '/agreements/info-authorization/:type',
       views: {
         '': {
-          templateUrl: 'views/agreements/info-authorization.html'
+          templateUrl: 'views/agreements/info-authorization.html',
+          controller: 'InfoAuthorizationCtrl',
+          controllerUrl: 'scripts/controller/user-center/info-authorization-ctrl'
         }
       }
     })

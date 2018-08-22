@@ -341,7 +341,7 @@ angular.module('hongcaiApp')
 			})
 		}
 		$scope.fddContract = function (preProjectId) {
-			EnterpriseService.contract.post({preProjectId: preProjectId, token: SessionService.get('token')},function(response) {
+			EnterpriseService.contract.post({preProjectId: preProjectId},function(response) {
 			// $.ajax({
 			// 	url: (RESTFUL_DOMAIN + '/enterprises/contract/' + preProjectId + '?token=' + SessionService.get('token')),
 			// 	'type': 'POST',
