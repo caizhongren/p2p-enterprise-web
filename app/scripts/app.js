@@ -201,7 +201,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
     })
 
     .state('root.userCenter.lend-money', {
-      url: '/lend-money?tab&loanStatus',
+      url: '/lend-money?tab&loanStatus&index',
       views: {
         'user-center': {
           templateUrl: 'views/user-center/lend-money.html',

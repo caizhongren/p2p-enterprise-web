@@ -9,21 +9,21 @@ angular.module('hongcaiApp')
 			$state.go('root.userCenter.lend-money',{tab:tab,loanStatus:null});
 		}
 		if ($stateParams.loanStatus) {
+			$scope.loanSuccess = true;
+			$scope.counter = 3;
 			EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
 				if (response && response.ret === -1) {
 					toaster.pop('warning', response.msg);
-				}
-			});
-			$scope.loanSuccess = true;
-			$scope.counter = 2;
-			$scope.onTimeout = function(){
-				$scope.counter--;
-				mytimeout = $timeout($scope.onTimeout,1000);
-				if($scope.counter === 0) {
+				} else {
+					$scope.counter = 0;
 					$scope.loanTab = 1;
 					$scope.getLoanList(1);
 					$scope.loanSuccess = false;
 				}
+			});
+			$scope.onTimeout = function(){
+				$scope.counter--;
+				mytimeout = $timeout($scope.onTimeout,1000);
 			};
 			var mytimeout = $timeout($scope.onTimeout,1000);
 		}
@@ -242,7 +242,7 @@ angular.module('hongcaiApp')
 			}
     }
     $scope.getEnterpriseInfo();
-
+		$scope.haveTrusteeshipAccount = true;
     if ($rootScope.securityStatus && $rootScope.securityStatus.userAuth) {
     	//判断是否开通存管通
 	    if ($rootScope.securityStatus.userAuth.authStatus === 2) {
@@ -285,7 +285,7 @@ angular.module('hongcaiApp')
 		$scope.loanTab = $stateParams.tab || 0;
 		$scope.preLoan = 0;
 		// 借款申请列表查询
-		$scope.getLoanList = function (page) {
+		$scope.getLoanList = function (page, index) {
 			UserCenterService.getPreProjects.get({
         userId: $rootScope.securityStatus.userId,
         page: page,
@@ -293,9 +293,20 @@ angular.module('hongcaiApp')
         status: '0,1,2'
         },function(response){
           if(response && response.ret !== -1){
-            $scope.loanList = response.data;
+						$scope.loanList = response.data;
+						if (index !== undefined) {
+							$scope.loanDetail = $scope.loanList[index];
+							$scope.loanStatus = $scope.loanDetail.status;
+							$scope.loanStatus === 1 ? $scope.auditDesc = $scope.loanDetail.auditDesc : null;
+							var loanList = Loanform($scope.loanDetail);
+							$scope.detailList = enterpriseFormList.concat(loanList)
+							$scope.showLoanDetail = true;
+						}
           }
       })
+		}
+		if ($stateParams.tab == 2) {
+			$scope.getLoanList(1, $stateParams.index);
 		}
 		$stateParams.tab == 1 ? $scope.getLoanList(1) : null;
 		$scope.reapplyLoan = function (loanDetail) {
@@ -309,12 +320,14 @@ angular.module('hongcaiApp')
 			$scope.loanStatus = $scope.loanDetail.status;
 			$scope.loanStatus === 1 ? $scope.auditDesc = $scope.loanDetail.auditDesc : null;
 			$scope.showLoanDetail = true;
+			$state.go('root.userCenter.lend-money',{tab:2,loanStatus:null,index: index});
 			var loanList = Loanform($scope.loanDetail);
 			$scope.detailList = enterpriseFormList.concat(loanList)
 		}
 		$scope.gobackDetail = function () {
-			$scope.showLoanDetail = false;
-			$scope.loanTab = 1;
+			// $scope.showLoanDetail = false;
+			// $scope.loanTab = 1;
+			$state.go('root.userCenter.lend-money',{tab:1,loanStatus:null,index: null});
 		}
 		// 获取暂存的借款信息
 		$scope.getPreProject = function () {
