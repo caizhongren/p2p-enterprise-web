@@ -10,20 +10,25 @@ angular.module('hongcaiApp')
 		}
 		if ($stateParams.loanStatus) {
 			$scope.loanSuccess = true;
-			$scope.counter = 3;
-			EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
-				if (response && response.ret === -1) {
-					toaster.pop('warning', response.msg);
-				} else {
-					$scope.counter = 0;
-					$scope.loanTab = 1;
-					$scope.getLoanList(1);
-					$scope.loanSuccess = false;
-				}
-			});
+			$scope.counter = 4;
 			$scope.onTimeout = function(){
+				if ($scope.counter <= 0) {
+					$timeout.cancel(mytimeout);
+					return
+				}
 				$scope.counter--;
 				mytimeout = $timeout($scope.onTimeout,1000);
+				if ($scope.counter === 2) {
+					EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
+						if (response && response.ret === -1) {
+							toaster.pop('warning', response.msg);
+						} else {
+							$scope.loanTab = 1;
+							$scope.getLoanList(1);
+							$scope.loanSuccess = false;
+						}
+					});
+				}
 			};
 			var mytimeout = $timeout($scope.onTimeout,1000);
 		}
