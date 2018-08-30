@@ -16,19 +16,22 @@ angular.module('hongcaiApp')
 					$timeout.cancel(mytimeout);
 					return
 				}
-				$scope.counter--;
 				mytimeout = $timeout($scope.onTimeout,1000);
 				if ($scope.counter === 2) {
 					EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
 						if (response && response.ret === -1) {
-							toaster.pop('warning', response.msg);
+							// toaster.pop('warning', response.msg);
+							ipCookie('fail', true);
+							$state.go('root.userCenter.lend-money',{tab:0,loanStatus:null});
 						} else {
+							ipCookie('enterprise', null);
 							$scope.loanTab = 1;
 							$scope.getLoanList(1);
 							$scope.loanSuccess = false;
 						}
 					});
 				}
+				$scope.counter--;
 			};
 			var mytimeout = $timeout($scope.onTimeout,1000);
 		}
@@ -311,7 +314,7 @@ angular.module('hongcaiApp')
       })
 		}
 		if ($stateParams.tab == 2) {
-			$scope.getLoanList(1, $stateParams.index);
+			$scope.getLoanList(1, ipCookie('loanIndex'));
 		}
 		$stateParams.tab == 1 ? $scope.getLoanList(1) : null;
 		$scope.reapplyLoan = function (loanDetail) {
@@ -325,14 +328,16 @@ angular.module('hongcaiApp')
 			$scope.loanStatus = $scope.loanDetail.status;
 			$scope.loanStatus === 1 ? $scope.auditDesc = $scope.loanDetail.auditDesc : null;
 			$scope.showLoanDetail = true;
-			$state.go('root.userCenter.lend-money',{tab:2,loanStatus:null,index: index});
+			ipCookie('loanIndex',index);
+			$state.go('root.userCenter.lend-money',{tab:2,loanStatus:null});
 			var loanList = Loanform($scope.loanDetail);
 			$scope.detailList = enterpriseFormList.concat(loanList)
 		}
 		$scope.gobackDetail = function () {
 			// $scope.showLoanDetail = false;
 			// $scope.loanTab = 1;
-			$state.go('root.userCenter.lend-money',{tab:1,loanStatus:null,index: null});
+			ipCookie('loanIndex',null);
+			$state.go('root.userCenter.lend-money',{tab:1,loanStatus:null});
 		}
 		// 获取暂存的借款信息
 		$scope.getPreProject = function () {
@@ -397,6 +402,7 @@ angular.module('hongcaiApp')
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
 						ipCookie('lendMoney_preLoan', null)
+						ipCookie('enterprise', enterprise)
 						$scope.counter = 3;
 						$scope.fddContract(response.id)
 						$scope.onTimeout = function(){
@@ -503,5 +509,15 @@ angular.module('hongcaiApp')
             $scope.busy = false;
 				}, 1000);
 				$scope.savePreProject(true, enterprise)
-    }
+		}
+		
+		if (ipCookie('fail')) {
+			ipCookie('fail', null);
+			$scope.nextPreForm(ipCookie('enterprise'))
+			$alert({
+				scope: $scope,
+				template: 'views/modal/alert-tip.html',
+				show: true
+			});
+		}
   });

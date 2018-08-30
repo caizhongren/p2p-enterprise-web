@@ -1,0 +1,13 @@
+<div class="alert" ng-class="[type ? 'alert-' + type : null]">
+  <button type="button" class="close" ng-if="dismissable" ng-click="$hide()">&times;</button>
+  <div class="title">
+    <strong style="color:#d8271c;">申请失败</strong>
+  </div>
+  <div class="content">
+    <p>合同签署失败，您可以重新尝试，或联系我们：400-9967626。</p>
+  </div>
+  <div class="bottom col-xs-10 col-xs-offset-1">
+    <a class="btn blue-button btn-block pull-left margin-l" href="javascript:;" ng-click="$hide();">我知道了</a>
+  </div>
+</div>
+<div class="mask_layer"></div>
