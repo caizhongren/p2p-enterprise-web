@@ -24,7 +24,7 @@ angular.module('hongcaiApp')
 							ipCookie('fail', true);
 							$state.go('root.userCenter.lend-money',{tab:0,loanStatus:null});
 						} else {
-							ipCookie('enterprise', null);
+							ipCookie.remove('enterprise');
 							$scope.loanTab = 1;
 							$scope.getLoanList(1);
 							$scope.loanSuccess = false;
@@ -336,7 +336,7 @@ angular.module('hongcaiApp')
 		$scope.gobackDetail = function () {
 			// $scope.showLoanDetail = false;
 			// $scope.loanTab = 1;
-			ipCookie('loanIndex',null);
+			ipCookie.remove('loanIndex');
 			$state.go('root.userCenter.lend-money',{tab:1,loanStatus:null});
 		}
 		// 获取暂存的借款信息
@@ -401,7 +401,7 @@ angular.module('hongcaiApp')
 					if (keep) {
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
-						ipCookie('lendMoney_preLoan', null)
+						ipCookie.remove('lendMoney_preLoan');
 						ipCookie('enterprise', enterprise)
 						$scope.counter = 3;
 						$scope.fddContract(response.id)
@@ -512,7 +512,7 @@ angular.module('hongcaiApp')
 		}
 		
 		if (ipCookie('fail')) {
-			ipCookie('fail', null);
+			ipCookie.remove('fail');
 			$scope.nextPreForm(ipCookie('enterprise'))
 			$alert({
 				scope: $scope,
