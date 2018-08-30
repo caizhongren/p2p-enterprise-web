@@ -11,6 +11,14 @@ angular.module('hongcaiApp')
         return f;
       },
 
+      newFormGet: function() {
+        var f = document.createElement('form');
+        document.body.appendChild(f);
+        f.method = 'get';
+        f.target = '_blank';
+        return f;
+      },
+
       createElements: function(eForm, eName, eValue) {
         var e = document.createElement('input');
         eForm.appendChild(e);
@@ -61,6 +69,25 @@ angular.module('hongcaiApp')
         } else {
           alert(encrpyMsg.msg);
         }
+      },
+
+      /**
+       * 跳转到法大大
+       */
+      redToFdd: function(preProjectId, encrpyMsg){
+        var _f = this.newFormGet();
+        this.createElements(_f, 'app_id', encrpyMsg.app_id);
+        this.createElements(_f, 'timestamp', encrpyMsg.timestamp);
+        this.createElements(_f, 'batch_id', encrpyMsg.batch_id);
+        this.createElements(_f, 'sign_data', JSON.stringify(encrpyMsg.sign_data));
+        this.createElements(_f, 'customer_id', encrpyMsg.customer_id);
+        this.createElements(_f, 'batch_title', encrpyMsg.batch_title);
+        this.createElements(_f, 'msg_digest', encrpyMsg.msg_digest);
+        this.createElements(_f, 'notify_url', encrpyMsg.notify_url);
+        // this.createElements(_f, 'return_url', config.domain + '/fdd-success/' + preProjectId);
+        this.createElements(_f, 'return_url', config.domain + '/user-center/lend-money?tab=1&loanStatus=' + preProjectId);
+        _f.action = encodeURI(config.FDD_ADDRESS);
+        _f.submit();
       }
 
     };

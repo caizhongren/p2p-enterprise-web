@@ -70,6 +70,47 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    /*------------------------------------------  agreements  -----------------------------------------------*/
+    // 三方协议模版
+    .state('root.serviceAgree', {
+      url: '/agreements/service-agree',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/service-agree.html'
+        }
+      }
+    })
+    // 网络借贷信息中介服务协议模版
+    .state('root.intermediaryService', {
+      url: '/agreements/intermediary-service',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/intermediary-service.html'
+        }
+      }
+    })
+    // 借款申请函(个人/企业)
+    .state('root.loanApplicationLetter', {
+      url: '/agreements/loan-application-letter/:type',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/loan-application-letter.html',
+          controller: 'LoanApplicationLetterCtrl',
+          controllerUrl: 'scripts/controller/user-center/loan-application-letter-ctrl'
+        }
+      }
+    })
+    // 个人信息查询及使用授权书(企业)
+    .state('root.infoAuthorization', {
+      url: '/agreements/info-authorization/:type',
+      views: {
+        '': {
+          templateUrl: 'views/agreements/info-authorization.html',
+          controller: 'InfoAuthorizationCtrl',
+          controllerUrl: 'scripts/controller/user-center/info-authorization-ctrl'
+        }
+      }
+    })
     /*------------------------------------------  user-center  -----------------------------------------------*/
     .state('root.userCenter', {
       'url':'/user-center',
@@ -160,7 +201,7 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
     })
 
     .state('root.userCenter.lend-money', {
-      url: '/lend-money',
+      url: '/lend-money?tab&loanStatus',
       views: {
         'user-center': {
           templateUrl: 'views/user-center/lend-money.html',
@@ -200,6 +241,16 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
+    .state('root.fdd-success', {
+      url: '/fdd-success/:preProjectId',
+      views: {
+        '': {
+          templateUrl: 'views/user-center/success.html',
+          controller: 'FddSuccessCtrl',
+          controllerUrl: 'scripts/controller/user-center/fdd-success-ctrl'
+        }
+      }
+    })
     .state('root.userCenter.withdraw', {
       url: '/withdraw',
       views: {
@@ -215,46 +266,6 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
       views: {
         'user-center': {
           templateUrl: 'views/user-center/record.html',
-          controller: 'UserCenterCtrl',
-          controllerUrl: 'scripts/controller/user-center/user-center-ctrl'
-        }
-      }
-    })
-    .state('root.userCenter.investment', {
-      url: '/userCenter-investment',
-      views: {
-        'user-center': {
-          templateUrl: 'views/user-center/investment.html',
-          controller: 'UserOrderCtrl',
-          controllerUrl: 'scripts/controller/user-center/user-order-ctrl'
-        }
-      }
-    })
-    .state('root.userCenter.investment-query', {
-      url: '/userCenter-investment/:dateInterval',
-      views: {
-        'user-center': {
-          templateUrl: 'views/user-center/investment.html',
-          controller: 'UserOrderCtrl',
-          controllerUrl: 'scripts/controller/user-center/user-order-ctrl'
-        }
-      }
-    })
-    .state('root.userCenter.news', {
-      url: '/news',
-      views: {
-        'user-center': {
-          templateUrl: 'views/user-center/news.html',
-          controller: 'UserCenterCtrl',
-          controllerUrl: 'scripts/controller/user-center/user-center-ctrl'
-        }
-      }
-    })
-    .state('root.userCenter.realname-authentication', {
-      url: '/realname-authentication',
-      views: {
-        'user-center': {
-          templateUrl: 'views/user-center/realname-authentication.html',
           controller: 'UserCenterCtrl',
           controllerUrl: 'scripts/controller/user-center/user-center-ctrl'
         }
@@ -384,186 +395,6 @@ hongcaiApp.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 
         }
       }
     })
-    /*------------------------------------------  about-us  -----------------------------------------------*/
-    .state('root.about-us', {
-      views: {
-        'about-us': {
-          templateUrl: 'views/about-us/about-us.html',
-          controller: 'AboutUsCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        },
-        'about-sidebar': {
-          templateUrl: 'views/about-us/about-sidebar.html',
-          controller: 'AboutUsCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.introduction-of-platform', {
-      url: '/introduction-of-platform',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/introduction-of-platform.html',
-          controller: 'IntroductionCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.business-model', {
-      url: '/business-model',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/business-model.html',
-          controller: 'BusinessModelCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.company-profile', {
-      url: '/company-profile',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/company-profile.html',
-          controller: 'CompanyProfileCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.web-site-announcement', {
-      url: '/web-site-announcement',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/web-site-announcement.html',
-          controller: 'WebSiteCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.hongcaidynamic', {
-      url: '/hongcaidynamic',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/hongcaidynamic.html',
-          controller: 'HongcaiDynamicCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.media-reports', {
-      url: '/media-reports',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/media-reports.html',
-          controller: 'MediaReportsCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    .state('root.about-us.link-us', {
-      url: '/link-us',
-      views: {
-        'about-us-right': {
-          templateUrl: 'views/about-us/link-us.html',
-          controller: 'LinkUsCtrl',
-          controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-        }
-      }
-    })
-    /*------------------------------------------  safe  -----------------------------------------------*/
-    .state('root.safe', {
-      url: '/safe',
-      views: {
-        '': {
-          templateUrl: 'views/safe.html',
-          controller: 'SafeCtrl',
-          controllerUrl: 'scripts/controller/safe-ctrl'
-        },
-        'sponsor': {
-          templateUrl: 'views/project/project-sponsor-list.html',
-          controller: 'GuaranteeListCtrl',
-          controllerUrl: 'scripts/controller/enterprise/guarantee-list-ctrl'
-        }
-      }
-    })
-    .state('root.safe-nav', {
-      url: '/safe/:anchor',
-      views: {
-        '': {
-          templateUrl: 'views/safe.html',
-          controller: 'SafeCtrl',
-          controllerUrl: 'scripts/controller/safe-ctrl'
-        },
-        'sponsor': {
-          templateUrl: 'views/project/project-sponsor-list.html',
-          controller: 'GuaranteeListCtrl',
-          controllerUrl: 'scripts/controller/enterprise/guarantee-list-ctrl'
-        }
-      }
-    })
-    /*------------------------------------------ help-center   -----------------------------------------------*/
-    .state('root.help-center', {
-      views: {
-        'help-center-right': {
-          templateUrl: 'views/help-center/help-center.html'
-        },
-        'help-sidebar': {
-          templateUrl: 'views/help-center/help-sidebar.html',
-          controller: 'HelpCenterCtrl',
-          controllerUrl: 'scripts/controller/help-center/help-center-ctrl'
-        }
-      }
-    })
-    .state('root.help-center.introduce', {
-      url: '/introduce',
-      views: {
-        'help-center-right-show': {
-          templateUrl: 'views/help-center/introduce.html'
-        }
-      }
-    })
-    .state('root.help-center.investors', {
-      url: '/investors',
-      views: {
-        'help-center-right-show': {
-          templateUrl: 'views/help-center/investors.html'
-        }
-      }
-    })
-    .state('root.help-center.account-management', {
-      url: '/account-management',
-      views: {
-        'help-center-right-show': {
-          templateUrl: 'views/help-center/account-management.html'
-        }
-      }
-    })
-    .state('root.help-center.safety-certification', {
-      url: '/safety-certification',
-      views: {
-        'help-center-right-show': {
-          templateUrl: 'views/help-center/safety-certification.html'
-        }
-      }
-    })
-    .state('root.help-center.law-and-policy-guarantee', {
-      url: '/law-and-policy-guarantee',
-      views: {
-        'help-center-right-show': {
-          templateUrl: 'views/help-center/law-and-policy-guarantee.html'
-        }
-      }
-    })
-
-  .state('root.about-us.news-details', {
-    url: '/news-details',
-    views: {
-      'about-us-right': {
-        templateUrl: 'views/about-us/news-details.html',
-        controller: 'NewsCtrl',
-        controllerUrl: 'scripts/controller/about-us/about-us-ctrl'
-      }
-    }
-  });
 
   $urlRouterProvider.otherwise('/');
   $locationProvider.html5Mode(true);

@@ -16,7 +16,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             response.contactMobile = response.name;
             response.name = null;
             $('.form-control').removeAttr('readonly');
-            $('.form-group select').removeAttr('disabled');
+            $('.form-group select.select').removeAttr('disabled');
           }else{
             $scope.readOnly = true;
           }
@@ -33,14 +33,14 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
         }else {
             $scope.readOnly = false;
             $('.form-control').removeAttr('readonly');
-            $('.form-group select').removeAttr('disabled');
+            $('.form-group select.select').removeAttr('disabled');
         }
       });
     // 隐藏编辑按钮
     $scope.toggleReadOnly = function() {
         $scope.readOnly = !$scope.readOnly;
         $('.form-control').removeAttr('readonly');
-        $('.form-group select').removeAttr('disabled');
+        $('.form-group select.select').removeAttr('disabled');
     }
     /*
      * 查询上传的文件
@@ -128,7 +128,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             if(!regIdNo.test(enterprise.legalIdNo) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
                 return;
             }
-            if($scope.enterprise.legalIdType == 0 || $scope.enterprise.cultureLevel == 0 || $scope.enterprise.maritalStatus == 0){
+            if(enterprise.legalIdType == 0 || enterprise.cultureLevel == 0 || enterprise.maritalStatus == 0){
                 toaster.error('请填写正确信息！');
                 return;
             }
@@ -136,7 +136,8 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             if(!regIdNo.test(enterprise.legalIdNo) || !regCapital.test(enterprise.registerCapital) || !regMobile.test(enterprise.contactMobile) || !regEmail.test(enterprise.contactEmail) || $scope.readOnly == true) {
                 return;
             }
-            if($scope.enterprise.legalIdType === 0){
+            if(enterprise.enterpriseProperty == 0){
+                toaster.error('请选择企业性质！');
                 return;
             }
         }
@@ -172,6 +173,7 @@ hongcaiApp.controller("PerfectInformationCtrl", function ($scope, $rootScope, $s
             phoneNumber: enterprise.phoneNumber,
             unifiedCode: enterprise.unifiedCode || '',
             enterpriseProperty: enterprise.enterpriseProperty,
+            workUnit: enterprise.workUnit,
             keep: true
       }, function(response) {
             if(response && response.ret !== -1) {

@@ -3,7 +3,7 @@
   <div class="row">
     <div class="right-title">我要借款</div>
   </div>
-  <div ng-if="!loanDetail">
+  <div ng-show="!showLoanDetail">
     <div class="row">
       <div class="lend-process col-md-12 col-lg-12">
         <div class="row">
@@ -50,24 +50,24 @@
     </div>
     
     <!-- 填写借款信息 -->
-    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && industry && !loanInformation">
+    <div class="row" ng-show="haveTrusteeshipAccount && autoRepayment && infoStatus === 2 && industry && !loanInformation && !showPendingAudit && !loanSuccess">
       <div class="ft-16 row text-center margin-0">
-        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="loanTab = 0;">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="loanTab = 1;getLoanList(1);">申请记录</span>
+        <span class="col-xs-2 cursor-pointer {{loanTab == 0?'ft-blue':''}}" ng-click="toggleTab(0);">借款申请</span><span class="col-xs-2 cursor-pointer {{loanTab == 1?'ft-blue':''}}" ng-click="toggleTab(1);getLoanList(1);">申请记录</span>
       </div>
       <!-- 借款申请 -->
-      <form ng-if="loanTab === 0 && preLoan == 0" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
+      <form ng-if="loanTab == 0 && preLoan == 0 && !loanSuccess" name="preProjectForm" ng-submit="nextPreForm(enterprise)" class="margin-t-20">
         <div class="col-lg-2 ft-16"></div>
         <div class="col-lg-8 margin-t-20">
           <!-- 申请借款金额 -->
           <div class="form-group">
             <label for="amount">申请借款金额</label>
             <div class="form-group input-group">
-              <input name="amount" id="amount" ng-pattern="/^[0-9]*(\.[0-9]{1,2})?$/" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')">
+              <input name="amount" id="amount" ng-pattern="/^[1-9]\d*00$/" class="form-control" ng-model="enterprise.amount" required oninvalid="setCustomValidity('请填写借款金额')" oninput="setCustomValidity('')" placeholder="特别重要，请务必正确填写！">
               <span class="input-group-addon">元</span>
             </div>
             <div ng-if="preProjectForm.amount.$dirty && preProjectForm.amount.$invalid && !preProjectForm.amount.$focused || enterprise.amount <=0">
               <div ng-if="preProjectForm.amount.$error.pattern || enterprise.amount <=0">
-                <p class="input-tips">数字格式有误，最多精确到小数点后两位</p>
+                <p class="input-tips">借款金额必须为100元的整数倍</p>
               </div>
               <div ng-if="preProjectForm.amount.$error.required">
                 <p class="input-tips">请填写借款金额</p>
@@ -78,7 +78,7 @@
           <div class="form-group">
               <label for="date">申请借款期限</label>
             <div class="form-group input-group">
-              <input type="number" name="date" id="date" class="form-control" ng-pattern="/^\+?[1-9][0-9]*$/" ng-model="enterprise.projectDays" oninvalid="setCustomValidity('请填写借款期限')" oninput="setCustomValidity('')" required>
+              <input type="number" name="date" id="date" class="form-control" ng-pattern="/^\+?[1-9][0-9]*$/" ng-model="enterprise.projectDays" oninvalid="setCustomValidity('请填写借款期限')" oninput="setCustomValidity('')" required placeholder="特别重要，请务必正确填写！">
               <span class="input-group-addon">天</span>
             </div>
             <div ng-if="preProjectForm.date.$dirty && preProjectForm.date.$invalid && !preProjectForm.date.$focused">
@@ -182,12 +182,12 @@
           <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
             <div class="safe-form-group row">
               <label class="col-md-4 col-lg-4"></label>
-              <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.loanAmount.$error.pattern || enterprise.amount <=0 || preProjectForm.date.$error.pattern"/>
+              <input type="submit" value="下一步" class="blue-button col-md-5 col-lg-5 margin-l-10" ng-disabled="preProjectForm.totalGuarantee.$error.pattern || preProjectForm.debtExpenditure.$error.pattern || preProjectForm.totalExpenditure.$error.pattern || preProjectForm.enterpriseProfit.$error.pattern || preProjectForm.amount.$error.pattern || enterprise.amount <=0 || preProjectForm.date.$error.pattern"/>
             </div>
           </div>
         </div>
       </form>
-      <ul ng-if="loanTab === 0 && preLoan === 1" class="preLoanlist">
+      <ul ng-show="loanTab == 0 && preLoan === 1" class="preLoanlist">
         <li ng-repeat="item in preLoanList">
           <p>{{item.title}}：</p>
           <p>{{item.content}}</p>
@@ -195,12 +195,20 @@
         <div class="col-xs-12 preLoanBtn">
           <div class="safe-form-group row">
             <p class="white-button col-md-3 col-xs-offset-1" ng-click="preLoanBtn(enterprise)">重新编辑</p>
-            <p class="blue-button col-md-3 col-xs-offset-2" ng-click="checkLoanAmount(enterprise)">确认提交</p>
+            <p class="blue-button col-md-3 col-xs-offset-3" ng-click="checkLoanAmount(enterprise)">确认提交</p>
           </div>
         </div>
       </ul>
+      <div class="contract_list" ng-show="loanTab == 0 && !loanSuccess">
+        <a ui-sref="root.infoAuthorization({type: isPrivateUser? '0' : '1'})" target="_blank">《{{isPrivateUser ? '个人' : '企业'}}信息查询及使用授权书》</a>、
+        <a ui-sref="root.loanApplicationLetter({type: isPrivateUser? '0' : '1'})" target="_blank">《借款申请表》</a>
+        <a ui-sref="root.serviceAgree" target="_blank">《借款合同》</a>、
+        <a ui-sref="root.intermediaryService" target="_blank">《网络借贷信息中介服务协议》</a><br>
+        <p class="tip" ng-show="preLoan === 1"><label for="checkbox" class="cursor-pointer"><input type="checkbox" id="checkbox" class="cursor-pointer" ng-model='readAndAgree'><span>我已阅读并同意签署以上协议</span></label></p>
+        <p class="tip" ng-show="preLoan === 0">本次借款，您将签署以上4份协议，请仔细阅读。</p>
+      </div>
       <!-- 申请记录 -->
-      <table ng-if="loanTab === 1" class="loanList">
+      <table ng-if="loanTab == 1" class="loanList">
         <thead ng-show="loanList.length > 0">
           <tr>
             <th>申请时间</th>
@@ -225,27 +233,33 @@
       </table>
     </div>
 
-    <!-- 等待审核 -->
-    <div class="row text-center ft-24" ng-show="showPendingAudit" style="margin-top: 60px;">
-      资料审核中，请您耐心等待（{{counter}}s）
+    <!-- 跳转签章/成功提交借款申请 -->
+    <div class="row text-center ft-24" ng-show="showPendingAudit || loanSuccess" style="margin-top: 60px;">
+      <p ng-if="showPendingAudit">正在跳转至法大大电子签章平台，请继续完成签约（{{counter}}s）</p>
+      <p ng-if="loanSuccess">正在提交借款申请（{{counter}}s）</p>
     </div>
+    
   </div>
   <!-- 申请列表-查看详情 -->
-  <div class="LoanDetail" ng-if="loanDetail">
+  <div class="LoanDetail" ng-if="showLoanDetail">
     <ul class="preLoanlist">
       <li ng-repeat="item in detailList">
         <p>{{item.title}}：</p>
         <p ng-if="item.title === '注册时间'">{{item.content | date: 'yyyy年MM月dd日'}}</p>
         <p ng-if="item.title !== '注册时间'">{{item.content}}</p>
       </li>
-    </ul>
-    <!-- 返回 -->
-    <div class="col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-      <div class="safe-form-group row preLoanBtn">
-        <label class="col-md-4 col-lg-4"></label>
-        <p class="blue-button col-md-4 col-lg-4" ng-click="gobackDetail()">返回</p>
+      <li ng-if="loanStatus === 1" class="auditDesc">
+        <p>审核意见：</p>
+        <p>{{auditDesc}}</p>
+      </li>
+      <!-- 返回 -->
+      <div class="col-xs-12 preLoanBtn">
+        <div class="safe-form-group row">
+          <p class="white-button col-md-3 col-xs-offset-1" ng-click="reapplyLoan(loanDetail)" ng-if="loanStatus === 1">重新申请</p>
+          <p class="blue-button col-md-3 {{loanStatus !== 1 ? 'col-xs-offset-4' : 'col-xs-offset-3'}}"  ng-click="gobackDetail()">返回</p>
+        </div>
       </div>
-    </div>
+    </ul>
   </div>
 </div>
 

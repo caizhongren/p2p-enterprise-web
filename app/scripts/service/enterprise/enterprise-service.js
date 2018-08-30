@@ -55,8 +55,8 @@ angular.module('hongcaiApp')
       }),
 
       //上传文件
-      uploadFile: $resource(RESTFUL_DOMAIN + '/enterprises/uploadFile', {}, {
-          save: {
+      uploadFile: $resource(RESTFUL_DOMAIN + '/enterpri ses/uploadFile', {}, {
+        save: {
           method: 'POST',
           params: {
              category: '@category',
@@ -71,7 +71,24 @@ angular.module('hongcaiApp')
       //获取用户信息
       getEnterprise: $resource(RESTFUL_DOMAIN + '/enterprises/', {userId:'@userId'}),
 
-      
+      //法大大平台签约
+      contract: $resource(RESTFUL_DOMAIN + '/enterprises/contract/:preProjectId', {
+        preProjectId: '@preProjectId'
+      }, {
+        'post': {
+          method: 'POST'
+        }
+      }),
+
+      //法大大签章成功
+      contractSuccess: $resource(RESTFUL_DOMAIN + '/enterprises/contract/:preProjectId', {}, {
+        update: {
+          method: 'PUT',
+          params: {
+            preProjectId: '@preProjectId'
+          }
+        }
+      })
 
     };
   });

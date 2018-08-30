@@ -1,8 +1,40 @@
 'use strict';
 angular.module('hongcaiApp')
-  .controller('LendMoneyCtrl', function($scope, $state, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
+  .controller('LendMoneyCtrl', function(RESTFUL_DOMAIN, SessionService, $scope, $state, PayUtils, $stateParams, $rootScope, ipCookie, EnterpriseService, UserCenterService, $alert, $timeout, toaster) {
     $rootScope.selectSide = 'lend-money';
-		$scope.loanDetail = false;
+		$scope.showLoanDetail = false;
+		$scope.industry = true;
+		$scope.toggleTab = function (tab) {
+			$scope.loanTab = tab;
+			$state.go('root.userCenter.lend-money',{tab:tab,loanStatus:null});
+		}
+		if ($stateParams.loanStatus) {
+			$scope.loanSuccess = true;
+			$scope.counter = 4;
+			$scope.onTimeout = function(){
+				if ($scope.counter <= 0) {
+					$timeout.cancel(mytimeout);
+					return
+				}
+				mytimeout = $timeout($scope.onTimeout,1000);
+				if ($scope.counter === 2) {
+					EnterpriseService.contractSuccess.update({preProjectId: $stateParams.loanStatus}, function(response){
+						if (response && response.ret === -1) {
+							// toaster.pop('warning', response.msg);
+							ipCookie('fail', true);
+							$state.go('root.userCenter.lend-money',{tab:0,loanStatus:null});
+						} else {
+							ipCookie.remove('enterprise');
+							$scope.loanTab = 1;
+							$scope.getLoanList(1);
+							$scope.loanSuccess = false;
+						}
+					});
+				}
+				$scope.counter--;
+			};
+			var mytimeout = $timeout($scope.onTimeout,1000);
+		}
 		$scope.maxLoanAmount = 1000000;
 		$rootScope.userType === 2 ? $scope.maxLoanAmount = 1000000 : $scope.maxLoanAmount = 200000;
 		$scope.enterpriseTxt = {
@@ -218,7 +250,7 @@ angular.module('hongcaiApp')
 			}
     }
     $scope.getEnterpriseInfo();
-
+		$scope.haveTrusteeshipAccount = true;
     if ($rootScope.securityStatus && $rootScope.securityStatus.userAuth) {
     	//判断是否开通存管通
 	    if ($rootScope.securityStatus.userAuth.authStatus === 2) {
@@ -258,10 +290,10 @@ angular.module('hongcaiApp')
 		}
 		
 
-		$scope.loanTab = 0;
+		$scope.loanTab = $stateParams.tab || 0;
 		$scope.preLoan = 0;
 		// 借款申请列表查询
-		$scope.getLoanList = function (page) {
+		$scope.getLoanList = function (page, index) {
 			UserCenterService.getPreProjects.get({
         userId: $rootScope.securityStatus.userId,
         page: page,
@@ -269,20 +301,43 @@ angular.module('hongcaiApp')
         status: '0,1,2'
         },function(response){
           if(response && response.ret !== -1){
-            $scope.loanList = response.data;
+						$scope.loanList = response.data;
+						if (index !== undefined) {
+							$scope.loanDetail = $scope.loanList[index];
+							$scope.loanStatus = $scope.loanDetail.status;
+							$scope.loanStatus === 1 ? $scope.auditDesc = $scope.loanDetail.auditDesc : null;
+							var loanList = Loanform($scope.loanDetail);
+							$scope.detailList = enterpriseFormList.concat(loanList)
+							$scope.showLoanDetail = true;
+						}
           }
       })
 		}
-
+		if ($stateParams.tab == 2) {
+			$scope.getLoanList(1, ipCookie('loanIndex'));
+		}
+		$stateParams.tab == 1 ? $scope.getLoanList(1) : null;
+		$scope.reapplyLoan = function (loanDetail) {
+			$scope.enterprise = loanDetail;
+			$scope.showLoanDetail = false;
+			$scope.loanTab = 0;
+			$scope.preLoan = 0;
+		}
 		$scope.toDetail = function (index) {
-			$scope.loanDetail = true;
-			var loanDetail = $scope.loanList[index];
-			var loanList = Loanform(loanDetail);
+			$scope.loanDetail = $scope.loanList[index];
+			$scope.loanStatus = $scope.loanDetail.status;
+			$scope.loanStatus === 1 ? $scope.auditDesc = $scope.loanDetail.auditDesc : null;
+			$scope.showLoanDetail = true;
+			ipCookie('loanIndex',index);
+			$state.go('root.userCenter.lend-money',{tab:2,loanStatus:null});
+			var loanList = Loanform($scope.loanDetail);
 			$scope.detailList = enterpriseFormList.concat(loanList)
 		}
 		$scope.gobackDetail = function () {
-			$scope.loanDetail = false;
-			$scope.loanTab = 1;
+			// $scope.showLoanDetail = false;
+			// $scope.loanTab = 1;
+			ipCookie.remove('loanIndex');
+			$state.go('root.userCenter.lend-money',{tab:1,loanStatus:null});
 		}
 		// 获取暂存的借款信息
 		$scope.getPreProject = function () {
@@ -308,7 +363,27 @@ angular.module('hongcaiApp')
 				}
 			})
 		}
-
+		$scope.fddContract = function (preProjectId) {
+			EnterpriseService.contract.post({preProjectId: preProjectId},function(response) {
+			// $.ajax({
+			// 	url: (RESTFUL_DOMAIN + '/enterprises/contract/' + preProjectId + '?token=' + SessionService.get('token')),
+			// 	'type': 'POST',
+			// 	async: false,
+			// 	dataType: 'json',
+			// 	success: function(response) {
+					if (response && response.ret !== -1) {
+						$scope.counter = 0;
+						$timeout.cancel(mytimeout);
+						$scope.loanInformation = false;
+						$scope.showPendingAudit = false;
+						$scope.loanTab = 0;
+						PayUtils.redToFdd(preProjectId,response);
+					} else {
+						toaster.pop('warning', response.msg);
+					}
+				// }
+			})
+		}
 		$scope.savePreProject = function (keep, enterprise) { // keep 是否保存数据，true 保存，false 暂存
 			UserCenterService.preProject.post({
 				userId: $rootScope.securityStatus.userId,
@@ -326,14 +401,15 @@ angular.module('hongcaiApp')
 					if (keep) {
 						$scope.loanInformation = true;
 						$scope.showPendingAudit = true;
-						ipCookie('lendMoney_preLoan', null)
+						ipCookie.remove('lendMoney_preLoan');
+						ipCookie('enterprise', enterprise)
 						$scope.counter = 3;
+						$scope.fddContract(response.id)
 						$scope.onTimeout = function(){
 							$scope.counter--;
 							mytimeout = $timeout($scope.onTimeout,1000);
 							if($scope.counter === 0) {
-								$scope.loanInformation = true;
-								$state.go('root.userCenter.account-overview');
+								$timeout.cancel(mytimeout);
 							}
 						};
 						var mytimeout = $timeout($scope.onTimeout,1000);
@@ -375,7 +451,15 @@ angular.module('hongcaiApp')
 			ipCookie('lendMoney_preLoan', $scope.preLoan)
 		}
     //检查借款金额
+    $scope.readAndAgree = false;
+    $scope.change = function (val) {
+    	$scope.readAndAgree = val
+    }
     $scope.checkLoanAmount = function(enterprise) {
+    	if(!$scope.readAndAgree){
+    		toaster.error('请阅读并同意签署相关协议');
+    		return
+    	}
     	UserCenterService.borrowPreprojectStat.get({userId: $rootScope.securityStatus.userId}, function(response) {
     		if (response && response.ret !== -1) {
     			$scope.loanTotalAmount = response.amount;
@@ -425,5 +509,15 @@ angular.module('hongcaiApp')
             $scope.busy = false;
 				}, 1000);
 				$scope.savePreProject(true, enterprise)
-    }
+		}
+		
+		if (ipCookie('fail')) {
+			ipCookie.remove('fail');
+			$scope.nextPreForm(ipCookie('enterprise'))
+			$alert({
+				scope: $scope,
+				template: 'views/modal/alert-tip.html',
+				show: true
+			});
+		}
   });
